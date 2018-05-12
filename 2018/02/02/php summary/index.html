@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="0x01   寒假闲来无事，就随便写一个留言板来复习一下php语言   0x02  先从html语言简单说起基础的html结构：   12345&amp;lt;!DOCTYPE html&amp;gt;     //声明&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt;  //描述网页各种属性，一般不在网页内容内显示    &amp;lt;body&amp;gt;&amp;lt;/body&amp;gt;  //">
+<meta name="keywords" content="php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php留言板编写总结">
+<meta property="og:url" content="http://0verwatch.top/2018/02/02/php summary/index.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="0x01   寒假闲来无事，就随便写一个留言板来复习一下php语言   0x02  先从html语言简单说起基础的html结构：   12345&amp;lt;!DOCTYPE html&amp;gt;     //声明&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt;  //描述网页各种属性，一般不在网页内容内显示    &amp;lt;body&amp;gt;&amp;lt;/body&amp;gt;  //">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T14:38:02.460Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php留言板编写总结">
+<meta name="twitter:description" content="0x01   寒假闲来无事，就随便写一个留言板来复习一下php语言   0x02  先从html语言简单说起基础的html结构：   12345&amp;lt;!DOCTYPE html&amp;gt;     //声明&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt;  //描述网页各种属性，一般不在网页内容内显示    &amp;lt;body&amp;gt;&amp;lt;/body&amp;gt;  //">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>php留言板编写总结 | 0verWatch&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:kd08163314@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/0v3rWatch" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:kd08163314@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/0v3rWatch" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-php summary" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/02/02/php summary/" class="article-date">
+      <time datetime="2018-02-02T07:35:28.000Z" itemprop="datePublished">2018-02-02</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      php留言板编写总结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程语言/">编程语言</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h1><p>   寒假闲来无事，就随便写一个留言板来复习一下php语言  </p>
+<h1 id="0x02-先从html语言简单说起"><a href="#0x02-先从html语言简单说起" class="headerlink" title="0x02  先从html语言简单说起"></a>0x02  先从html语言简单说起</h1><h4 id="基础的html结构："><a href="#基础的html结构：" class="headerlink" title="基础的html结构："></a>基础的html结构：</h4>   <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span>     //声明</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span>  //描述网页各种属性，一般不在网页内容内显示</span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">body</span>&gt;</span>  //真正写内容的</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span>//大标签</span><br></pre></td></tr></table></figure>
+<h4 id="用到的标签"><a href="#用到的标签" class="headerlink" title="用到的标签:"></a>用到的标签:</h4><ol>
+<li><p>一对的：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>  //容器</span><br><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span><span class="tag">&lt;/<span class="name">form</span>&gt;</span>    //表格</span><br><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span>  //文本输入</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">herf</span>=<span class="string">""</span>&gt;</span> <span class="tag">&lt;/<span class="name">a</span>&gt;</span>  //超链接</span><br><span class="line"><span class="tag">&lt;<span class="name">select</span>&gt;</span>     //选择项</span><br><span class="line">	<span class="tag">&lt;<span class="name">option</span>&gt;</span><span class="tag">&lt;/<span class="name">option</span>&gt;</span>    //选择内容</span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span><span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li>单身狗类型的: <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">""</span> /&gt;</span>  //输入  type跟value属性分别是输入的类型跟名字  </span><br><span class="line">                            //type有submit，text，radio，checkbox，file等属性</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- --&gt;</span>           //注释  </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">image</span> <span class="attr">src</span>=<span class="string">""</span>  <span class="attr">width</span>=<span class="string">""</span> <span class="attr">height</span> =<span class="string">""</span>/&gt;</span>       //图片</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="全局属性"><a href="#全局属性" class="headerlink" title="全局属性"></a>全局属性</h4><p> 例如id class title name等</p>
+<h1 id="0x03-CSS"><a href="#0x03-CSS" class="headerlink" title="0x03 CSS"></a>0x03 CSS</h1><p>   感觉这一部分没什么多大作用，因为单单是用来美化的（我感觉），考虑到自己刚写博客还是总结一下我自己认为的东西吧。<br>    <strong>样式</strong>：设置字体颜色宽度背景颜色等就是样式  样式与样式之间用<strong>分号</strong>隔开，其属性用<strong>冒号</strong>隔开。。</p>
+<h4 id="对CSS的操作"><a href="#对CSS的操作" class="headerlink" title="对CSS的操作"></a>对CSS的操作</h4><p>1.利用div标签里面的style属性去完成操作，例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"color:red;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>   2.在head里面写，通过style标签，例如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined">    //div里面的内容都变成红色</span></span><br><span class="line"><span class="undefined">		div&#123;</span></span><br><span class="line"><span class="undefined">		color:green;</span></span><br><span class="line"><span class="undefined">		   &#125;</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>3.通过外链去实现，写link标签在head里面，注意此时不能使用style标签，因为style标签是属于html的东西</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">     <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>  <span class="attr">type</span> = <span class="string">"text/css"</span>  <span class="attr">href</span>= <span class="string">"style.css"</span>/&gt;</span>  //最后一个属性是你对应的文件名</span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="选择器"><a href="#选择器" class="headerlink" title="选择器:"></a>选择器:</h4><p><code>&lt;div&gt;&lt;/div&gt;</code>  css文件内都是如果是div就代表全部div都改变字体大小等属性。。。</p>
+<p> 关于选中某一部分的容器去改字体大小或颜色<br>例如:<br><code>&lt;div id=&quot;a1&quot;&gt;&lt;/div&gt;</code>,对应的css文件也要改，改成<code>#a1{}</code> 这里的#代表了是<strong>id选择器</strong><br><code>&lt;div class=&quot;a1&quot;&gt;&lt;/div&gt;</code>,对应的css文件也要改，改成<code>.a1{}</code> 这里的#代表了是<strong>类选择器</strong><br>  还有就是有一个类似C++里面的继承关系的东西，在同名不同选择器内可以在css文件内这样写：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#a1 .aa1</span><br><span class="line">&#123;</span><br><span class="line">&#125;  //id选择器的</span><br><span class="line">.a1 .aa1</span><br><span class="line">&#123;</span><br><span class="line">&#125;  //类选择器的</span><br></pre></td></tr></table></figure>
+<h1 id="0x04-再来简单谈谈JavaScript"><a href="#0x04-再来简单谈谈JavaScript" class="headerlink" title="0x04  再来简单谈谈JavaScript"></a>0x04  再来简单谈谈JavaScript</h1><p>一般网页上的动态画面都是它来完成的</p>
+<h4 id="可以运行的地方"><a href="#可以运行的地方" class="headerlink" title="可以运行的地方"></a>可以运行的地方</h4><ol>
+<li>html的<code>&lt;script&gt;&lt;/script&gt;</code></li>
+<li>html属性事件中，如<strong>onclick</strong></li>
+<li>浏览器的<strong>console控制台</strong>     //ctf题目有些就可以利用这个点去找flag</li>
+</ol>
+<h4 id="JavaScript-DOM-主要是对html的操作"><a href="#JavaScript-DOM-主要是对html的操作" class="headerlink" title="JavaScript DOM   主要是对html的操作"></a>JavaScript DOM   主要是对html的操作</h4><p>1.获取html元素  函数<strong>getElementById():</strong>通过ID获取元素,例如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"info"</span>&gt;</span>哈哈哈<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">x= doucument.getElementById("info")</span></span><br><span class="line"><span class="undefined">alert('id为info元素的文本是'+x.innerHTML);    //这里的innerHTML是获取元素内容，而alert()在JavaScript中可以弹出一个警告框展示信息</span></span><br><span class="line"><span class="undefined"> </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>   2.修改html内容 与获取内容的前两步是一样的，例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"info"</span>&gt;</span>哈哈哈<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">x= doucument.getElementById("info")</span></span><br><span class="line"><span class="undefined">x.innerHTML = '改变的内容！';  </span></span><br><span class="line"><span class="undefined"> </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  3.创建动态的html元素内容</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.write()</span><br></pre></td></tr></table></figure>
+<p>4.增加互动元素，如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">function changetext(id)</span></span><br><span class="line"><span class="undefined">&#123;</span></span><br><span class="line"><span class="undefined">   id.innerHTML="谢谢！";</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">onclick</span>=<span class="string">"chagetext(this)"</span>&gt;</span>click here<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>  //利用onclick</span><br></pre></td></tr></table></figure>
+<h4 id="JavaScript-BOM-–对浏览器的操作"><a href="#JavaScript-BOM-–对浏览器的操作" class="headerlink" title="JavaScript BOM –对浏览器的操作:"></a>JavaScript BOM –对浏览器的操作:</h4><ol>
+<li>警告用户      &nbsp;//常用于xss漏洞测试<br> 警告弹窗<strong>alert()</strong><br> 确认弹窗<strong>confirm()</strong><br> 提示弹窗<strong>prompt()</strong></li>
+<li>获取cookie或者写入cookie<br><code>document.cookie</code>    &nbsp;&nbsp;&nbsp;//读取<br><code>document.cookie=&quot;写入值&quot;</code> &nbsp;&nbsp; //写入</li>
+</ol>
+<p>还有其他操作就不一一举例了 -&gt;-&gt;</p>
+<h1 id="0x05-PHP"><a href="#0x05-PHP" class="headerlink" title="0x05      PHP"></a>0x05      PHP</h1><h4 id="环境的搭建"><a href="#环境的搭建" class="headerlink" title="环境的搭建"></a>环境的搭建</h4><pre><code>各种傻瓜式装环境谷歌一下都有
+</code></pre><h4 id="标记符"><a href="#标记符" class="headerlink" title="标记符"></a>标记符</h4><pre><code>`&lt;?php     ?&gt;  //在标记符之外都是可用来显示html代码的(html混写)，每句话后面都一定要记住不要忘记分号`
+</code></pre><h4 id="注释："><a href="#注释：" class="headerlink" title="注释："></a>注释：</h4><ol>
+<li><code>#</code>   2. <code>//</code>  3. <code>/**/</code></li>
+</ol>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p><code>$</code>开头<br><strong>注意</strong>：定义字符串与数组各有两种形式<br>字符串<code>$a=&quot;aaa&quot;   $a=&#39;aaa&#39;</code>   这里跟C++的字符与字符串定义有点区别，而且双引号考虑变量名，单引号该输出什么就输出什么<br><code>$b=[1,2,3]   $b=array(1,2,3)</code>   前面是php5.4之后数组的新写法  ，后面是传统写法<br><strong>注意</strong>数据类型的转换，无效的字符串就会变成0 例如： <code>(int)&#39;saaa&#39;=0  (int)true=1</code>等等</p>
+<h4 id="var-dump-函数"><a href="#var-dump-函数" class="headerlink" title="var_dump()函数"></a>var_dump()函数</h4><p> <code>var_dump()</code>同时输出变量的数据类型及数据，可多个值写进，一般用来测试。。。</p>
+<h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><p>其中有一个<code>.=</code> 的符号，里面的.是用来连接两个变量的符号<br>还有一些例如<code>=&gt;</code> ，<code>-&gt;</code>我认为还是比较特殊的</p>
+<h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><p>   定义格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function name()</span><br><span class="line">&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：函数里面的变量进不来也出不去</p>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>   键是唯一的 ，但是值可以是多种类型的，用逗号隔开，例如可以数组套数组<code>$arr=[1,2,[1,2,3]]</code></p>
+<p> 分索引数组与关联数组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$arr1=[1,2,3];   //索引数组</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$arr2=[ &apos;a&apos;=&gt; 1,&apos;b&apos;=&gt; 2 ];    //关联数组这个有点类似python里边的字典，随意添加键值</span><br><span class="line">unset($arr2[&apos;b&apos;]);    //删除</span><br></pre></td></tr></table></figure>
+<h4 id="数据的发送与接收注意点："><a href="#数据的发送与接收注意点：" class="headerlink" title="数据的发送与接收注意点："></a>数据的发送与接收注意点：</h4><p>   1.html一定要在form表单内并且要有<strong>action</strong> 与<strong>method</strong>属性<br>   2.form里面的input一定要有对应的<strong>name</strong>值<br>例如：      </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">'test.php'</span> <span class="attr">method</span>=<span class="string">'post'</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">'text'</span> <span class="attr">name</span>=<span class="string">'aa'</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">'text'</span>  <span class="attr">name</span>=<span class="string">'bb'</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">'submit'</span> <span class="attr">value</span>=<span class="string">'提交'</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3.<strong>GET,POST,REQUEST</strong>(REQUEST方式两种都行，不过听说开发有点危险，不推荐使用)在对应的php文件里面的键名一定要对应，这两个预变量与数组的操作差不多</p>
+<h4 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h4><p>个人觉得代码很少的时候，觉得这是累赘。。。。。可能开发团队大了就有些用处。。。<br>类里面的变量跟方法最好都要设置可见性，就下些什么public之类的。-&gt;详情请看官方文档</p>
+<p>对象调用类里面的属性好像只能用<code>-&gt;</code>,看了看文档好像没有用.去连接的，这里还是和C++有点区别的，<strong>另外就是调用的时候箭头右边就不用加$了</strong>；例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$myFoo-&gt;test();   //这里的test()是类里面的一个方法</span><br></pre></td></tr></table></figure>
+<p>还有就是类里面的<code>$this</code> 可以在自家类的方法里面调用其他自己类的方法，这个东西千万不要忘记了<code>$</code>我就忘了很多遍<br>下面是例子：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  </span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">name</span></span>&#123;</span><br><span class="line">     <span class="keyword">public</span> $a = <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">public</span> $b = <span class="number">1</span>;</span><br><span class="line">     <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">a1</span><span class="params">()</span></span>&#123;</span><br><span class="line">     	 <span class="keyword">$this</span>-&gt;a2();</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">a2</span><span class="params">()</span></span>&#123;</span><br><span class="line">     	<span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;b;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  $n = <span class="keyword">new</span> name();  <span class="comment">//根据类实例化</span></span><br><span class="line">  $n -&gt; a1();</span><br><span class="line">   <span class="keyword">echo</span> $n-&gt;a;</span><br><span class="line">  <span class="comment">//var_dump($n);</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="魔术方法"><a href="#魔术方法" class="headerlink" title="魔术方法"></a>魔术方法</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__constuct</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;       </span><br><span class="line"><span class="comment">//哎呀其实就是构造函数。。。。</span></span><br></pre></td></tr></table></figure>
+<h4 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h4><p>  include，include_once,require,require_once的区别：<br>  include你调用几次就加载几次，而include_once至加载一次<br> 而require跟require_once的区别同上<br> include跟require的区别就是一旦出错require会终止而include会继续执行后面的代码</p>
+<h3 id="这几天的总结就这样吧。。明天开始捣鼓捣鼓数据库吧。。。。"><a href="#这几天的总结就这样吧。。明天开始捣鼓捣鼓数据库吧。。。。" class="headerlink" title="这几天的总结就这样吧。。明天开始捣鼓捣鼓数据库吧。。。。"></a>这几天的总结就这样吧。。明天开始捣鼓捣鼓数据库吧。。。。</h3>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/02/02/php summary/">php留言板编写总结</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2018-02-02, 15:35:28</p>
+        <p><span>最后更新:</span>2018-04-16, 22:38:02</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/02/02/php summary/" title="php留言板编写总结">http://0verwatch.top/2018/02/02/php summary/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://0verwatch.top/2018/02/02/php summary/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/02/04/sql-Summary/">
+                    对数据库学习的大致总结
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/01/28/Csharpwork4/">
+                    程序设计课 C#的作业报告四
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01"><span class="toc-number">1.</span> <span class="toc-text">0x01</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02-先从html语言简单说起"><span class="toc-number">2.</span> <span class="toc-text">0x02  先从html语言简单说起</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基础的html结构："><span class="toc-number">2.0.0.1.</span> <span class="toc-text">基础的html结构：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#用到的标签"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">用到的标签:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#全局属性"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">全局属性</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-CSS"><span class="toc-number">3.</span> <span class="toc-text">0x03 CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#对CSS的操作"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">对CSS的操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#选择器"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">选择器:</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x04-再来简单谈谈JavaScript"><span class="toc-number">4.</span> <span class="toc-text">0x04  再来简单谈谈JavaScript</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#可以运行的地方"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">可以运行的地方</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaScript-DOM-主要是对html的操作"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">JavaScript DOM   主要是对html的操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaScript-BOM-–对浏览器的操作"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">JavaScript BOM –对浏览器的操作:</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x05-PHP"><span class="toc-number">5.</span> <span class="toc-text">0x05      PHP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#环境的搭建"><span class="toc-number">5.0.0.1.</span> <span class="toc-text">环境的搭建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#标记符"><span class="toc-number">5.0.0.2.</span> <span class="toc-text">标记符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注释："><span class="toc-number">5.0.0.3.</span> <span class="toc-text">注释：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#变量"><span class="toc-number">5.0.0.4.</span> <span class="toc-text">变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#var-dump-函数"><span class="toc-number">5.0.0.5.</span> <span class="toc-text">var_dump()函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运算符"><span class="toc-number">5.0.0.6.</span> <span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数"><span class="toc-number">5.0.0.7.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组"><span class="toc-number">5.0.0.8.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据的发送与接收注意点："><span class="toc-number">5.0.0.9.</span> <span class="toc-text">数据的发送与接收注意点：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类和对象"><span class="toc-number">5.0.0.10.</span> <span class="toc-text">类和对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#魔术方法"><span class="toc-number">5.0.0.11.</span> <span class="toc-text">魔术方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件包含"><span class="toc-number">5.0.0.12.</span> <span class="toc-text">文件包含</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#这几天的总结就这样吧。。明天开始捣鼓捣鼓数据库吧。。。。"><span class="toc-number">5.0.1.</span> <span class="toc-text">这几天的总结就这样吧。。明天开始捣鼓捣鼓数据库吧。。。。</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"php留言板编写总结　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/02/04/sql-Summary/" title="上一篇: 对数据库学习的大致总结">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/01/28/Csharpwork4/" title="下一篇: 程序设计课 C#的作业报告四">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/04/18/git-learning/">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/11/PHP-Yii/">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/06/sovleme-kr-wp/">sovleme.kr_wp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/06/whalectfweb1/">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/shiyanba1wp/">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/phpcheck2/">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/14/CTFpython/">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/Ubantu-Web/">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/cumtphpfanxuliehua/">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/10/RaceConditionsSummary/">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/09/hashlengthattack/">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/06/moctfweb/">简单小结一下moctf的两道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/03/backupblogagain/">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/25/RSASimple/">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/24/CRC32Brute/">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/23/Linuxcaiji/">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/17/bugkuphpshenjiwp/">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/14/bugku-Web-write-up/">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/14/bugkuMiscwp/">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/12/bugkuCrypto/">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/08/bugku-social-wp/">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/08/zipfalse/">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/07/php-mysql-content/">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/04/sql-Summary/">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/02/php summary/">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharpwork4/">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharpwork3/">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharpwork2/">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharpwork1/">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2018 0verWatch
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

