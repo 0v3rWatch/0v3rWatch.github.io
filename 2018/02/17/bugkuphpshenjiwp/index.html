@@ -15,13 +15,13 @@
 
 
 
-<meta name="description" content="extract变量覆盖查一下php手册本函数用来将变量从数组中导入到当前的符号表中。返回成功导入到符号表中的变量数目。而且这个函数没还有任何参数，很危险，直接可以修改冲突的变量关键的代码构建的payload: ?shiyan=&amp;amp;flag=因为不知道flag里面什么内容，让它变成空，然后使$content变成空，然后$shiyan变量和$content变量的内容都会被设置成空. 满足条件便">
+<meta name="description" content="今天做了一波审计的题目，就记录一下吧">
 <meta name="keywords" content="CTF,代码审计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="bugku 代码审计 write up">
 <meta property="og:url" content="http://0verwatch.top/2018/02/17/bugkuphpshenjiwp/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="extract变量覆盖查一下php手册本函数用来将变量从数组中导入到当前的符号表中。返回成功导入到符号表中的变量数目。而且这个函数没还有任何参数，很危险，直接可以修改冲突的变量关键的代码构建的payload: ?shiyan=&amp;amp;flag=因为不知道flag里面什么内容，让它变成空，然后使$content变成空，然后$shiyan变量和$content变量的内容都会被设置成空. 满足条件便">
+<meta property="og:description" content="今天做了一波审计的题目，就记录一下吧">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://img.blog.csdn.net/20180217170618173?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="http://img.blog.csdn.net/20180217170659398?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
@@ -29,10 +29,10 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20180217171549662?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="http://img.blog.csdn.net/20180217171408947?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="http://img.blog.csdn.net/20180217173213598?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2018-05-19T15:55:04.210Z">
+<meta property="og:updated_time" content="2018-05-20T01:50:05.627Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="bugku 代码审计 write up">
-<meta name="twitter:description" content="extract变量覆盖查一下php手册本函数用来将变量从数组中导入到当前的符号表中。返回成功导入到符号表中的变量数目。而且这个函数没还有任何参数，很危险，直接可以修改冲突的变量关键的代码构建的payload: ?shiyan=&amp;amp;flag=因为不知道flag里面什么内容，让它变成空，然后使$content变成空，然后$shiyan变量和$content变量的内容都会被设置成空. 满足条件便">
+<meta name="twitter:description" content="今天做了一波审计的题目，就记录一下吧">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20180217170618173?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -276,21 +276,22 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <a id="more"></a>
-<h1 id="extract变量覆盖"><a href="#extract变量覆盖" class="headerlink" title="extract变量覆盖"></a>extract变量覆盖</h1><p>查一下php手册<br><img src="http://img.blog.csdn.net/20180217170618173?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>本函数用来将变量从数组中导入到当前的符号表中。<br>返回成功导入到符号表中的变量数目。<br>而且这个函数没还有任何参数，很危险，直接可以修改冲突的变量<br><img src="http://img.blog.csdn.net/20180217170659398?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>关键的代码<br><img src="http://img.blog.csdn.net/20180217170646359?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>构建的payload: <code>?shiyan=&amp;flag=</code><br>因为不知道flag里面什么内容，让它变成空，然后使$content变成空，然后$shiyan变量和$content变量的内容都会被设置成空. 满足条件便会出现flag</p>
-<h1 id="strcmp比较字符串"><a href="#strcmp比较字符串" class="headerlink" title="strcmp比较字符串"></a>strcmp比较字符串</h1><p>这题关键的函数都没给出来。。。题目说用strcmp的特性。。。<br>那我就随便个数组进去一个?a[]…flag就出来了。。尴尬</p>
-<h1 id="urldecode二次编码绕过"><a href="#urldecode二次编码绕过" class="headerlink" title="urldecode二次编码绕过"></a>urldecode二次编码绕过</h1><p>这个题好像在实验吧做过。。。。。<br>利用了两次urldecode第一次是浏览器的解码第二次是函数的解码<br>所以我利用了里面的其中一个字母D编码第一次编码是%44，第二次编码是%2544<br>payload: <code>?id=hacker%2544J</code></p>
-<h1 id="md5-函数"><a href="#md5-函数" class="headerlink" title="md5()函数"></a>md5()函数</h1><p>利用php的md5()函数有一个缺陷，这里是===，只能用数组处理，它无法处理数组返回null构造payload: <code>?username[]=1&amp;password[]=2</code></p>
-<h1 id="数组返回NULL绕过"><a href="#数组返回NULL绕过" class="headerlink" title="数组返回NULL绕过"></a>数组返回NULL绕过</h1><p>首先是ereg这个正则匹配函数是处理字符串的。。。构造数组是返回null，然后的话null===false 不相等可以执行下面的else if语句。。。<br>strpos处理数组页数返回null,于是null!==false成立就得到了flag<br>payload: <code>?password[]=1</code></p>
-<h1 id="sha-函数比较绕过"><a href="#sha-函数比较绕过" class="headerlink" title="sha()函数比较绕过"></a>sha()函数比较绕过</h1><p>关键部分还是===，只能用数组处理，利用了sha1函数处理数组返回null的特性。<br>payload: <code>?name[]=1&amp;password[]=2</code></p>
-<h1 id="md5加密相等绕过"><a href="#md5加密相等绕过" class="headerlink" title="md5加密相等绕过"></a>md5加密相等绕过</h1><p>这一题里面是==，直接找一个MD5之后还是0e开头的即可，比如s878926199a<br>payload: <code></code></p>
-<h1 id="十六进制与数字比较"><a href="#十六进制与数字比较" class="headerlink" title="十六进制与数字比较"></a>十六进制与数字比较</h1><p>ord() 函数返回字符串的‘首个’字符的 ASCII 值。<br>利用这一个与题目的16进制，用16进制开头的0x去绕过即可。。。<br>用Python写个脚本转换一下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num = 3735929054</span><br><span class="line">print (&apos;%#x&apos;%num)</span><br></pre></td></tr></table></figure>
+        <p>今天做了一波审计的题目，就记录一下吧<br><a id="more"></a></p>
+<h2 id="extract变量覆盖"><a href="#extract变量覆盖" class="headerlink" title="extract变量覆盖"></a>extract变量覆盖</h2><p>查一下php手册</p>
+<p><img src="http://img.blog.csdn.net/20180217170618173?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>本函数用来将变量从数组中导入到当前的符号表中。<br>返回成功导入到符号表中的变量数目。<br>而且这个函数没还有任何参数，很危险，直接可以修改冲突的变量<br><img src="http://img.blog.csdn.net/20180217170659398?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>关键的代码<br><img src="http://img.blog.csdn.net/20180217170646359?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>构建的payload: <code>?shiyan=&amp;flag=</code><br>因为不知道flag里面什么内容，让它变成空，然后使$content变成空，然后$shiyan变量和$content变量的内容都会被设置成空. 满足条件便会出现flag</p>
+<h2 id="strcmp比较字符串"><a href="#strcmp比较字符串" class="headerlink" title="strcmp比较字符串"></a>strcmp比较字符串</h2><p>这题关键的函数都没给出来。。。题目说用strcmp的特性。。。<br>那我就随便个数组进去一个?a[]…flag就出来了。。尴尬</p>
+<h2 id="urldecode二次编码绕过"><a href="#urldecode二次编码绕过" class="headerlink" title="urldecode二次编码绕过"></a>urldecode二次编码绕过</h2><p>这个题好像在实验吧做过。。。。。<br>利用了两次urldecode第一次是浏览器的解码第二次是函数的解码<br>所以我利用了里面的其中一个字母D编码第一次编码是%44，第二次编码是%2544<br>payload: <code>?id=hacker%2544J</code></p>
+<h2 id="md5-函数"><a href="#md5-函数" class="headerlink" title="md5()函数"></a>md5()函数</h2><p>利用php的md5()函数有一个缺陷，这里是===，只能用数组处理，它无法处理数组返回null构造payload: <code>?username[]=1&amp;password[]=2</code></p>
+<h2 id="数组返回NULL绕过"><a href="#数组返回NULL绕过" class="headerlink" title="数组返回NULL绕过"></a>数组返回NULL绕过</h2><p>首先是ereg这个正则匹配函数是处理字符串的。。。构造数组是返回null，然后的话null===false 不相等可以执行下面的else if语句。。。<br>strpos处理数组页数返回null,于是null!==false成立就得到了flag<br>payload: <code>?password[]=1</code></p>
+<h2 id="sha-函数比较绕过"><a href="#sha-函数比较绕过" class="headerlink" title="sha()函数比较绕过"></a>sha()函数比较绕过</h2><p>关键部分还是===，只能用数组处理，利用了sha1函数处理数组返回null的特性。<br>payload: <code>?name[]=1&amp;password[]=2</code></p>
+<h2 id="md5加密相等绕过"><a href="#md5加密相等绕过" class="headerlink" title="md5加密相等绕过"></a>md5加密相等绕过</h2><p>这一题里面是==，直接找一个MD5之后还是0e开头的即可，比如s878926199a<br>payload: <code></code></p>
+<h2 id="十六进制与数字比较"><a href="#十六进制与数字比较" class="headerlink" title="十六进制与数字比较"></a>十六进制与数字比较</h2><p>ord() 函数返回字符串的‘首个’字符的 ASCII 值。<br>利用这一个与题目的16进制，用16进制开头的0x去绕过即可。。。<br>用Python写个脚本转换一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num = 3735929054</span><br><span class="line">print (&apos;%##x&apos;%num)</span><br></pre></td></tr></table></figure>
 <p>得到<code>0xdeadc0de</code><br>payload: <code>?password=0xdeadc0de</code></p>
-<h1 id="ereg正则-00截断"><a href="#ereg正则-00截断" class="headerlink" title="ereg正则%00截断"></a>ereg正则%00截断</h1><p>因为ereg存在%00漏洞，所以在第一个条件里面先构建一个截断绕过，然后就开始执行下面的else if语句，长度要小于8，数目要大于9999999，这里就用科学计数法，用1e8去绕过<br>下面还有一个strpos函数还要判断里面是否含有’-‘符号，所以最后的payload应该是:?password=1e8%00–,出错了。。。<br><img src="http://img.blog.csdn.net/20180217171549662?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>没办法只能找一下原题，发现人家的题目是要包含<code>*-*</code> ，但是他题目就一条横杠。。。坑了不少人。。。<br>改一下payload: <code>?password=1e8%00*-*</code> ,立刻出flag<br>查了查手册，还有个类似的函数叫eregi，只是不判断大小写罢了<br><img src="http://img.blog.csdn.net/20180217171408947?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<h1 id="strpos数组绕过"><a href="#strpos数组绕过" class="headerlink" title="strpos数组绕过"></a>strpos数组绕过</h1><p>这一题跟那题数组返回NULL绕过，感觉好像是一样的。。。。。<br>就是传入的参数不一样了。。。。。<br>payload： <code>?ctf[]=1</code></p>
-<p>后来看了看下面的文章，发现还有一个方法2：字符串截断,利用ereg()的%00截断漏洞，绕过正则过滤 <code>?nctf=1%00#biubiubiu</code> 发现是一堆乱码，<br><img src="http://img.blog.csdn.net/20180217173213598?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>这里需要特别注意， 需将#编码 <code>?nctf=1%00%23biubiubiu</code> 才能出flag。。。。</p>
-<h1 id="给一个适合新手的学习文章："><a href="#给一个适合新手的学习文章：" class="headerlink" title="给一个适合新手的学习文章："></a>给一个适合新手的学习文章：</h1><p><a href="http://www.freebuf.com/articles/rookie/152209.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/rookie/152209.html</a></p>
+<h2 id="ereg正则-00截断"><a href="#ereg正则-00截断" class="headerlink" title="ereg正则%00截断"></a>ereg正则%00截断</h2><p>因为ereg存在%00漏洞，所以在第一个条件里面先构建一个截断绕过，然后就开始执行下面的else if语句，长度要小于8，数目要大于9999999，这里就用科学计数法，用1e8去绕过<br>下面还有一个strpos函数还要判断里面是否含有’-‘符号，所以最后的payload应该是:?password=1e8%00–,出错了。。。<br><img src="http://img.blog.csdn.net/20180217171549662?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>没办法只能找一下原题，发现人家的题目是要包含<code>*-*</code> ，但是他题目就一条横杠。。。坑了不少人。。。<br>改一下payload: <code>?password=1e8%00*-*</code> ,立刻出flag<br>查了查手册，还有个类似的函数叫eregi，只是不判断大小写罢了<br><img src="http://img.blog.csdn.net/20180217171408947?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h2 id="strpos数组绕过"><a href="#strpos数组绕过" class="headerlink" title="strpos数组绕过"></a>strpos数组绕过</h2><p>这一题跟那题数组返回NULL绕过，感觉好像是一样的。。。。。<br>就是传入的参数不一样了。。。。。<br>payload： <code>?ctf[]=1</code></p>
+<p>后来看了看下面的文章，发现还有一个方法2：字符串截断,利用ereg()的%00截断漏洞，绕过正则过滤 <code>?nctf=1%00##biubiubiu</code> 发现是一堆乱码，<br><img src="http://img.blog.csdn.net/20180217173213598?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>这里需要特别注意， 需将##编码 <code>?nctf=1%00%23biubiubiu</code> 才能出flag。。。。</p>
+<h2 id="给一个适合新手的学习文章："><a href="#给一个适合新手的学习文章：" class="headerlink" title="给一个适合新手的学习文章："></a>给一个适合新手的学习文章：</h2><p><a href="http://www.freebuf.com/articles/rookie/152209.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/rookie/152209.html</a></p>
 
       
     </div>
@@ -302,7 +303,7 @@
         <p><span>本文标题:</span><a href="/2018/02/17/bugkuphpshenjiwp/">bugku 代码审计 write up</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch&#39;s Blog</a></p>
         <p><span>发布时间:</span>2018-02-17, 17:19:56</p>
-        <p><span>最后更新:</span>2018-05-19, 23:55:04</p>
+        <p><span>最后更新:</span>2018-05-20, 09:50:05</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/02/17/bugkuphpshenjiwp/" title="bugku 代码审计 write up">http://0verwatch.top/2018/02/17/bugkuphpshenjiwp/</a>
             <span class="copy-path" data-clipboard-text="原文: http://0verwatch.top/2018/02/17/bugkuphpshenjiwp/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -338,7 +339,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#extract变量覆盖"><span class="toc-number">1.</span> <span class="toc-text">extract变量覆盖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#strcmp比较字符串"><span class="toc-number">2.</span> <span class="toc-text">strcmp比较字符串</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#urldecode二次编码绕过"><span class="toc-number">3.</span> <span class="toc-text">urldecode二次编码绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#md5-函数"><span class="toc-number">4.</span> <span class="toc-text">md5()函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组返回NULL绕过"><span class="toc-number">5.</span> <span class="toc-text">数组返回NULL绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sha-函数比较绕过"><span class="toc-number">6.</span> <span class="toc-text">sha()函数比较绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#md5加密相等绕过"><span class="toc-number">7.</span> <span class="toc-text">md5加密相等绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十六进制与数字比较"><span class="toc-number">8.</span> <span class="toc-text">十六进制与数字比较</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ereg正则-00截断"><span class="toc-number">9.</span> <span class="toc-text">ereg正则%00截断</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#strpos数组绕过"><span class="toc-number">10.</span> <span class="toc-text">strpos数组绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#给一个适合新手的学习文章："><span class="toc-number">11.</span> <span class="toc-text">给一个适合新手的学习文章：</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#extract变量覆盖"><span class="toc-number">1.</span> <span class="toc-text">extract变量覆盖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#strcmp比较字符串"><span class="toc-number">2.</span> <span class="toc-text">strcmp比较字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#urldecode二次编码绕过"><span class="toc-number">3.</span> <span class="toc-text">urldecode二次编码绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#md5-函数"><span class="toc-number">4.</span> <span class="toc-text">md5()函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组返回NULL绕过"><span class="toc-number">5.</span> <span class="toc-text">数组返回NULL绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sha-函数比较绕过"><span class="toc-number">6.</span> <span class="toc-text">sha()函数比较绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#md5加密相等绕过"><span class="toc-number">7.</span> <span class="toc-text">md5加密相等绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十六进制与数字比较"><span class="toc-number">8.</span> <span class="toc-text">十六进制与数字比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ereg正则-00截断"><span class="toc-number">9.</span> <span class="toc-text">ereg正则%00截断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#strpos数组绕过"><span class="toc-number">10.</span> <span class="toc-text">strpos数组绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#给一个适合新手的学习文章："><span class="toc-number">11.</span> <span class="toc-text">给一个适合新手的学习文章：</span></a></li></ol>
         
     </div>
     <style>

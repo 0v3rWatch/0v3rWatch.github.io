@@ -15,20 +15,20 @@
 
 
 
-<meta name="description" content="听说你会面向对象这题用了反序列化的一个漏洞，如果还不知道什么是反序列化，参考下面的文章http://www.freebuf.com/column/151447.html 这一题其实还是很简单的，只是我不知道php反序列化的一个漏洞，那就是PHP当序列化字符串中表示对象属性数的值大于真实的属性个数时会跳过wakeup()的执行 因为我一开始构造的类是这样的 123456789101112&amp;lt;?p">
+<meta name="description" content="听说你会面向对象这题用了反序列化的一个漏洞，如果还不知道什么是反序列化，参考下面的文章http://www.freebuf.com/column/151447.html">
 <meta name="keywords" content="CTF,Web,php,反序列化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅析cumt平台上的一道反序列化题目">
 <meta property="og:url" content="http://0verwatch.top/2018/03/11/cumtphpfanxuliehua/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="听说你会面向对象这题用了反序列化的一个漏洞，如果还不知道什么是反序列化，参考下面的文章http://www.freebuf.com/column/151447.html 这一题其实还是很简单的，只是我不知道php反序列化的一个漏洞，那就是PHP当序列化字符串中表示对象属性数的值大于真实的属性个数时会跳过wakeup()的执行 因为我一开始构造的类是这样的 123456789101112&amp;lt;?p">
+<meta property="og:description" content="听说你会面向对象这题用了反序列化的一个漏洞，如果还不知道什么是反序列化，参考下面的文章http://www.freebuf.com/column/151447.html">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://img.blog.csdn.net/20180311113453476?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="http://img.blog.csdn.net/20180311113509536?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2018-04-16T14:39:29.331Z">
+<meta property="og:updated_time" content="2018-05-20T01:50:05.565Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析cumt平台上的一道反序列化题目">
-<meta name="twitter:description" content="听说你会面向对象这题用了反序列化的一个漏洞，如果还不知道什么是反序列化，参考下面的文章http://www.freebuf.com/column/151447.html 这一题其实还是很简单的，只是我不知道php反序列化的一个漏洞，那就是PHP当序列化字符串中表示对象属性数的值大于真实的属性个数时会跳过wakeup()的执行 因为我一开始构造的类是这样的 123456789101112&amp;lt;?p">
+<meta name="twitter:description" content="听说你会面向对象这题用了反序列化的一个漏洞，如果还不知道什么是反序列化，参考下面的文章http://www.freebuf.com/column/151447.html">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20180311113453476?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -272,7 +272,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="听说你会面向对象"><a href="#听说你会面向对象" class="headerlink" title="听说你会面向对象"></a>听说你会面向对象</h2><p>这题用了反序列化的一个漏洞，如果还不知道什么是反序列化，参考下面的文章<br><a href="http://www.freebuf.com/column/151447.html" target="_blank" rel="noopener">http://www.freebuf.com/column/151447.html</a></p>
+        <h2 id="听说你会面向对象"><a href="#听说你会面向对象" class="headerlink" title="听说你会面向对象"></a>听说你会面向对象</h2><p>这题用了反序列化的一个漏洞，如果还不知道什么是反序列化，参考下面的文章<br><a href="http://www.freebuf.com/column/151447.html" target="_blank" rel="noopener">http://www.freebuf.com/column/151447.html</a><br><a id="more"></a></p>
 <p>这一题其实还是很简单的，只是我不知道php反序列化的一个漏洞，那就是<strong>PHP当序列化字符串中表示对象属性数的值大于真实的属性个数时会跳过wakeup()的执行</strong></p>
 <p>因为我一开始构造的类是这样的</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Admin</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $file ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$a = <span class="keyword">new</span> Admin();</span><br><span class="line">$a-&gt;file=<span class="string">'flag.php'</span>;</span><br><span class="line">print_r (serilize($a));</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
@@ -289,7 +289,7 @@
         <p><span>本文标题:</span><a href="/2018/03/11/cumtphpfanxuliehua/">浅析cumt平台上的一道反序列化题目</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch&#39;s Blog</a></p>
         <p><span>发布时间:</span>2018-03-11, 11:37:51</p>
-        <p><span>最后更新:</span>2018-04-16, 22:39:29</p>
+        <p><span>最后更新:</span>2018-05-20, 09:50:05</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/03/11/cumtphpfanxuliehua/" title="浅析cumt平台上的一道反序列化题目">http://0verwatch.top/2018/03/11/cumtphpfanxuliehua/</a>
             <span class="copy-path" data-clipboard-text="原文: http://0verwatch.top/2018/03/11/cumtphpfanxuliehua/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
