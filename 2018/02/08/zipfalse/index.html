@@ -23,18 +23,18 @@
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
 <meta property="og:description" content="纯粹复习一下伪加密">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://img.blog.csdn.net/20160718203742127">
-<meta property="og:image" content="http://img.blog.csdn.net/20160718204834382">
-<meta property="og:image" content="http://img.blog.csdn.net/20160718210524467">
-<meta property="og:image" content="http://img.blog.csdn.net/20160718210628461">
-<meta property="og:image" content="http://img.blog.csdn.net/20160718222250535">
-<meta property="og:image" content="http://img.blog.csdn.net/20160718222519954">
-<meta property="og:image" content="http://img.blog.csdn.net/20170801022744842?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva2Fqd2Vi/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2018-05-20T05:25:15.872Z">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CggXmd.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CggvTI.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cggzkt.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cg2P1S.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cg2E0s.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cg2V7n.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cg2FXQ.png">
+<meta property="og:updated_time" content="2018-05-20T10:58:49.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zip伪加密[转载]">
 <meta name="twitter:description" content="纯粹复习一下伪加密">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20160718203742127">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/05/20/CggXmd.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -309,7 +309,7 @@
 
 <h2 id="实例"><a name="t3"></a>实例</h2>
 
-<p>下面给出西普的一个实例： <br><br><img src="http://img.blog.csdn.net/20160718203742127" alt="这里写图片描述" title=""> <br><br><strong>压缩源文件数据区：</strong>  <br><br>50 4B 03 04：这是头文件标记（0x04034b50） <br><br>14 00：解压文件所需 pkware 版本  <br><br>00 00：全局方式位标记（有无加密）  <br><br>08 00：压缩方式  <br><br>5A 7E：最后修改文件时间  <br><br>F7 46：最后修改文件日期  <br><br>16 B5 80 14：CRC-32校验（1480B516） <br><br>19 00 00 00：压缩后尺寸（25） <br><br>17 00 00 00：未压缩尺寸（23） <br><br>07 00：文件名长度  <br><br>00 00：扩展记录长度  <br><br>6B65792E7478740BCECC750E71ABCE48CDC9C95728CECC2DC849AD284DAD0500 <br><br><strong>压缩源文件目录区：</strong>  <br><br>50 4B 01 02：目录中文件文件头标记(0x02014b50) <br><br>3F 00：压缩使用的 pkware 版本  <br><br>14 00：解压文件所需 pkware 版本  <br><br>00 00：全局方式位标记（有无加密，这个更改这里进行伪加密，改为09 00打开就会提示有密码了）  <br><br>08 00：压缩方式  <br><br>5A 7E：最后修改文件时间  <br><br>F7 46：最后修改文件日期  <br><br>16 B5 80 14：CRC-32校验（1480B516） <br><br>19 00 00 00：压缩后尺寸（25） <br><br>17 00 00 00：未压缩尺寸（23） <br><br>07 00：文件名长度  <br><br>24 00：扩展字段长度  <br><br>00 00：文件注释长度  <br><br>00 00：磁盘开始号  <br><br>00 00：内部文件属性  <br><br>20 00 00 00：外部文件属性  <br><br>00 00 00 00：局部头部偏移量  <br><br>6B65792E7478740A00200000000000010018006558F04A1CC5D001BDEBDD3B1CC5D001BDEBDD3B1CC5D001 <br><br><strong>压缩源文件目录结束标志：</strong>  <br><br>50 4B 05 06：目录结束标记  <br><br>00 00：当前磁盘编号  <br><br>00 00：目录区开始磁盘编号  <br><br>01 00：本磁盘上纪录总数  <br><br>01 00：目录区中纪录总数  <br><br>59 00 00 00：目录区尺寸大小  <br><br>3E 00 00 00：目录区对第一张磁盘的偏移量  <br><br>00 00：ZIP 文件注释长度</p>
+<p>下面给出西普的一个实例： <br><br><img src="https://s1.ax1x.com/2018/05/20/CggXmd.png" alt="这里写图片描述" title=""> <br><br><strong>压缩源文件数据区：</strong>  <br><br>50 4B 03 04：这是头文件标记（0x04034b50） <br><br>14 00：解压文件所需 pkware 版本  <br><br>00 00：全局方式位标记（有无加密）  <br><br>08 00：压缩方式  <br><br>5A 7E：最后修改文件时间  <br><br>F7 46：最后修改文件日期  <br><br>16 B5 80 14：CRC-32校验（1480B516） <br><br>19 00 00 00：压缩后尺寸（25） <br><br>17 00 00 00：未压缩尺寸（23） <br><br>07 00：文件名长度  <br><br>00 00：扩展记录长度  <br><br>6B65792E7478740BCECC750E71ABCE48CDC9C95728CECC2DC849AD284DAD0500 <br><br><strong>压缩源文件目录区：</strong>  <br><br>50 4B 01 02：目录中文件文件头标记(0x02014b50) <br><br>3F 00：压缩使用的 pkware 版本  <br><br>14 00：解压文件所需 pkware 版本  <br><br>00 00：全局方式位标记（有无加密，这个更改这里进行伪加密，改为09 00打开就会提示有密码了）  <br><br>08 00：压缩方式  <br><br>5A 7E：最后修改文件时间  <br><br>F7 46：最后修改文件日期  <br><br>16 B5 80 14：CRC-32校验（1480B516） <br><br>19 00 00 00：压缩后尺寸（25） <br><br>17 00 00 00：未压缩尺寸（23） <br><br>07 00：文件名长度  <br><br>24 00：扩展字段长度  <br><br>00 00：文件注释长度  <br><br>00 00：磁盘开始号  <br><br>00 00：内部文件属性  <br><br>20 00 00 00：外部文件属性  <br><br>00 00 00 00：局部头部偏移量  <br><br>6B65792E7478740A00200000000000010018006558F04A1CC5D001BDEBDD3B1CC5D001BDEBDD3B1CC5D001 <br><br><strong>压缩源文件目录结束标志：</strong>  <br><br>50 4B 05 06：目录结束标记  <br><br>00 00：当前磁盘编号  <br><br>00 00：目录区开始磁盘编号  <br><br>01 00：本磁盘上纪录总数  <br><br>01 00：目录区中纪录总数  <br><br>59 00 00 00：目录区尺寸大小  <br><br>3E 00 00 00：目录区对第一张磁盘的偏移量  <br><br>00 00：ZIP 文件注释长度</p>
 
 
 
@@ -327,11 +327,11 @@
 
 <p>亲测例子：先压缩一个1.zip，再用Winhex打开，如下图：</p>
 
-<p><img src="http://img.blog.csdn.net/20160718204834382" alt="这里写图片描述" title=""></p>
+<p><img src="https://s1.ax1x.com/2018/05/20/CggvTI.png" alt="这里写图片描述" title=""></p>
 
 <p><strong>压缩源文件数据区：</strong> <br><br>50 4B 03 04：这是头文件标记 <br><br>14 00：解压文件所需 pkware 版本  <br><br>00 00：全局方式位标记（有无加密） <br><br>08 00：压缩方式  <br><br>07 76：最后修改文件时间  <br><br>F2 48：最后修改文件日期  <br><br>…… <br><br><strong>压缩源文件目录区：</strong>  <br><br>50 4B 01 02：目录中文件文件头标记(0x02014b50) <br><br>1F 00：压缩使用的 pkware 版本  <br><br>14 00：解压文件所需 pkware 版本  <br><br>00 00：全局方式位标记（有无加密，这个更改这里进行伪加密，改为09 00打开就会提示有密码了）  <br><br>08 00：压缩方式 <br><br>07 76：最后修改文件时间  <br><br>F2 48：最后修改文件日期 <br><br>……</p>
 
-<blockquote><br>  <p>综上所述，如果把第二个加密标记位的00 00改为09 00，打开就会提示有密码： <br><br>  <img src="http://img.blog.csdn.net/20160718210524467" alt="这里写图片描述" title=""> <br><br>  <img src="http://img.blog.csdn.net/20160718210628461" alt="这里写图片描述" title=""></p><br></blockquote>
+<blockquote><br>  <p>综上所述，如果把第二个加密标记位的00 00改为09 00，打开就会提示有密码： <br><br>  <img src="https://s1.ax1x.com/2018/05/20/Cggzkt.png" alt="这里写图片描述" title=""> <br><br>  <img src="https://s1.ax1x.com/2018/05/20/Cg2P1S.png" alt="这里写图片描述" title=""></p><br></blockquote>
 
 <p>于是乎，这样就达到了zip伪加密的目的，可是这里又有一个疑问了，你可能会问，为什么改成09，而不是其他的数字呢，其实改成09只是举的一个例子，只要末位是奇数，就代表加密，反之，末位是偶数代表未加密（这是我猜想的，具体操作也符合我的猜想，可我不知道这个原理是什么，如果你了解的话，欢迎来分享分享~^_^）</p>
 
@@ -343,11 +343,11 @@
 
 <p>既然加密标志位可以修改，那头文件标记位应该也能修改吧，试试咯~：</p>
 
-<p><img src="http://img.blog.csdn.net/20160718222250535" alt="这里写图片描述" title=""></p>
+<p><img src="https://s1.ax1x.com/2018/05/20/Cg2E0s.png" alt="这里写图片描述" title=""></p>
 
 <p>把文本区原来显示的PK位的50 4B改成其他数据，再打开zip文件：</p>
 
-<p><img src="http://img.blog.csdn.net/20160718222519954" alt="这里写图片描述" title=""> <br><br>显然，这样也使zip文件不可读！</p>
+<p><img src="https://s1.ax1x.com/2018/05/20/Cg2V7n.png" alt="这里写图片描述" title=""> <br><br>显然，这样也使zip文件不可读！</p>
 
 
 
@@ -369,7 +369,7 @@
 
 <h3 id="真加密"><a name="t7"></a>真加密</h3>
 
-<p>压缩源文件数据区的全局加密应当为<code>09 00</code> <br><br>且压缩源文件目录区的全局方式位标记应当为<code>09 00</code> <br><br><img src="http://img.blog.csdn.net/20170801022744842?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva2Fqd2Vi/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" title=""></p>
+<p>压缩源文件数据区的全局加密应当为<code>09 00</code> <br><br>且压缩源文件目录区的全局方式位标记应当为<code>09 00</code> <br><br><img src="https://s1.ax1x.com/2018/05/20/Cg2FXQ.png" alt="这里写图片描述" title=""></p>
 
 
       
@@ -382,7 +382,7 @@
         <p><span>本文标题:</span><a href="/2018/02/08/zipfalse/">zip伪加密[转载]</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch&#39;s Blog</a></p>
         <p><span>发布时间:</span>2018-02-08, 10:40:41</p>
-        <p><span>最后更新:</span>2018-05-20, 13:25:15</p>
+        <p><span>最后更新:</span>2018-05-20, 18:58:49</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/02/08/zipfalse/" title="zip伪加密[转载]">0verwatch.top/2018/02/08/zipfalse/</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/02/08/zipfalse/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
