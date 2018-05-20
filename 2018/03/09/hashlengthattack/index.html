@@ -23,18 +23,18 @@
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
 <meta property="og:description" content="最近做了几个题目，又学到新的知识点，是有关Hash长度扩展攻击参考了一波P牛的博客还有我们学校的博客：http://www.cnblogs.com/pcat/p/5478509.htmlhttp://www.bxsteam.xyz/2017/05/23/hash%e9%95%bf%e5%ba%a6%e6%89%a9%e5%b1%95%e6%94%bb%e5%87%bb/">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://img.blog.csdn.net/20180309205407515?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="http://img.blog.csdn.net/20180309205429480?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="http://img.blog.csdn.net/20180309205456554?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="http://img.blog.csdn.net/20180309205650574?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="http://img.blog.csdn.net/20180309205709474?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="http://img.blog.csdn.net/2018030920572465?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="http://img.blog.csdn.net/20180309205732803?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2018-05-20T06:35:18.612Z">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CghlP1.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cgh18x.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cgh8xK.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CghJKO.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CghYrD.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cghtqe.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CghUVH.png">
+<meta property="og:updated_time" content="2018-05-20T11:51:07.090Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记录一下Hash长度扩展攻击的几个题目">
 <meta name="twitter:description" content="最近做了几个题目，又学到新的知识点，是有关Hash长度扩展攻击参考了一波P牛的博客还有我们学校的博客：http://www.cnblogs.com/pcat/p/5478509.htmlhttp://www.bxsteam.xyz/2017/05/23/hash%e9%95%bf%e5%ba%a6%e6%89%a9%e5%b1%95%e6%94%bb%e5%87%bb/">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20180309205407515?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/05/20/CghlP1.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -293,16 +293,16 @@
           
         <p>最近做了几个题目，又学到新的知识点，是有关Hash长度扩展攻击<br>参考了一波P牛的博客还有我们学校的博客：<br><a href="http://www.cnblogs.com/pcat/p/5478509.html" target="_blank" rel="noopener">http://www.cnblogs.com/pcat/p/5478509.html</a><br><a href="http://www.bxsteam.xyz/2017/05/23/hash%e9%95%bf%e5%ba%a6%e6%89%a9%e5%b1%95%e6%94%bb%e5%87%bb/" target="_blank" rel="noopener">http://www.bxsteam.xyz/2017/05/23/hash%e9%95%bf%e5%ba%a6%e6%89%a9%e5%b1%95%e6%94%bb%e5%87%bb/</a></p>
 <a id="more"></a>
-<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="实验吧-让我进去"><a href="#实验吧-让我进去" class="headerlink" title="实验吧 让我进去"></a>实验吧 让我进去</h2><p>既然说是admin才能进去，那我就先抓个包，看一下包里面是否又要改的东西。。。。<br>发现有一个source=0，毫不犹豫把它改为1，<br><img src="http://img.blog.csdn.net/20180309205407515?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>发包获得源代码</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="实验吧-让我进去"><a href="#实验吧-让我进去" class="headerlink" title="实验吧 让我进去"></a>实验吧 让我进去</h2><p>既然说是admin才能进去，那我就先抓个包，看一下包里面是否又要改的东西。。。。<br>发现有一个source=0，毫不犹豫把它改为1，<br><img src="https://s1.ax1x.com/2018/05/20/CghlP1.png" alt="CghlP1.png"><br>发包获得源代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (urldecode($username) === &quot;admin&quot; &amp;&amp; urldecode($password) != &quot;admin&quot;) &#123;</span><br><span class="line">        if ($COOKIE[&quot;getmein&quot;] === md5($secret . urldecode($username . $password))) &#123;</span><br><span class="line">            echo &quot;Congratulations! You are a registered user.\n&quot;;</span><br><span class="line">            die (&quot;The flag is &quot;. $flag);</span><br></pre></td></tr></table></figure>
 <p>看一下源代码发现这里有urldecode但是不会太影响，最最关键的应该是<code>md5($secret . urldecode($username . $password))</code>这个东西</p>
-<p><img src="http://img.blog.csdn.net/20180309205429480?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>关键代码就这一部分而已，其余的什么setcookie都没啥用，再看看包里面的内容，发现这个点，谷歌搜一波发现P牛的解析<br><img src="http://img.blog.csdn.net/20180309205456554?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>而后按照他的步骤安装了hashpump，最后把题目完成<br>先是新的签名，把它设置到<code>cookie</code>的<code>getmein</code>里。<br>第二个先把\x替换为%后，post提交</p>
+<p><img src="https://s1.ax1x.com/2018/05/20/Cgh18x.png" alt="Cgh18x.png"></p>
+<p>关键代码就这一部分而已，其余的什么setcookie都没啥用，再看看包里面的内容，发现这个点，谷歌搜一波发现P牛的解析<br><a href="https://imgchr.com/i/Cgh8xK" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/20/Cgh8xK.md.png" alt="Cgh8xK.md.png"></a><br>而后按照他的步骤安装了hashpump，最后把题目完成<br>先是新的签名，把它设置到<code>cookie</code>的<code>getmein</code>里。<br>第二个先把\x替换为%后，post提交</p>
 <p>我最后发的包</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST /web/kzhan.php HTTP/1.1</span><br><span class="line">Host: ctf5.shiyanbar.com</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:58.0) Gecko/20100101 Firefox/58.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Referer: http://ctf5.shiyanbar.com/web/kzhan.php</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 227</span><br><span class="line">Cookie: sample-hash=571580b26c65f306376d4f64e53cb5c7; source=1; Hm_lvt_34d6f7353ab0915a4c582e4516dffbc3=1520492842,1520518767,1520572017; Hm_cv_34d6f7353ab0915a4c582e4516dffbc3=1*visitor*132367%2CnickName%3A0verWatch; Hm_lpvt_34d6f7353ab0915a4c582e4516dffbc3=1520584378; PHPSESSID=qljr4nu3o68169kr8ejb2htp87;getmein=7db18a2831cdab27425f299ca09f034e;</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line"></span><br><span class="line">username=admin&amp;password=admin%2580%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%2500%25c8%2500%2500%2500%2500%2500%2500%2500abc</span><br></pre></td></tr></table></figure>
-<h2 id="cumt平台上的一道题目"><a href="#cumt平台上的一道题目" class="headerlink" title="cumt平台上的一道题目"></a>cumt平台上的一道题目</h2><h3 id="is-hash-safe"><a href="#is-hash-safe" class="headerlink" title="is hash safe??"></a>is hash safe??</h3><p>点进去发现要admin才能看，常规操作抓包，看里面有没有要改的，果不其然，把guest改为admin发现没啥用。。。。<br><img src="http://img.blog.csdn.net/20180309205650574?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>然后再看看页面源代码啥都没有，那应该就是源码泄露了，尝试.swp<br>发现泄露文件<br>放进kali里面用vim -r 命令复原源代码文件<br>得到源码<br><img src="http://img.blog.csdn.net/20180309205709474?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>跟那个实验吧的题目很相似，但又有不同，实验吧那一题是有两个字符串连接符，然后使其长度为20位，发现role是guest<br>于是我们来hashpump一波，根据提示密文长度为13，并且要绕过admin字符串，于是得到<br><img src="http://img.blog.csdn.net/2018030920572465?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>抓包发送，得到flag<br><img src="http://img.blog.csdn.net/20180309205732803?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h2 id="cumt平台上的一道题目"><a href="#cumt平台上的一道题目" class="headerlink" title="cumt平台上的一道题目"></a>cumt平台上的一道题目</h2><h3 id="is-hash-safe"><a href="#is-hash-safe" class="headerlink" title="is hash safe??"></a>is hash safe??</h3><p>点进去发现要admin才能看，常规操作抓包，看里面有没有要改的，果不其然，把guest改为admin发现没啥用。。。。<br><img src="https://s1.ax1x.com/2018/05/20/CghJKO.png" alt="CghJKO.png"></p>
+<p>然后再看看页面源代码啥都没有，那应该就是源码泄露了，尝试.swp<br>发现泄露文件<br>放进kali里面用vim -r 命令复原源代码文件<br>得到源码<br><img src="https://s1.ax1x.com/2018/05/20/CghYrD.png" alt="CghYrD.png"></p>
+<p>跟那个实验吧的题目很相似，但又有不同，实验吧那一题是有两个字符串连接符，然后使其长度为20位，发现role是guest<br>于是我们来hashpump一波，根据提示密文长度为13，并且要绕过admin字符串，于是得到<br><a href="https://imgchr.com/i/Cghtqe" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/20/Cghtqe.md.png" alt="Cghtqe.md.png"></a><br>抓包发送，得到flag<br><img src="https://s1.ax1x.com/2018/05/20/CghUVH.png" alt="CghUVH.png"></p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>怎么说呢，这几个题好像只考了工具怎么使用，但是一些必要的条件还是要自己找出来的，通过抓包之类的，还有一点点的代码审计，有些地方还是有些不懂，过段时间再继续完善一下自己的体会吧。。。。</p>
 
       
@@ -315,7 +315,7 @@
         <p><span>本文标题:</span><a href="/2018/03/09/hashlengthattack/">记录一下Hash长度扩展攻击的几个题目</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch&#39;s Blog</a></p>
         <p><span>发布时间:</span>2018-03-09, 21:11:29</p>
-        <p><span>最后更新:</span>2018-05-20, 14:35:18</p>
+        <p><span>最后更新:</span>2018-05-20, 19:51:07</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/03/09/hashlengthattack/" title="记录一下Hash长度扩展攻击的几个题目">0verwatch.top/2018/03/09/hashlengthattack/</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/03/09/hashlengthattack/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
