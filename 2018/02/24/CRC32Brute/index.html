@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch&#39;s Blog" />
+
+
+
+<meta name="description" content="前言最近在bugku遇到了一道隐写题，binwalk之后发现里面有很多个压缩包。。。。。。然后就无从下手，于是查看别人大佬的wp才发现是CRC32爆破，由于本人第一次遇到这种题目，就记录一下吧。。">
+<meta name="keywords" content="CTF,CRC32爆破,Misc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CRC32爆破小结">
+<meta property="og:url" content="http://0verwatch.top/2018/02/24/CRC32Brute/index.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="前言最近在bugku遇到了一道隐写题，binwalk之后发现里面有很多个压缩包。。。。。。然后就无从下手，于是查看别人大佬的wp才发现是CRC32爆破，由于本人第一次遇到这种题目，就记录一下吧。。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.blog.csdn.net/20180224131551484?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="http://img.blog.csdn.net/20180224132328424?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2018-05-20T02:20:57.318Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CRC32爆破小结">
+<meta name="twitter:description" content="前言最近在bugku遇到了一道隐写题，binwalk之后发现里面有很多个压缩包。。。。。。然后就无从下手，于是查看别人大佬的wp才发现是CRC32爆破，由于本人第一次遇到这种题目，就记录一下吧。。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20180224131551484?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>CRC32爆破小结 | 0verWatch&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch&#39;s Blog</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">学习本无底，前进莫彷徨！</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">标签</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                            <li><a href="/friends/">友链</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:kd08163314@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/0v3rWatch" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch&#39;s Blog</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch&#39;s Blog</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">学习本无底，前进莫彷徨！</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">标签</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                    <li><a href="/friends/">友链</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:kd08163314@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/0v3rWatch" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-CRC32Brute" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/02/24/CRC32Brute/" class="article-date">
+      <time datetime="2018-02-24T05:28:50.000Z" itemprop="datePublished">2018-02-24</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CRC32爆破小结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/">Misc</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在bugku遇到了一道隐写题，binwalk之后发现里面有很多个压缩包。。。。。。然后就无从下手，于是查看别人大佬的wp才发现是CRC32爆破，由于本人第一次遇到这种题目，就记录一下吧。。</p>
+<a id="more"></a>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h4 id="CRC想必大家都知道，它的全称是循环冗余校验-Cyclic-Redundancy-Check-CRC-，用来校验文件是否出错但并不能用于自动纠错。。emmmm，计组上课好像讲过，老师让我们回去自己学，记得当时只是初略了解了一下，就是在后面加上一小段冗余位去检测，详细规则谷歌一下吧。。。。"><a href="#CRC想必大家都知道，它的全称是循环冗余校验-Cyclic-Redundancy-Check-CRC-，用来校验文件是否出错但并不能用于自动纠错。。emmmm，计组上课好像讲过，老师让我们回去自己学，记得当时只是初略了解了一下，就是在后面加上一小段冗余位去检测，详细规则谷歌一下吧。。。。" class="headerlink" title="CRC想必大家都知道，它的全称是循环冗余校验(Cyclic Redundancy Check, CRC)，用来校验文件是否出错但并不能用于自动纠错。。emmmm，计组上课好像讲过，老师让我们回去自己学，记得当时只是初略了解了一下，就是在后面加上一小段冗余位去检测，详细规则谷歌一下吧。。。。"></a>CRC想必大家都知道，它的全称是循环冗余校验(Cyclic Redundancy Check, CRC)，用来校验文件是否出错但并不能用于自动纠错。。emmmm，计组上课好像讲过，老师让我们回去自己学，记得当时只是初略了解了一下，就是在后面加上一小段冗余位去检测，详细规则谷歌一下吧。。。。</h4><p><img src="http://img.blog.csdn.net/20180224131551484?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h4 id="这里我以破解四位CRC的压缩包为例。。。。写一个理解之后的脚本"><a href="#这里我以破解四位CRC的压缩包为例。。。。写一个理解之后的脚本" class="headerlink" title="这里我以破解四位CRC的压缩包为例。。。。写一个理解之后的脚本"></a>这里我以破解四位CRC的压缩包为例。。。。写一个理解之后的脚本</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="keyword">import</span> string </span><br><span class="line"></span><br><span class="line">dic=string.printable     <span class="comment">#各种打印字符</span></span><br><span class="line"></span><br><span class="line">crc = <span class="string">'''你的输入 '''</span>     <span class="comment"># 记得要以0x开头</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CrackCrc</span><span class="params">(crc)</span>:</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> dic :</span><br><span class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> dic:</span><br><span class="line">			<span class="keyword">for</span> p <span class="keyword">in</span> dic:</span><br><span class="line">				<span class="keyword">for</span> q <span class="keyword">in</span> dic:</span><br><span class="line">					s=i+j+p+q</span><br><span class="line">					<span class="keyword">if</span> crc == (binascii.crc32(s) &amp; <span class="number">0xffffffff</span>):</span><br><span class="line">						<span class="keyword">print</span> s</span><br></pre></td></tr></table></figure>
+<p>要<strong>特别注意</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (binascii.crc32(str(i)) &amp; 0xffffffff) == crc:</span><br></pre></td></tr></table></figure>
+<p>在 Python 2.x 的版本中，binascii.crc32 所计算出來的 CRC 值域为[-2^31, 2^31-1] 之间的有符号整数，为了要与一般CRC 结果作比对，需要将其转为无符号整数，所以加上&amp; 0xffffffff来进行转换。如果是 Python 3.x 的版本，其计算结果为 [0, 2^32-1] 间的无符号整数，因此不需额外加上&amp; 0xffffffff 。</p>
+<p>下面就bugku那道多个压缩包为例，上脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="keyword">import</span> string </span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"><span class="comment"># def tansnum(s):</span></span><br><span class="line"><span class="comment">#     return int(s, 16)  转十六进制</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">dic=string.printable</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CrackCrc</span><span class="params">(crc)</span>:</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> dic :</span><br><span class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> dic:</span><br><span class="line">			<span class="keyword">for</span> p <span class="keyword">in</span> dic:</span><br><span class="line">				<span class="keyword">for</span> q <span class="keyword">in</span> dic:</span><br><span class="line">					s=i+j+p+q</span><br><span class="line">					<span class="keyword">if</span> crc == (binascii.crc32(s) &amp; <span class="number">0xffffffff</span>):</span><br><span class="line">						<span class="keyword">print</span> s</span><br><span class="line">						<span class="comment">#return </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getcrc32</span><span class="params">()</span>:</span></span><br><span class="line">	l=[]</span><br><span class="line">	<span class="keyword">for</span> b <span class="keyword">in</span> range(<span class="number">68</span>):</span><br><span class="line">		file = <span class="string">'out'</span> + str(b) + <span class="string">'.zip'</span></span><br><span class="line">		f = zipfile.ZipFile(file,<span class="string">'r'</span>)</span><br><span class="line">		GetCrc = f.getinfo(<span class="string">'data.txt'</span>)</span><br><span class="line">		crc = GetCrc.CRC</span><br><span class="line">		l.append(hex(crc))</span><br><span class="line">	<span class="keyword">return</span> l</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__  == <span class="string">"__main__"</span>:</span><br><span class="line">	<span class="comment">#c = open('out.txt', 'w')</span></span><br><span class="line">	l = getcrc32()</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> l:</span><br><span class="line">	   CrackCrc(i)</span><br><span class="line">	<span class="comment">#c.close()</span></span><br></pre></td></tr></table></figure>
+<p>如果上面的python操作zip文件还不太懂的话看看这个:<a href="https://www.cnblogs.com/sun-haiyu/p/7082063.html，简单的来说就是用ZipFile读取文件，用getinfo函数获取信息。。。" target="_blank" rel="noopener">https://www.cnblogs.com/sun-haiyu/p/7082063.html，简单的来说就是用ZipFile读取文件，用getinfo函数获取信息。。。</a><br><strong>特别注意</strong>，上面的脚本跑这一题十分慢，我跑了差不多40分钟都没跑完。。。效率极低，所以啊有空我还是学习一下多线程该怎么跑。。。</p>
+<h4 id="另外还有一款很好用的6位的CRC32爆破"><a href="#另外还有一款很好用的6位的CRC32爆破" class="headerlink" title="另外还有一款很好用的6位的CRC32爆破"></a>另外还有一款很好用的6位的CRC32爆破</h4><p>附上神器：<a href="https://github.com/theonlypwner/crc32" target="_blank" rel="noopener">https://github.com/theonlypwner/crc32</a><br>具体使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python crc32.py reverse 你的crc32密文</span><br></pre></td></tr></table></figure>
+<p>这里的密文记得加上0x变成16进制。。。即可非常迅速的爆破出对应的数据，举个例子</p>
+<p><img src="http://img.blog.csdn.net/20180224132328424?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>这里就有点哈西冲突的体现了^_^</p>
+<p>这个CRC32爆破一旦超过六位，我觉得毫无疑义，毕竟密码超过7位你爆破需要花很长的时间，对于这个也一样。。。。<br>这就从另外一个角度诠释了什么叫无法破解的密码(#^.^#)，虽然这一个东西也会出现类似哈希冲突的现象。。。。。。</p>
+<p>参考文章<br><a href="http://www.360zhijia.com/360anquanke/217342.html" target="_blank" rel="noopener">http://www.360zhijia.com/360anquanke/217342.html</a><br><a href="http://skysec.top/2017/06/19/CRC爆破总结/" target="_blank" rel="noopener">http://skysec.top/2017/06/19/CRC爆破总结/</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/02/24/CRC32Brute/">CRC32爆破小结</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch&#39;s Blog</a></p>
+        <p><span>发布时间:</span>2018-02-24, 13:28:50</p>
+        <p><span>最后更新:</span>2018-05-20, 10:20:57</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/02/24/CRC32Brute/" title="CRC32爆破小结">http://0verwatch.top/2018/02/24/CRC32Brute/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://0verwatch.top/2018/02/24/CRC32Brute/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/02/25/RSASimple/">
+                    大致了解一下RSA以及出题套路
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/02/23/Linuxcaiji/">
+                    熟悉Linux命令~~~
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CRC想必大家都知道，它的全称是循环冗余校验-Cyclic-Redundancy-Check-CRC-，用来校验文件是否出错但并不能用于自动纠错。。emmmm，计组上课好像讲过，老师让我们回去自己学，记得当时只是初略了解了一下，就是在后面加上一小段冗余位去检测，详细规则谷歌一下吧。。。。"><span class="toc-number">2.0.1.</span> <span class="toc-text">CRC想必大家都知道，它的全称是循环冗余校验(Cyclic Redundancy Check, CRC)，用来校验文件是否出错但并不能用于自动纠错。。emmmm，计组上课好像讲过，老师让我们回去自己学，记得当时只是初略了解了一下，就是在后面加上一小段冗余位去检测，详细规则谷歌一下吧。。。。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#这里我以破解四位CRC的压缩包为例。。。。写一个理解之后的脚本"><span class="toc-number">2.0.2.</span> <span class="toc-text">这里我以破解四位CRC的压缩包为例。。。。写一个理解之后的脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#另外还有一款很好用的6位的CRC32爆破"><span class="toc-number">2.0.3.</span> <span class="toc-text">另外还有一款很好用的6位的CRC32爆破</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <!--<a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>-->
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"CRC32爆破小结　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/02/25/RSASimple/" title="上一篇: 大致了解一下RSA以及出题套路">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/02/23/Linuxcaiji/" title="下一篇: 熟悉Linux命令~~~">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/04/18/git-learning/">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/11/PHP-Yii/">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/06/whalectfweb1/">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/shiyanba1wp/">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/phpcheck2/">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/14/CTFpython/">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/Ubantu-Web/">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/cumtphpfanxuliehua/">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/10/RaceConditionsSummary/">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/09/hashlengthattack/">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/06/moctfweb/">简单小结一下moctf的两道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/03/backupblogagain/">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/25/RSASimple/">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/24/CRC32Brute/">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/23/Linuxcaiji/">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/17/bugkuphpshenjiwp/">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/14/bugku-Web-write-up/">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/14/bugkuMiscwp/">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/12/bugkuCrypto/">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/08/bugku-social-wp/">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/08/zipfalse/">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/07/php-mysql-content/">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/04/sql-Summary/">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/02/php summary/">php留言板编写总结</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2018 0verWatch&#39;s Blog
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
