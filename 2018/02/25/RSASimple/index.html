@@ -23,16 +23,16 @@
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
 <meta property="og:description" content="前言  最近做的CTF题目遇到RSA加密总是不会，于是参考资料学习一番，小结自己的学习过程，怕自己某天又忘记了RSA是属于现代密码学的范畴，现代密码学的终极目标是:发明永远无法破解的加密算法而他们很多又是跟二进制相关，二进制加密的唯一算法  XOR下面两个标准就很典型。。。DES 数据加密标准AES 高级加密标准对于上面的东西一知半解。。什么轮子函数都没了解清楚，还有一些什么盒子之类的东西。。。e">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://img.blog.csdn.net/20180225122452898?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="http://img.blog.csdn.net/20180225125648163?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="http://img.blog.csdn.net/20180225125731149?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="http://img.blog.csdn.net/20180225125811876?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CgsFCF.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cgsk34.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CgsZuR.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CgsHq1.md.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/02/25/9dsjJA.png">
-<meta property="og:updated_time" content="2018-05-20T06:38:11.170Z">
+<meta property="og:updated_time" content="2018-05-20T10:04:23.224Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大致了解一下RSA以及出题套路">
 <meta name="twitter:description" content="前言  最近做的CTF题目遇到RSA加密总是不会，于是参考资料学习一番，小结自己的学习过程，怕自己某天又忘记了RSA是属于现代密码学的范畴，现代密码学的终极目标是:发明永远无法破解的加密算法而他们很多又是跟二进制相关，二进制加密的唯一算法  XOR下面两个标准就很典型。。。DES 数据加密标准AES 高级加密标准对于上面的东西一知半解。。什么轮子函数都没了解清楚，还有一些什么盒子之类的东西。。。e">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20180225122452898?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/05/20/CgsFCF.md.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -291,7 +291,7 @@
 <a id="more"></a>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>跟标题一样，我只是简单了解RSA算法，然后把自己得理解写出来，毕竟那些什么欧拉公式，什么高斯的数论，看也看一到两天，太费时间。。。</p>
 <p><strong>RSA是一种非对称加密算法，它由 公钥（n/e），私钥(n/d)，明文M和密文C组成。</strong></p>
-<h3 id="RSA的大致过程"><a href="#RSA的大致过程" class="headerlink" title="RSA的大致过程"></a>RSA的大致过程</h3><p><img src="http://img.blog.csdn.net/20180225122452898?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h3 id="RSA的大致过程"><a href="#RSA的大致过程" class="headerlink" title="RSA的大致过程"></a>RSA的大致过程</h3><p><a href="https://imgchr.com/i/CgsFCF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/20/CgsFCF.md.png" alt="CgsFCF.md.png"></a></p>
 <p>选取两个大素数生成n,p和q，n=p*q,这里的n目前大都是在1024位左右，难以破解，因为它越长，分解起来就越难<br>随机选取加密密钥e，保证e和(p-1)(q-1)互素</p>
 <p>计算解密私钥 <code>e*d ≡ 1 mod (p-1)(q-1)</code></p>
 <p>加密   <code>c=m^e mod n</code></p>
@@ -300,10 +300,10 @@
 <p>这里的c指的是密文，m指的是明文<br>其中(n,e)为公钥，(n,d)为私钥</p>
 <h3 id="介绍一个同余运算的概念"><a href="#介绍一个同余运算的概念" class="headerlink" title="介绍一个同余运算的概念"></a>介绍一个同余运算的概念</h3><p>两个整数a,b，它们除以整数M所得的余数相等：<code>a ≡ b(mod m)</code>，比如说5除3余数为2，11除3余数也为2，于是可写成<code>11 ≡ 5(mod 3)</code></p>
 <p>然后就做了几个题目，发现嫌他们的套路就是不停的玩转这几个参数。。。。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">已知p、q、e求d</span><br><span class="line">已知p、q、e和密文 求明文</span><br><span class="line">已知n、e和密文 求明文</span><br><span class="line">已知公钥和密文 求明文</span><br></pre></td></tr></table></figure></p>
-<h3 id="还有就是简单记录一下相关工具的用法"><a href="#还有就是简单记录一下相关工具的用法" class="headerlink" title="还有就是简单记录一下相关工具的用法"></a>还有就是简单记录一下相关工具的用法</h3><h4 id="RSAtool"><a href="#RSAtool" class="headerlink" title="RSAtool"></a>RSAtool</h4><p>这个还是比较方便的，但还是觉得脚本顺手<br><img src="http://img.blog.csdn.net/20180225125648163?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h3 id="还有就是简单记录一下相关工具的用法"><a href="#还有就是简单记录一下相关工具的用法" class="headerlink" title="还有就是简单记录一下相关工具的用法"></a>还有就是简单记录一下相关工具的用法</h3><h4 id="RSAtool"><a href="#RSAtool" class="headerlink" title="RSAtool"></a>RSAtool</h4><p>这个还是比较方便的，但还是觉得脚本顺手<br><a href="https://imgchr.com/i/Cgsk34" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/20/Cgsk34.md.png" alt="Cgsk34.md.png"></a></p>
 <p>Keysize(Bits)：填写你N的位数<br>Public Exp.(E)：填写你的e的十进制值<br>Number Base：填写你下面N的进制（一般采用10进制）<br>Modulus(N)：填写N的十进制数（和Number Base填写的要对应）<br>然后点击左下角的Factor N<br>就会自动分解出P和Q<br>然后点击左下角的Calc. D<br>就会自动计算出D<br>然后点击左下角的Test<br>（这里好像有个Bug，要先加密一次，才能用解密功能）<br>然后把你的密文放在result里，点击decrypto<br>即可得到解密后的答案</p>
-<h4 id="yafu"><a href="#yafu" class="headerlink" title="yafu"></a>yafu</h4><p>一个大数分解工具<br>用命令行进入打此目录下，命令如下，N是你输入的大数<br>yafu-x64.exe factor(N)<br><img src="http://img.blog.csdn.net/20180225125731149?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<p>还有一个PARI。。。这好像也是一种语言。。一般是用来将大数16进制转10进制。。或者是判断N的位数使用<br><img src="http://img.blog.csdn.net/20180225125811876?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>反正不理了，指令也很简单：<br>第一步:<code>输入数字</code><br>（当然，如果输入16进制，你要带上0x，他会底下自动给你显示10进制，十分方便）<br>第二步: <code>binary(x)</code><br>他就会帮你把这个大数分解成2进制<br>第三步: <code>length(x)</code><br>他可以帮你输出这个N的位数</p>
+<h4 id="yafu"><a href="#yafu" class="headerlink" title="yafu"></a>yafu</h4><p>一个大数分解工具<br>用命令行进入打此目录下，命令如下，N是你输入的大数<br>yafu-x64.exe factor(N)<br><a href="https://imgchr.com/i/CgsZuR" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/20/CgsZuR.md.png" alt="CgsZuR.md.png"></a></p>
+<p>还有一个PARI。。。这好像也是一种语言。。一般是用来将大数16进制转10进制。。或者是判断N的位数使用<br><a href="https://imgchr.com/i/CgsHq1" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/20/CgsHq1.md.png" alt="CgsHq1.md.png"></a><br>反正不理了，指令也很简单：<br>第一步:<code>输入数字</code><br>（当然，如果输入16进制，你要带上0x，他会底下自动给你显示10进制，十分方便）<br>第二步: <code>binary(x)</code><br>他就会帮你把这个大数分解成2进制<br>第三步: <code>length(x)</code><br>他可以帮你输出这个N的位数</p>
 <h4 id="openssl"><a href="#openssl" class="headerlink" title="openssl"></a>openssl</h4><p>有时候遇到下面这种格式的,就会选择用openssl<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAQEDZxmNa1YU6VgTrdjyKkcX</span><br><span class="line">vHK+HqvZM9G4aUT9t1uO0jC+YtfRtp0iIJXBKMhvggEuyxFhkf2dAYptAvhNsnvF</span><br><span class="line">GiEwfchvS/dxxpHBQ+Wr5Um1vS1usaIf1icOfhtI/gYR+7LhsLNSTm9N6LTko0Xa</span><br><span class="line">RKE96CW3JgjbbHxKQLeCZubIe7/e9rSDgdScRQeli81Ht21ktFkIsVi9frxNrLCx</span><br><span class="line">z9bCwZV09A6y79Dp4Q3HAFytObyvUrnqw4czaNaQMcXnJGhKRPBo79HT3Altm11k</span><br><span class="line">EeWL3uQ+RrmaDQSUudsoGVr5Aa/xMNSm4gPa0I2lf6fkAmKlutsqMj7aKLRGlqsw</span><br><span class="line">XQKCAQEA85Wdl44C658G3vPzNdj4r9dgmVHdrGC3FLbCKvD6kS8hCzQga9JKlgHH</span><br><span class="line">jfSgJ18Qf9OrVS2VBX65NOcb3c1wRcJLGFh7jI/PWt1MXYPwx3yU3JxQy+Q44rZ7</span><br><span class="line">r9MWM7aq8XgdkMOtbwPQN7MyGAGyNUbUg+Z+JgZ/eyI0fdvAwtWSzoFMv138zBQU</span><br><span class="line">N/FOCzmQ+IBh5fC65fAeP6cNsOlgXnz9V16cge/uxSnDP9kDeiD9is1ROsljd2gx</span><br><span class="line">PmP5g4rjURzdCporUW8hSMjUdaNgoGNZRJc57s0lGrtCsBRXPkOfL6RXNVeyVpn/</span><br><span class="line">wR5jHOjul1qG5+JyvPX3apNFA0j+Pw==</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure></p>
 <p><img src="https://s1.ax1x.com/2018/02/25/9dsjJA.png" alt="9dsjJA.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -in public.key -pubin -noout -text -modulus</span><br></pre></td></tr></table></figure></p>
 <p>上面的public.key就是你所需要查看的文件名</p>
@@ -324,7 +324,7 @@
         <p><span>本文标题:</span><a href="/2018/02/25/RSASimple/">大致了解一下RSA以及出题套路</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch&#39;s Blog</a></p>
         <p><span>发布时间:</span>2018-02-25, 13:17:06</p>
-        <p><span>最后更新:</span>2018-05-20, 14:38:11</p>
+        <p><span>最后更新:</span>2018-05-20, 18:04:23</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/02/25/RSASimple/" title="大致了解一下RSA以及出题套路">0verwatch.top/2018/02/25/RSASimple/</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/02/25/RSASimple/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
