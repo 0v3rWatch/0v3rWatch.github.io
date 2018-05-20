@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20180217171549662?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="http://img.blog.csdn.net/20180217171408947?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="http://img.blog.csdn.net/20180217173213598?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2018-05-20T01:50:05.627Z">
+<meta property="og:updated_time" content="2018-05-20T02:20:57.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="bugku 代码审计 write up">
 <meta name="twitter:description" content="今天做了一波审计的题目，就记录一下吧">
@@ -286,7 +286,7 @@
 <h2 id="sha-函数比较绕过"><a href="#sha-函数比较绕过" class="headerlink" title="sha()函数比较绕过"></a>sha()函数比较绕过</h2><p>关键部分还是===，只能用数组处理，利用了sha1函数处理数组返回null的特性。<br>payload: <code>?name[]=1&amp;password[]=2</code></p>
 <h2 id="md5加密相等绕过"><a href="#md5加密相等绕过" class="headerlink" title="md5加密相等绕过"></a>md5加密相等绕过</h2><p>这一题里面是==，直接找一个MD5之后还是0e开头的即可，比如s878926199a<br>payload: <code></code></p>
 <h2 id="十六进制与数字比较"><a href="#十六进制与数字比较" class="headerlink" title="十六进制与数字比较"></a>十六进制与数字比较</h2><p>ord() 函数返回字符串的‘首个’字符的 ASCII 值。<br>利用这一个与题目的16进制，用16进制开头的0x去绕过即可。。。<br>用Python写个脚本转换一下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num = 3735929054</span><br><span class="line">print (&apos;%##x&apos;%num)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num = <span class="number">3735929054</span></span><br><span class="line"><span class="keyword">print</span> (<span class="string">'%##x'</span>%num)</span><br></pre></td></tr></table></figure>
 <p>得到<code>0xdeadc0de</code><br>payload: <code>?password=0xdeadc0de</code></p>
 <h2 id="ereg正则-00截断"><a href="#ereg正则-00截断" class="headerlink" title="ereg正则%00截断"></a>ereg正则%00截断</h2><p>因为ereg存在%00漏洞，所以在第一个条件里面先构建一个截断绕过，然后就开始执行下面的else if语句，长度要小于8，数目要大于9999999，这里就用科学计数法，用1e8去绕过<br>下面还有一个strpos函数还要判断里面是否含有’-‘符号，所以最后的payload应该是:?password=1e8%00–,出错了。。。<br><img src="http://img.blog.csdn.net/20180217171549662?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>没办法只能找一下原题，发现人家的题目是要包含<code>*-*</code> ，但是他题目就一条横杠。。。坑了不少人。。。<br>改一下payload: <code>?password=1e8%00*-*</code> ,立刻出flag<br>查了查手册，还有个类似的函数叫eregi，只是不判断大小写罢了<br><img src="http://img.blog.csdn.net/20180217171408947?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTM3Nzk5Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
 <h2 id="strpos数组绕过"><a href="#strpos数组绕过" class="headerlink" title="strpos数组绕过"></a>strpos数组绕过</h2><p>这一题跟那题数组返回NULL绕过，感觉好像是一样的。。。。。<br>就是传入的参数不一样了。。。。。<br>payload： <code>?ctf[]=1</code></p>
@@ -303,7 +303,7 @@
         <p><span>本文标题:</span><a href="/2018/02/17/bugkuphpshenjiwp/">bugku 代码审计 write up</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch&#39;s Blog</a></p>
         <p><span>发布时间:</span>2018-02-17, 17:19:56</p>
-        <p><span>最后更新:</span>2018-05-20, 09:50:05</p>
+        <p><span>最后更新:</span>2018-05-20, 10:20:57</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/02/17/bugkuphpshenjiwp/" title="bugku 代码审计 write up">http://0verwatch.top/2018/02/17/bugkuphpshenjiwp/</a>
             <span class="copy-path" data-clipboard-text="原文: http://0verwatch.top/2018/02/17/bugkuphpshenjiwp/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
