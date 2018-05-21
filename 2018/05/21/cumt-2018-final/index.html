@@ -15,20 +15,20 @@
 
 
 
-<meta name="description" content="前言因为上学期进入了决赛，于是在上周六进行了决赛，感觉自己还是太渣，最后只能跟队友做了两道题目拿了个三等奖，还是记录一下解题过程吧 正文Jerry’s Site 1这个题目一开始忘了扫后台目录，直到有了hint存在admin后台并且存在弱口令才开始解决这道题目了，以后没思路的时候还是要扫描一波后台啊。。。说不定就有特别的发现了啊根据弱口令，尝试用户名密码都是admin进入后台 随便点点，发现有个地">
+<meta name="description" content="前言因为上学期进入了决赛，于是在上周六进行了决赛，感觉自己还是太渣，最后只能跟队友做了两道题目拿了个三等奖，还是记录一下解题过程吧">
 <meta name="keywords" content="CTF,Web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cumt2018校赛部分write up">
 <meta property="og:url" content="0verwatch.top/2018/05/21/cumt-2018-final/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="前言因为上学期进入了决赛，于是在上周六进行了决赛，感觉自己还是太渣，最后只能跟队友做了两道题目拿了个三等奖，还是记录一下解题过程吧 正文Jerry’s Site 1这个题目一开始忘了扫后台目录，直到有了hint存在admin后台并且存在弱口令才开始解决这道题目了，以后没思路的时候还是要扫描一波后台啊。。。说不定就有特别的发现了啊根据弱口令，尝试用户名密码都是admin进入后台 随便点点，发现有个地">
+<meta property="og:description" content="前言因为上学期进入了决赛，于是在上周六进行了决赛，感觉自己还是太渣，最后只能跟队友做了两道题目拿了个三等奖，还是记录一下解题过程吧">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://s1.ax1x.com/2018/05/21/C2cVOJ.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2018/05/21/C2cem9.jpg">
-<meta property="og:updated_time" content="2018-05-21T15:31:59.586Z">
+<meta property="og:updated_time" content="2018-05-21T15:33:44.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cumt2018校赛部分write up">
-<meta name="twitter:description" content="前言因为上学期进入了决赛，于是在上周六进行了决赛，感觉自己还是太渣，最后只能跟队友做了两道题目拿了个三等奖，还是记录一下解题过程吧 正文Jerry’s Site 1这个题目一开始忘了扫后台目录，直到有了hint存在admin后台并且存在弱口令才开始解决这道题目了，以后没思路的时候还是要扫描一波后台啊。。。说不定就有特别的发现了啊根据弱口令，尝试用户名密码都是admin进入后台 随便点点，发现有个地">
+<meta name="twitter:description" content="前言因为上学期进入了决赛，于是在上周六进行了决赛，感觉自己还是太渣，最后只能跟队友做了两道题目拿了个三等奖，还是记录一下解题过程吧">
 <meta name="twitter:image" content="https://s1.ax1x.com/2018/05/21/C2cVOJ.jpg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -338,6 +338,7 @@
       
           
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为上学期进入了决赛，于是在上周六进行了决赛，感觉自己还是太渣，最后只能跟队友做了两道题目拿了个三等奖，还是记录一下解题过程吧</p>
+<a id="more"></a>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="Jerry’s-Site-1"><a href="#Jerry’s-Site-1" class="headerlink" title="Jerry’s Site 1"></a>Jerry’s Site 1</h3><p>这个题目一开始忘了扫后台目录，直到有了hint存在<code>admin后台</code>并且存在弱口令才开始解决这道题目了，以后没思路的时候还是要扫描一波后台啊。。。说不定就有特别的发现了啊<br>根据弱口令，尝试用户名密码都是<code>admin</code>进入后台</p>
 <p><img src="https://s1.ax1x.com/2018/05/21/C2cVOJ.jpg" alt="C2cVOJ.jpg"><br>随便点点，发现有个地方有点意思，可以增加文件，就是文件管理模块，但是当时可能运维出了点问题，没有开写权限，所以卡住了很久，后来题目恢复了就不存在问题了。。。<br><img src="https://s1.ax1x.com/2018/05/21/C2cem9.jpg" alt="C2cem9.jpg"></p>
 <p>因为这个题目抓包发现是<code>Tomcat</code>服务器，想到了上一次某某杯比赛里面一道类似的上传文件的题目<br>所以想到<code>Tomcat</code>就会想到这是<code>Java</code>写的网站，于是就上网找<code>jsp木马</code></p>
@@ -367,7 +368,7 @@
         <p><span>本文标题:</span><a href="/2018/05/21/cumt-2018-final/">cumt2018校赛部分write up</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch&#39;s Blog</a></p>
         <p><span>发布时间:</span>2018-05-21, 23:10:09</p>
-        <p><span>最后更新:</span>2018-05-21, 23:31:59</p>
+        <p><span>最后更新:</span>2018-05-21, 23:33:44</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/05/21/cumt-2018-final/" title="cumt2018校赛部分write up">0verwatch.top/2018/05/21/cumt-2018-final/</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/05/21/cumt-2018-final/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
