@@ -9,6 +9,44 @@ body:after {
 body:after {
   clear: both;
 }
+#rewardButton {
+  background-color: #ea6f5a;
+}
+.btn-pay {
+  margin-bottom: 20px;
+  padding: 8px 25px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #ea6f5a;
+}
+.btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#QR img {
+  height: 200px;
+  height: 200px;
+  margin: 20px;
+}
 html,
 body,
 div,
@@ -232,7 +270,7 @@ a {
 }
 #container .left-col {
   background: rgba(255,255,255,0.85);
-  width: 300px;
+  width: 280px;
   position: fixed;
   opacity: 1;
   -webkit-transition: all 0.2s ease-in;
@@ -263,7 +301,7 @@ a {
   right: 0;
   min-height: 100%;
   background: rgba(255,255,255,0.8);
-  left: 300px;
+  left: 280px;
   width: auto;
 }
 @media screen and (max-width: 800px) {
@@ -681,7 +719,7 @@ a {
 }
 #header .header-menu li a {
   font-size: 0.875rem;
-  min-width: 300px;
+  min-width: 280px;
 }
 #header .switch-area {
   position: relative;
@@ -881,7 +919,7 @@ a {
   background-size: 103%;
 }
 #header .header-nav .social .GitHub {
-  background: url("//cdn.bootcss.com/logos/0.2.0/github-octocat.svg") no-repeat #fff;
+  background: url("//cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg") no-repeat #fff;
   -webkit-background-size: 90%;
   -moz-background-size: 90%;
   background-size: 90%;
@@ -1027,7 +1065,7 @@ a {
 }
 .hide-labels {
   position: fixed;
-  left: 378px;
+  left: 358px;
   top: 30px;
   padding: 1px;
   border: none;
@@ -1047,7 +1085,7 @@ a {
   opacity: 1;
 }
 #post-nav-button {
-  left: 300px;
+  left: 280px;
   top: 61.8%;
 }
 #post-nav-button a {
@@ -1692,7 +1730,7 @@ li:hover {
 }
 #tocButton {
   position: fixed;
-  left: 220px;
+  left: 200px;
   top: 385px;
   font-size: 0.9em;
   font-weight: bold;
@@ -1709,7 +1747,7 @@ li:hover {
 }
 .toc-article {
   position: fixed;
-  width: 230px;
+  width: 210px;
   top: 378px;
   bottom: 1em;
   left: 0;
