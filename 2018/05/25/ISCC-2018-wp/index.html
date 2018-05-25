@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2018/05/25/CfaPmt.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/05/25/CfaVfg.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/05/25/Cfan6s.png">
-<meta property="og:updated_time" content="2018-05-25T12:18:18.956Z">
+<meta property="og:updated_time" content="2018-05-25T12:20:13.388Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ISCC 2018做题记录">
 <meta name="twitter:description" content="前言感觉自己好菜，只会做几个题目，而且打打停停，还要应付各种考试，忙不过来，以后还是要更加努力学习啊。。还是先记录一下自己的做题过程，慢慢进步，跟不上大佬们的步伐啊emmm。。">
@@ -388,6 +388,7 @@
 <h2 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h2><h3 id="RSA256"><a href="#RSA256" class="headerlink" title="RSA256"></a>RSA256</h3><p>这个题完全考的不是逆向，完完全全的密码学RSA<br>打开发现一个公钥文件<br>用OpenSSL打开公钥文件得到他的模数n，于是去factordb.com分解一波模数<br>得到p和q<br>然后常规操作得到秘钥d<br>然后用rsa-tool得到秘钥文件，又重新用openssl以一个解密就好</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openssl rsautl -decrypt -<span class="keyword">in</span> encrypted.message1 -inkey key.pem -out flag.txt</span><br><span class="line">openssl rsautl -decrypt -<span class="keyword">in</span> encrypted.message2 -inkey key.pem -out flag2.txt</span><br><span class="line">openssl rsautl -decrypt -<span class="keyword">in</span> encrypted.message3 -inkey key.pem -out flag3.txt</span><br></pre></td></tr></table></figure>
 <p>我们把文件重定向以后就得到flag<br><img src="https://s1.ax1x.com/2018/05/25/Cfan6s.png" alt="Cfan6s.png"></p>
+<p>最后在此求一波大佬的wp学习啊。。。。。</p>
 
       
     </div>
@@ -399,7 +400,7 @@
         <p><span>本文标题:</span><a href="/2018/05/25/ISCC-2018-wp/">ISCC 2018做题记录</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch&#39;s Blog</a></p>
         <p><span>发布时间:</span>2018-05-25, 20:05:49</p>
-        <p><span>最后更新:</span>2018-05-25, 20:18:18</p>
+        <p><span>最后更新:</span>2018-05-25, 20:20:13</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/05/25/ISCC-2018-wp/" title="ISCC 2018做题记录">0verwatch.top/2018/05/25/ISCC-2018-wp/</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/05/25/ISCC-2018-wp/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
