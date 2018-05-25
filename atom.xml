@@ -43,7 +43,7 @@
     <link href="0verwatch.top/2018/05/24/anheng-5month/"/>
     <id>0verwatch.top/2018/05/24/anheng-5month/</id>
     <published>2018-05-24T12:47:47.000Z</published>
-    <updated>2018-05-24T13:00:50.034Z</updated>
+    <updated>2018-05-25T12:25:22.430Z</updated>
     
     <content type="html"><![CDATA[<h2 id="奇怪的恐龙特性"><a href="#奇怪的恐龙特性" class="headerlink" title="奇怪的恐龙特性"></a>奇怪的恐龙特性</h2><p>这是一道代码审计的题目，又发现了一个我以前没见过的知识点，可以详细看看这个链接<br><a href="https://wooyun.shuimugan.com/bug/view?bug_no=64792" target="_blank" rel="noopener">https://wooyun.shuimugan.com/bug/view?bug_no=64792</a><br><a id="more"></a><br><img src="https://s1.ax1x.com/2018/05/24/CWrqSS.png" alt="CWrqSS.png"><br>从上面可以看出，简单点解释就是当代码中存在<code>$_REQUEST[&#39;user_id&#39;]</code>里面类似的参数的时候，我们在url上可以这样<code>a.php?user.id</code>传参去进行绕过,这样进去之后也能表示<code>$_REQUEST[&#39;user_id&#39;]</code>的值，同样可以绕过的符号还有<code>+，[</code> 等，应该说是php的一个小特性，上面讲的很清楚了，</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">highlight_file(<span class="keyword">__FILE__</span>); </span><br><span class="line">ini_set(<span class="string">"display_error"</span>, <span class="keyword">false</span>);  </span><br><span class="line">error_reporting(<span class="number">0</span>);  </span><br><span class="line">$str = <span class="keyword">isset</span>($_GET[<span class="string">'A_A'</span>])?$_GET[<span class="string">'A_A'</span>]:<span class="string">'A_A'</span>; </span><br><span class="line"><span class="keyword">if</span> (strpos($_SERVER[<span class="string">'QUERY_STRING'</span>], <span class="string">"A_A"</span>) !==<span class="keyword">false</span>) &#123; </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'A_A,have fun'</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">elseif</span> ($str&lt;<span class="number">9999999999</span>) &#123; </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'A_A,too small'</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">elseif</span> ((string)$str&gt;<span class="number">0</span>) &#123; </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'A_A,too big'</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span>&#123; </span><br><span class="line">    <span class="keyword">echo</span> file_get_contents(<span class="string">'flag.php'</span>); </span><br><span class="line">     </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><p>阅读代码发现，首先第一步要绕过A_A这个符号，如果出现这个符号他就会显示<code>A_A,have fun</code>，就不能继续往下面执行到<code>file_get_contents(&#39;flag.php&#39;)</code>了，但是我们发送get参数的时候又必须要发送，因此我们就用到刚才的知识点，我们可以用<code>A.A</code>或者是<code>A+A</code>去传参去绕过。<br>下面的代码就是常规的数字绕过了，但这里也用到了一个trick，就是无论你的数字多大，对于数组而言总是比数组小，下面是操作<br><img src="https://s1.ax1x.com/2018/05/24/CWrXLj.png" alt="CWrXLj.png"><br>所以说，我们可以利用数组去绕过<code>$str&lt;9999999999</code>的特性，下面一个判断是强制转化为字符串在与数字比较的判断，这就是平常操作很多的弱类型了，直接让参数等于admin就可以了，因为<code>“admin”== 0</code> ，结果是true，直接等于0绕过即可，所以这题的payload</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://101.71.29.5:10007/?A+A[]=admin</span><br></pre></td></tr></table></figure><h2 id="不能注册的admin"><a href="#不能注册的admin" class="headerlink" title="不能注册的admin"></a>不能注册的admin</h2><p>这一个题目利用了Windows不区分大小写特性的特点<br>右键发现发现有一段代码很可疑</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">id = $(<span class="string">"#uid"</span>).val();</span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">$(<span class="string">"#uid"</span>).blur(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="keyword">if</span>(id !== <span class="string">""</span>|| !id)&#123;</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">url:<span class="string">"json.php"</span>,<span class="attr">type</span>:<span class="string">'post'</span>,<span class="attr">data</span>:&#123;<span class="string">'id'</span>:id&#125;,<span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line"><span class="keyword">var</span> data = <span class="built_in">eval</span>(<span class="string">'('</span> +d +<span class="string">')'</span>);</span><br><span class="line"><span class="keyword">if</span>(data[<span class="string">'id'</span>] !=<span class="string">'undefined'</span> ||data[<span class="string">'id'</span>] !=<span class="string">""</span> ||data[<span class="string">'id'</span>]!=<span class="literal">null</span>)&#123;</span><br><span class="line">alert(<span class="string">'用户名已存在!'</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>仔细查看代码发现存在<code>json.php</code>还有post一个id参数，到后面看了解题的视频发现其实这里还能用get方式传参，我们就进去json.php页面查看一下，竟然题目说了要admin就传一个admin进去，发现有回显<code>{&#39;id&#39;:&#39;1&#39;,&#39;title&#39;:&#39;admin&#39;}</code>，尝试一下是否存在sql注入漏洞，在尝试双引号的时候发现有报错信息，然后详细一点测试<code>json.php?id=admin&quot; or 1=1%23</code>,发现有检测，这就很尬，后来还是看了视频才知道是从头部信息哪里发现的服务器是<code>Windows</code>的，这样就可以用Windows的大小写特性去绕过，就可以尝试一下<code>json.phP?id=admin&quot; or 1=1%23</code>，重新回显<code>{&#39;id&#39;:&#39;1&#39;,&#39;title&#39;:&#39;admin&#39;}</code>，这就可以慢慢注入了啊，接下来就是sqlmap一把过就行。。。。说实话我是真想不到，还是要虚心学习啊</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u &quot;http://101.71.29.5:10006/json.Php?id=admin&quot;  --threads 10 -D 5monthweb -T article -C content --dump</span><br></pre></td></tr></table></figure><p>最后得到结果<br><img src="https://s1.ax1x.com/2018/05/24/CWrves.png" alt="CWrves.png"></p><h2 id="一个hackerone的有趣的漏洞的复现的题目"><a href="#一个hackerone的有趣的漏洞的复现的题目" class="headerlink" title="一个hackerone的有趣的漏洞的复现的题目"></a>一个hackerone的有趣的漏洞的复现的题目</h2><p>这题考了.git源码泄露，把源码拿下来以后打算第二天做。。。这个题目第二天做的时候因为平台维护不能复现了，下次还是早点做吧。。还得继续努力。。。。。</p><p><img src="https://s1.ax1x.com/2018/05/24/CWrzoq.png" alt="CWrzoq.png"></p>]]></content>
     
@@ -134,8 +134,8 @@
   
   <entry>
     <title>WhaleCTF第一期打卡的几个web题目</title>
-    <link href="0verwatch.top/2018/04/06/whalectfweb1/"/>
-    <id>0verwatch.top/2018/04/06/whalectfweb1/</id>
+    <link href="0verwatch.top/2018/04/06/whalectf-web1/"/>
+    <id>0verwatch.top/2018/04/06/whalectf-web1/</id>
     <published>2018-04-06T06:59:48.000Z</published>
     <updated>2018-05-20T10:58:43.983Z</updated>
     
@@ -158,8 +158,8 @@
   
   <entry>
     <title>实验吧 忘记密码了wp</title>
-    <link href="0verwatch.top/2018/03/18/shiyanba1wp/"/>
-    <id>0verwatch.top/2018/03/18/shiyanba1wp/</id>
+    <link href="0verwatch.top/2018/03/18/shiyanba1-wp/"/>
+    <id>0verwatch.top/2018/03/18/shiyanba1-wp/</id>
     <published>2018-03-18T02:14:47.000Z</published>
     <updated>2018-05-20T07:17:21.719Z</updated>
     
@@ -206,8 +206,8 @@
   
   <entry>
     <title>小结一波CTF里面可能用到的脚本</title>
-    <link href="0verwatch.top/2018/03/14/CTFpython/"/>
-    <id>0verwatch.top/2018/03/14/CTFpython/</id>
+    <link href="0verwatch.top/2018/03/14/CTF-python/"/>
+    <id>0verwatch.top/2018/03/14/CTF-python/</id>
     <published>2018-03-14T09:16:33.000Z</published>
     <updated>2018-05-20T02:20:57.397Z</updated>
     
@@ -254,8 +254,8 @@
   
   <entry>
     <title>浅析cumt平台上的一道反序列化题目</title>
-    <link href="0verwatch.top/2018/03/11/cumtphpfanxuliehua/"/>
-    <id>0verwatch.top/2018/03/11/cumtphpfanxuliehua/</id>
+    <link href="0verwatch.top/2018/03/11/cumt-php-fanxuliehua/"/>
+    <id>0verwatch.top/2018/03/11/cumt-php-fanxuliehua/</id>
     <published>2018-03-11T03:37:51.000Z</published>
     <updated>2018-05-20T11:47:26.074Z</updated>
     
@@ -306,8 +306,8 @@
   
   <entry>
     <title>记录一下Hash长度扩展攻击的几个题目</title>
-    <link href="0verwatch.top/2018/03/09/hashlengthattack/"/>
-    <id>0verwatch.top/2018/03/09/hashlengthattack/</id>
+    <link href="0verwatch.top/2018/03/09/hash-length-attack/"/>
+    <id>0verwatch.top/2018/03/09/hash-length-attack/</id>
     <published>2018-03-09T13:11:29.000Z</published>
     <updated>2018-05-20T11:51:07.090Z</updated>
     
@@ -330,8 +330,8 @@
   
   <entry>
     <title>简单小结一下moctf的三道web题</title>
-    <link href="0verwatch.top/2018/03/06/moctfweb/"/>
-    <id>0verwatch.top/2018/03/06/moctfweb/</id>
+    <link href="0verwatch.top/2018/03/06/moctf-web/"/>
+    <id>0verwatch.top/2018/03/06/moctf-web/</id>
     <published>2018-03-06T15:14:34.000Z</published>
     <updated>2018-05-20T10:58:32.804Z</updated>
     
@@ -354,8 +354,8 @@
   
   <entry>
     <title>重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</title>
-    <link href="0verwatch.top/2018/03/03/backupblogagain/"/>
-    <id>0verwatch.top/2018/03/03/backupblogagain/</id>
+    <link href="0verwatch.top/2018/03/03/backup-blog-again/"/>
+    <id>0verwatch.top/2018/03/03/backup-blog-again/</id>
     <published>2018-03-03T13:53:59.000Z</published>
     <updated>2018-05-20T09:57:53.778Z</updated>
     
@@ -379,8 +379,8 @@
   
   <entry>
     <title>大致了解一下RSA以及出题套路</title>
-    <link href="0verwatch.top/2018/02/25/RSASimple/"/>
-    <id>0verwatch.top/2018/02/25/RSASimple/</id>
+    <link href="0verwatch.top/2018/02/25/RSA-SimpleLearn/"/>
+    <id>0verwatch.top/2018/02/25/RSA-SimpleLearn/</id>
     <published>2018-02-25T05:17:06.000Z</published>
     <updated>2018-05-20T10:04:23.224Z</updated>
     
@@ -405,8 +405,8 @@
   
   <entry>
     <title>CRC32爆破小结</title>
-    <link href="0verwatch.top/2018/02/24/CRC32Brute/"/>
-    <id>0verwatch.top/2018/02/24/CRC32Brute/</id>
+    <link href="0verwatch.top/2018/02/24/CRC32-Brute/"/>
+    <id>0verwatch.top/2018/02/24/CRC32-Brute/</id>
     <published>2018-02-24T05:28:50.000Z</published>
     <updated>2018-05-20T10:06:30.035Z</updated>
     
@@ -431,8 +431,8 @@
   
   <entry>
     <title>熟悉Linux命令~~~</title>
-    <link href="0verwatch.top/2018/02/23/Linuxcaiji/"/>
-    <id>0verwatch.top/2018/02/23/Linuxcaiji/</id>
+    <link href="0verwatch.top/2018/02/23/Linux-learn/"/>
+    <id>0verwatch.top/2018/02/23/Linux-learn/</id>
     <published>2018-02-23T08:41:13.000Z</published>
     <updated>2018-05-20T11:13:07.602Z</updated>
     
@@ -455,8 +455,8 @@
   
   <entry>
     <title>bugku 代码审计 write up</title>
-    <link href="0verwatch.top/2018/02/17/bugkuphpshenjiwp/"/>
-    <id>0verwatch.top/2018/02/17/bugkuphpshenjiwp/</id>
+    <link href="0verwatch.top/2018/02/17/bugku-php-check/"/>
+    <id>0verwatch.top/2018/02/17/bugku-php-check/</id>
     <published>2018-02-17T09:19:56.000Z</published>
     <updated>2018-05-20T10:12:40.959Z</updated>
     
