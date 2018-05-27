@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title>Docker学习笔记</title>
+      <link href="/2018/05/27/Docker-learning/"/>
+      <url>/2018/05/27/Docker-learning/</url>
+      <content type="html"><![CDATA[<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>一种虚拟化方案<br>操作系统级别的虚拟化<br>只能运行相同或相似内核的操作系统<br>依赖于Linux内核特性</p><h2 id="Docker基本组成"><a href="#Docker基本组成" class="headerlink" title="Docker基本组成"></a>Docker基本组成</h2><p><img src="https://s1.ax1x.com/2018/05/27/Ch0NM4.png" alt="Ch0NM4.png"></p><h3 id="Docker-Image-镜像"><a href="#Docker-Image-镜像" class="headerlink" title="Docker Image 镜像"></a>Docker Image 镜像</h3><p>容器的基石，一个层叠的文件系统</p><h3 id="Docker-Container容器"><a href="#Docker-Container容器" class="headerlink" title="Docker Container容器"></a>Docker Container容器</h3><p>通过镜像启动，就会产生一个可写层，这个可写层就是容器产生的内容。而另外下面的几个文件系统就是之前镜像提供的东西,这两样东西相结合就形成了容器。容器还有一个重要的内容就是写时复制(copy on write)</p><p><img src="https://s1.ax1x.com/2018/05/27/Ch0UsJ.png" alt="Ch0UsJ.png"></p><p><img src="https://s1.ax1x.com/2018/05/27/Ch0aL9.png" alt="Ch0aL9.png"></p><h3 id="Docker-Registry-仓库"><a href="#Docker-Registry-仓库" class="headerlink" title="Docker Registry 仓库"></a>Docker Registry 仓库</h3><p>公有 私有 Docker Hub</p><h3 id="Docker运用Linux的内核特性"><a href="#Docker运用Linux的内核特性" class="headerlink" title="Docker运用Linux的内核特性"></a>Docker运用Linux的内核特性</h3><p>Namespace 命名空间<br>Control groups（cgroups）控制组  —&gt;用来分配资源</p><p>Namespace<br>     对于编程而言，是一种封装=代码的隔离，对于操作系统而言是一种系统资源（进程，网络，文件系统）的隔离</p><h3 id="Ubantu中安装Docker’"><a href="#Ubantu中安装Docker’" class="headerlink" title="Ubantu中安装Docker’"></a>Ubantu中安装Docker’</h3><p>1.安装Ubantu维护的版本</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker.io</span><br><span class="line"> source /etc/bash_completion.d/docker.io</span><br></pre></td></tr></table></figure><p>   注意Ubantu维护的版本用的是<code>docker.io</code><br><code>Docker.io version</code> 查看版本<br>2.安装Docker维护的版本<br>   sudo apt-get install -y curl</p><p>curl -sSL <a href="https://get.daocloud.io/docker" target="_blank" rel="noopener">https://get.daocloud.io/docker</a> | sh</p><p>首先还是得检查<br>1.内核版本</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure><p>2.检查Device Mapper</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /sys/class/misc/device-mapper</span><br></pre></td></tr></table></figure>]]></content>
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 环境部署 </tag>
+            
+            <tag> Docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>ISCC 2018做题记录</title>
       <link href="/2018/05/25/ISCC-2018-wp/"/>
       <url>/2018/05/25/ISCC-2018-wp/</url>
@@ -220,9 +243,9 @@
       
         <tags>
             
-            <tag> Linux </tag>
-            
             <tag> 环境部署 </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -364,9 +387,9 @@
             
             <tag> CTF </tag>
             
-            <tag> RSA </tag>
-            
             <tag> Crypto </tag>
+            
+            <tag> RSA </tag>
             
         </tags>
       

@@ -15,21 +15,22 @@
 
 
 
-<meta name="description" content="听说你会面向对象这题用了反序列化的一个漏洞，如果还不知道什么是反序列化，参考下面的文章http://www.freebuf.com/column/151447.html">
-<meta name="keywords" content="CTF,Web,php,反序列化">
+<meta name="description" content="容器一种虚拟化方案操作系统级别的虚拟化只能运行相同或相似内核的操作系统依赖于Linux内核特性 Docker基本组成 Docker Image 镜像容器的基石，一个层叠的文件系统 Docker Container容器通过镜像启动，就会产生一个可写层，这个可写层就是容器产生的内容。而另外下面的几个文件系统就是之前镜像提供的东西,这两样东西相结合就形成了容器。容器还有一个重要的内容就是写时复制(cop">
+<meta name="keywords" content="环境部署,Docker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浅析cumt平台上的一道反序列化题目">
-<meta property="og:url" content="0verwatch.top/2018/03/11/cumt-php-fanxuliehua/index.html">
+<meta property="og:title" content="Docker学习笔记">
+<meta property="og:url" content="0verwatch.top/2018/05/27/Docker-learning/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="听说你会面向对象这题用了反序列化的一个漏洞，如果还不知道什么是反序列化，参考下面的文章http://www.freebuf.com/column/151447.html">
+<meta property="og:description" content="容器一种虚拟化方案操作系统级别的虚拟化只能运行相同或相似内核的操作系统依赖于Linux内核特性 Docker基本组成 Docker Image 镜像容器的基石，一个层叠的文件系统 Docker Container容器通过镜像启动，就会产生一个可写层，这个可写层就是容器产生的内容。而另外下面的几个文件系统就是之前镜像提供的东西,这两样东西相结合就形成了容器。容器还有一个重要的内容就是写时复制(cop">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CghKa9.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CghM5R.png">
-<meta property="og:updated_time" content="2018-05-20T11:47:26.074Z">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/27/Ch0NM4.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/27/Ch0UsJ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/27/Ch0aL9.png">
+<meta property="og:updated_time" content="2018-05-27T05:41:59.393Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅析cumt平台上的一道反序列化题目">
-<meta name="twitter:description" content="听说你会面向对象这题用了反序列化的一个漏洞，如果还不知道什么是反序列化，参考下面的文章http://www.freebuf.com/column/151447.html">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/05/20/CghKa9.png">
+<meta name="twitter:title" content="Docker学习笔记">
+<meta name="twitter:description" content="容器一种虚拟化方案操作系统级别的虚拟化只能运行相同或相似内核的操作系统依赖于Linux内核特性 Docker基本组成 Docker Image 镜像容器的基石，一个层叠的文件系统 Docker Container容器通过镜像启动，就会产生一个可写层，这个可写层就是容器产生的内容。而另外下面的几个文件系统就是之前镜像提供的东西,这两样东西相结合就形成了容器。容器还有一个重要的内容就是写时复制(cop">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/05/27/Ch0NM4.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -61,7 +62,7 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>浅析cumt平台上的一道反序列化题目 | 0verWatch&#39;s Blog</title>
+<title>Docker学习笔记 | 0verWatch&#39;s Blog</title>
 
 <script src="//cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js"></script>
@@ -293,11 +294,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-cumt-php-fanxuliehua" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Docker-learning" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/03/11/cumt-php-fanxuliehua/" class="article-date">
-      <time datetime="2018-03-11T03:37:51.000Z" itemprop="datePublished">2018-03-11</time>
+      <a href="/2018/05/27/Docker-learning/" class="article-date">
+      <time datetime="2018-05-27T05:31:50.000Z" itemprop="datePublished">2018-05-27</time>
 </a>
 
 
@@ -312,7 +313,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      浅析cumt平台上的一道反序列化题目
+      Docker学习笔记
     </h1>
   
 
@@ -321,13 +322,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    <a class="article-category-link" href="/categories/Docker/">Docker</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/反序列化/">反序列化</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环境部署/">环境部署</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -337,12 +338,23 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="听说你会面向对象"><a href="#听说你会面向对象" class="headerlink" title="听说你会面向对象"></a>听说你会面向对象</h2><p>这题用了反序列化的一个漏洞，如果还不知道什么是反序列化，参考下面的文章<br><a href="http://www.freebuf.com/column/151447.html" target="_blank" rel="noopener">http://www.freebuf.com/column/151447.html</a><br><a id="more"></a></p>
-<p>这一题其实还是很简单的，只是我不知道php反序列化的一个漏洞，那就是<strong>PHP当序列化字符串中表示对象属性数的值大于真实的属性个数时会跳过wakeup()的执行</strong></p>
-<p>因为我一开始构造的类是这样的</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Admin</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $file ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$a = <span class="keyword">new</span> Admin();</span><br><span class="line">$a-&gt;file=<span class="string">'flag.php'</span>;</span><br><span class="line">print_r (serilize($a));</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>然后得到 <code>data=O:5:&quot;Admin&quot;:1:{s:4:&quot;file&quot;;s:8:&quot;flag.php&quot;;}</code><br>然后发现是这个样子的<br><img src="https://s1.ax1x.com/2018/05/20/CghKa9.png" alt="CghKa9.png"><br>肯定是在序列化的时候<strong>wakeup()函数在搞鬼，后面加了1.。。。<br>其实这段代码主要是利用了_</strong>destruct()函数把文件内容会显示出来<br>于是就利用上面说的那一个漏洞改一下payload：data=O:5:”Admin”:2:{s:4:”file”;s:8:”flag.php”;}<br>flag就出来了<br><img src="https://s1.ax1x.com/2018/05/20/CghM5R.png" alt="CghM5R.png"></p>
-<p>看来自己对于反序列化还是了解甚小，不得不承认自己还是个菜鸡，参考博文<br><a href="http://www.voidcn.com/article/p-ybezdnbn-bmu.html" target="_blank" rel="noopener">http://www.voidcn.com/article/p-ybezdnbn-bmu.html</a><br><a href="https://mp.weixin.qq.com/s__biz=MzIzOTQ5NjUzOQ%3D%3D&amp;mid=2247483735&amp;idx=1&amp;sn=a886de95750b069c87961ce336fe2f6d&amp;chksm=e9287d63de5ff475a095abe626d386c94509f14298b46b3271c1f9776691ffe2e531024a12f9&amp;mpshare=1&amp;scene=23&amp;srcid=0907F7nrIu4WchffyQBy9jks#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s__biz=MzIzOTQ5NjUzOQ%3D%3D&amp;mid=2247483735&amp;idx=1&amp;sn=a886de95750b069c87961ce336fe2f6d&amp;chksm=e9287d63de5ff475a095abe626d386c94509f14298b46b3271c1f9776691ffe2e531024a12f9&amp;mpshare=1&amp;scene=23&amp;srcid=0907F7nrIu4WchffyQBy9jks#rd</a></p>
+        <h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>一种虚拟化方案<br>操作系统级别的虚拟化<br>只能运行相同或相似内核的操作系统<br>依赖于Linux内核特性</p>
+<h2 id="Docker基本组成"><a href="#Docker基本组成" class="headerlink" title="Docker基本组成"></a>Docker基本组成</h2><p><img src="https://s1.ax1x.com/2018/05/27/Ch0NM4.png" alt="Ch0NM4.png"></p>
+<h3 id="Docker-Image-镜像"><a href="#Docker-Image-镜像" class="headerlink" title="Docker Image 镜像"></a>Docker Image 镜像</h3><p>容器的基石，一个层叠的文件系统</p>
+<h3 id="Docker-Container容器"><a href="#Docker-Container容器" class="headerlink" title="Docker Container容器"></a>Docker Container容器</h3><p>通过镜像启动，就会产生一个可写层，这个可写层就是容器产生的内容。而另外下面的几个文件系统就是之前镜像提供的东西,这两样东西相结合就形成了容器。容器还有一个重要的内容就是写时复制(copy on write)</p>
+<p><img src="https://s1.ax1x.com/2018/05/27/Ch0UsJ.png" alt="Ch0UsJ.png"></p>
+<p><img src="https://s1.ax1x.com/2018/05/27/Ch0aL9.png" alt="Ch0aL9.png"></p>
+<h3 id="Docker-Registry-仓库"><a href="#Docker-Registry-仓库" class="headerlink" title="Docker Registry 仓库"></a>Docker Registry 仓库</h3><p>公有 私有 Docker Hub</p>
+<h3 id="Docker运用Linux的内核特性"><a href="#Docker运用Linux的内核特性" class="headerlink" title="Docker运用Linux的内核特性"></a>Docker运用Linux的内核特性</h3><p>Namespace 命名空间<br>Control groups（cgroups）控制组  —&gt;用来分配资源</p>
+<p>Namespace<br>     对于编程而言，是一种封装=代码的隔离，对于操作系统而言是一种系统资源（进程，网络，文件系统）的隔离</p>
+<h3 id="Ubantu中安装Docker’"><a href="#Ubantu中安装Docker’" class="headerlink" title="Ubantu中安装Docker’"></a>Ubantu中安装Docker’</h3><p>1.安装Ubantu维护的版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker.io</span><br><span class="line"> source /etc/bash_completion.d/docker.io</span><br></pre></td></tr></table></figure>
+<p>   注意Ubantu维护的版本用的是<code>docker.io</code><br><code>Docker.io version</code> 查看版本<br>2.安装Docker维护的版本<br>   sudo apt-get install -y curl</p>
+<p>curl -sSL <a href="https://get.daocloud.io/docker" target="_blank" rel="noopener">https://get.daocloud.io/docker</a> | sh</p>
+<p>首先还是得检查<br>1.内核版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
+<p>2.检查Device Mapper</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /sys/class/misc/device-mapper</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -351,13 +363,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/03/11/cumt-php-fanxuliehua/">浅析cumt平台上的一道反序列化题目</a></p>
+        <p><span>本文标题:</span><a href="/2018/05/27/Docker-learning/">Docker学习笔记</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch&#39;s Blog</a></p>
-        <p><span>发布时间:</span>2018-03-11, 11:37:51</p>
-        <p><span>最后更新:</span>2018-05-20, 19:47:26</p>
+        <p><span>发布时间:</span>2018-05-27, 13:31:50</p>
+        <p><span>最后更新:</span>2018-05-27, 13:41:59</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/03/11/cumt-php-fanxuliehua/" title="浅析cumt平台上的一道反序列化题目">0verwatch.top/2018/03/11/cumt-php-fanxuliehua/</a>
-            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/03/11/cumt-php-fanxuliehua/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/05/27/Docker-learning/" title="Docker学习笔记">0verwatch.top/2018/05/27/Docker-learning/</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/05/27/Docker-learning/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -369,16 +381,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/03/11/Ubantu-Web/">
-                    Ubantu下部署LAMP以及复现一道CTF题目
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/03/10/RaceConditionsSummary/">
-                    简单小结一下Web条件竞争的题目
+                <a href="/2018/05/25/ISCC-2018-wp/">
+                    ISCC 2018做题记录
                 </a>
             </div>
         
@@ -420,7 +426,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#听说你会面向对象"><span class="toc-number">1.</span> <span class="toc-text">听说你会面向对象</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#容器"><span class="toc-number">1.</span> <span class="toc-text">容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker基本组成"><span class="toc-number">2.</span> <span class="toc-text">Docker基本组成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-Image-镜像"><span class="toc-number">2.1.</span> <span class="toc-text">Docker Image 镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-Container容器"><span class="toc-number">2.2.</span> <span class="toc-text">Docker Container容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-Registry-仓库"><span class="toc-number">2.3.</span> <span class="toc-text">Docker Registry 仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker运用Linux的内核特性"><span class="toc-number">2.4.</span> <span class="toc-text">Docker运用Linux的内核特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubantu中安装Docker’"><span class="toc-number">2.5.</span> <span class="toc-text">Ubantu中安装Docker’</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -456,7 +462,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"浅析cumt平台上的一道反序列化题目　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Docker学习笔记　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -476,15 +482,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/03/11/Ubantu-Web/" title="上一篇: Ubantu下部署LAMP以及复现一道CTF题目">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/03/10/RaceConditionsSummary/" title="下一篇: 简单小结一下Web条件竞争的题目">
+            <a href="/2018/05/25/ISCC-2018-wp/" title="下一篇: ISCC 2018做题记录">
                 <i class="fa fa-angle-right"></i>
             </a>
         
