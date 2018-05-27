@@ -237,6 +237,8 @@
                     
                       <a class="main-nav-link switch-friends-link" href="http://skysec.top/">一叶飘零</a>
                     
+                      <a class="main-nav-link switch-friends-link" href="/www.yytpublic.cn">LaurenceYu</a>
+                    
                     </div>
                 </section>
                 
@@ -341,7 +343,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>今天做了一波审计的题目，就记录一下吧<br><a id="more"></a></p>
+        
+<p>今天做了一波审计的题目，就记录一下吧<br><a id="more"></a></p>
 <h2 id="extract变量覆盖"><a href="#extract变量覆盖" class="headerlink" title="extract变量覆盖"></a>extract变量覆盖</h2><p>查一下php手册</p>
 <p><a href="https://imgchr.com/i/Cgy8iT" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/20/Cgy8iT.md.png" alt="Cgy8iT.md.png"></a><br>本函数用来将变量从数组中导入到当前的符号表中。<br>返回成功导入到符号表中的变量数目。<br>而且这个函数没还有任何参数，很危险，直接可以修改冲突的变量<br><a href="https://imgchr.com/i/CgyJWF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/20/CgyJWF.md.png" alt="CgyJWF.md.png"></a></p>
 <p>关键的代码<br><img src="https://s1.ax1x.com/2018/05/20/CgyUy9.png" alt="CgyUy9.png"><br>构建的payload: <code>?shiyan=&amp;flag=</code><br>因为不知道flag里面什么内容，让它变成空，然后使$content变成空，然后$shiyan变量和$content变量的内容都会被设置成空. 满足条件便会出现flag</p>

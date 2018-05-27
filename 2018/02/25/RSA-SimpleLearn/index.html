@@ -16,7 +16,7 @@
 
 
 <meta name="description" content="前言  最近做的CTF题目遇到RSA加密总是不会，于是参考资料学习一番，小结自己的学习过程，怕自己某天又忘记了RSA是属于现代密码学的范畴，现代密码学的终极目标是:发明永远无法破解的加密算法而他们很多又是跟二进制相关，二进制加密的唯一算法  XOR下面两个标准就很典型。。。DES 数据加密标准AES 高级加密标准对于上面的东西一知半解。。什么轮子函数都没了解清楚，还有一些什么盒子之类的东西。。。e">
-<meta name="keywords" content="CTF,Crypto,RSA">
+<meta name="keywords" content="CTF,RSA,Crypto">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大致了解一下RSA以及出题套路">
 <meta property="og:url" content="0verwatch.top/2018/02/25/RSA-SimpleLearn/index.html">
@@ -236,6 +236,8 @@
                     
                       <a class="main-nav-link switch-friends-link" href="http://skysec.top/">一叶飘零</a>
                     
+                      <a class="main-nav-link switch-friends-link" href="/www.yytpublic.cn">LaurenceYu</a>
+                    
                     </div>
                 </section>
                 
@@ -340,7 +342,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>  最近做的CTF题目遇到RSA加密总是不会，于是参考资料学习一番，小结自己的学习过程，怕自己某天又忘记了<br>RSA是属于现代密码学的范畴，现代密码学的终极目标是:发明永远无法破解的加密算法<br>而他们很多又是跟二进制相关，二进制加密的唯一算法  XOR<br>下面两个标准就很典型。。。<br>DES 数据加密标准<br>AES 高级加密标准<br>对于上面的东西一知半解。。什么轮子函数都没了解清楚，还有一些什么盒子之类的东西。。。emmm以后在深究吧</p>
+        
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>  最近做的CTF题目遇到RSA加密总是不会，于是参考资料学习一番，小结自己的学习过程，怕自己某天又忘记了<br>RSA是属于现代密码学的范畴，现代密码学的终极目标是:发明永远无法破解的加密算法<br>而他们很多又是跟二进制相关，二进制加密的唯一算法  XOR<br>下面两个标准就很典型。。。<br>DES 数据加密标准<br>AES 高级加密标准<br>对于上面的东西一知半解。。什么轮子函数都没了解清楚，还有一些什么盒子之类的东西。。。emmm以后在深究吧</p>
 <a id="more"></a>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>跟标题一样，我只是简单了解RSA算法，然后把自己得理解写出来，毕竟那些什么欧拉公式，什么高斯的数论，看也看一到两天，太费时间。。。</p>
 <p><strong>RSA是一种非对称加密算法，它由 公钥（n/e），私钥(n/d)，明文M和密文C组成。</strong></p>

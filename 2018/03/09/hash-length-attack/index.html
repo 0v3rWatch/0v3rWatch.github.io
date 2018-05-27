@@ -238,6 +238,8 @@
                     
                       <a class="main-nav-link switch-friends-link" href="http://skysec.top/">一叶飘零</a>
                     
+                      <a class="main-nav-link switch-friends-link" href="/www.yytpublic.cn">LaurenceYu</a>
+                    
                     </div>
                 </section>
                 
@@ -342,7 +344,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>最近做了几个题目，又学到新的知识点，是有关Hash长度扩展攻击<br>参考了一波P牛的博客还有我们学校的博客：<br><a href="http://www.cnblogs.com/pcat/p/5478509.html" target="_blank" rel="noopener">http://www.cnblogs.com/pcat/p/5478509.html</a><br><a href="http://www.bxsteam.xyz/2017/05/23/hash%e9%95%bf%e5%ba%a6%e6%89%a9%e5%b1%95%e6%94%bb%e5%87%bb/" target="_blank" rel="noopener">http://www.bxsteam.xyz/2017/05/23/hash%e9%95%bf%e5%ba%a6%e6%89%a9%e5%b1%95%e6%94%bb%e5%87%bb/</a></p>
+        
+<p>最近做了几个题目，又学到新的知识点，是有关Hash长度扩展攻击<br>参考了一波P牛的博客还有我们学校的博客：<br><a href="http://www.cnblogs.com/pcat/p/5478509.html" target="_blank" rel="noopener">http://www.cnblogs.com/pcat/p/5478509.html</a><br><a href="http://www.bxsteam.xyz/2017/05/23/hash%e9%95%bf%e5%ba%a6%e6%89%a9%e5%b1%95%e6%94%bb%e5%87%bb/" target="_blank" rel="noopener">http://www.bxsteam.xyz/2017/05/23/hash%e9%95%bf%e5%ba%a6%e6%89%a9%e5%b1%95%e6%94%bb%e5%87%bb/</a></p>
 <a id="more"></a>
 <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="实验吧-让我进去"><a href="#实验吧-让我进去" class="headerlink" title="实验吧 让我进去"></a>实验吧 让我进去</h2><p>既然说是admin才能进去，那我就先抓个包，看一下包里面是否又要改的东西。。。。<br>发现有一个source=0，毫不犹豫把它改为1，<br><img src="https://s1.ax1x.com/2018/05/20/CghlP1.png" alt="CghlP1.png"><br>发包获得源代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (urldecode($username) === &quot;admin&quot; &amp;&amp; urldecode($password) != &quot;admin&quot;) &#123;</span><br><span class="line">        if ($COOKIE[&quot;getmein&quot;] === md5($secret . urldecode($username . $password))) &#123;</span><br><span class="line">            echo &quot;Congratulations! You are a registered user.\n&quot;;</span><br><span class="line">            die (&quot;The flag is &quot;. $flag);</span><br></pre></td></tr></table></figure>

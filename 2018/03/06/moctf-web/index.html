@@ -235,6 +235,8 @@
                     
                       <a class="main-nav-link switch-friends-link" href="http://skysec.top/">一叶飘零</a>
                     
+                      <a class="main-nav-link switch-friends-link" href="/www.yytpublic.cn">LaurenceYu</a>
+                    
                     </div>
                 </section>
                 
@@ -339,7 +341,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>本人渣渣，于是记录一下</p>
+        
+<p>本人渣渣，于是记录一下</p>
 <a id="more"></a>
 <h2 id="死亡退出"><a href="#死亡退出" class="headerlink" title="死亡退出"></a>死亡退出</h2><p>一道代码审计题目</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">  $c=<span class="string">"&lt;?php exit;?&gt;"</span>;</span><br><span class="line">  @$c.=$_POST[<span class="string">'c'</span>];</span><br><span class="line">  @$filename=$_POST[<span class="string">'file'</span>]; </span><br><span class="line">  <span class="keyword">if</span>(!<span class="keyword">isset</span>($filename))                    </span><br><span class="line">  &#123;                                       </span><br><span class="line">    file_put_contents(<span class="string">'tmp.php'</span>, <span class="string">''</span>); </span><br><span class="line">  &#125;                                 </span><br><span class="line">  @file_put_contents($filename, $c);</span><br><span class="line">  <span class="keyword">include</span>(<span class="string">'tmp.php'</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
