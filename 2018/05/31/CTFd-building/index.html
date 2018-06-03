@@ -15,18 +15,20 @@
 
 
 
-<meta name="description" content="前言这个题目好像做了两遍了。。。。从这道题目里面学到的东西还是需要记录一下">
-<meta name="keywords" content="CTF,Web">
+<meta name="description" content="前言其实这些内容在官方文档中都有，只是想在博客再记录一下，提高一下自己的熟悉程度">
+<meta name="keywords" content="CTF,Web,环境部署">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记一道代码审计题目">
-<meta property="og:url" content="0verwatch.top/2018/03/18/phpcheck2/index.html">
+<meta property="og:title" content="CTFd平台搭建记录">
+<meta property="og:url" content="0verwatch.top/2018/05/31/CTFd-building/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="前言这个题目好像做了两遍了。。。。从这道题目里面学到的东西还是需要记录一下">
+<meta property="og:description" content="前言其实这些内容在官方文档中都有，只是想在博客再记录一下，提高一下自己的熟悉程度">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-20T06:38:08.858Z">
+<meta property="og:image" content="https://s1.ax1x.com/2018/05/31/CIaVcF.png">
+<meta property="og:updated_time" content="2018-06-01T01:12:03.210Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记一道代码审计题目">
-<meta name="twitter:description" content="前言这个题目好像做了两遍了。。。。从这道题目里面学到的东西还是需要记录一下">
+<meta name="twitter:title" content="CTFd平台搭建记录">
+<meta name="twitter:description" content="前言其实这些内容在官方文档中都有，只是想在博客再记录一下，提高一下自己的熟悉程度">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/05/31/CIaVcF.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -58,7 +60,7 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>记一道代码审计题目 | 0verWatch&#39;s Blog</title>
+<title>CTFd平台搭建记录 | 0verWatch&#39;s Blog</title>
 
 <script src="//cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js"></script>
@@ -292,11 +294,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-phpcheck2" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-CTFd-building" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/03/18/phpcheck2/" class="article-date">
-      <time datetime="2018-03-18T02:13:01.000Z" itemprop="datePublished">2018-03-18</time>
+      <a href="/2018/05/31/CTFd-building/" class="article-date">
+      <time datetime="2018-05-31T15:47:23.000Z" itemprop="datePublished">2018-05-31</time>
 </a>
 
 
@@ -311,7 +313,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      记一道代码审计题目
+      CTFd平台搭建记录
     </h1>
   
 
@@ -320,13 +322,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    <a class="article-category-link" href="/categories/环境部署/">环境部署</a><a class="article-category-link" href="/categories/环境部署/Web/">Web</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环境部署/">环境部署</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -337,22 +339,19 @@
       
           
         
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个题目好像做了两遍了。。。。从这道题目里面学到的东西还是需要记录一下</p>
-<a id="more"></a>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$info = <span class="string">""</span>; </span><br><span class="line">$req = [];</span><br><span class="line">$flag=<span class="string">"xxxxxxxxxx"</span>;</span><br><span class="line"></span><br><span class="line">ini_set(<span class="string">"display_error"</span>, <span class="keyword">false</span>); </span><br><span class="line">error_reporting(<span class="number">0</span>); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>($_POST[<span class="string">'number'</span>]))&#123;</span><br><span class="line">   header(<span class="string">"hint:6c525af4059b4fe7d8c33a.txt"</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">die</span>(<span class="string">"have a fun!!"</span>); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>([$_POST] <span class="keyword">as</span> $global_var) &#123; </span><br><span class="line">    <span class="keyword">foreach</span>($global_var <span class="keyword">as</span> $key =&gt; $value) &#123; </span><br><span class="line">        $value = trim($value); </span><br><span class="line">        is_string($value) &amp;&amp; $req[$key] = addslashes($value); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is_palindrome_number</span><span class="params">($number)</span> </span>&#123; </span><br><span class="line">    $number = strval($number); </span><br><span class="line">    $i = <span class="number">0</span>; </span><br><span class="line">    $j = strlen($number) - <span class="number">1</span>; </span><br><span class="line">    <span class="keyword">while</span>($i &lt; $j) &#123; </span><br><span class="line">        <span class="keyword">if</span>($number[$i] !== $number[$j]) &#123; </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>; </span><br><span class="line">        &#125; </span><br><span class="line">        $i++; </span><br><span class="line">        $j--; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(is_numeric($_REQUEST[<span class="string">'number'</span>]))&#123;</span><br><span class="line">    </span><br><span class="line">   $info=<span class="string">"sorry, you cann't input a number!"</span>;</span><br><span class="line"></span><br><span class="line">&#125;<span class="keyword">elseif</span>($req[<span class="string">'number'</span>]!=strval(intval($req[<span class="string">'number'</span>])))&#123;</span><br><span class="line">      </span><br><span class="line">     $info = <span class="string">"number must be equal to it's integer!! "</span>;  </span><br><span class="line"></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line"></span><br><span class="line">     $value1 = intval($req[<span class="string">"number"</span>]);</span><br><span class="line">     $value2 = intval(strrev($req[<span class="string">"number"</span>]));  </span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span>($value1!=$value2)&#123;</span><br><span class="line">          $info=<span class="string">"no, this is not a palindrome number!"</span>;</span><br><span class="line">     &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          </span><br><span class="line">          <span class="keyword">if</span>(is_palindrome_number($req[<span class="string">"number"</span>]))&#123;</span><br><span class="line">              $info = <span class="string">"nice! &#123;$value1&#125; is a palindrome number!"</span>; </span><br><span class="line">          &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">             $info=$flag;</span><br><span class="line">          &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> $info;</span><br></pre></td></tr></table></figure>
-<p>直接来看代码<br>分析过后我们发现这段代码得满足四个条件<br>1.必须是字符串<br>2.参数number与变换为整形再变换为字符串的number相等<br>3.number参数反转后必须相等<br>4.不是水仙花数</p>
-<p>似乎1跟2条件冲突，3跟4条件也冲突，如何构造呢？<br>下面就给出两种办法</p>
-<p>1.<code>number=0e00%00或者0e00%20</code><br>  这里的%00表示空字符串，%20表示是空格，这样一来就满足了上述四个条件<br>  利用%00绕过第一个字符串判断，然后第二个条件都是变为0再比较，下面更是满足3和4的条件</p>
-<p>2.利用函数溢出的方法<br><code>number=2147483647%00</code><br>从这一个题目里面学到一个新点<br>那就是Intval最大的值取决于操作系统。<br>32位系统最大带符号的 integer 范围是 <code>-2147483648</code> 到 <code>2147483647</code>。举例，在这样的系统上，<code>intval(‘1000000000000’)</code> 会返回 <code>2147483647</code>。<br>所以在第三个条件的时候翻转变成7463847412再变成整形也是<code>2147483647</code>，绕过第三个条件，第四个条件也就一起绕过了。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><code>intval()</code>转换的时候，会将从字符串的开始进行转换知道遇到一个非数字的字符。<br>即使出现无法转换的字符串，<code>intval()</code>不会报错而是返回0。</p>
-<p>所以呢现在这个intval函数我觉得的有几个点可以去利用的<br>1.溢出<br>2.16进制通常是配合<code>is_numeric()</code>使用<br>3.科学计数法<br>下面就是一个科学计数法的例子</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump((int)(<span class="string">'1e-1000'</span>)&gt;<span class="number">0</span>);</span><br><span class="line">var_dump(<span class="string">'1e-1000'</span>&gt;<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<p>结果</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bool(<span class="keyword">true</span>)</span><br><span class="line">bool(<span class="keyword">false</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump((int)(<span class="string">'1e-10'</span>)&gt;<span class="number">0</span>);</span><br><span class="line">var_dump(<span class="string">'1e-10'</span>&gt;<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<p>结果</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bool(<span class="keyword">true</span>)</span><br><span class="line">bool(<span class="keyword">true</span>)</span><br></pre></td></tr></table></figure>
-<p>在科学计数法字符串转换为数字时，如果 E 后面的数小于某个值会弄成 double 类型，再强制转换为 int 类型时可能会有奇妙的结果，测试发现某变量为 1e-1000 时已经可以触发这个漏洞绕过两个检查，使得某变量既大于 0 又不大于 0。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其实这些内容在官方文档中都有，只是想在博客再记录一下，提高一下自己的熟悉程度<br><a id="more"></a></p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>CTFd平台是在flask框架下写的，所以得先安装flask</p>
+<h4 id="安装pip"><a href="#安装pip" class="headerlink" title="安装pip"></a>安装pip</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python-pip</span><br></pre></td></tr></table></figure>
+<h4 id="安装Flask"><a href="#安装Flask" class="headerlink" title="安装Flask"></a>安装Flask</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install Flask</span><br></pre></td></tr></table></figure>
+<h4 id="下载-amp-安装-amp-运行CTFd"><a href="#下载-amp-安装-amp-运行CTFd" class="headerlink" title="下载&amp;安装&amp;运行CTFd"></a>下载&amp;安装&amp;运行CTFd</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> CTFd-1.0.5/</span><br><span class="line">sudo ./prepare.sh</span><br></pre></td></tr></table></figure>
+<p>发现<code>Permission denied</code> 那就加权限给他呗</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 prepare.sh</span><br></pre></td></tr></table></figure>
+<p>再运行上面的命令即可</p>
+<p>下面的命令是在本机执行的，如果想要外网访问，我们需要<code>gunicorn</code>这个东西</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo python serve.py</span><br></pre></td></tr></table></figure>
+<h4 id="安装gunicorn并运行CTFd"><a href="#安装gunicorn并运行CTFd" class="headerlink" title="安装gunicorn并运行CTFd"></a>安装<code>gunicorn</code>并运行CTFd</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install gunicorn  </span><br><span class="line">sudo (gunicorn --<span class="built_in">bind</span> 0.0.0.0:8080 -w 1 <span class="string">"CTFd:create_app()"</span> &amp;)</span><br></pre></td></tr></table></figure>
+<p>这里加了()还有&amp;是为了那能够后台运行<br>[0.0.0.0]不用修改<br>这里我映射的是8080端口，所用直接访问公网<code>ip:8080</code>即可访问<br><img src="https://s1.ax1x.com/2018/05/31/CIaVcF.png" alt="CIaVcF.png"></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本来还想在上面搭建一个OWASP的靶场的，后来发现怎么都import不上去那个挑战包，心很累，虽然说官方给出的是用1.0.5的版本，但是试过了还是安装不上。。。。下次直接尝试用Docker安装吧</p>
 
       
     </div>
@@ -361,13 +360,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/03/18/phpcheck2/">记一道代码审计题目</a></p>
+        <p><span>本文标题:</span><a href="/2018/05/31/CTFd-building/">CTFd平台搭建记录</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch&#39;s Blog</a></p>
-        <p><span>发布时间:</span>2018-03-18, 10:13:01</p>
-        <p><span>最后更新:</span>2018-05-20, 14:38:08</p>
+        <p><span>发布时间:</span>2018-05-31, 23:47:23</p>
+        <p><span>最后更新:</span>2018-06-01, 09:12:03</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/03/18/phpcheck2/" title="记一道代码审计题目">0verwatch.top/2018/03/18/phpcheck2/</a>
-            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/03/18/phpcheck2/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/05/31/CTFd-building/" title="CTFd平台搭建记录">0verwatch.top/2018/05/31/CTFd-building/</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/05/31/CTFd-building/　　作者: 0verWatch&#39;s Blog" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -380,15 +379,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/03/18/shiyanba1-wp/">
-                    实验吧 忘记密码了wp
+                <a href="/2018/05/31/Docker-CTFd-building/">
+                    Docker练习及在CTFd平台上放题目
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/03/14/CTF-python/">
-                    小结一波CTF里面可能用到的脚本
+                <a href="/2018/05/27/Docker-learning/">
+                    Docker学习笔记
                 </a>
             </div>
         
@@ -430,7 +429,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装pip"><span class="toc-number">2.0.1.</span> <span class="toc-text">安装pip</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Flask"><span class="toc-number">2.0.2.</span> <span class="toc-text">安装Flask</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载-amp-安装-amp-运行CTFd"><span class="toc-number">2.0.3.</span> <span class="toc-text">下载&amp;安装&amp;运行CTFd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装gunicorn并运行CTFd"><span class="toc-number">2.0.4.</span> <span class="toc-text">安装gunicorn并运行CTFd</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-number">3.</span> <span class="toc-text">结语</span></a></li></ol>
         
     </div>
     <style>
@@ -466,7 +465,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"记一道代码审计题目　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"CTFd平台搭建记录　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -486,7 +485,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/03/18/shiyanba1-wp/" title="上一篇: 实验吧 忘记密码了wp">
+            <a href="/2018/05/31/Docker-CTFd-building/" title="上一篇: Docker练习及在CTFd平台上放题目">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -494,7 +493,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/03/14/CTF-python/" title="下一篇: 小结一波CTF里面可能用到的脚本">
+            <a href="/2018/05/27/Docker-learning/" title="下一篇: Docker学习笔记">
                 <i class="fa fa-angle-right"></i>
             </a>
         
