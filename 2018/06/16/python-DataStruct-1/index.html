@@ -15,32 +15,18 @@
 
 
 
-<meta name="description" content="前言今天下午用虚拟机在Windows装配服务器。。觉得用类似phpstudy的傻瓜包太简单了，但是对比之下，Linux就值得好好记录一番了，本人渣渣，请勿喷。。。">
-<meta name="keywords" content="环境部署,Linux">
+<meta name="description" content="前言复习一下数据结构，感觉生疏了，用python重新写一遍吧 正文单链表的实现这里由于python变量的特殊性，python变量相当于维护的是一个地址，不像其他语言的的变量一样要事先定义自身的类型，这就使得python实现单链表比较方便，自我感觉。。。。比如在C语言里面设定了int类型的变量，你只能够往里面存放整形数据，而且是直接对应的数据，但是python的变量类型直接是一个地址，就例如 a =">
+<meta name="keywords" content="python,编程语言,数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubantu下部署LAMP以及复现一道CTF题目">
-<meta property="og:url" content="0verwatch.top/2018/03/11/Ubantu-Web/index.html">
+<meta property="og:title" content="数据结构复习一 单链表(python实现)">
+<meta property="og:url" content="0verwatch.top/2018/06/16/python-DataStruct-1/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="前言今天下午用虚拟机在Windows装配服务器。。觉得用类似phpstudy的傻瓜包太简单了，但是对比之下，Linux就值得好好记录一番了，本人渣渣，请勿喷。。。">
+<meta property="og:description" content="前言复习一下数据结构，感觉生疏了，用python重新写一遍吧 正文单链表的实现这里由于python变量的特殊性，python变量相当于维护的是一个地址，不像其他语言的的变量一样要事先定义自身的类型，这就使得python实现单链表比较方便，自我感觉。。。。比如在C语言里面设定了int类型的变量，你只能够往里面存放整形数据，而且是直接对应的数据，但是python的变量类型直接是一个地址，就例如 a =">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CgyyWD.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CgyROA.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CgyfeI.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cgyhwt.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CgyIFf.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CgyXmn.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CgyvT0.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cg6pfU.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CggyWT.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CggglF.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cgg2y4.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cggfm9.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CgghwR.png">
-<meta property="og:updated_time" content="2018-05-20T10:50:06.530Z">
+<meta property="og:updated_time" content="2018-06-16T13:22:00.489Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ubantu下部署LAMP以及复现一道CTF题目">
-<meta name="twitter:description" content="前言今天下午用虚拟机在Windows装配服务器。。觉得用类似phpstudy的傻瓜包太简单了，但是对比之下，Linux就值得好好记录一番了，本人渣渣，请勿喷。。。">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/05/20/CgyyWD.png">
+<meta name="twitter:title" content="数据结构复习一 单链表(python实现)">
+<meta name="twitter:description" content="前言复习一下数据结构，感觉生疏了，用python重新写一遍吧 正文单链表的实现这里由于python变量的特殊性，python变量相当于维护的是一个地址，不像其他语言的的变量一样要事先定义自身的类型，这就使得python实现单链表比较方便，自我感觉。。。。比如在C语言里面设定了int类型的变量，你只能够往里面存放整形数据，而且是直接对应的数据，但是python的变量类型直接是一个地址，就例如 a =">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -72,7 +58,7 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Ubantu下部署LAMP以及复现一道CTF题目 | 0verWatch&#39;s Blog</title>
+<title>数据结构复习一 单链表(python实现) | 0verWatch&#39;s Blog</title>
 
 <script src="//cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js"></script>
@@ -306,11 +292,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Ubantu-Web" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-python-DataStruct-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/03/11/Ubantu-Web/" class="article-date">
-      <time datetime="2018-03-11T14:08:15.000Z" itemprop="datePublished">2018-03-11</time>
+      <a href="/2018/06/16/python-DataStruct-1/" class="article-date">
+      <time datetime="2018-06-16T13:20:04.000Z" itemprop="datePublished">2018-06-16</time>
 </a>
 
 
@@ -325,7 +311,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Ubantu下部署LAMP以及复现一道CTF题目
+      数据结构复习一 单链表(python实现)
     </h1>
   
 
@@ -334,13 +320,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+    <a class="article-category-link" href="/categories/编程语言/">编程语言</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环境部署/">环境部署</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -351,38 +337,12 @@
       
           
         
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天下午用虚拟机在Windows装配服务器。。觉得用类似phpstudy的傻瓜包太简单了，但是对比之下，Linux就值得好好记录一番了，本人渣渣，请勿喷。。。</p>
-<a id="more"></a>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>通过这一次部署学会了如何搭建LAMP，还顺便还原一道CTF反序列化题目。。。</p>
-<p>同时感谢大饼的服务器，虽然搞到后面装PHP的时候可能把他服务器有些东西搞坏了，所以我还是用自己的虚拟机模拟一遍吧，毕竟我是个新手，命令行+可视化对于初学者来说组合还是比较不错的</p>
-<p>我用的是虚拟机下Ubuntu14.04搭建LAMP环境搭建 Apache、MySQL、PHP</p>
-<h3 id="安装顺序："><a href="#安装顺序：" class="headerlink" title="安装顺序："></a>安装顺序：</h3><p>一般来说比较建议的顺序是Mysql Apache 最后安装PHP，PHP一定要安装在这两个后面，因为是要依赖Apache和Mysql的服务的。（反正我用快照恢复两三次）</p>
-<p>下面的命令都是在root权限下执行的，对了，我使用的Xshell连接虚拟机的桥接模式下的乌班图，记得转到root权限啊233333</p>
-<h3 id="MysSQL安装："><a href="#MysSQL安装：" class="headerlink" title="MysSQL安装："></a>MysSQL安装：</h3><p>打开命令行输入 ：<code>apt-get install mysql-server</code>  选择y<br>安装的期间会出现输入Mysql的管理员密码的提示，设置一下Mysql的密码即可：<br><img src="https://s1.ax1x.com/2018/05/20/CgyyWD.png" alt="CgyyWD.png"></p>
-<p>装完后输入<code>netstat -tap | grep mysql</code> 显示监听的端口即表示安装成功</p>
-<h3 id="安装Apache"><a href="#安装Apache" class="headerlink" title="安装Apache"></a>安装Apache</h3><p>在命令行输入<code>apt-get install apache2</code> 选择y<br>然后打开乌班图的浏览器输入127.0.0.1出现下面的画面就成功了<br><img src="https://s1.ax1x.com/2018/05/20/CgyROA.png" alt="CgyROA.png"></p>
-<h3 id="安装PHP"><a href="#安装PHP" class="headerlink" title="安装PHP"></a>安装PHP</h3><p>输入apt-get install php5 libapache2-mod-php5<br><img src="https://s1.ax1x.com/2018/05/20/CgyfeI.png" alt="CgyfeI.png"><br>不要怪我安装的版本太低。。。因为靶场有些漏洞需要低配的php</p>
-<p>下一步很重要</p>
-<h3 id="www目录提权"><a href="#www目录提权" class="headerlink" title="www目录提权"></a>www目录提权</h3><p>将www目录更改下所有权以便可以新建文档 输入<code>chmod 777 /var/www</code><br><img src="https://s1.ax1x.com/2018/05/20/Cgyhwt.png" alt="Cgyhwt.png"></p>
-<p>新建一个php文件检验一下啊<br>强大的vim编辑器出来了<br>新建一个文档： <code>vi /var/www/html/phpinfo.php</code></p>
-<p>按下i键编辑文件 输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">   phpinfo();</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>ESC 后输入:wq保存退出。<br>如果还不懂一些常用的vim命令的话，可以看一下我以前写的文章<a href="https://0verwatch.top/2018/02/23/Linuxcaiji/">我以前写的文章</a></p>
-<h3 id="重启下Apache："><a href="#重启下Apache：" class="headerlink" title="重启下Apache："></a>重启下Apache：</h3><p>输入<code>/etc/init.d/apache2 restart</code> </p>
-<p>在乌班图的浏览器中输入 <code>127.0.0.1/phpinfo.php</code>,出现PHP的相关配置信息即表示成功<br><img src="https://s1.ax1x.com/2018/05/20/CgyIFf.png" alt="CgyIFf.png"></p>
-<h3 id="安装相关的PHP与Mysql的扩展包："><a href="#安装相关的PHP与Mysql的扩展包：" class="headerlink" title="安装相关的PHP与Mysql的扩展包："></a>安装相关的PHP与Mysql的扩展包：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install php5-mysql php5-curl php5-gd php5-intl php-pear php5-imagick php5-imap php5-mcrypt php5-memcache php5-ming php5-ps php5-pspell php5-recode php5-snmp php5-sqlite php5-tidy php5-xmlrpc php5-xsl;</span><br></pre></td></tr></table></figure>
-<p>为了方便的管理数据库 ，安装phpmyadmin。<br>命令行输入<code>apt-get install phpmyadmin</code>,中间会出现一次输入管理密码的提示，按照提示输入即可，这里我好像输了3次密码。。。。<br><img src="https://s1.ax1x.com/2018/05/20/CgyXmn.png" alt="CgyXmn.png"></p>
-<p>因为上面这东西默认是安装在/usr/share/下，所以你的phpmyadmin在/usr/share下可以找到<br><img src="https://s1.ax1x.com/2018/05/20/CgyvT0.png" alt="CgyvT0.png"></p>
-<p>网上到了这一步有的人用直接复制。。。可是我尝试不行，只能显示一片空白，我也不能解决，最后只能删掉重来。。。。只能用软连接的方法，就是类似Windows的快捷方式<br><img src="https://s1.ax1x.com/2018/05/20/Cg6pfU.png" alt="Cg6pfU.png"><br>回到<code>/var/www/html</code>，输入命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/share/phpmyadmin phpmyadmin</span><br></pre></td></tr></table></figure>
-<p>打开浏览器，输入127.0.0.1/phpmyadmin，出现了熟悉的界面<br><img src="https://s1.ax1x.com/2018/05/20/CggyWT.png" alt="CggyWT.png"></p>
-<p>到这里环境就应该配好了</p>
-<p>下面我们就用Xftp这款工具把题目源码传上去<br><img src="https://s1.ax1x.com/2018/05/20/CggglF.png" alt="CggglF.png"></p>
-<p>先输入ifconfig查看ip<br><img src="https://s1.ax1x.com/2018/05/20/Cgg2y4.png" alt="Cgg2y4.png"></p>
-<p>让我们见证奇迹，回到自己的本地的浏览器<br>输入那道题目的ip，题目复现了，啊哈哈<br><img src="https://s1.ax1x.com/2018/05/20/Cggfm9.png" alt="Cggfm9.png"><br><img src="https://s1.ax1x.com/2018/05/20/CgghwR.png" alt="CgghwR.png"></p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这样想想我们其实还可以在本地输入服务器ip去检查服务器是否安装好各种环境。。。。。。。。可能这就是只有命令行时候的做法吧？？。。。现在还不清楚，可能过段时间会有更深刻的理解。。</p>
-<p>希望学到的这些，在跟大饼的项目开发过程中能有所用途吧。。。。。。</p>
-<p>参考文章：<br><a href="https://jingyan.baidu.com/article/9113f81b24aa9a2b3214c721.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/9113f81b24aa9a2b3214c721.html</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>复习一下数据结构，感觉生疏了，用python重新写一遍吧</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="单链表的实现"><a href="#单链表的实现" class="headerlink" title="单链表的实现"></a>单链表的实现</h3><p>这里由于python变量的特殊性，python变量相当于维护的是一个地址，不像其他语言的的变量一样要事先定义自身的类型，这就使得python实现单链表比较方便，自我感觉。。。。比如在C语言里面设定了int类型的变量，你只能够往里面存放整形数据，而且是直接对应的数据，但是python的变量类型直接是一个地址，就例如 <code>a = 20</code>, 其实这里的a存放的是20这个数的地址， 通过a就可以找到20这个数字了。。这也解释了为什么Python里面可以这样去把两个数调换，比如<br><a id="more"></a> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a =<span class="number">20</span> </span><br><span class="line">b = <span class="number">30</span> </span><br><span class="line">a, b = b , a</span><br></pre></td></tr></table></figure>
+<p>下面是单链表实现代码(python 3.5)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># Author:0verWatch</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, elem)</span>:</span></span><br><span class="line">        self.elem = elem</span><br><span class="line">        self.next = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SingleLinklist</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, node=None)</span>:</span></span><br><span class="line">        self.__head = node  <span class="comment">#这里用了__来实现一定程度的私有化，因为用户一般不需要知道这个参数的存在</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_empty</span><span class="params">(self)</span>:</span>  <span class="comment">#判断是否为空</span></span><br><span class="line">        <span class="keyword">return</span> (self.__head == <span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">length</span><span class="params">(self)</span>:</span> <span class="comment">#获取长度</span></span><br><span class="line">        cur = self.__head <span class="comment">#设置游标，类似于C里面的指针</span></span><br><span class="line">        count = <span class="number">0</span> <span class="comment">#最好设置为0，不然的话下面的条件可能也看情况变化，个人感觉这样好理解</span></span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">            cur = cur.next</span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">travel</span><span class="params">(self)</span>:</span> <span class="comment">#遍历一遍链表，这个跟获取长度就差不多</span></span><br><span class="line">        cur = self.__head</span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            print(cur.elem,end=<span class="string">" "</span>)</span><br><span class="line">            cur = cur.next</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self,item)</span>:</span> <span class="comment">#头插法</span></span><br><span class="line">        node = Node(item)</span><br><span class="line">        node.next = self.__head</span><br><span class="line">        self.__head = node</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">append</span><span class="params">(self,item)</span>:</span> <span class="comment">#尾插法</span></span><br><span class="line">        node = Node(item)</span><br><span class="line">        <span class="keyword">if</span> self.is_empty():</span><br><span class="line">            self.__head = node</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cur = self.__head</span><br><span class="line">            <span class="keyword">while</span> cur.next <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">                cur = cur.next</span><br><span class="line">            cur.next = node</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, pos, item )</span>:</span> <span class="comment">#在某个位置插入数字</span></span><br><span class="line">        <span class="keyword">if</span> pos &lt; <span class="number">0</span>:</span><br><span class="line">            self.add(item)  <span class="comment"># 位置小于0的时候默认头插法</span></span><br><span class="line">        <span class="keyword">elif</span> pos&gt; self.length()<span class="number">-1</span>:</span><br><span class="line">            self.append(item) <span class="comment"># 位置大于长度，默认尾插法，所以不能使用等于号会误插</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            pre = self.__head</span><br><span class="line">            count = <span class="number">0</span></span><br><span class="line">            node = Node(item)</span><br><span class="line">            <span class="keyword">while</span> count &lt; pos<span class="number">-1</span>:</span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">                pre = pre.next</span><br><span class="line">            node.next = pre.next</span><br><span class="line">            pre.next = node</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span><span class="params">(self, item)</span>:</span> <span class="comment">#默认删除一个找到的节点</span></span><br><span class="line">        cur = self.__head</span><br><span class="line">        pre = <span class="keyword">None</span></span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">if</span> cur.elem == item: <span class="comment">#找到了的话</span></span><br><span class="line">                <span class="comment">#判断是否为头结点</span></span><br><span class="line">                  <span class="keyword">if</span> cur == self.__head:</span><br><span class="line">                      self.__head = cur.next</span><br><span class="line">                  <span class="keyword">else</span>:</span><br><span class="line">                      pre.next = cur.next</span><br><span class="line">                  <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                pre = cur</span><br><span class="line">                cur = cur.next</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self,item)</span>:</span> <span class="comment"># 查找元素</span></span><br><span class="line">        cur = self.__head</span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">if</span> cur.elem == item:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur = cur.next</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># test_1</span></span><br><span class="line">    lst = SingleLinklist()</span><br><span class="line">    print(lst.is_empty())</span><br><span class="line">    print(lst.length())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># test_2</span></span><br><span class="line">    lst.append(<span class="number">2</span>)</span><br><span class="line">    lst.add(<span class="number">3</span>) <span class="comment"># 3 2</span></span><br><span class="line">    lst.insert(<span class="number">1</span>, <span class="number">5</span>)   <span class="comment"># 3  1  5 2</span></span><br><span class="line">    lst.add(<span class="number">4</span>)    <span class="comment"># 4 3  5 2</span></span><br><span class="line">    lst.append(<span class="number">6</span>)  <span class="comment"># 4 3  5 2 6</span></span><br><span class="line">    print(lst.search(<span class="number">5</span>))</span><br><span class="line">    lst.travel()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># test_3 </span></span><br><span class="line">    lst.remove(<span class="number">5</span>)</span><br><span class="line">    lst.remove(<span class="number">4</span>)</span><br><span class="line">    lst.remove(<span class="number">6</span>)</span><br><span class="line">    lst.travel()</span><br></pre></td></tr></table></figure>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>总体感觉在写单链表的时候要注意几个问题，注意要多考虑一下几种典型的情况，比如空链表，只有一个节点的时候，或者是最后一个节点的情况等等。。。第二的话还是要注意一下变量的赋值，这东西很容易写着写着脑子就抽了，然后就会出现溢出的情况额。。。</p>
 
       
     </div>
@@ -391,13 +351,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/03/11/Ubantu-Web/">Ubantu下部署LAMP以及复现一道CTF题目</a></p>
+        <p><span>本文标题:</span><a href="/2018/06/16/python-DataStruct-1/">数据结构复习一 单链表(python实现)</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
-        <p><span>发布时间:</span>2018-03-11, 22:08:15</p>
-        <p><span>最后更新:</span>2018-05-20, 18:50:06</p>
+        <p><span>发布时间:</span>2018-06-16, 21:20:04</p>
+        <p><span>最后更新:</span>2018-06-16, 21:22:00</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/03/11/Ubantu-Web/" title="Ubantu下部署LAMP以及复现一道CTF题目">0verwatch.top/2018/03/11/Ubantu-Web/</a>
-            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/03/11/Ubantu-Web/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/06/16/python-DataStruct-1/" title="数据结构复习一 单链表(python实现)">0verwatch.top/2018/06/16/python-DataStruct-1/</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/06/16/python-DataStruct-1/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -409,16 +369,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/03/14/CTF-python/">
-                    小结一波CTF里面可能用到的脚本
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/03/11/cumt-php-fanxuliehua/">
-                    浅析cumt平台上的一道反序列化题目
+                <a href="/2018/06/08/writing-1/">
+                    两年
                 </a>
             </div>
         
@@ -460,7 +414,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装顺序："><span class="toc-number">2.1.</span> <span class="toc-text">安装顺序：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MysSQL安装："><span class="toc-number">2.2.</span> <span class="toc-text">MysSQL安装：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Apache"><span class="toc-number">2.3.</span> <span class="toc-text">安装Apache</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装PHP"><span class="toc-number">2.4.</span> <span class="toc-text">安装PHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#www目录提权"><span class="toc-number">2.5.</span> <span class="toc-text">www目录提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重启下Apache："><span class="toc-number">2.6.</span> <span class="toc-text">重启下Apache：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装相关的PHP与Mysql的扩展包："><span class="toc-number">2.7.</span> <span class="toc-text">安装相关的PHP与Mysql的扩展包：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#单链表的实现"><span class="toc-number">2.1.</span> <span class="toc-text">单链表的实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol>
         
     </div>
     <style>
@@ -496,7 +450,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Ubantu下部署LAMP以及复现一道CTF题目　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"数据结构复习一 单链表(python实现)　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -516,15 +470,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/03/14/CTF-python/" title="上一篇: 小结一波CTF里面可能用到的脚本">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/03/11/cumt-php-fanxuliehua/" title="下一篇: 浅析cumt平台上的一道反序列化题目">
+            <a href="/2018/06/08/writing-1/" title="下一篇: 两年">
                 <i class="fa fa-angle-right"></i>
             </a>
         
