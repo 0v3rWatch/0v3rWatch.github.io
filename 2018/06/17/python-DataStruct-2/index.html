@@ -15,20 +15,18 @@
 
 
 
-<meta name="description" content="发现自己对Linux命令不太熟悉还是学习一下吧">
-<meta name="keywords" content="Linux,Linux常用命令">
+<meta name="description" content="前言 端午假期差不多结束了，感觉离暑假又靠近了，好像我们学校放假比较晚，还是别想放假的事情了，我还是乖乖去复习我的概率(求二重积分全都忘光了，重新拿起高数奋斗)，微机(实验写汇编对指令不熟)，计网(子网跟超网的题目还不熟练)，双向链表其实就是比单向链表的节点多了一个前驱结点的部分，虽然简单但是还是在编写时出现问题，出现问题就值得去记录">
+<meta name="keywords" content="python,编程语言,数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="熟悉Linux命令~~~">
-<meta property="og:url" content="0verwatch.top/2018/02/23/Linux-learn/index.html">
+<meta property="og:title" content="数据结构复习二 双向链表(python实现)">
+<meta property="og:url" content="0verwatch.top/2018/06/17/python-DataStruct-2/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="发现自己对Linux命令不太熟悉还是学习一下吧">
+<meta property="og:description" content="前言 端午假期差不多结束了，感觉离暑假又靠近了，好像我们学校放假比较晚，还是别想放假的事情了，我还是乖乖去复习我的概率(求二重积分全都忘光了，重新拿起高数奋斗)，微机(实验写汇编对指令不熟)，计网(子网跟超网的题目还不熟练)，双向链表其实就是比单向链表的节点多了一个前驱结点的部分，虽然简单但是还是在编写时出现问题，出现问题就值得去记录">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CgypMd.md.png">
-<meta property="og:updated_time" content="2018-05-20T11:13:07.602Z">
+<meta property="og:updated_time" content="2018-06-17T15:49:45.140Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="熟悉Linux命令~~~">
-<meta name="twitter:description" content="发现自己对Linux命令不太熟悉还是学习一下吧">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/05/20/CgypMd.md.png">
+<meta name="twitter:title" content="数据结构复习二 双向链表(python实现)">
+<meta name="twitter:description" content="前言 端午假期差不多结束了，感觉离暑假又靠近了，好像我们学校放假比较晚，还是别想放假的事情了，我还是乖乖去复习我的概率(求二重积分全都忘光了，重新拿起高数奋斗)，微机(实验写汇编对指令不熟)，计网(子网跟超网的题目还不熟练)，双向链表其实就是比单向链表的节点多了一个前驱结点的部分，虽然简单但是还是在编写时出现问题，出现问题就值得去记录">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -60,7 +58,7 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>熟悉Linux命令~~~ | 0verWatch&#39;s Blog</title>
+<title>数据结构复习二 双向链表(python实现) | 0verWatch&#39;s Blog</title>
 
 <script src="//cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js"></script>
@@ -294,11 +292,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Linux-learn" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-python-DataStruct-2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/02/23/Linux-learn/" class="article-date">
-      <time datetime="2018-02-23T08:41:13.000Z" itemprop="datePublished">2018-02-23</time>
+      <a href="/2018/06/17/python-DataStruct-2/" class="article-date">
+      <time datetime="2018-06-17T15:40:35.000Z" itemprop="datePublished">2018-06-17</time>
 </a>
 
 
@@ -313,7 +311,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      熟悉Linux命令~~~
+      数据结构复习二 双向链表(python实现)
     </h1>
   
 
@@ -322,13 +320,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+    <a class="article-category-link" href="/categories/编程语言/">编程语言</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -339,74 +337,12 @@
       
           
         
-<p>发现自己对Linux命令不太熟悉还是学习一下吧<br><a id="more"></a></p>
-<h1 id="分区：把大硬盘分为小的逻辑分区"><a href="#分区：把大硬盘分为小的逻辑分区" class="headerlink" title="分区：把大硬盘分为小的逻辑分区"></a>分区：把大硬盘分为小的逻辑分区</h1><h2 id="系统分区"><a href="#系统分区" class="headerlink" title="系统分区"></a>系统分区</h2><ol>
-<li>主分区 最多只能有四个</li>
-<li>扩展分区 最多只能有一个，也就是说主分区家扩展分区最多只能有四个，不能写入数据，只能包含逻辑分区</li>
-<li>逻辑分区</li>
-</ol>
-<p>格式化 为了写入文件系统….在linux中任何内容都是文件</p>
-<p>硬件设备文件名 /dev/…    第一个’/‘代表的是根目录，dev目录下保存的都是硬件设备文件名 </p>
-<p>根目录下的bin和sbin，usr目录下的bin和sbin这四个目录都是用来保存系统命令的<br>/etc/ 目录下一般都是配置文件<br>/lib/  目录下一般都是Linux的函数库<br>proc和sys 目录不应该 操作，这两个目录保存的是内存德过载点<br>所以不应该在Linux下任何一个文件夹内乱写东西，可以在家目录root或home，以及temp目录下随便放内容</p>
-<h1 id="挂载：给每个分区分配挂载点–-gt-相当于Windows下的盘符"><a href="#挂载：给每个分区分配挂载点–-gt-相当于Windows下的盘符" class="headerlink" title="挂载：给每个分区分配挂载点–&gt;相当于Windows下的盘符"></a>挂载：给每个分区分配挂载点–&gt;相当于Windows下的盘符</h1><h2 id="必须要有的分区"><a href="#必须要有的分区" class="headerlink" title="必须要有的分区"></a>必须要有的分区</h2><ol>
-<li>‘/‘根分区</li>
-<li>swap分区(交换分区，内存2倍，不超过2GB，类似与虚拟内存，内存不够用，可以用里面的当内存使用)</li>
-<li>推荐分区<br>/boot  (启动分区，200MB)  这个可以不弄，到时有时候误删的时候，会导致启动不了</li>
-</ol>
-<h1 id="安装日志"><a href="#安装日志" class="headerlink" title="安装日志"></a>安装日志</h1><p>/root/install.log 存储了安装在系统中的软件包及版本信息<br>/root/install.log.syslog 存储了安装过程中留下的时间记录<br>/root/anaconda-ks.cfg 以Kickstart配置文件的格式记录安装过程中的选项信息</p>
-<h1 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h1><h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><p><strong>命令 [选项] [参数]</strong></p>
-<h2 id="终端几个符号的认识"><a href="#终端几个符号的认识" class="headerlink" title="终端几个符号的认识"></a>终端几个符号的认识</h2><ol>
-<li>超级用户提示符  <code>#</code></li>
-<li>普通用户提示符  <code>$</code></li>
-</ol>
-<h2 id="目录处理命令"><a href="#目录处理命令" class="headerlink" title="目录处理命令"></a>目录处理命令</h2><h3 id="pwd-显示当前目录"><a href="#pwd-显示当前目录" class="headerlink" title="pwd 显示当前目录"></a><code>pwd</code> 显示当前目录</h3><h3 id="ls-l-可以看见权限"><a href="#ls-l-可以看见权限" class="headerlink" title="ls -l 可以看见权限"></a><code>ls -l</code> 可以看见权限</h3><p>权限一共有十位<br>例如 <code>-rw-r--r--</code><br>-文件类型  （-文件 d目录 I软连接）<br><code>rw-</code>    u所有者<br><code>r--</code>    g所属组<br><code>r--</code>     o其他人<br>r读 w写 x执行</p>
-<h3 id="建立目录"><a href="#建立目录" class="headerlink" title="建立目录"></a>建立目录</h3><p><code>mkdir -p [目录名]</code>     make dictionary<br><code>-p</code> 递归创建<br>如果没有-p只能创建单个目录，要创建一串目录加-p即可</p>
-<h3 id="切换所在目录"><a href="#切换所在目录" class="headerlink" title="切换所在目录"></a>切换所在目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd [目录]</span><br></pre></td></tr></table></figure>
-<p>简化操作<br><code>cd ~</code> 或者 直接一个cd进入当前用户的家目录<br><code>cd -</code> 进入上次目录<br><code>cd ..</code> 进入上级目录<br><code>cd .</code> 进入当前目录<br><code>注意</code>全部命令都有空格   </p>
-<p><code>Ctrl+L</code>  清屏</p>
-<h3 id="删除空目录"><a href="#删除空目录" class="headerlink" title="删除空目录"></a>删除空目录</h3><p><code>rmdir [目录名]</code>    remove empty dictionary<br>极其少用</p>
-<h3 id="删除文件或者目录"><a href="#删除文件或者目录" class="headerlink" title="删除文件或者目录"></a>删除文件或者目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf</span><br></pre></td></tr></table></figure>
-<p>选项 <code>-r</code> 删除目录<br><code>-f</code> 强制</p>
-<h3 id="复制命令"><a href="#复制命令" class="headerlink" title="复制命令"></a>复制命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp [选项] [原文件或目录] [目标目录]</span><br></pre></td></tr></table></figure>
-<p><code>-r</code> 复制目录<br><code>-p</code> 连带文件属性复制<br><code>-a</code> 相当于-pdr</p>
-<h3 id="剪切或者改名命令"><a href="#剪切或者改名命令" class="headerlink" title="剪切或者改名命令"></a>剪切或者改名命令</h3><p><code>mv</code> [原文件或目录] [目标目录]<br>后边两个参数一样就是改名功能</p>
-<h3 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h3><p><code>touch</code> 文件名</p>
-<h3 id="显示文件内容"><a href="#显示文件内容" class="headerlink" title="显示文件内容"></a>显示文件内容</h3><p><code>cat</code> 文件名</p>
-<h3 id="文件搜索命令"><a href="#文件搜索命令" class="headerlink" title="文件搜索命令"></a>文件搜索命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate 文件名</span><br></pre></td></tr></table></figure>
-<p>在后台数据库中按文件名搜索，速度快<br>/var/lib/mlocate locate命令搜索的后台数据库<br><code>updatedb</code> 更新数据库，如果不强制更新的话得等一天你新建的东西才能搜索到</p>
-<h3 id="搜索命令的命令"><a href="#搜索命令的命令" class="headerlink" title="搜索命令的命令"></a>搜索命令的命令</h3><p><code>whereis命令</code>  搜索命令所在路径及帮助文档所在位置<br>选项：  -b 只查找可执行文件 -m 只查找帮助文件</p>
-<p>环境变量路径可以用echo $PATH查出</p>
-<h3 id="find命令"><a href="#find命令" class="headerlink" title="find命令"></a>find命令</h3><p>举几个例子就懂<br><code>find /etc -name init</code>  在etc目录下查找文件名为init</p>
-<p><code>find  /  -size +204800</code>  在根目录下下查找大于100MB的文件</p>
-<p><code>find  / -user sam</code>    在根目录下查找所有者为Sam的文件<br>家有其他一些什么-ctime 属性就不一一记了，我觉得常用的就那几个</p>
-<h3 id="压缩解压命令"><a href="#压缩解压命令" class="headerlink" title="压缩解压命令"></a>压缩解压命令</h3><p>1.压缩成gz文件的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gzip 文件名</span><br></pre></td></tr></table></figure>
-<p>解压gz文件的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gunzip 压缩文件名</span><br></pre></td></tr></table></figure>
-<p>2.压缩成.tar.gz文件<br><code>tar -zcvf  目录</code>        将一个目录打包并压缩<br>解压缩</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf   文件名</span><br></pre></td></tr></table></figure>
-<p>还有其他的压缩命令zip与unzip,自行看看就好，哦对了突然想起来伪加密在Linux下面可以直接打开。。。。。。</p>
-<h3 id="网络通信命令"><a href="#网络通信命令" class="headerlink" title="网络通信命令"></a>网络通信命令</h3><p><code>ping</code>命令，不多说，Windows跟linux都有</p>
-<p>查看网络设置信息<br><code>ifconfig</code>   注意与Windows下面的ipconfig对比</p>
-<h3 id="系统命令"><a href="#系统命令" class="headerlink" title="系统命令"></a>系统命令</h3><p><code>shutdown</code>  关机<br><code>reboot</code>  重启<br>不多说，这些跟Windows下面都是一样的</p>
-<h1 id="Vim文本编辑器"><a href="#Vim文本编辑器" class="headerlink" title="Vim文本编辑器"></a>Vim文本编辑器</h1><p>听说这是一款强大的编辑器？。。。没有菜单只有命令<br><a href="https://imgchr.com/i/CgypMd" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/20/CgypMd.md.png" alt="CgypMd.md.png"></a></p>
-<h2 id="插入命令"><a href="#插入命令" class="headerlink" title="插入命令"></a>插入命令</h2><ol>
-<li><code>a</code> 在光标后面附加文本</li>
-<li><code>i</code>  在光标前插入文本</li>
-<li><code>o</code>  在光标下插入文本</li>
-<li><p><code>O</code>  在光标上插入文本</p>
-</li>
-<li><p>还有就是上下左右键控制也行,<code>$</code>移至行尾,<code>0</code>移至行首</p>
-</li>
-</ol>
-<ol start="6">
-<li><p><code>D</code> 删除光标处所在处到行尾</p>
-</li>
-<li><p><code>yy</code> 复制当前行,<code>dd</code> 剪切当前行,<code>p,P</code>  粘贴,<code>u</code>  取消上一步操作,<code>:wq</code>  保存并退出</p>
-</li>
-</ol>
-<p><code>注意</code>Vim里面的命令都是要在ESC之后才可以使用。。。。。</p>
-<h4 id="最近在家熟悉一下Linux命令。。。。。。还有Vim编辑器，我只是简单了解一下，把我认为要经常用的命令，都总结一下-可能有些零碎，毕竟是边学边记录。。。。"><a href="#最近在家熟悉一下Linux命令。。。。。。还有Vim编辑器，我只是简单了解一下，把我认为要经常用的命令，都总结一下-可能有些零碎，毕竟是边学边记录。。。。" class="headerlink" title="最近在家熟悉一下Linux命令。。。。。。还有Vim编辑器，我只是简单了解一下，把我认为要经常用的命令，都总结一下,可能有些零碎，毕竟是边学边记录。。。。"></a>最近在家熟悉一下Linux命令。。。。。。还有Vim编辑器，我只是简单了解一下，把我认为要经常用的命令，都总结一下,可能有些零碎，毕竟是边学边记录。。。。</h4>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p> 端午假期差不多结束了，感觉离暑假又靠近了，好像我们学校放假比较晚，还是别想放假的事情了，我还是乖乖去复习我的概率(求二重积分全都忘光了，重新拿起高数奋斗)，微机(实验写汇编对指令不熟)，计网(子网跟超网的题目还不熟练)，双向链表其实就是比单向链表的节点多了一个前驱结点的部分，虽然简单但是还是在编写时出现问题，出现问题就值得去记录<br><a id="more"></a></p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>双向链表的实现，这个双向链表比昨天写的多了一点点而而已，头结点的前驱节点默认是<code>None</code>，而且在遍历，搜索以及判空等步骤都是与昨天的写法一样，可以直接尝试<code>import</code>一下昨天的文件，让今天的双向链表继承昨天的单向链表的相同操作<br>(python 3.5实现)</p>
+<p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># Author:0verWatch</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, elem)</span>:</span></span><br><span class="line">        self.elem = elem</span><br><span class="line">        self.next = <span class="keyword">None</span></span><br><span class="line">        self.prev = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DoubleLinkList</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, node=None)</span>:</span> <span class="comment">#这里默认第一个节点的前驱指针指的是None</span></span><br><span class="line">        self.__head = node <span class="comment">#私有化</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_empty</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__head <span class="keyword">is</span> <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">length</span><span class="params">(self)</span>:</span></span><br><span class="line">        cur = self.__head</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">            cur = cur.next</span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">travel</span><span class="params">(self)</span>:</span></span><br><span class="line">        cur = self.__head</span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            print(cur.elem, end=<span class="string">" "</span>)</span><br><span class="line">            cur = cur.next  <span class="comment">#这两句话顺序不能调换</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">##其实上面的都不用改</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        node = Node(item)</span><br><span class="line">        node.next = self.__head</span><br><span class="line">        self.__head = node</span><br><span class="line">        <span class="keyword">if</span> node.next <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            node.next.prev = node</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">append</span><span class="params">(self,item)</span>:</span></span><br><span class="line">        node = Node(item)</span><br><span class="line">        <span class="keyword">if</span> self.is_empty():</span><br><span class="line">            self.__head = node</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cur = self.__head</span><br><span class="line">            <span class="keyword">while</span> cur.next <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">               cur = cur.next</span><br><span class="line">            node.next = cur.next</span><br><span class="line">            node.prev = cur</span><br><span class="line">            cur.next = node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, pos, item)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> pos &lt; <span class="number">0</span>:</span><br><span class="line">             self.add(item)</span><br><span class="line">        <span class="keyword">elif</span> pos &gt; self.length()<span class="number">-1</span>:</span><br><span class="line">            self.append(item)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            count = <span class="number">0</span></span><br><span class="line">            cur = self.__head</span><br><span class="line">            node = Node(item)</span><br><span class="line">            <span class="keyword">while</span> count &lt; pos:</span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">                cur = cur.next</span><br><span class="line">            node.next = cur</span><br><span class="line">            node.prev = cur.prev</span><br><span class="line">            cur.prev.next = node</span><br><span class="line">            cur.prev = node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        cur = self.__head</span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">if</span> cur.elem == item:</span><br><span class="line">                <span class="keyword">if</span> cur == self.__head:</span><br><span class="line">                    <span class="comment"># 判断链表是否只有一个节点,不是的话就执行这一条件语句</span></span><br><span class="line">                    self.__head = <span class="keyword">None</span></span><br><span class="line">                    <span class="keyword">if</span> cur.next:</span><br><span class="line">                        self.__head = cur.next</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    cur.prev.next = cur.next</span><br><span class="line">                    <span class="keyword">if</span> cur.next:</span><br><span class="line">                        cur.next.prev = cur.prev</span><br><span class="line">                <span class="keyword">break</span>   <span class="comment">#注意下这里的break，不要忘了</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur = cur.next</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        cur = self.__head</span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">if</span> cur.elem == item:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur = cur.next</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># test_1</span></span><br><span class="line">    lst = DoubleLinkList()</span><br><span class="line">    print(lst.is_empty())</span><br><span class="line">    print(lst.length())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># test_2</span></span><br><span class="line">    lst.append(<span class="number">2</span>)</span><br><span class="line">    print(lst.is_empty())</span><br><span class="line">    lst.add(<span class="number">3</span>) <span class="comment"># 3 2</span></span><br><span class="line">    lst.insert(<span class="number">1</span>, <span class="number">5</span>)   <span class="comment"># 3  1  5 2</span></span><br><span class="line">    lst.add(<span class="number">4</span>)    <span class="comment"># 4 3  5 2</span></span><br><span class="line">    lst.append(<span class="number">6</span>)  <span class="comment"># 4 3  5 2 6</span></span><br><span class="line">    print(lst.search(<span class="number">5</span>))</span><br><span class="line">    lst.travel()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># test_3</span></span><br><span class="line">    lst.remove(<span class="number">5</span>)</span><br><span class="line">    lst.remove(<span class="number">4</span>)</span><br><span class="line">    lst.remove(<span class="number">6</span>)</span><br><span class="line">    lst.travel()</span><br></pre></td></tr></table></figure>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这里我记录一下我出现的几个问题<br>第一，各节点的链接操作一定要注意顺序，比如在遍历的时候进入循环后是先进行输出操作，再把指针移到下一位等等<br>第二，每一种操作都要注意考虑单个节点，是否为头结点，尾节点的问题，然后去给出一定的条件去控制，不然很容易出错，在写<code>remove操作</code>的时候我就在考虑完头结点之后就没有考虑是否为单个节点的情况，导致程序出错，<br>第三，注意<code>remove操作</code>的<code>break</code>，这一点我还是用<code>debugger功能</code>一直<code>F7 F8 F9</code>找出来的。。。就发现一直在那个函数里面不出来，一直循环才惊醒要加break，23333<br>早早睡觉，明天早起复习概率论!!!!!!</p>
+
       
     </div>
     
@@ -414,13 +350,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/02/23/Linux-learn/">熟悉Linux命令~~~</a></p>
+        <p><span>本文标题:</span><a href="/2018/06/17/python-DataStruct-2/">数据结构复习二 双向链表(python实现)</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
-        <p><span>发布时间:</span>2018-02-23, 16:41:13</p>
-        <p><span>最后更新:</span>2018-05-20, 19:13:07</p>
+        <p><span>发布时间:</span>2018-06-17, 23:40:35</p>
+        <p><span>最后更新:</span>2018-06-17, 23:49:45</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/02/23/Linux-learn/" title="熟悉Linux命令~~~">0verwatch.top/2018/02/23/Linux-learn/</a>
-            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/02/23/Linux-learn/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/06/17/python-DataStruct-2/" title="数据结构复习二 双向链表(python实现)">0verwatch.top/2018/06/17/python-DataStruct-2/</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/06/17/python-DataStruct-2/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -432,16 +368,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/02/24/CRC32-Brute/">
-                    CRC32爆破小结
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/02/17/bugku-php-check/">
-                    bugku 代码审计 write up
+                <a href="/2018/06/16/python-DataStruct-1/">
+                    数据结构复习一 单链表(python实现)
                 </a>
             </div>
         
@@ -483,7 +413,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#分区：把大硬盘分为小的逻辑分区"><span class="toc-number">1.</span> <span class="toc-text">分区：把大硬盘分为小的逻辑分区</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统分区"><span class="toc-number">1.1.</span> <span class="toc-text">系统分区</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#挂载：给每个分区分配挂载点–-gt-相当于Windows下的盘符"><span class="toc-number">2.</span> <span class="toc-text">挂载：给每个分区分配挂载点–&gt;相当于Windows下的盘符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#必须要有的分区"><span class="toc-number">2.1.</span> <span class="toc-text">必须要有的分区</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装日志"><span class="toc-number">3.</span> <span class="toc-text">安装日志</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux常用命令"><span class="toc-number">4.</span> <span class="toc-text">Linux常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#格式"><span class="toc-number">4.1.</span> <span class="toc-text">格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#终端几个符号的认识"><span class="toc-number">4.2.</span> <span class="toc-text">终端几个符号的认识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目录处理命令"><span class="toc-number">4.3.</span> <span class="toc-text">目录处理命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pwd-显示当前目录"><span class="toc-number">4.3.1.</span> <span class="toc-text">pwd 显示当前目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ls-l-可以看见权限"><span class="toc-number">4.3.2.</span> <span class="toc-text">ls -l 可以看见权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建立目录"><span class="toc-number">4.3.3.</span> <span class="toc-text">建立目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#切换所在目录"><span class="toc-number">4.3.4.</span> <span class="toc-text">切换所在目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除空目录"><span class="toc-number">4.3.5.</span> <span class="toc-text">删除空目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除文件或者目录"><span class="toc-number">4.3.6.</span> <span class="toc-text">删除文件或者目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复制命令"><span class="toc-number">4.3.7.</span> <span class="toc-text">复制命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#剪切或者改名命令"><span class="toc-number">4.3.8.</span> <span class="toc-text">剪切或者改名命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件"><span class="toc-number">4.3.9.</span> <span class="toc-text">创建文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#显示文件内容"><span class="toc-number">4.3.10.</span> <span class="toc-text">显示文件内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件搜索命令"><span class="toc-number">4.3.11.</span> <span class="toc-text">文件搜索命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搜索命令的命令"><span class="toc-number">4.3.12.</span> <span class="toc-text">搜索命令的命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#find命令"><span class="toc-number">4.3.13.</span> <span class="toc-text">find命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#压缩解压命令"><span class="toc-number">4.3.14.</span> <span class="toc-text">压缩解压命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络通信命令"><span class="toc-number">4.3.15.</span> <span class="toc-text">网络通信命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统命令"><span class="toc-number">4.3.16.</span> <span class="toc-text">系统命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Vim文本编辑器"><span class="toc-number">5.</span> <span class="toc-text">Vim文本编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#插入命令"><span class="toc-number">5.1.</span> <span class="toc-text">插入命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最近在家熟悉一下Linux命令。。。。。。还有Vim编辑器，我只是简单了解一下，把我认为要经常用的命令，都总结一下-可能有些零碎，毕竟是边学边记录。。。。"><span class="toc-number">5.1.0.1.</span> <span class="toc-text">最近在家熟悉一下Linux命令。。。。。。还有Vim编辑器，我只是简单了解一下，把我认为要经常用的命令，都总结一下,可能有些零碎，毕竟是边学边记录。。。。</span></a></li></ol></li></ol></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol>
         
     </div>
     <style>
@@ -519,7 +449,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"熟悉Linux命令~~~　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"数据结构复习二 双向链表(python实现)　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -539,15 +469,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/02/24/CRC32-Brute/" title="上一篇: CRC32爆破小结">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/02/17/bugku-php-check/" title="下一篇: bugku 代码审计 write up">
+            <a href="/2018/06/16/python-DataStruct-1/" title="下一篇: 数据结构复习一 单链表(python实现)">
                 <i class="fa fa-angle-right"></i>
             </a>
         
