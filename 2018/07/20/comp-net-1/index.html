@@ -54,7 +54,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3Ip0f.md.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3I978.md.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3Iitg.md.png">
-<meta property="og:updated_time" content="2018-07-20T06:08:40.409Z">
+<meta property="og:updated_time" content="2018-07-20T06:15:31.060Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计网实验笔记(一)">
 <meta name="twitter:description" content="前言总算有时间把计网实验的学习过程记录一下了。也当做是一个复习的过程，过程太长，分两篇博客写吧。">
@@ -400,7 +400,7 @@
 <p><strong>分析QQ的报文：</strong><br><a href="https://imgchr.com/i/P34ZCj" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P34ZCj.md.png" alt="P34ZCj.md.png"></a><br>对于QQ的包可以得出来应用层是使用了OICQ的协议，里面包含了QQ号的信息以及加密过了的数据，使用的是UDP的传输协议，源端口是8000，目的端口是4026<br>对于网络层以及数据链路层是一样的分析过程，源IP是140.207.62.150，目的IP是192.168.1.101，传输层使用的是UDP，TTL是55<br><a href="https://imgchr.com/i/P34m2n" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P34m2n.md.png" alt="P34m2n.md.png"></a></p>
 <p><strong>对邮件包分析：</strong><br><a href="https://imgchr.com/i/P34nvq" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P34nvq.md.png" alt="P34nvq.md.png"></a><br>可以看得出来邮件传送有一个建立连接的过程，从哪里发的并且在哪里接收都有对应的邮箱，建立连接的密码用base64加密过了，看下层运输层是使用TCP建立连接的，目的端口是17379，源端口号25，窗口值138，序号是454，IP版本是IPv4，源IP是192.168.1.101，  目的IP是123.125.50.138</p>
 <h3 id="实验内容第三点"><a href="#实验内容第三点" class="headerlink" title="实验内容第三点"></a>实验内容第三点</h3><p>访问网站<a href="http://www.souci.li,过滤http然后追踪tcp流就可以看见http协议工作的大概过程(在这之前应该还得通过DNS去解析域名，你会发现这个包过滤DNS会发现把域名转换成IP的过程)，然后就是封装http请求数据包，封装成tcp包，建立tcp连接（三报文握手在HTTP工作开始" target="_blank" rel="noopener">www.souci.li,过滤http然后追踪tcp流就可以看见http协议工作的大概过程(在这之前应该还得通过DNS去解析域名，你会发现这个包过滤DNS会发现把域名转换成IP的过程)，然后就是封装http请求数据包，封装成tcp包，建立tcp连接（三报文握手在HTTP工作开始</a> 之前，客户机（Web浏览器）首先要通过网络与服务器建立连接，该连接是通过TCP来完成的，客户端发送请求，服务器响应，服务器关闭tcp连接<br><a href="https://imgchr.com/i/P35j1A" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P35j1A.md.png" alt="P35j1A.md.png"></a><br><a href="https://imgchr.com/i/P35v6I" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P35v6I.md.png" alt="P35v6I.md.png"></a><br>分析三报文握手的过程：<br><strong>第一次报文握手</strong><br><a href="https://imgchr.com/i/P3Ip0f" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3Ip0f.md.png" alt="P3Ip0f.md.png"></a><br>客户端发送一个TCP，标志位为SYN，序列号为0， 代表客户端请求建立连接</p>
-<p><strong>第二次握手的数据包</strong><br>(<a href="https://imgchr.com/i/P3I978" target="_blank" rel="noopener">https://imgchr.com/i/P3I978</a>)<br>服务器发回确认包, 标志位为 SYN,ACK. 将确认序号(Acknowledgement Number)设置为客户的I S N加1,即0+1=1, 如下图<br><a href="https://imgchr.com/i/P3I978" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3I978.md.png" alt="P3I978.md.png"></a></p>
+<p><strong>第二次握手的数据包</strong><br>服务器发回确认包, 标志位为 SYN,ACK. 将确认序号(Acknowledgement Number)设置为客户的I S N加1,即0+1=1, 如下图<br><a href="https://imgchr.com/i/P3I978" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3I978.md.png" alt="P3I978.md.png"></a></p>
 <p><strong>第三次握手的数据包</strong><br>客户端再次发送确认包(ACK) SYN标志位为0,ACK标志位为1.并且把服务器发来ACK 的序号字段+1,放在确定字段中发送给对方,如下图:<br><a href="https://imgchr.com/i/P3Iitg" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3Iitg.md.png" alt="P3Iitg.md.png"></a><br>就这样通过了TCP三报文握手，建立了连接</p>
 <p>小小回顾，感觉废话太多，emmm。。。</p>
 
@@ -414,7 +414,7 @@
         <p><span>本文标题:</span><a href="/2018/07/20/comp-net-1/">计网实验笔记(一)</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
         <p><span>发布时间:</span>2018-07-20, 14:05:22</p>
-        <p><span>最后更新:</span>2018-07-20, 14:08:40</p>
+        <p><span>最后更新:</span>2018-07-20, 14:15:31</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/07/20/comp-net-1/" title="计网实验笔记(一)">0verwatch.top/2018/07/20/comp-net-1/</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/07/20/comp-net-1/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
