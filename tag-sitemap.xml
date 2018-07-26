@@ -100,14 +100,14 @@
     </url>
 
     <url>
-        <loc>0verwatch.top/tags/Docker/</loc>
+        <loc>0verwatch.top/tags/%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</loc>
         <lastmod>2018-06-03T08:57:06.379Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>0verwatch.top/tags/%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</loc>
+        <loc>0verwatch.top/tags/Docker/</loc>
         <lastmod>2018-06-03T08:57:06.379Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -200,6 +200,13 @@
     <url>
         <loc>0verwatch.top/tags/%E7%BD%91%E7%AB%99%E6%B8%97%E9%80%8F/</loc>
         <lastmod>2018-07-25T13:55:55.261Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>0verwatch.top/tags/Mysql%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/</loc>
+        <lastmod>2018-07-26T12:37:15.855Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

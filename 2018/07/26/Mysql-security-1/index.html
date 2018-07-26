@@ -15,23 +15,20 @@
 
 
 
-<meta name="description" content="奇怪的恐龙特性这是一道代码审计的题目，又发现了一个我以前没见过的知识点，可以详细看看这个链接https://wooyun.shuimugan.com/bug/view?bug_no=64792">
-<meta name="keywords" content="CTF,Web">
+<meta name="description" content="mysql中存在4个控制权限的表，分别为">
+<meta name="keywords" content="Mysql安全配置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安恒5月赛web题目做题记录">
-<meta property="og:url" content="0verwatch.top/2018/05/24/anheng-5month/index.html">
+<meta property="og:title" content="Mysql安全配置">
+<meta property="og:url" content="0verwatch.top/2018/07/26/Mysql-security-1/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="奇怪的恐龙特性这是一道代码审计的题目，又发现了一个我以前没见过的知识点，可以详细看看这个链接https://wooyun.shuimugan.com/bug/view?bug_no=64792">
+<meta property="og:description" content="mysql中存在4个控制权限的表，分别为">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/24/CWrqSS.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/24/CWrXLj.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/24/CWrves.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/24/CWrzoq.png">
-<meta property="og:updated_time" content="2018-06-23T13:33:00.149Z">
+<meta property="og:image" content="https://s1.ax1x.com/2018/07/26/PNNSfK.md.png">
+<meta property="og:updated_time" content="2018-07-26T12:37:15.855Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安恒5月赛web题目做题记录">
-<meta name="twitter:description" content="奇怪的恐龙特性这是一道代码审计的题目，又发现了一个我以前没见过的知识点，可以详细看看这个链接https://wooyun.shuimugan.com/bug/view?bug_no=64792">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/05/24/CWrqSS.png">
+<meta name="twitter:title" content="Mysql安全配置">
+<meta name="twitter:description" content="mysql中存在4个控制权限的表，分别为">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/07/26/PNNSfK.md.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -63,7 +60,7 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>安恒5月赛web题目做题记录 | 0verWatch&#39;s Blog</title>
+<title>Mysql安全配置 | 0verWatch&#39;s Blog</title>
 
 <script src="//cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js"></script>
@@ -299,11 +296,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-anheng-5month" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Mysql-security-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/05/24/anheng-5month/" class="article-date">
-      <time datetime="2018-05-24T12:47:47.000Z" itemprop="datePublished">2018-05-24</time>
+      <a href="/2018/07/26/Mysql-security-1/" class="article-date">
+      <time datetime="2018-07-26T12:35:31.000Z" itemprop="datePublished">2018-07-26</time>
 </a>
 
 
@@ -318,7 +315,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      安恒5月赛web题目做题记录
+      Mysql安全配置
     </h1>
   
 
@@ -327,13 +324,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    <a class="article-category-link" href="/categories/Mysql安全配置/">Mysql安全配置</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -344,17 +341,40 @@
       
           
         
-<h2 id="奇怪的恐龙特性"><a href="#奇怪的恐龙特性" class="headerlink" title="奇怪的恐龙特性"></a>奇怪的恐龙特性</h2><p>这是一道代码审计的题目，又发现了一个我以前没见过的知识点，可以详细看看这个链接<br><a href="https://wooyun.shuimugan.com/bug/view?bug_no=64792" target="_blank" rel="noopener">https://wooyun.shuimugan.com/bug/view?bug_no=64792</a><br><a id="more"></a><br><img src="https://s1.ax1x.com/2018/05/24/CWrqSS.png" alt="CWrqSS.png"><br>从上面可以看出，简单点解释就是当代码中存在<code>$_REQUEST[&#39;user_id&#39;]</code>里面类似的参数的时候，我们在url上可以这样<code>a.php?user.id</code>传参去进行绕过,这样进去之后也能表示<code>$_REQUEST[&#39;user_id&#39;]</code>的值，同样可以绕过的符号还有<code>+，[</code> 等，应该说是php的一个小特性，上面讲的很清楚了，</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">highlight_file(<span class="keyword">__FILE__</span>); </span><br><span class="line">ini_set(<span class="string">"display_error"</span>, <span class="keyword">false</span>);  </span><br><span class="line">error_reporting(<span class="number">0</span>);  </span><br><span class="line">$str = <span class="keyword">isset</span>($_GET[<span class="string">'A_A'</span>])?$_GET[<span class="string">'A_A'</span>]:<span class="string">'A_A'</span>; </span><br><span class="line"><span class="keyword">if</span> (strpos($_SERVER[<span class="string">'QUERY_STRING'</span>], <span class="string">"A_A"</span>) !==<span class="keyword">false</span>) &#123; </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'A_A,have fun'</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">elseif</span> ($str&lt;<span class="number">9999999999</span>) &#123; </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'A_A,too small'</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">elseif</span> ((string)$str&gt;<span class="number">0</span>) &#123; </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'A_A,too big'</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span>&#123; </span><br><span class="line">    <span class="keyword">echo</span> file_get_contents(<span class="string">'flag.php'</span>); </span><br><span class="line">     </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>阅读代码发现，首先第一步要绕过A_A这个符号，如果出现这个符号他就会显示<code>A_A,have fun</code>，就不能继续往下面执行到<code>file_get_contents(&#39;flag.php&#39;)</code>了，但是我们发送get参数的时候又必须要发送，因此我们就用到刚才的知识点，我们可以用<code>A.A</code>或者是<code>A+A</code>去传参去绕过。<br>下面的代码就是常规的数字绕过了，但这里也用到了一个trick，就是无论你的数字多大，对于数组而言总是比数组小，下面是操作<br><img src="https://s1.ax1x.com/2018/05/24/CWrXLj.png" alt="CWrXLj.png"><br>所以说，我们可以利用数组去绕过<code>$str&lt;9999999999</code>的特性，下面一个判断是强制转化为字符串在与数字比较的判断，这就是平常操作很多的弱类型了，直接让参数等于admin就可以了，因为<code>“admin”== 0</code> ，结果是true，直接等于0绕过即可，所以这题的payload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://101.71.29.5:10007/?A+A[]=admin</span><br></pre></td></tr></table></figure>
-<h2 id="不能注册的admin"><a href="#不能注册的admin" class="headerlink" title="不能注册的admin"></a>不能注册的admin</h2><p>这一个题目利用了Windows不区分大小写特性的特点<br>右键发现发现有一段代码很可疑</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">id = $(<span class="string">"#uid"</span>).val();</span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$(<span class="string">"#uid"</span>).blur(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(id !== <span class="string">""</span>|| !id)&#123;</span><br><span class="line">			$.ajax(&#123;</span><br><span class="line">			url:<span class="string">"json.php"</span>,<span class="attr">type</span>:<span class="string">'post'</span>,<span class="attr">data</span>:&#123;<span class="string">'id'</span>:id&#125;,<span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">					<span class="keyword">var</span> data = <span class="built_in">eval</span>(<span class="string">'('</span> +d +<span class="string">')'</span>);</span><br><span class="line">					<span class="keyword">if</span>(data[<span class="string">'id'</span>] !=<span class="string">'undefined'</span> ||data[<span class="string">'id'</span>] !=<span class="string">""</span> ||data[<span class="string">'id'</span>]!=<span class="literal">null</span>)&#123;</span><br><span class="line">						alert(<span class="string">'用户名已存在!'</span>);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>仔细查看代码发现存在<code>json.php</code>还有post一个id参数，到后面看了解题的视频发现其实这里还能用get方式传参，我们就进去json.php页面查看一下，竟然题目说了要admin就传一个admin进去，发现有回显<code>{&#39;id&#39;:&#39;1&#39;,&#39;title&#39;:&#39;admin&#39;}</code>，尝试一下是否存在sql注入漏洞，在尝试双引号的时候发现有报错信息，然后详细一点测试<code>json.php?id=admin&quot; or 1=1%23</code>,发现有检测，这就很尬，后来还是看了视频才知道是从头部信息哪里发现的服务器是<code>Windows</code>的，这样就可以用Windows的大小写特性去绕过，就可以尝试一下<code>json.phP?id=admin&quot; or 1=1%23</code>，重新回显<code>{&#39;id&#39;:&#39;1&#39;,&#39;title&#39;:&#39;admin&#39;}</code>，这就可以慢慢注入了啊，接下来就是sqlmap一把过就行。。。。说实话我是真想不到，还是要虚心学习啊</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u &quot;http://101.71.29.5:10006/json.Php?id=admin&quot;  --threads 10 -D 5monthweb -T article -C content --dump</span><br></pre></td></tr></table></figure>
-<p>最后得到结果<br><img src="https://s1.ax1x.com/2018/05/24/CWrves.png" alt="CWrves.png"></p>
-<h2 id="一个hackerone的有趣的漏洞的复现的题目"><a href="#一个hackerone的有趣的漏洞的复现的题目" class="headerlink" title="一个hackerone的有趣的漏洞的复现的题目"></a>一个hackerone的有趣的漏洞的复现的题目</h2><p>这题考了.git源码泄露，把源码拿下来以后打算第二天做。。。这个题目第二天做的时候因为平台维护不能复现了，下次还是早点做吧。。还得继续努力。。。。。</p>
-<p><img src="https://s1.ax1x.com/2018/05/24/CWrzoq.png" alt="CWrzoq.png"></p>
+<p>mysql中存在4个控制权限的表，分别为<a id="more"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. mysql.USER表</span><br><span class="line">2. mysql.DB表</span><br><span class="line">3. mysql.TABLES_PRIV表</span><br><span class="line">4. mysql.COLUMNS_PRIV表</span><br></pre></td></tr></table></figure>
+<p>要注意的是，Mysql中有一个数据库”<code>information_schema</code>“，似乎里面保存的也是一些权限信息，但是要明白的是，这个数据库”<code>information_schema</code>“是为系统管理员提供元数据的一个简便方式，它实际上是一个视图，可以理解为对Mysql中的一个信息的封装，对于Mysql主程序来说，身份认证和授权的信息的来源只有一个，就是”<code>mysql</code>“。</p>
+<p>在我们进行数据库连接、登录的时候，mysql权限表的验证过程为：</p>
+<ol>
+<li>先从user表中的:</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1) Host</span><br><span class="line">2) User</span><br><span class="line">3) Password</span><br></pre></td></tr></table></figure>
+<p>这3个字段中判断连接的ip、用户名、密码是否存在，存在则通过验证。</p>
+<ol start="2">
+<li>通过身份认证后，进行权限分配，按照下面的顺序进行验证。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1) user</span><br><span class="line">2) db</span><br><span class="line">3) tables_priv</span><br><span class="line">4) columns_priv</span><br></pre></td></tr></table></figure>
+<p>即先检查全局权限表user，如果user中对应的权限为Y，则此用户对所有数据库的权限都为Y，将<code>不再</code>检查<code>db，tables_priv,columns_priv</code><br>如果全局权限表<code>user</code>对应的权限为<code>N</code>，则到db表中检查此用户对应的具体数据库，并得到db中为Y的权限<br>如果db中为N，则检查<code>tables_priv</code>中此数据库对应的具体表，取得表中的权限Y，以此类推。逐级下降</p>
+<p>用自己的话讲就是因为查找他们权限是否配置好根据情况查看<code>mysql</code>这个数据库中的<code>user，db，tables_priv，columns_pri</code>，一旦在某个级别设置好了权限就不需要网下一级去看他是否存在权限了，因为下面一级的表都不会显示，这是为了防止数据库数据冗余。就是例如你设置的是所有数据库及表的权限的话，到时候就直接<code>select * from user;</code>就可以查看对应的程序啦<br><a href="https://imgchr.com/i/PNNSfK" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/26/PNNSfK.md.png" alt="PNNSfK.md.png"></a></p>
+<p>对于Mysql中的账户权限相关的安全配置，总结如下：</p>
+<ol>
+<li>针对每个网站建立一个单独的账户</li>
+<li>为每个网站单独建立一个专属数据库(虽然DEDE、DZ普通采用表前缀的方法来实现”一库多站”，但好的做法还是”一库一站”)</li>
+<li>按照<code>user-&gt;db-&gt;tables_priv-&gt;columns_pri</code>的顺序进行细粒度的权限控制</li>
+<li>为每个用户单独配置一个专属数据库，保证当前用户的所有操作只能发生在它自己的数据库中，防止SQL注入发生后，黑客通过注入点访问到系统表</li>
+</ol>
+<p>账户权限安全配置需要的常用命令<br>1)新建一个用户并给予相应数据库的权限</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grant select,insert,update,delete,create,drop privileges on 数据库名字.表名 to user@localhost identified by 'passwd';    //如果是*号就是代表全部*.*代表所有数据库下的全部表名</span><br><span class="line"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> database.* <span class="keyword">to</span> <span class="keyword">user</span>@localhost <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'passwd'</span>;</span><br></pre></td></tr></table></figure>
+<p>2) 刷新权限</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span><br></pre></td></tr></table></figure>
+<p>3)显示授权</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">grants</span>;  //这句话只显示当前登录用户的权限</span><br></pre></td></tr></table></figure>
+<p>4) 移除授权</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">revoke</span> <span class="keyword">delete</span> <span class="keyword">on</span> *.* <span class="keyword">from</span> <span class="string">'user'</span>@<span class="string">'localhost'</span>;</span><br></pre></td></tr></table></figure>
+<p>5) 删除用户<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> <span class="string">'user'</span>@<span class="string">'localhost'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>6) 给用户改名<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rename</span> <span class="keyword">user</span> <span class="string">'jack'</span>@<span class="string">'%'</span> <span class="keyword">to</span> <span class="string">'jim'</span>@<span class="string">'%'</span>;``</span><br></pre></td></tr></table></figure></p>
+<p>7) 给用户改密码</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> <span class="keyword">FOR</span> <span class="string">'root'</span>@<span class="string">'localhost'</span> = <span class="keyword">PASSWORD</span>(<span class="string">'123456'</span>);</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -363,13 +383,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/05/24/anheng-5month/">安恒5月赛web题目做题记录</a></p>
+        <p><span>本文标题:</span><a href="/2018/07/26/Mysql-security-1/">Mysql安全配置</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
-        <p><span>发布时间:</span>2018-05-24, 20:47:47</p>
-        <p><span>最后更新:</span>2018-06-23, 21:33:00</p>
+        <p><span>发布时间:</span>2018-07-26, 20:35:31</p>
+        <p><span>最后更新:</span>2018-07-26, 20:37:15</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/05/24/anheng-5month/" title="安恒5月赛web题目做题记录">0verwatch.top/2018/05/24/anheng-5month/</a>
-            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/05/24/anheng-5month/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/07/26/Mysql-security-1/" title="Mysql安全配置">0verwatch.top/2018/07/26/Mysql-security-1/</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/07/26/Mysql-security-1/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -381,16 +401,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/05/25/ISCC-2018-wp/">
-                    ISCC 2018做题记录
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/05/21/cumt-2018-final/">
-                    cumt2018校赛部分write up
+                <a href="/2018/07/25/pentest-1/">
+                    记录一次模拟渗透
                 </a>
             </div>
         
@@ -432,7 +446,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#奇怪的恐龙特性"><span class="toc-number">1.</span> <span class="toc-text">奇怪的恐龙特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不能注册的admin"><span class="toc-number">2.</span> <span class="toc-text">不能注册的admin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一个hackerone的有趣的漏洞的复现的题目"><span class="toc-number">3.</span> <span class="toc-text">一个hackerone的有趣的漏洞的复现的题目</span></a></li></ol>
+            
         
     </div>
     <style>
@@ -468,7 +482,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"安恒5月赛web题目做题记录　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Mysql安全配置　| 0verWatch's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -488,15 +502,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/05/25/ISCC-2018-wp/" title="上一篇: ISCC 2018做题记录">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/05/21/cumt-2018-final/" title="下一篇: cumt2018校赛部分write up">
+            <a href="/2018/07/25/pentest-1/" title="下一篇: 记录一次模拟渗透">
                 <i class="fa fa-angle-right"></i>
             </a>
         
