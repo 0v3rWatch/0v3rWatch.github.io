@@ -15,13 +15,13 @@
 
 
 
-<meta name="description" content="前言Linux下iptables的设置，设置了它就能够有效地过滤掉相关的数据包从而阻挡相关攻击，感觉这个东西跟安全有很大用处，比如在我们学习的计算机网络知识里面，网络拓扑十分瓜皮，">
+<meta name="description" content="前言Linux下iptables的设置，设置了它就能够有效地过滤掉相关的数据包从而阻挡相关攻击，感觉这个东西跟安全有很大用处，比如在我们学习的计算机网络知识里面，网络拓扑十分瓜皮，路由器没有过滤数据包的功能，直接就实现路由转发的过程，这样就会对一个LAN造成很大的安全隐患，">
 <meta name="keywords" content="Linux安全,服务器运维">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux防火墙学习">
 <meta property="og:url" content="0verwatch.top/2018/07/29/Linux-FW/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="前言Linux下iptables的设置，设置了它就能够有效地过滤掉相关的数据包从而阻挡相关攻击，感觉这个东西跟安全有很大用处，比如在我们学习的计算机网络知识里面，网络拓扑十分瓜皮，">
+<meta property="og:description" content="前言Linux下iptables的设置，设置了它就能够有效地过滤掉相关的数据包从而阻挡相关攻击，感觉这个东西跟安全有很大用处，比如在我们学习的计算机网络知识里面，网络拓扑十分瓜皮，路由器没有过滤数据包的功能，直接就实现路由转发的过程，这样就会对一个LAN造成很大的安全隐患，">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://s1.ax1x.com/2018/07/29/Pa5y1f.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/07/29/Pa5vNR.md.png">
@@ -29,10 +29,10 @@
 <meta property="og:image" content="https://s1.ax1x.com/2018/07/29/PaIBb4.md.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/07/29/PaIsa9.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/07/29/PaIy5R.png">
-<meta property="og:updated_time" content="2018-07-29T15:35:02.570Z">
+<meta property="og:updated_time" content="2018-07-29T15:38:14.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux防火墙学习">
-<meta name="twitter:description" content="前言Linux下iptables的设置，设置了它就能够有效地过滤掉相关的数据包从而阻挡相关攻击，感觉这个东西跟安全有很大用处，比如在我们学习的计算机网络知识里面，网络拓扑十分瓜皮，">
+<meta name="twitter:description" content="前言Linux下iptables的设置，设置了它就能够有效地过滤掉相关的数据包从而阻挡相关攻击，感觉这个东西跟安全有很大用处，比如在我们学习的计算机网络知识里面，网络拓扑十分瓜皮，路由器没有过滤数据包的功能，直接就实现路由转发的过程，这样就会对一个LAN造成很大的安全隐患，">
 <meta name="twitter:image" content="https://s1.ax1x.com/2018/07/29/Pa5y1f.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -348,7 +348,7 @@
       
           
         
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Linux下<code>iptables</code>的设置，设置了它就能够有效地过滤掉相关的数据包从而阻挡相关攻击，感觉这个东西跟安全有很大用处，比如在我们学习的计算机网络知识里面，网络拓扑十分瓜皮，<a id="more"></a>路由器没有过滤数据包的功能，直接就实现路由转发的过程，这样就会对一个LAN造成很大的安全隐患，现在我要更正一下自己的思路，路由器不单单实现转发功能，我现在还把他看成一台可以实现过滤功能的电脑，这样就对它所连接的LAN有保护作用了，但现在一般对于网络防火墙而言很少再使用<code>iptables</code>了，现在一般都用一些大型厂商提供的防火墙。比如华3，深信服之类的，说白了就是牛逼了一点的电脑，但是对于一台服务器而言还是可以设置规则来防止别人拿下服务器的。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Linux下<code>iptables</code>的设置，设置了它就能够有效地过滤掉相关的数据包从而阻挡相关攻击，感觉这个东西跟安全有很大用处，比如在我们学习的计算机网络知识里面，网络拓扑十分瓜皮，路由器没有过滤数据包的功能，直接就实现路由转发的过程，这样就会对一个LAN造成很大的安全隐患，<a id="more"></a>现在我要更正一下自己的思路，路由器不单单实现转发功能，我现在还把他看成一台可以实现过滤功能的电脑，这样就对它所连接的LAN有保护作用了，但现在一般对于网络防火墙而言很少再使用<code>iptables</code>了，现在一般都用一些大型厂商提供的防火墙。比如华3，深信服之类的，说白了就是牛逼了一点的电脑，但是对于一台服务器而言还是可以设置规则来防止别人拿下服务器的。</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h3><p><code>netfilter</code>    ：位于Linux内核中的包过滤功能体系，称为Linux防火墙的“内核态”<br><code>iptables</code>：位于/sbin/iptables，用来管理防火墙规则的工具，称为Linux防火墙的“用户态”</p>
 <p>—— 上述2种称呼都可以表示Linux防火墙<br>其实用户层面使用iptables也是去调用内核里面的netfilter，这是操作系统里面的知识就不多说了</p>
 <h3 id="Linux查看防火墙状态"><a href="#Linux查看防火墙状态" class="headerlink" title="Linux查看防火墙状态"></a>Linux查看防火墙状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service iptables start 启动防火墙</span><br><span class="line">service iptables status 查看防火墙状态，还可以使用这样一条命令iptables -L --line-numbers查看较为详细的命令</span><br><span class="line">service iptables stop 停止服务</span><br></pre></td></tr></table></figure>
@@ -396,7 +396,7 @@
         <p><span>本文标题:</span><a href="/2018/07/29/Linux-FW/">Linux防火墙学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
         <p><span>发布时间:</span>2018-07-29, 23:32:03</p>
-        <p><span>最后更新:</span>2018-07-29, 23:35:02</p>
+        <p><span>最后更新:</span>2018-07-29, 23:38:14</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/07/29/Linux-FW/" title="Linux防火墙学习">0verwatch.top/2018/07/29/Linux-FW/</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/07/29/Linux-FW/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

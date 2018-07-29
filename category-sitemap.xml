@@ -35,13 +35,6 @@
     </url>
 
     <url>
-        <loc>0verwatch.top/categories/%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</loc>
-        <lastmod>2018-06-01T01:12:03.210Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>0verwatch.top/categories/%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/Web/</loc>
         <lastmod>2018-06-01T01:12:03.210Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -107,6 +100,13 @@
     <url>
         <loc>0verwatch.top/categories/Mysql%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/</loc>
         <lastmod>2018-07-26T12:37:15.855Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>0verwatch.top/categories/%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</loc>
+        <lastmod>2018-07-29T15:38:14.116Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
