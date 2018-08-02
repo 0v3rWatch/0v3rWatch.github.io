@@ -1,3 +1,5 @@
+0verwatch.top/2018/08/02/sql-inject-protect/
+0verwatch.top/2018/08/02/sqlmap-usage/
 0verwatch.top/2018/07/29/Linux-FW/
 0verwatch.top/2018/07/26/Mysql-security-1/
 0verwatch.top/2018/07/25/pentest-1/
