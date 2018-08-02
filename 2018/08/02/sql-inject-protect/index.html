@@ -15,18 +15,18 @@
 
 
 
-<meta name="description" content="sql语句预编译例如: 1234String sql = &quot;select id, no from user where id=?&quot;;      PreparedStatement ps = conn.prepareStatement(sql);      ps.setInt(1, id);      ps.executeQuery(); 这里采用了PreparedStatement，就会将sql">
+<meta name="description" content="sql语句预编译">
 <meta name="keywords" content="SQL注入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈SQL注入防御手段">
 <meta property="og:url" content="0verwatch.top/2018/08/02/sql-inject-protect/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="sql语句预编译例如: 1234String sql = &quot;select id, no from user where id=?&quot;;      PreparedStatement ps = conn.prepareStatement(sql);      ps.setInt(1, id);      ps.executeQuery(); 这里采用了PreparedStatement，就会将sql">
+<meta property="og:description" content="sql语句预编译">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-02T15:11:04.210Z">
+<meta property="og:updated_time" content="2018-08-02T15:21:04.062Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈SQL注入防御手段">
-<meta name="twitter:description" content="sql语句预编译例如: 1234String sql = &quot;select id, no from user where id=?&quot;;      PreparedStatement ps = conn.prepareStatement(sql);      ps.setInt(1, id);      ps.executeQuery(); 这里采用了PreparedStatement，就会将sql">
+<meta name="twitter:description" content="sql语句预编译">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -341,8 +341,8 @@
       
           
         
-<a id="more"></a>
-<h3 id="sql语句预编译"><a href="#sql语句预编译" class="headerlink" title="sql语句预编译"></a>sql语句预编译</h3><p>例如:</p>
+<h3 id="sql语句预编译"><a href="#sql语句预编译" class="headerlink" title="sql语句预编译"></a>sql语句预编译</h3><a id="more"></a>
+<p>例如:</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String sql = <span class="string">"select id, no from user where id=?"</span>;</span><br><span class="line">      PreparedStatement ps = conn.prepareStatement(sql);</span><br><span class="line">      ps.setInt(<span class="number">1</span>, id);</span><br><span class="line">      ps.executeQuery();</span><br></pre></td></tr></table></figure>
 <p>这里采用了<code>PreparedStatement</code>，就会将sql语句<code>预先编译</code>好，也就是SQL引擎会预先进行语法分析，产生语法树，生成执行计划，也就是说，后面你输入的参数，无论你输入的是什么，都不会影响该sql语句的 语法结构了，因为语法分析已经完成了，而语法分析主要是分析sql命令，比如 <code>select ,from ,where ,and, or ,order by</code> 等等。所以即使你后面输入了这些sql命令，也不会被当成sql命令来执行了，因为这些sql命令的执行， 必须先的通过语法分析，生成执行计划，既然语法分析已经完成，已经预编译过了，那么后面输入的参数，是绝对不可能作为sql命令来执行的，只会被当做字符串字面值参数。所以sql语句预编译可以防御sql注入</p>
 <p>讲一下另外一个预编译，就是用PDO，这里就推荐几篇文章自己看一下，简单说一下就是原理跟上面的差不多，把执行语句和变量分开，变量分别绑定，分别传参，从而阻止了注入，只是底层不太明了，自己真菜。。<br><a href="https://segmentfault.com/q/1010000000723496" target="_blank" rel="noopener">https://segmentfault.com/q/1010000000723496</a><br><a href="http://www.cnblogs.com/zl0372/p/php_28.html" target="_blank" rel="noopener">http://www.cnblogs.com/zl0372/p/php_28.html</a><br><a href="https://blog.csdn.net/theVicTory/article/details/62884352" target="_blank" rel="noopener">https://blog.csdn.net/theVicTory/article/details/62884352</a></p>
@@ -367,7 +367,7 @@
         <p><span>本文标题:</span><a href="/2018/08/02/sql-inject-protect/">浅谈SQL注入防御手段</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
         <p><span>发布时间:</span>2018-08-02, 23:08:29</p>
-        <p><span>最后更新:</span>2018-08-02, 23:11:04</p>
+        <p><span>最后更新:</span>2018-08-02, 23:21:04</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/08/02/sql-inject-protect/" title="浅谈SQL注入防御手段">0verwatch.top/2018/08/02/sql-inject-protect/</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/08/02/sql-inject-protect/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
