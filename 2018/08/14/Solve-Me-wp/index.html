@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2018/04/03/CpBkLt.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/08/14/P2t4AI.md.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/08/14/P2tbjg.md.png">
-<meta property="og:updated_time" content="2018-08-14T10:34:54.663Z">
+<meta property="og:updated_time" content="2018-08-14T11:59:38.667Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Solve Me解题记录">
 <meta name="twitter:description" content="前言前一阵子关注点在实战上，现在又回归CTF学习套路了，这个网站http://solveme.peng.kr 本来做了一半的题目，今天终于把他补完了，学到了炒鸡多的东西啊">
@@ -444,7 +444,7 @@
 <p>这相当于说这是一个echo的缩写版<br><a href="https://imgchr.com/i/P2tbjg" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/08/14/P2tbjg.md.png" alt="P2tbjg.md.png"></a><br>另外呢这两句话表明了php5.4以后都存在这样的缩写形式<br>我们现在还要考虑的是如何绕过长度的问题以及不要在payload里面存在flag这个词，所以最后的payload是</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?flag=$a=&apos;blag&apos;;$a&#123;0&#125;=&apos;f&apos;;?&gt;11111111111111111;&lt;?=$$a;?&gt;</span><br></pre></td></tr></table></figure>
 <p>这里前面的<code>?&gt;</code>的是利用了html里面的嵌套PHP的语法，同时也为了后面的<code>&lt;?=?&gt;</code>可以顺利执行，中间的<code>1</code>就是为了满足<code>strlen</code>这个函数从而执行下面的代码</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1.IP地址可以用ip2long这个函数尝试去绕过<br>2.回顾了科学计数法还有这个指数形式在bypass方面的绕过<br>3.parse_url()这个函数的几个小trick，分别是对于特殊字符会替换成_,以及在///的情况下会使后面的东西忽略从而导致绕过<br>4.关于注入这东西，灵活一些，别太死板，除了一些特殊的方法绕过以外，还可以考虑字符集(这里包括16进制)<br>5.eval函数里面的执行文件操作的函数都被过滤了，可以使用缩写输出之类<br>6.正则匹配注意一下匹配\的写法应该是四个|\\|,而且对于正则的规则以^开头$结尾的，可以%0a去bypass</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1.IP地址可以用ip2long这个函数尝试去绕过<br>2.回顾了科学计数法还有这个指数形式在bypass方面的绕过<br>3.parse_url()这个函数的几个小trick，分别是对于特殊字符会替换成_,以及在///的情况下会使后面的东西忽略从而导致绕过<br>4.关于注入这东西，灵活一些，别太死板，除了一些特殊的方法绕过以外，还可以考虑字符集(这里包括16进制)<br>5.eval函数里面的执行文件操作的函数都被过滤了，可以使用缩写输出之类<br>6.正则匹配注意一下匹配\的写法应该是四个|\\|,而且对于正则的规则以^开头$结尾的，可以%0a去bypass<br>7.还有飘零大哥的思路，代码审计拿来可能是SQL注入还有逻辑漏洞这也是很骚气的，22333</p>
 
       
     </div>
@@ -456,7 +456,7 @@
         <p><span>本文标题:</span><a href="/2018/08/14/Solve-Me-wp/">Solve Me解题记录</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
         <p><span>发布时间:</span>2018-08-14, 18:23:48</p>
-        <p><span>最后更新:</span>2018-08-14, 18:34:54</p>
+        <p><span>最后更新:</span>2018-08-14, 19:59:38</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/08/14/Solve-Me-wp/" title="Solve Me解题记录">0verwatch.top/2018/08/14/Solve-Me-wp/</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/08/14/Solve-Me-wp/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
