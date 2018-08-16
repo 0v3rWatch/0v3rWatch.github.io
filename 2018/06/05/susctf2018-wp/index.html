@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2018/08/15/PRPxje.md.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/08/15/PRiSnH.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/08/15/PRiPAI.md.png">
-<meta property="og:updated_time" content="2018-08-15T05:55:58.358Z">
+<meta property="og:updated_time" content="2018-08-16T07:17:31.967Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SUSCTF 2018 做题记录">
 <meta name="twitter:description" content="前言最近好久都没做题目，刚好上次搭的题目还在，就不要浪费了，记录记录做题过程吧">
@@ -390,7 +390,10 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'username'</span>]) &amp;&amp; <span class="keyword">isset</span>($_POST[<span class="string">'password'</span>]))&#123;</span><br><span class="line">    $stmt=$mysqli-&gt;prepare(<span class="string">'select id,password from users where username=?'</span>);</span><br><span class="line">    $stmt-&gt;bind_param(<span class="string">'s'</span>,$_POST[<span class="string">'username'</span>]);</span><br><span class="line">    $stmt-&gt;execute();</span><br><span class="line">    $stmt-&gt;store_result();</span><br></pre></td></tr></table></figure>
 <p>突然在我翻到<code>update.php</code>这个页面的时候<br>发现了有点不妥<br><a href="https://imgchr.com/i/PRPvcD" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/08/15/PRPvcD.md.png" alt="PRPvcD.md.png"></a></p>
 <p>这个经过了<code>addslashes</code>函数之后竟然在age这个参数里没加单引号，这是故意而为之？？？？<br>不管了，这是可以注入的，我以前的博客讲过 <a href="https://0verwatch.top/2018/08/02/sql-inject-protect/">https://0verwatch.top/2018/08/02/sql-inject-protect/</a><br><a href="https://imgchr.com/i/PRPxje" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/08/15/PRPxje.md.png" alt="PRPxje.md.png"></a></p>
-<p>然后登陆后立即试，bp抓包改一下age的值，然后查看源码得到flag<br><img src="https://s1.ax1x.com/2018/08/15/PRiSnH.png" alt="PRiSnH.png"><br>注意这里的a是别名的意思，其实省略了个<code>as</code><br>不然会报错的，自己可以在MySQL里面尝试一下<br><a href="https://imgchr.com/i/PRiPAI" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/08/15/PRiPAI.md.png" alt="PRiPAI.md.png"></a><br>解决的方发就是起别名，这或许是mysql的特性吧<br><a href="https://blog.csdn.net/cao478208248/article/details/28122113" target="_blank" rel="noopener">https://blog.csdn.net/cao478208248/article/details/28122113</a></p>
+<p>然后登陆后立即试，bp抓包改一下age的值，然后查看源码得到flag<br><img src="https://s1.ax1x.com/2018/08/15/PRiSnH.png" alt="PRiSnH.png"><br>注意这里的a是别名的意思，其实省略了个<code>as</code><br>不然会报错的，自己可以在MySQL里面尝试一下</p>
+<p>解决的方发就是起别名，这或许是mysql的特性吧<br><a href="https://blog.csdn.net/cao478208248/article/details/28122113" target="_blank" rel="noopener">https://blog.csdn.net/cao478208248/article/details/28122113</a></p>
+<p>但是注意了我们这里不能直接上手把age里面的内容改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(select description from users where username=0x61646d696e)</span><br></pre></td></tr></table></figure></p>
+<p>会报错的<br><a href="https://imgchr.com/i/PRiPAI" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/08/15/PRiPAI.md.png" alt="PRiPAI.md.png"></a><br>这是因为MySQL的原因,也就是同一个表的时候不能select完之后在同一个表直接update，而我们可以起个别名把他变成另外一个表即可，也就是上面的做法，以后在update注入的时候得注意如果是对同一个表进行操作的时候就得弄个新表了<br><a href="https://blog.csdn.net/priestmoon/article/details/8016121" target="_blank" rel="noopener">https://blog.csdn.net/priestmoon/article/details/8016121</a></p>
 <p>Payload: </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(select description from(select * from users where username=0x61646d696e)a)</span><br></pre></td></tr></table></figure>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>先记录着这么多先吧，明天再把剩下的题目完成，赶紧复习一波微机原理，不然明天的汇编又该看不懂了，最近事真多，Yii框架啥的还没写完，烦。。。</p>
@@ -405,7 +408,7 @@
         <p><span>本文标题:</span><a href="/2018/06/05/susctf2018-wp/">SUSCTF 2018 做题记录</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
         <p><span>发布时间:</span>2018-06-05, 20:28:33</p>
-        <p><span>最后更新:</span>2018-08-15, 13:55:58</p>
+        <p><span>最后更新:</span>2018-08-16, 15:17:31</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/06/05/susctf2018-wp/" title="SUSCTF 2018 做题记录">0verwatch.top/2018/06/05/susctf2018-wp/</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/06/05/susctf2018-wp/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
