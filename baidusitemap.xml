@@ -4,6 +4,86 @@
 
     
   <url>
+    <loc>0verwatch.top/2018/08/29/sqli-labs-training-1/</loc>
+    <lastmod>2018-08-29T12:10:13.903Z</lastmod>
+    <data>
+        <display>
+        <title>sqli-labs实战记录(一)</title>
+        <pubTime>2018-08-29T12:01:04.000Z</pubTime>
+        
+        <tag>SQL注入</tag>
+         
+         
+           
+             
+              <breadCrumb title="SQL注入" url="0verwatch.top/categories/SQL%E6%B3%A8%E5%85%A5/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>0verwatch.top/2018/08/29/sqli-labs-training-2/</loc>
+    <lastmod>2018-08-29T12:08:22.762Z</lastmod>
+    <data>
+        <display>
+        <title>sqli-labs实战记录(二)</title>
+        <pubTime>2018-08-29T12:04:26.000Z</pubTime>
+        
+        <tag>SQL注入</tag>
+         
+         
+           
+             
+              <breadCrumb title="SQL注入" url="0verwatch.top/categories/SQL%E6%B3%A8%E5%85%A5/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>0verwatch.top/2018/08/29/sqli-labs-training-3/</loc>
+    <lastmod>2018-08-29T12:07:25.917Z</lastmod>
+    <data>
+        <display>
+        <title>sqli-labs实战记录(三)</title>
+        <pubTime>2018-08-29T12:04:31.000Z</pubTime>
+        
+        <tag>SQL注入</tag>
+         
+         
+           
+             
+              <breadCrumb title="SQL注入" url="0verwatch.top/categories/SQL%E6%B3%A8%E5%85%A5/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>0verwatch.top/2018/08/29/sqli-labs-training-4/</loc>
+    <lastmod>2018-08-29T12:04:05.043Z</lastmod>
+    <data>
+        <display>
+        <title>sqli-labs实战记录(四)</title>
+        <pubTime>2018-08-29T12:01:56.000Z</pubTime>
+        
+        <tag>SQL注入</tag>
+         
+         
+           
+             
+              <breadCrumb title="SQL注入" url="0verwatch.top/categories/SQL%E6%B3%A8%E5%85%A5/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>0verwatch.top/2018/08/27/bin-search-sql/</loc>
     <lastmod>2018-08-27T02:57:04.305Z</lastmod>
     <data>
@@ -11,9 +91,9 @@
         <title>二分查找在sql盲注里面的应用</title>
         <pubTime>2018-08-27T02:53:50.000Z</pubTime>
         
-        <tag>二分查找</tag>
-         
         <tag>SQL注入</tag>
+         
+        <tag>二分查找</tag>
          
          
            
@@ -408,9 +488,9 @@
         <title>Docker学习笔记</title>
         <pubTime>2018-05-27T05:31:50.000Z</pubTime>
         
-        <tag>环境部署</tag>
-         
         <tag>Docker</tag>
+         
+        <tag>环境部署</tag>
          
          
            
@@ -459,9 +539,9 @@
         
         <tag>CTF</tag>
          
-        <tag>Web</tag>
-         
         <tag>Docker</tag>
+         
+        <tag>Web</tag>
          
          
            
