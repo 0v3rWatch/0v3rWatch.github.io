@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="前言最近在上网路安全实验课程的时候，其中一个任务就是完成这里面的题目，我还是记录一下吧(还没做完，">
+<meta name="keywords" content="CTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CUMT平台的部分题解">
+<meta property="og:url" content="0verwatch.top/2018/09/30/CUMT-CTF-Platform/index.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="前言最近在上网路安全实验课程的时候，其中一个任务就是完成这里面的题目，我还是记录一下吧(还没做完，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilTbin.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilTLR0.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilTjMT.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilTvsU.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilTxLF.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7pdJ.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il79o9.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7PiR.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7iJ1.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7FRx.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7EQK.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7VsO.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7ndH.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7uod.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7MFA.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7QJI.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il78Qf.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7Gy8.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7NwQ.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7dFs.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7DS0.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7gw4.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il72TJ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7Wk9.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7hf1.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7Il6.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7o6K.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7TOO.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7b0e.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7Okd.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7XtA.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/il7z1P.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHS6f.md.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHpX8.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHCnS.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHi7Q.md.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHkkj.md.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHEhn.md.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHZpq.md.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHe10.md.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHnXT.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHKnU.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHMBF.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilH1AJ.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHJ91.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHcgP.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHNjK.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHBAH.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHr4A.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilH63t.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHRu8.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilH4EQ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilbe5d.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHbvV.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHLuT.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHXbF.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHvE4.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHxUJ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilHz59.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilbpCR.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilbCgx.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/09/30/ilbFKK.png">
+<meta property="og:updated_time" content="2018-09-30T07:20:45.980Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CUMT平台的部分题解">
+<meta name="twitter:description" content="前言最近在上网路安全实验课程的时候，其中一个任务就是完成这里面的题目，我还是记录一下吧(还没做完，">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/09/30/ilTbin.md.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>CUMT平台的部分题解 | 0verWatch&#39;s Blog</title>
+
+<script src="//cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/3.4.0/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56ff76c972fc0cf9"></script>
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?e9bf2f4b24d981680e6d59ced18982b0";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">分类&amp;标签</a></li>
+                        
+                            <li><a href="/friends/">友链</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux安全/">Linux安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL注入/">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yii/">Yii</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微机实验/">微机实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器运维/">服务器运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量分析/">流量分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站渗透/">网站渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机网路/">计算机网路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://202.119.201.199/">CumtCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.nuptzj.cn">NuptCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.jarvisoj.com">Jarvis OJ</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.codemonster.cn/home">MOCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.bugku.com/">BugkuCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.shiyanbar.com/ctf/practice">实验吧</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://xz.aliyun.com/">先知社区</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://shentoushi.top/">渗透师导航</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://skysec.top/">一叶飘零</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.yytpublic.cn">LaurenceYu</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://chun.ringfall.me">ringfall</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">分类&amp;标签</a></li>
+                
+                    <li><a href="/friends/">友链</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" target="_blank" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-CUMT-CTF-Platform" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/09/30/CUMT-CTF-Platform/" class="article-date">
+      <time datetime="2018-09-30T06:59:37.000Z" itemprop="datePublished">2018-09-30</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CUMT平台的部分题解
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在上网路安全实验课程的时候，其中一个任务就是完成这里面的题目，我还是记录一下吧(还没做完，<a id="more"></a>持续更新)</p>
+<h2 id="basic部分"><a href="#basic部分" class="headerlink" title="basic部分"></a>basic部分</h2><h4 id="decode"><a href="#decode" class="headerlink" title="decode"></a>decode</h4><p>这个题目下载之后是一个压缩包，但是里面什么东西也没有，于是放进HXD里面查看是否有其他的东西，打开发现十六进制编码，用Hackbar解码得到flag<br><a href="https://imgchr.com/i/ilTbin" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilTbin.md.png" alt="ilTbin.md.png"></a><br><a href="https://imgchr.com/i/ilTLR0" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilTLR0.md.png" alt="ilTLR0.md.png"></a></p>
+<h4 id="白驹过隙"><a href="#白驹过隙" class="headerlink" title="白驹过隙"></a>白驹过隙</h4><p>题目的意思是说快，打开页面就会发现错过了flag之类的操作，肯定是存在跳转，老题目要么就抓包，要么就curl一下，这里我选择用vps来curl一下这个网址，直接出flag<br><a href="https://imgchr.com/i/ilTjMT" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilTjMT.md.png" alt="ilTjMT.md.png"></a></p>
+<h4 id="齐白石"><a href="#齐白石" class="headerlink" title="齐白石"></a>齐白石</h4><p>这尼玛我感觉这是异形。。关齐白石什么事。。。根据提示先把图片在16进制编辑器打开看一下<br>，拉到最后一行发现flag<br><a href="https://imgchr.com/i/ilTvsU" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilTvsU.md.png" alt="ilTvsU.md.png"></a></p>
+<h4 id="encode"><a href="#encode" class="headerlink" title="encode"></a>encode</h4><p>打开文件会发现一堆混淆，怀疑是js混淆，然后放进火狐的js调试器里面直接执行就出现flag了<br><a href="https://imgchr.com/i/ilTxLF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilTxLF.md.png" alt="ilTxLF.md.png"></a></p>
+<h4 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h4><p>这个题目就是考了Windows下面的一个DNS解析的hosts文件，其实这是个历史遗留问题，就是每次要去经过DNS解析的时候都会默认先去找一下这个host文件里面的相关域名所对应的ip就会免去查上层DNS服务器里面的东西，所以我们只要在hosts文件下面添加，这一行，然后输入题目对应的的域名即可<br>host文件的目录:<code>C:\Windows\System32\drivers\etc\hosts</code></p>
+<p><a href="https://imgchr.com/i/il7pdJ" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7pdJ.md.png" alt="il7pdJ.md.png"></a><br><a href="https://imgchr.com/i/il79o9" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il79o9.md.png" alt="il79o9.md.png"></a></p>
+<h4 id="forfun2"><a href="#forfun2" class="headerlink" title="forfun2"></a>forfun2</h4><p>这题也是骚气，我他喵一直查看源代码都没找到，结果我在原网页上点击了查看背景图片，就出现flag了受不了。。。这题有点坑。。以前都没试过网网页图片上隐藏信息想。。。。<br><a href="https://imgchr.com/i/il7PiR" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7PiR.md.png" alt="il7PiR.md.png"></a></p>
+<h4 id="forfun"><a href="#forfun" class="headerlink" title="forfun"></a>forfun</h4><p>这个题目就是一直右击查看源代码，找到flag为止，flag在其中的这个页面下如图<br><a href="https://imgchr.com/i/il7iJ1" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7iJ1.md.png" alt="il7iJ1.md.png"></a><br>进去之后用<code>ctrl+f</code>找到对应的flag<br><a href="https://imgchr.com/i/il7FRx" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7FRx.md.png" alt="il7FRx.md.png"></a></p>
+<h4 id="签到1"><a href="#签到1" class="headerlink" title="签到1"></a>签到1</h4><p>打开题目让我们check the source code !!，点击右键查看源代码发现一段base64，解码得到<code>flag{this_is_so_easy_is_it?}</code><br><a href="https://imgchr.com/i/il7EQK" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7EQK.md.png" alt="il7EQK.md.png"></a></p>
+<h4 id="签到2"><a href="#签到2" class="headerlink" title="签到2"></a>签到2</h4><p>打开网站发现http header!!!<br>然后F12去看看http头部的信息，发现flag<br><img src="https://s1.ax1x.com/2018/09/30/il7VsO.png" alt="il7VsO.png"></p>
+<h4 id="超简单的密码"><a href="#超简单的密码" class="headerlink" title="超简单的密码"></a>超简单的密码</h4><p>这一个题目很明显的提示，注意看键盘很显然这是个键盘密码，从键盘上翻译一下就好得到<br>flag{isee}</p>
+<h4 id="滑稽"><a href="#滑稽" class="headerlink" title="滑稽"></a>滑稽</h4><p>下载下来是一个ppt，ppt里面没发现些什么，但是这个东西是需要解密的<br>然后放到16进制编辑器里面看一下发现有zip包的文件头，于是就开始把这个文件后缀改为zip打开<br><img src="https://s1.ax1x.com/2018/09/30/il7ndH.png" alt="il7ndH.png"></p>
+<p>在里面找到一个很奇怪的图片文件，其余的图片都能显示就他不能，放进16进制编辑器看一下发现ppt的base64加密的密码，解开之后就是ppt密码<code>cumt2017ctf</code><br><a href="https://imgchr.com/i/il7uod" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7uod.md.png" alt="il7uod.md.png"></a><br>再把文件后缀改为ppt，输入密码，移动一下ppt就发现flag了<br><a href="https://imgchr.com/i/il7MFA" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7MFA.md.png" alt="il7MFA.md.png"></a></p>
+<h4 id="Fast-30"><a href="#Fast-30" class="headerlink" title="Fast 30"></a>Fast 30</h4><p>这明显就是一个脚本题，叫你2s内post你发现的东西，可以在http header里面发现有个flag选项想必就是把这个东西给post上去，参数是key，下面是我写的脚本<br><img src="https://s1.ax1x.com/2018/09/30/il7QJI.png" alt="il7QJI.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># Author:0verWatch</span></span><br><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://web.bxsteam.xyz/fast/'</span></span><br><span class="line">req = requests.Session()</span><br><span class="line"></span><br><span class="line">ans = req.get(url)</span><br><span class="line"></span><br><span class="line">param =  ans.headers[<span class="string">'Flag'</span>]</span><br><span class="line"></span><br><span class="line">flag = req.post(url,data=&#123;<span class="string">'key'</span>:param&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> flag.content</span><br></pre></td></tr></table></figure>
+<p>得到flag<br><img src="https://s1.ax1x.com/2018/09/30/il78Qf.png" alt="il78Qf.png"></p>
+<h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><h4 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h4><p>这个题目是查找页面的元素，打开之后发现一段可疑的信息其实就是把里面的中文字体去掉就是flag<br><a href="https://imgchr.com/i/il7Gy8" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7Gy8.md.png" alt="il7Gy8.md.png"></a></p>
+<h4 id="colorSnake"><a href="#colorSnake" class="headerlink" title="colorSnake"></a>colorSnake</h4><p>这个题目还是很有意思的，虽然要写个脚本当然你也可以手动去执行。。。这个进去就是一个小游戏，点击右键查看源码后发现显示分数的地方id是score，查看他的源代码发现还存在一个game.js的代码脚本，于是立即在里面搜关于score的信息<br>然后发现了这样的一段代码，同时发现一个很可疑的php代码，这里面有个xhr，介绍一下xhr，xhr叫XMLHttpRequest ，XMLHttpRequest 对象提供了对 HTTP 协议的完全的访问，包括做出 POST 和 HEAD 请求以及普通的 GET 请求的能力。XMLHttpRequest 可以同步或异步地返回 Web 服务器的响应，并且能够以文本或者一个 DOM 文档的形式返回内容。<br><a href="https://imgchr.com/i/il7NwQ" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7NwQ.md.png" alt="il7NwQ.md.png"></a></p>
+<p>也就是去访问这个页面的功能，我也去访问，发现有json格式的东西，把里面的msg部分的内容unicode解码，发现提示，这么久才吃到一个，零分！可以猜到应该是用这个去访问页面去增加得分，每刷新一下这个页面发现score加一了，但是刷新的太快又会重新置0，所以我就写了个小脚本<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># Author:0verWatch</span></span><br><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://202.119.201.199/challenge/web/colorSnake/getScore.php'</span></span><br><span class="line">req = requests.Session()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">55</span>):    <span class="comment">#怕会出现重新置零的现象，因此设置的数比50大</span></span><br><span class="line">	time.sleep(<span class="number">1</span>)    <span class="comment">#用于延时</span></span><br><span class="line">	ans = req.get(url)</span><br><span class="line">	msg = json.loads(ans.content)[<span class="string">'msg'</span>]</span><br><span class="line">	<span class="keyword">print</span> json.loads(ans.content)[<span class="string">'score'</span>],msg.encode(<span class="string">'utf-8'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>最后得到flag<br><img src="https://s1.ax1x.com/2018/09/30/il7dFs.png" alt="il7dFs.png"></p>
+<h4 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h4><p>备份这个题目感觉也是一个脚本题目，一进去题目就提示There are too much baks in the website ,can you find the flag in these baks?，说明我们要遍历多个bak文件并且读取里面的内容。。。只要get请求就能下在相关bak文件了<br><a href="https://imgchr.com/i/il7DS0" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7DS0.md.png" alt="il7DS0.md.png"></a><br>直接放上我写的脚本。。。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># Author:0verWatch</span></span><br><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://202.119.201.199/challenge/web/code/&#123;num&#125;.bak"</span></span><br><span class="line">res = requests.Session()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">1500</span>):      <span class="comment">#开大点无所谓</span></span><br><span class="line">	payload = url.format(num=i)</span><br><span class="line">	<span class="comment">#print payload</span></span><br><span class="line">	ans = res.get(payload)</span><br><span class="line">	file_name = <span class="string">'&#123;_&#125;.bak'</span>.format(_=i)</span><br><span class="line">	<span class="comment">#print file_name</span></span><br><span class="line">	<span class="keyword">with</span> open(file_name, <span class="string">"wb"</span>) <span class="keyword">as</span> code:</span><br><span class="line">   		file_content = code.write(ans.content)</span><br><span class="line">   		code.close()</span><br><span class="line">   	<span class="keyword">print</span> file_name</span><br><span class="line">   	f = open(file_name,<span class="string">'rb'</span>)</span><br><span class="line">   	read_content = f.read()</span><br><span class="line">   	<span class="keyword">if</span> <span class="string">'flag'</span> <span class="keyword">in</span> read_content:  		</span><br><span class="line">   		<span class="keyword">print</span> read_content</span><br><span class="line">   		<span class="keyword">break</span></span><br><span class="line">   	<span class="keyword">else</span>:</span><br><span class="line">   		<span class="keyword">print</span> <span class="string">'Waiting!!!!!'</span></span><br><span class="line">   	f.close()</span><br></pre></td></tr></table></figure></p>
+<p>结果应该是第998个bak文件里面有flag<br><img src="https://s1.ax1x.com/2018/09/30/il7gw4.png" alt="il7gw4.png"></p>
+<h4 id="上传一"><a href="#上传一" class="headerlink" title="上传一"></a>上传一</h4><p>打开页面让我们上传图片文件，尝试用bp抓包发包<br>发现<br><img src="https://s1.ax1x.com/2018/09/30/il72TJ.png" alt="il72TJ.png"><br>所以就是让我们上一个可执行的文件，那就尝试把后缀名改名为php，然后就得到两个flag了，这太水了吧，这题还送一个flag。。。。上传二也秒掉了<br><a href="https://imgchr.com/i/il7Wk9" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7Wk9.md.png" alt="il7Wk9.md.png"></a></p>
+<h4 id="上传二"><a href="#上传二" class="headerlink" title="上传二"></a>上传二</h4><p>其实也是上传一的页面，这个题目其实想要修改的是Content-Type:这个参数，由于我上一题是直接上传一个图片上去的，这样一来就导致直接出来两个flag，这题只要是Content-Type: image/jpeg这个类型就可以出flag，如果一开始你上传一上传的不是图片的话，而是一般的文件流的话们这里的Content-Type显示的是application/stream之类的东西，就不会两个flag出来的<br><img src="https://s1.ax1x.com/2018/09/30/il7hf1.png" alt="il7hf1.png"></p>
+<h4 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie?"></a>Cookie?</h4><p>页面请求以管理员身份进行登录，尝试用bp抓包查看<br>把包里面cookie里面的值改一下，一开始是guest，我们改成admin，发包<br>得到下面这个页面<br><img src="https://s1.ax1x.com/2018/09/30/il7Il6.png" alt="il7Il6.png"><br>有个key还有个密文，猜测是应该是维吉尼亚密码，把该网页中的图片拖到百度识图识别一下，果然是维吉尼亚。。。<br><a href="https://imgchr.com/i/il7o6K" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7o6K.md.png" alt="il7o6K.md.png"></a></p>
+<p>然后我们可以在线解密，我们可以去这个页面 <a href="http://ctf.ssleye.com/vigenere.html" target="_blank" rel="noopener">http://ctf.ssleye.com/vigenere.html</a> 进行维吉尼亚密码解密<br>得到flag<br><a href="https://imgchr.com/i/il7TOO" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7TOO.md.png" alt="il7TOO.md.png"></a></p>
+<h4 id="上传三"><a href="#上传三" class="headerlink" title="上传三"></a>上传三</h4><p>这个题目属于条件竞争的题目<br>具体来讲就是在文件上传之后你要赶在服务器把它删除之前访问一下这个文件就可以了<br>这个题目抓包的时候又在相应的php文件后缀进行了过滤，把<code>php,php2,php3,php4,php5</code>等都过滤掉了，直到试到<code>phtml</code>的时候回显出来一句话<br><a href="https://imgchr.com/i/il7b0e" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7b0e.md.png" alt="il7b0e.md.png"></a><br>这时候我们就发现文件被删了<br>这题可以单纯用bp直接刷，但是我还是喜欢用脚本刷，可以直接出flag，bp只能看到返回的长度不好辨别<br>我使用bp+脚本刷的，bp上面开个无payload的爆破一直发同样的包，然后脚本一直运行就可以得到flag了</p>
+<p><a href="https://imgchr.com/i/il7Okd" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7Okd.md.png" alt="il7Okd.md.png"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># Author:0verWatch</span></span><br><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://202.119.201.199/challenge/web/uploadfile/upload/index.phtml'</span></span><br><span class="line"></span><br><span class="line">req = requests.Session()</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">	ans = req.get(url)</span><br><span class="line">	web_content = ans.content</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="string">'flag'</span> <span class="keyword">in</span> web_content:</span><br><span class="line">		<span class="keyword">print</span> web_content</span><br></pre></td></tr></table></figure></p>
+<h4 id="听说你会面向对象"><a href="#听说你会面向对象" class="headerlink" title="听说你会面向对象"></a>听说你会面向对象</h4><p>先把源代码贴一下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//flag in flag.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Admin</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $file = <span class="string">'flag.php'</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($f)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;file = $f;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __wakeup() method.</span></span><br><span class="line">        <span class="keyword">if</span> (stripos(<span class="keyword">$this</span>-&gt;file,<span class="string">'flag'</span>)+<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">echo</span> <span class="string">'dangerrous'</span>;</span><br><span class="line">                <span class="keyword">$this</span>-&gt;file = <span class="string">'index.php'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        var_dump(<span class="keyword">$this</span>-&gt;file);</span><br><span class="line">        var_dump(file_exists(<span class="keyword">$this</span>-&gt;file));</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __destruct() method.</span></span><br><span class="line">        <span class="keyword">if</span> (!strpos(<span class="keyword">$this</span>-&gt;file,<span class="string">'/'</span>)&amp;&amp;!strpos(<span class="keyword">$this</span>-&gt;file,<span class="string">'\\'</span>))&#123;</span><br><span class="line">            highlight_file(<span class="keyword">$this</span>-&gt;file);</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        <span class="keyword">die</span>(<span class="string">'你想干嘛'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ($_GET[<span class="string">'data'</span>])&#123;</span><br><span class="line">    @unserialize($_GET[<span class="string">'data'</span>]);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    highlight_file(<span class="string">'index.php'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>打开可以发现函数，这个题目考查的是反序列化的知识，这题的关键就是我们需要利用unserialize构造一个对应的类型的序列化然后去绕过wakeup函数从而利用__destruct()输出flag，绕过wakeup很简单只需要我们把对象里面的的变量个数改为跟原来的不一样就好，我们可以写一个代码构造这个序列了<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Admin</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> $file = <span class="string">'flag.php'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = <span class="keyword">new</span> Admin();</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> serialize($a);</span><br></pre></td></tr></table></figure></p>
+<p>把输出的变量个数改为2即可<br><a href="https://imgchr.com/i/il7XtA" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7XtA.md.png" alt="il7XtA.md.png"></a><br>也就是<br><code>O:5:&quot;Admin&quot;:2:{s:4:&quot;file&quot;;s:8:&quot;flag.php&quot;;}</code></p>
+<p><a href="https://imgchr.com/i/il7z1P" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/il7z1P.md.png" alt="il7z1P.md.png"></a></p>
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h4 id="LSB"><a href="#LSB" class="headerlink" title="LSB"></a>LSB</h4><p>这个题目考察的是对LSB这个东西的熟悉程度。我们用神器StegSolve来看一下里面究竟最低位里面藏了什么东西<br>可以看到在最低位的那一部分发现了一张图片保存发现是一张二维码<br><a href="https://imgchr.com/i/ilHS6f" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHS6f.md.jpg" alt="ilHS6f.md.jpg"></a><br>扫一扫就可以得到flag了<br><img src="https://s1.ax1x.com/2018/09/30/ilHpX8.jpg" alt="ilHpX8.jpg"></p>
+<h4 id="爱因斯坦"><a href="#爱因斯坦" class="headerlink" title="爱因斯坦"></a>爱因斯坦</h4><p>在属性里面发现了这样的一句话<br><img src="https://s1.ax1x.com/2018/09/30/ilHCnS.jpg" alt="ilHCnS.jpg"><br>不管先有没有用先记录一下<br>然后去kali里面把这个图片binwalk一下发现里面存在一个压缩包，把他分离出来<br><a href="https://imgchr.com/i/ilHi7Q" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHi7Q.md.jpg" alt="ilHi7Q.md.jpg"></a></p>
+<p>然后打开里面的压缩包，发现加密了，这正好想起刚才的那一串文字，然后输入进去发现可以解开并得到flag<br><a href="https://imgchr.com/i/ilHkkj" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHkkj.md.jpg" alt="ilHkkj.md.jpg"></a></p>
+<h4 id="视而不见"><a href="#视而不见" class="headerlink" title="视而不见"></a>视而不见</h4><p>这个题目也是应用了StegSolve这个工具，因为一开始发现这张图片好像是被拉伸了一样，所以果断放进去<br>利用里面的stereogram Solver在偏移量为104的时候就出现flag了<br><a href="https://imgchr.com/i/ilHEhn" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHEhn.md.jpg" alt="ilHEhn.md.jpg"></a></p>
+<h4 id="easy-crypto"><a href="#easy-crypto" class="headerlink" title="easy crypto"></a>easy crypto</h4><p>这个题目有两个文件，先把其中的摩斯密码给解密得到另一串字符串<br><code>keyisvigenerecipher</code><br>这就相当于给了我们提示维吉尼亚密码<br>然后我们就去在线网页上解码，而且给出了key是<code>vigenerecipher</code>然后我们用那一串密文尝试解密得到flag<br><a href="https://imgchr.com/i/ilHZpq" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHZpq.md.jpg" alt="ilHZpq.md.jpg"></a></p>
+<h4 id="我就想试试这个名字到底能够起多长"><a href="#我就想试试这个名字到底能够起多长" class="headerlink" title="我就想试试这个名字到底能够起多长"></a>我就想试试这个名字到底能够起多长</h4><p>这个题目也要用到StegSolve，毕竟这东西在图片隐写里面经常使用<br>跟上面有一题很类似的操作也是去看看最低位隐藏了什么信息<br>然后可以发喜那里面放了一个压缩包保存下来打开就好<br><a href="https://imgchr.com/i/ilHe10" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHe10.md.jpg" alt="ilHe10.md.jpg"></a><br>在kali里面打开并使用strings命令查看有哪些可见字符，发现flag<br><img src="https://s1.ax1x.com/2018/09/30/ilHnXT.jpg" alt="ilHnXT.jpg"></p>
+<h4 id="你的石锅拌饭"><a href="#你的石锅拌饭" class="headerlink" title="你的石锅拌饭"></a>你的石锅拌饭</h4><p>这一个题目偏脑洞，因为题目说了有培根这东西，从而可以联想到培根密码，这里面的正体代表的是A，斜体代表的是B，以此推出密文为下面的一串东西，<code>ABAAAABABBABBBABABABAABAABAABAAABBAAAAABAABAB</code><br>因为题目说了密文是大写，因此这里我们全都是大写，然后在线解密就可以得到flag了<br><img src="https://s1.ax1x.com/2018/09/30/ilHKnU.jpg" alt="ilHKnU.jpg"></p>
+<h4 id="鲨鱼的套路"><a href="#鲨鱼的套路" class="headerlink" title="鲨鱼的套路"></a>鲨鱼的套路</h4><p> 这个题目一打开协议分析里面发现tcp流量特别多<br><a href="https://imgchr.com/i/ilHMBF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHMBF.md.png" alt="ilHMBF.md.png"></a></p>
+<p>过滤tcp流量看一下，然后追踪tcp流看一下，发现有一段base64解码发现存在pk头，导出来另存为压缩包<br><a href="https://imgchr.com/i/ilH1AJ" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilH1AJ.md.png" alt="ilH1AJ.md.png"></a></p>
+<p><a href="https://imgchr.com/i/ilHJ91" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHJ91.md.png" alt="ilHJ91.md.png"></a><br>然后发现压缩包有加密<br>于是打开看一下是否是伪加密，当然这里我们可以根据这个压缩包文件里面看到的文件名的提示，从16进编辑器中看到很明显全局没有加密，说明肯定是伪加密，我们只需要把09改为00即可<br><a href="https://imgchr.com/i/ilHcgP" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHcgP.md.png" alt="ilHcgP.md.png"></a></p>
+<p>得到flag<br><img src="https://s1.ax1x.com/2018/09/30/ilHNjK.png" alt="ilHNjK.png"></p>
+<h4 id="萌萌哒"><a href="#萌萌哒" class="headerlink" title="萌萌哒"></a>萌萌哒</h4><p>这个题目就是考察几种不同的编码方式而已<br>首先是js混淆，我们直接放进控制台跑一下就发现另外的一个文件<br><a href="https://imgchr.com/i/ilHBAH" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHBAH.png" alt="ilHBAH.png"></a><br>然后进去之后发现是一堆brainfuck编码<br>去这个网站解码一下<br><a href="http://tool.bugku.com/brainfuck/" target="_blank" rel="noopener">http://tool.bugku.com/brainfuck/</a><br>得到另外的一个经过Ook编码的的东西，再解码一下<br><a href="https://imgchr.com/i/ilHr4A" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHr4A.md.png" alt="ilHr4A.md.png"></a><br>得到flag<br><img src="https://s1.ax1x.com/2018/09/30/ilH63t.png" alt="ilH63t.png"></p>
+<h4 id="shark"><a href="#shark" class="headerlink" title="shark"></a>shark</h4><p>同样的操作用wireshark先分析一下协议，发现ftp协议特别多，然后追踪一波ftp<br><a href="https://imgchr.com/i/ilHRu8" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHRu8.md.png" alt="ilHRu8.md.png"></a></p>
+<p>然后再追踪tcp流发现这里面是利用user账户登录ftp并且密码是<br><img src="https://s1.ax1x.com/2018/09/30/ilH4EQ.png" alt="ilH4EQ.png"><br>而且还在下面发现他下载了一个flag的压缩包，然后我们再过滤一下ftp-data，把数据流给保存起来，又发现这个压缩包是加密的，这次发现这个压缩包不是伪加密了，因为全局加密位是奇数，所以是肯定是需要密码的<br><img src="https://s1.ax1x.com/2018/09/30/ilbe5d.jpg" alt="ilbe5d.jpg"></p>
+<p>尝试在包里面搜索关键字password没找到，只能尝试ftp登录密码，果然把文件给解压出了，但是放在HXD中查看有点异常因为里面存在IDHR这样的东西，明显是png图片的内容，文件却没有png文件的头部，找个png文件对比一下，发现头部果然被修改<br>正常是这样的<br><img src="https://s1.ax1x.com/2018/09/30/ilHbvV.png" alt="ilHbvV.png"><br>但现在是这样的<br><img src="https://s1.ax1x.com/2018/09/30/ilHLuT.png" alt="ilHLuT.png"><br>只需要修改几位即可，最后得开图片文件获得flag<br><a href="https://imgchr.com/i/ilHXbF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHXbF.md.png" alt="ilHXbF.md.png"></a></p>
+<h4 id="学姐真美"><a href="#学姐真美" class="headerlink" title="学姐真美"></a>学姐真美</h4><p>根据提示发现应该是在图片里面做了手脚<br>用HXD打开一下，发现文件头部还在，但是发现后面一大堆东西东西都是00很奇怪，然后搜索一下jpg文件尾FFD9<br>发现了在jpg文件尾后面还存在这一个png图片的IHDR这东西可能后面是一个png图片，试着尝试把它抠出来对比一下真正的png文件另存为看一下是什么<br><a href="https://imgchr.com/i/ilHvE4" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilHvE4.md.png" alt="ilHvE4.md.png"></a></p>
+<p>把这一段改为正常的png文件头<br><img src="https://s1.ax1x.com/2018/09/30/ilHxUJ.png" alt="ilHxUJ.png"></p>
+<p>发现是一个不完整的二维码，这牵扯到了图片的高度问题，在png里面的话IHDR后面的16位的东西就是分别改长和宽的，每组8位，把这一位改为FF<br><img src="https://s1.ax1x.com/2018/09/30/ilHz59.png" alt="ilHz59.png"><br>然后记得到完整的二维码了。扫码就可以得到flag<br><img src="https://s1.ax1x.com/2018/09/30/ilbpCR.png" alt="ilbpCR.png"></p>
+<h4 id="魂斗罗"><a href="#魂斗罗" class="headerlink" title="魂斗罗"></a>魂斗罗</h4><p>这个游戏你有两种玩法，第一种就是你自己凭本事过关，第二张就是作弊，然后在网上找作弊，输入金手指，我输入的金手指<br><a href="https://imgchr.com/i/ilbCgx" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/09/30/ilbCgx.md.png" alt="ilbCgx.md.png"></a><br>一关关下来就可以看到flag了<br><img src="https://s1.ax1x.com/2018/09/30/ilbFKK.png" alt="ilbFKK.png"><br>注意下flag的格式</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/09/30/CUMT-CTF-Platform/">CUMT平台的部分题解</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2018-09-30, 14:59:37</p>
+        <p><span>最后更新:</span>2018-09-30, 15:20:45</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/09/30/CUMT-CTF-Platform/" title="CUMT平台的部分题解">0verwatch.top/2018/09/30/CUMT-CTF-Platform/</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/09/30/CUMT-CTF-Platform/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/09/30/anheng-9month/">
+                    安恒9月部分赛题复习
+                </a>
+            </div>
+        
+    </nav>
+
+  
+  
+   
+    <div style="padding: 0; margin: 20px auto; width: 90%; text-align: center;">
+      <br>
+      <div>听说，打赏我的人最后都成了大佬。</div>
+      <br>
+      <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <div class="btn btn-pay">打赏支持</div>
+      </button>
+      <br>
+      <br>
+      <div id="QR" style="display: none;">
+        
+          <div id="wechat" style="display: inline-block;">
+            <img id="wechat_qr" src="/img/wechatpay.jpg" alt="0verWatch WeChat Pay"/>
+            <p>微信打赏</p>
+          </div>
+        
+        
+          <div id="alipay" style="display: inline-block">
+            <img id="alipay_qr" src="/img/alipay.jpg" alt="0verWatch Alipay"/>
+            <p>支付宝打赏</p>
+          </div>
+        
+        <br>
+        <br>
+      </div>
+    </div>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#basic部分"><span class="toc-number">2.</span> <span class="toc-text">basic部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#decode"><span class="toc-number">2.0.1.</span> <span class="toc-text">decode</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#白驹过隙"><span class="toc-number">2.0.2.</span> <span class="toc-text">白驹过隙</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#齐白石"><span class="toc-number">2.0.3.</span> <span class="toc-text">齐白石</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#encode"><span class="toc-number">2.0.4.</span> <span class="toc-text">encode</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS解析"><span class="toc-number">2.0.5.</span> <span class="toc-text">DNS解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#forfun2"><span class="toc-number">2.0.6.</span> <span class="toc-text">forfun2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#forfun"><span class="toc-number">2.0.7.</span> <span class="toc-text">forfun</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#签到1"><span class="toc-number">2.0.8.</span> <span class="toc-text">签到1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#签到2"><span class="toc-number">2.0.9.</span> <span class="toc-text">签到2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#超简单的密码"><span class="toc-number">2.0.10.</span> <span class="toc-text">超简单的密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#滑稽"><span class="toc-number">2.0.11.</span> <span class="toc-text">滑稽</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Fast-30"><span class="toc-number">2.0.12.</span> <span class="toc-text">Fast 30</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web"><span class="toc-number">3.</span> <span class="toc-text">web</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#源代码"><span class="toc-number">3.0.1.</span> <span class="toc-text">源代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#colorSnake"><span class="toc-number">3.0.2.</span> <span class="toc-text">colorSnake</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#备份"><span class="toc-number">3.0.3.</span> <span class="toc-text">备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上传一"><span class="toc-number">3.0.4.</span> <span class="toc-text">上传一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上传二"><span class="toc-number">3.0.5.</span> <span class="toc-text">上传二</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cookie"><span class="toc-number">3.0.6.</span> <span class="toc-text">Cookie?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上传三"><span class="toc-number">3.0.7.</span> <span class="toc-text">上传三</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#听说你会面向对象"><span class="toc-number">3.0.8.</span> <span class="toc-text">听说你会面向对象</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Misc"><span class="toc-number">4.</span> <span class="toc-text">Misc</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LSB"><span class="toc-number">4.0.1.</span> <span class="toc-text">LSB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#爱因斯坦"><span class="toc-number">4.0.2.</span> <span class="toc-text">爱因斯坦</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#视而不见"><span class="toc-number">4.0.3.</span> <span class="toc-text">视而不见</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#easy-crypto"><span class="toc-number">4.0.4.</span> <span class="toc-text">easy crypto</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#我就想试试这个名字到底能够起多长"><span class="toc-number">4.0.5.</span> <span class="toc-text">我就想试试这个名字到底能够起多长</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#你的石锅拌饭"><span class="toc-number">4.0.6.</span> <span class="toc-text">你的石锅拌饭</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#鲨鱼的套路"><span class="toc-number">4.0.7.</span> <span class="toc-text">鲨鱼的套路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#萌萌哒"><span class="toc-number">4.0.8.</span> <span class="toc-text">萌萌哒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shark"><span class="toc-number">4.0.9.</span> <span class="toc-text">shark</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#学姐真美"><span class="toc-number">4.0.10.</span> <span class="toc-text">学姐真美</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#魂斗罗"><span class="toc-number">4.0.11.</span> <span class="toc-text">魂斗罗</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/09/30/anheng-9month/" title="下一篇: 安恒9月部分赛题复习">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/30/CUMT-CTF-Platform/">CUMT平台的部分题解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/30/anheng-9month/">安恒9月部分赛题复习</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/18/hitcon2017-babyfirstv2/">Hitcon2017 babyfirst-revenge v2复现</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/14/hitcon2015-babyfirst/">Hitcon2015 babyfirst复现</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/hitcon2017-babyfirst/">Hitcon2017 babyfirst-revenge复现</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/liuliangfenxi-5-5/">铁三2018.5.5数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/30/anheng-8month-part1/">安恒8月应急响应题目回顾</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/sqli-labs-training-4/">sqli-labs实战记录(四)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/sqli-labs-training-3/">sqli-labs实战记录(三)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/sqli-labs-training-2/">sqli-labs实战记录(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/sqli-labs-training-1/">sqli-labs实战记录(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/27/bin-search-sql/">二分查找在sql盲注里面的应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/14/Solve-Me-wp/">Solve Me解题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/sql-inject-protect/">浅谈SQL注入防御手段</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/sqlmap-usage/">Sqlmap 使用方法小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/29/Linux-FW/">Linux防火墙学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/26/Mysql-security-1/">Mysql安全配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/25/pentest-1/">记录一次模拟渗透</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/20/comp-net-2/">计网实验笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/20/comp-net-1/">计网实验笔记(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/08/weiji-exam/">微机实验考试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/24/weiji-experiment/">微机实验记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/23/anheng-6month/">安恒6月赛部分做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/17/python-DataStruct-2/">数据结构复习二 双向链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/16/python-DataStruct-1/">数据结构复习一 单链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/08/writing-1/">两年</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/06/Yii-probleam/">编写Yii框架项目时出现的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/05/susctf2018-wp/">SUSCTF 2018 做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/Docker-CTFd-building/">Docker练习及在CTFd平台上放题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/CTFd-building/">CTFd平台搭建记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/27/Docker-learning/">Docker学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/25/ISCC-2018-wp/">ISCC 2018做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/24/anheng-5month/">安恒5月赛web题目做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/21/cumt-2018-final/">cumt2018校赛部分write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/18/git-learning/">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/11/PHP-Yii/">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/06/whalectf-web1/">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/shiyanba1-wp/">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/phpcheck2/">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/14/CTF-python/">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/Ubantu-Web/">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/cumt-php-fanxuliehua/">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/10/RaceConditionsSummary/">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/09/hash-length-attack/">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/06/moctf-web/">简单小结一下moctf的三道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/03/backup-blog-again/">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/25/RSA-SimpleLearn/">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/24/CRC32-Brute/">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/23/Linux-learn/">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/17/bugku-php-check/">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/14/bugku-Web-write-up/">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/14/bugku-Misc/">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/12/bugku-Crypto/">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/08/bugku-social-wp/">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/08/zipfalse/">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/07/php-mysql-content/">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/04/sql-Summary/">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/02/php summary/">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharp-work4/">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharp-work3/">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharp-work2/">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharp-work1/">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2018 0verWatch
+
+            </div>
+            <div class="footer-right">
+                Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+                <span>|  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+
+                
+
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119588656-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
