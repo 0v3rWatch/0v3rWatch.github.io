@@ -127,7 +127,14 @@
 
     <url>
         <loc>0verwatch.top/categories/CTF/</loc>
-        <lastmod>2018-10-14T01:52:10.852Z</lastmod>
+        <lastmod>2018-11-08T14:04:40.774Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>0verwatch.top/categories/%E7%AE%97%E6%B3%95/</loc>
+        <lastmod>2018-11-08T14:06:09.087Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
