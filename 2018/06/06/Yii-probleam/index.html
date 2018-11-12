@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="前言记录一下编写Yii框架中项目的问题，也可以说是边学习边记录，有点乱，但是自己看得懂就好">
+<meta name="keywords" content="PHP,Yii">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编写Yii框架项目时出现的问题">
+<meta property="og:url" content="0verwatch.top/2018/06/06/Yii-probleam/index.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="前言记录一下编写Yii框架中项目的问题，也可以说是边学习边记录，有点乱，但是自己看得懂就好">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s1.ax1x.com/2018/06/06/CHkkad.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/06/06/CHkAIA.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/06/06/CHkVPI.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/06/06/CHkKsS.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/06/06/CHkuM8.png">
+<meta property="og:updated_time" content="2018-06-06T11:53:55.800Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编写Yii框架项目时出现的问题">
+<meta name="twitter:description" content="前言记录一下编写Yii框架中项目的问题，也可以说是边学习边记录，有点乱，但是自己看得懂就好">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/06/06/CHkkad.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//lib.baomitu.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//lib.baomitu.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//lib.baomitu.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//lib.baomitu.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>编写Yii框架项目时出现的问题 | 0verWatch&#39;s Blog</title>
+
+<script src="//lib.baomitu.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//lib.baomitu.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//lib.baomitu.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//lib.baomitu.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//lib.baomitu.com/jqueryui/1.10.4/jquery-ui.min.js", "//lib.baomitu.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56ff76c972fc0cf9"></script>
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?e9bf2f4b24d981680e6d59ced18982b0";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">分类&amp;标签</a></li>
+                        
+                            <li><a href="/friends/">友链</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux安全/">Linux安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL注入/">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yii/">Yii</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微机实验/">微机实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器运维/">服务器运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量分析/">流量分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站渗透/">网站渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机网路/">计算机网路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://202.119.201.199/">CumtCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.nuptzj.cn">NuptCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.jarvisoj.com">Jarvis OJ</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.codemonster.cn/home">MOCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.bugku.com/">BugkuCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.shiyanbar.com/ctf/practice">实验吧</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://xz.aliyun.com/">先知社区</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://shentoushi.top/">渗透师导航</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://skysec.top/">一叶飘零</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.yytpublic.cn">LaurenceYu</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://chun.ringfall.me">ringfall</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">分类&amp;标签</a></li>
+                
+                    <li><a href="/friends/">友链</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" target="_blank" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Yii-probleam" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/06/Yii-probleam/" class="article-date">
+      <time datetime="2018-06-06T11:47:27.000Z" itemprop="datePublished">2018-06-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      编写Yii框架项目时出现的问题
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/编程开发/">编程开发</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Yii/">Yii</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>记录一下编写Yii框架中项目的问题，也可以说是边学习边记录，有点乱，但是自己看得懂就好</p>
+<a id="more"></a>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="web应用根目录下"><a href="#web应用根目录下" class="headerlink" title="web应用根目录下"></a>web应用根目录下</h3><p>   <code>asset</code>包含yii发布的各种资源文件包括js和css</p>
+<p>多用公共模板文件去加载，不多过多去冗余，注意在<code>views</code>文件夹下创建跟<code>controller</code>一样名字的视图文件夹</p>
+<p>注意在某些资源文件调进asset文件夹的时候需要修改路径，一般都是要搜索像<code>img script css</code>之类的关键字</p>
+<h3 id="复习一下循环将所有内容输出的格式"><a href="#复习一下循环将所有内容输出的格式" class="headerlink" title="复习一下循环将所有内容输出的格式"></a>复习一下循环将所有内容输出的格式</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">foreach</span>($a <span class="keyword">as</span> $b): <span class="meta">?&gt;</span></span><br><span class="line">	&lt;td&gt; </span><br><span class="line">	 <span class="meta">&lt;?php</span> <span class="keyword">echo</span> $b;<span class="meta">?&gt;</span> </span><br><span class="line">	&lt;/td&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">     <span class="comment">//把各部分元素输出就好，这里不一定单单就是$b,也可能是$b-&gt;某个元素</span></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">endforeach</span>;<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在新建modules时候我们需要<code>gii脚手架</code>的帮助，这个选项在<code>web.php</code>里面，一般默认开启，需要对他有权限就需要加上你的ip，添加一个<code>allowedIPs</code>选项，如下图<br><img src="https://s1.ax1x.com/2018/06/06/CHkkad.png" alt="CHkkad.png"><br><img src="https://s1.ax1x.com/2018/06/06/CHkAIA.png" alt="CHkAIA.png"><br><img src="https://s1.ax1x.com/2018/06/06/CHkVPI.png" alt="CHkVPI.png"></p>
+<h3 id="新建的modules"><a href="#新建的modules" class="headerlink" title="新建的modules"></a>新建的modules</h3><p>这相当于一个小型的Yii框架我感觉。。。。里面也有一个小型的mvc<br>然后我们还需要在<code>web.php</code>加上相应的<code>modules</code>模块<br><img src="https://s1.ax1x.com/2018/06/06/CHkKsS.png" alt="CHkKsS.png"><br>他好像默认调用的布局文件好像是view里面的<code>layouts/main.php</code><br>自己调一下就好了</p>
+<p>另外填写命名空间的时候还需要改一下<code>namespace app\modules\controllers;</code>相当于增加了<code>modules</code></p>
+<p>Yii2下的文件一般都是框架重要的配置文件，我们可以在里面的<code>web/application</code> 找到<code>public defaultRoute</code>是指定默认的主页路径的，一般最后开发的时候会把原来的布局给删掉，所以这个参数一般要改，但是我们不会选择直接改，改了Yii框架源码最后检错的时候会有点艰难，而是在<code>web.php</code>这个配置文件中修改，直接添加对应的参数名字就好，如下图<br><img src="https://s1.ax1x.com/2018/06/06/CHkuM8.png" alt="CHkuM8.png"></p>
+<h3 id="创建SQL文件"><a href="#创建SQL文件" class="headerlink" title="创建SQL文件"></a>创建SQL文件</h3><p>这里的comment后面的内容是说明，这里还学到一种使用数据库的新模式，UNIQUE约束，这个东西相当于设定一个对应的SET查询，我猜中间那里应该是<code>SQL约束</code>的名字</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span><span class="string">`shop_admin`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span><span class="string">`shop_admin`</span>(</span><br><span class="line"><span class="string">`adminid`</span><span class="built_in">INT</span> <span class="keyword">UNSIGNED</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENTCOMMENT<span class="string">'主键ID'</span>,</span><br><span class="line"><span class="string">`adminuser`</span><span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">''</span> <span class="keyword">COMMENT</span><span class="string">'管理员帐号'</span>,</span><br><span class="line"><span class="string">`adminpass`</span><span class="built_in">CHAR</span>(<span class="number">32</span>)<span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">''</span> <span class="keyword">COMMENT</span><span class="string">'管理员密码'</span>,</span><br><span class="line"><span class="string">`adminemail`</span><span class="built_in">VARCHAR</span>(<span class="number">50</span>)<span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">''</span> <span class="keyword">COMMENT</span><span class="string">'管理员邮箱'</span>,</span><br><span class="line"><span class="string">`logintime`</span><span class="built_in">INT</span> <span class="keyword">UNSIGNED</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">'0'</span> <span class="keyword">COMMENT</span><span class="string">'登录时间'</span>,</span><br><span class="line"><span class="string">`loginip`</span> <span class="built_in">BIGINT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">'0'</span> <span class="keyword">COMMENT</span><span class="string">'登录IP'</span>,</span><br><span class="line"><span class="string">`createtime`</span> <span class="built_in">INT</span> <span class="keyword">UNSIGNED</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">'0'</span> <span class="keyword">COMMENT</span><span class="string">'创建时间'</span>,</span><br><span class="line">PRIMARY <span class="keyword">KEY</span>(<span class="string">`adminid`</span>),</span><br><span class="line"><span class="keyword">UNIQUE</span> shop_admin_adminuser_adminpass(<span class="string">`adminuser`</span>,<span class="string">`adminpass`</span>),</span><br><span class="line"><span class="keyword">UNIQUE</span> shop_admin_adminuser_adminemail(<span class="string">`adminuser`</span>,<span class="string">`adminemail`</span>)</span><br><span class="line">)<span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span><span class="string">`shop_admin`</span>(adminuser,adminpass,adminemail,createtime)<span class="keyword">VALUES</span>(<span class="string">'admin'</span>,<span class="keyword">md5</span>(<span class="string">'123'</span>),<span class="string">'test@163.com'</span>,<span class="keyword">UNIX_TIMESTAMP</span>());</span><br></pre></td></tr></table></figure>
+<p>然后导进数据库文件<br>注意字节的数据库文件名的列名是否一致，我他么找了很久才找到自己哪里错了</p>
+<p>在后台创建models模块，一般不要选择直接在大框架下的models文件夹创建，因为我们得将后天跟前台分离开，别让它们互相影响。。</p>
+<p>一般情况下创建的数据库的类名跟表名一致</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">namespace</span> <span class="title">app</span>\<span class="title">modules</span>\<span class="title">models</span>;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">yii</span>\<span class="title">db</span>\<span class="title">ActiveRecord</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Admin</span> <span class="keyword">extends</span> <span class="title">ActiveRecord</span></span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">tableName</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"&#123;&#123;%admin&#125;&#125;"</span>;     <span class="comment">//这里不用shop_前缀是因为我们在配置数据库文件已把前缀给设定好，可以用左面的方式去写</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>然后再在对应的登录页面去把对应的类给调用，并且创建，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="keyword">namespace</span>  <span class="title">app</span>\<span class="title">modules</span>\<span class="title">controllers</span>;</span><br><span class="line">   <span class="keyword">use</span> <span class="title">yii</span>\<span class="title">web</span>\<span class="title">Controller</span>;</span><br><span class="line">   <span class="keyword">use</span> <span class="title">app</span>\<span class="title">modules</span>\<span class="title">models</span>\<span class="title">Admin</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="class"><span class="keyword">class</span> <span class="title">PublicController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class">   </span>&#123;</span><br><span class="line">       <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionLogin</span><span class="params">()</span></span></span><br><span class="line"><span class="function">       </span>&#123;</span><br><span class="line">           <span class="keyword">$this</span> -&gt;layout = <span class="keyword">false</span>;</span><br><span class="line">           $models = <span class="keyword">new</span> Admin;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;render(<span class="string">"login"</span>,[<span class="string">'models'</span>=&gt;$models]); <span class="comment">//一定要注意返回，经常忘记</span></span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>然后去到后台登录页面的HTML代码，首行加载</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"> <span class="keyword">use</span> <span class="title">yii</span>\<span class="title">bootstrap</span>\<span class="title">ActiveForm</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个类有帮助创建<code>form组件</code><br>然后在对应部分添加相应的代码</p>
+<h3 id="表单操作对应文章"><a href="#表单操作对应文章" class="headerlink" title="表单操作对应文章"></a>表单操作对应文章</h3><p><a href="http://www.jb51.net/article/77754.htm" target="_blank" rel="noopener">http://www.jb51.net/article/77754.htm</a></p>
+<p>然后我们把对应的静态的input标签给删除掉，还有对应的说明也给删掉,下面再讲<br>注意他们对应的类型去修改，这里是因为<code>’记住我‘</code>的那一个选项引出来的点，因为他的类型是CheckBox，并且一般来说field函数的第二个参数一般是默认以数据库里面的字段去设置的，所以不存在记住我的这一个选项，我们还需要在models里面添加一个参数<code>rememberMe</code>设定为true就是默认勾选的。。。但是这个<code>CheckBox</code>的复杂性，还存在div属性，于是我们既可以利用yii框架提供给我们的template去完成，所以单独有input属性就比较简单点，直接就是在某在类型的标签里写上对应的东西即可</p>
+<p>在提交按钮下，这里就不适用field函数了，用另外的方法实现，用的是Html的类，其实写法也差不多</p>
+<p>首先我们得在前面添加相应的模块，这里一定要记得，我这里忘了调了很久<br> <code>use yii\Helpers\Html;</code><br> 对比一下就知道怎么写了</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> Html::submitButton(<span class="string">"登录"</span>,[<span class="string">"class"</span>=&gt;<span class="string">"btn-glowprimarylogin"</span>,]);<span class="meta">?&gt;</span></span><br><span class="line">&lt;aclass=<span class="string">"btn-glowprimarylogin"</span>href=<span class="string">"index.html"</span>&gt;登录&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<p>到最后还得把刚才多出来的标签给弄掉，但是我们每个区添加template就会很烦，所以<br>我们直接在begin那部分实现</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$form=ActiveForm::begin([</span><br><span class="line"><span class="string">'fieldConfig'</span>=&gt;[</span><br><span class="line"><span class="string">'template'</span>=&gt;<span class="string">'&#123;input&#125;'</span></span><br><span class="line">]</span><br><span class="line">]);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>最终效果</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> $form=ActiveForm::begin([</span><br><span class="line"><span class="string">'fieldConfig'</span>=&gt;[</span><br><span class="line"><span class="string">'template'</span>=&gt;<span class="string">'&#123;input&#125;'</span></span><br><span class="line">]</span><br><span class="line">]);<span class="meta">?&gt;</span></span><br><span class="line">&lt;div class="span4box"&gt;</span><br><span class="line">&lt;div class="content-wrap"&gt;</span><br><span class="line">&lt;h6&gt;二手商城-后台管理&lt;/h6&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> $form-&gt;field($models,<span class="string">'adminuser'</span>)-&gt;textInput([<span class="string">"class"</span>=&gt;<span class="string">"span12"</span>,<span class="string">"placeholder"</span>=&gt;<span class="string">"管理员帐号"</span>]);<span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> $form-&gt;field($models,<span class="string">'adminpass'</span>)-&gt;passwordInput([<span class="string">"class"</span>=&gt;<span class="string">"span12"</span>,<span class="string">"placeholder"</span>=&gt;<span class="string">'管理员密码'</span>]);<span class="meta">?&gt;</span></span><br><span class="line">&lt;a href="#"class="forgot"&gt;忘记密码?&lt;/a&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> $form-&gt;field($models,<span class="string">'rememberMe'</span>)-&gt;checkbox([</span><br><span class="line"><span class="string">"id"</span>=&gt;<span class="string">"remember-me"</span>,</span><br><span class="line"><span class="string">"template"</span>=&gt;<span class="string">"&lt;div class=\"remember\"&gt;&#123;input&#125;&lt;labelfor=\"remember-me\"&gt;记住我&lt;/label&gt;&lt;/div&gt;"</span>,</span><br><span class="line">]);<span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> Html::submitButton(<span class="string">'登录'</span>,[<span class="string">"class"</span>=&gt;<span class="string">"btn-glowprimarylogin"</span>,]);<span class="meta">?&gt;</span></span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> ActiveForm::end();<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>管理后台不需要注册，记得要删除，否则出啥问题后果自负了，hiahia<br>注意这里的<code>models</code>要对应你在<code>render</code>里面的<code>‘models’</code>参数</p>
+<p>对于后台登录页面注意接收数据的页面，然后我们在里面利用yii框架的request模块了，千万要记得记得前面加上use Yii,<br>我们就可以在下面用这样的语句去判断</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(Yii::$app-&gt;request-&gt;isPost)</span><br></pre></td></tr></table></figure>
+<p>我们还可以利用定义函数<code>rules</code>去定义规则，这个规则在调用<code>validate</code>的时候会调用<br>详情可以看一下下面的链接<br><a href="https://blog.csdn.net/luze_1226/article/details/65633923" target="_blank" rel="noopener">https://blog.csdn.net/luze_1226/article/details/65633923</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Public</span> <span class="function"><span class="keyword">function</span> <span class="title">rules</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">return</span>[</span><br><span class="line">[<span class="string">'adminuser'</span>,<span class="string">'required'</span>,<span class="string">'message'</span>=&gt;<span class="string">'管理员账号不能为空'</span>],</span><br><span class="line">[<span class="string">'adminpass'</span>,<span class="string">'required'</span>,<span class="string">'message'</span>=&gt;<span class="string">'管理员密码不能为空'</span>],</span><br><span class="line">[<span class="string">'rememberMe'</span>,<span class="string">'boolean'</span>],</span><br><span class="line">[<span class="string">'adminpass'</span>,<span class="string">'validatePass'</span>],</span><br><span class="line">];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但密码检验没有对应的方法，所以得自定义一个<code>validatePass</code>，也就是说规则是有一部分可以自定义的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">validatePass</span><span class="params">()</span> //数据的验证</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(!<span class="keyword">$this</span>-&gt;hasErrors())</span><br><span class="line">                &#123;</span><br><span class="line">                    $data = <span class="keyword">self</span>::find()-&gt;where(<span class="string">'adminuser=:user and adminpass=:pass'</span>,[<span class="string">":user"</span>=&gt;<span class="keyword">$this</span>-&gt;adminuser,<span class="string">":pass"</span>=&gt;md5(<span class="keyword">$this</span>-&gt;adminpass)])-&gt;one();</span><br><span class="line">                    <span class="keyword">if</span>(isNull($data)) <span class="comment">//判断数据是否为空</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">$this</span>-&gt;addError(<span class="string">"adminpass"</span>,<span class="string">"用户名或者密码错误！"</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>这样login里面就可以做点有意义的事情了，但是如果想让后台页面显示错误信息的话我们只需要在模板文件里面的begin里面的<code>template</code>的<code>{input}</code>的前面或者后面添加<code>{error}</code>即可，位置任选哪里好看放哪里</p>
+<h3 id="生成动态url"><a href="#生成动态url" class="headerlink" title="生成动态url"></a>生成动态url</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">"&lt;?php  echo yii\Helpers\Url::to(['public/logout']); ?&gt;"</span> role=<span class="string">"button"</span>&gt;</span><br></pre></td></tr></table></figure>
+<p> <code>Yii::$app-&gt;end();</code>这句在跳转之后的作用看一看下面这个网址，相当于die操作<br><a href="http://www.yiichina.com/question/2182" target="_blank" rel="noopener">http://www.yiichina.com/question/2182</a></p>
+<p>在某个models里的这个东西<code>if($this-&gt;load($data)&amp;&amp; $this-&gt;validate())</code><br>可以看下面的链接<a href="http://www.yiichina.com/question/955" target="_blank" rel="noopener">http://www.yiichina.com/question/955</a><br>先是<code>load</code>是填充规则里面的东西，而<code>validate</code>就是用来检查规则的<br>但是一旦rules规则多起来，调用的时候会把规则里面的东西全检查一遍，非常耗时。。此时要增加场景来提高效率<br>在每个自定义的检查函数里面添加<code>$this-&gt;scenario = &quot;yourname&quot;</code>,并且在规则里面添加<code>on</code>参数去规定场景<br>如</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'adminuser'</span>,<span class="string">'required'</span>,<span class="string">'message'</span>=&gt;<span class="string">'管理员账号不能为空'</span>,<span class="string">'on'</span>=&gt;[<span class="string">'login'</span>,<span class="string">'seekpass'</span>]]</span><br></pre></td></tr></table></figure>
+<h3 id="Email发送类操作"><a href="#Email发送类操作" class="headerlink" title="Email发送类操作"></a>Email发送类操作</h3><p>在web.php里面找到mailer这个选项，这个东西就是对email发送的设置、邮箱的配置详情看<br><a href="https://blog.csdn.net/cjqh_hao/article/details/48501897" target="_blank" rel="noopener">https://blog.csdn.net/cjqh_hao/article/details/48501897</a><br><a href="http://www.yiichina.com/tutorial/320" target="_blank" rel="noopener">http://www.yiichina.com/tutorial/320</a></p>
+<p>还要记得配置里面的password填写的是授权密码啊。。。。。。真心累这东西，解决方案<br><a href="http://www.yii-china.com/post/detail/10.html" target="_blank" rel="noopener">http://www.yii-china.com/post/detail/10.html</a></p>
+<p>注意在发送邮件的函数中也就是mailer函数调用<code>compose</code>参数的<code>view</code>参数千万不能忘记，一定要在mail文件夹下新建你对应的视图文件，不要像我一样直接在layouts里面新建了。。。而且这里面的内容就是你发送邮件的内容，里面有个函数也要注意一下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Yii::$app-&gt;session-&gt;setFlash(<span class="string">'info'</span>,<span class="string">'电子邮件已经发送成功，请查收'</span>);</span><br></pre></td></tr></table></figure>
+<p>这句话不要忘记在对应的视图文件里面加上，我自己是public下面的seekpassword.php文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">if</span>(Yii::$app-&gt;session-&gt;hasFlash(<span class="string">'info'</span>))&#123;</span><br><span class="line"><span class="keyword">echo</span> Yii::$app-&gt;session-&gt;getFlash(<span class="string">'info'</span>);</span><br><span class="line">&#125;<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>不然不会出现成功的信息的，这里真的是对yii框架太不熟悉了，只能在项目完成过程中慢慢摸索</p>
+<h3 id="分页处理"><a href="#分页处理" class="headerlink" title="分页处理"></a>分页处理</h3><p>运用了yii框架下的的一个组件<br>在对应的控制器里面加上<code>use yii\data\Pagination;</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$model = Admin::find();</span><br><span class="line">           $count = $model-&gt;count();</span><br><span class="line">           $pageSize = Yii::$app-&gt;params[<span class="string">'pageSize'</span>][<span class="string">'manage'</span>];</span><br><span class="line">           $pager = <span class="keyword">new</span> Pagination([<span class="string">'totalCount'</span>=&gt; $count, <span class="string">'pageSize'</span>=&gt; $pageSize]);</span><br><span class="line">           $managers = $model-&gt;offset($pager-&gt;offset)-&gt;limit($pager-&gt;limit)-&gt;all();</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;render(<span class="string">"managers"</span>,[<span class="string">'managers'</span>=&gt;$managers,<span class="string">'pager'</span>=&gt; $pager]);</span><br></pre></td></tr></table></figure>
+<p>这里面把查找的内容放进新建的<code>Pagination</code>对象里面，对应的<code>pageSize</code>里面的设置是分页，可以预先放进设置文件params里面，再通过调用<code>Yii::$app-&gt;params</code>的方式去实现就好</p>
+<p>记得要在对应的视图文件里面添加分页的输出语句</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> yii\widgets\LinkPager::widget([<span class="string">'pagination'</span> =&gt; $pager, <span class="string">'prevPageLabel'</span>=&gt; <span class="string">'&amp;#8249;'</span>,<span class="string">'nextPageLabel'</span> =&gt; <span class="string">'&amp;#8250;'</span>]);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 后面的两个<code>Label</code>参数只是图标的形状，随意就好</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/06/06/Yii-probleam/">编写Yii框架项目时出现的问题</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2018-06-06, 19:47:27</p>
+        <p><span>最后更新:</span>2018-06-06, 19:53:55</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/06/06/Yii-probleam/" title="编写Yii框架项目时出现的问题">0verwatch.top/2018/06/06/Yii-probleam/</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/06/06/Yii-probleam/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/06/08/writing-1/">
+                    两年
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/06/05/susctf2018-wp/">
+                    SUSCTF 2018 做题记录
+                </a>
+            </div>
+        
+    </nav>
+
+  
+  
+   
+    <div style="padding: 0; margin: 20px auto; width: 90%; text-align: center;">
+      <br>
+      <div>听说，打赏我的人最后都成了大佬。</div>
+      <br>
+      <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <div class="btn btn-pay">打赏支持</div>
+      </button>
+      <br>
+      <br>
+      <div id="QR" style="display: none;">
+        
+          <div id="wechat" style="display: inline-block;">
+            <img id="wechat_qr" src="/img/wechatpay.jpg" alt="0verWatch WeChat Pay"/>
+            <p>微信打赏</p>
+          </div>
+        
+        
+          <div id="alipay" style="display: inline-block">
+            <img id="alipay_qr" src="/img/alipay.jpg" alt="0verWatch Alipay"/>
+            <p>支付宝打赏</p>
+          </div>
+        
+        <br>
+        <br>
+      </div>
+    </div>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web应用根目录下"><span class="toc-number">2.1.</span> <span class="toc-text">web应用根目录下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复习一下循环将所有内容输出的格式"><span class="toc-number">2.2.</span> <span class="toc-text">复习一下循环将所有内容输出的格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新建的modules"><span class="toc-number">2.3.</span> <span class="toc-text">新建的modules</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建SQL文件"><span class="toc-number">2.4.</span> <span class="toc-text">创建SQL文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表单操作对应文章"><span class="toc-number">2.5.</span> <span class="toc-text">表单操作对应文章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成动态url"><span class="toc-number">2.6.</span> <span class="toc-text">生成动态url</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Email发送类操作"><span class="toc-number">2.7.</span> <span class="toc-text">Email发送类操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分页处理"><span class="toc-number">2.8.</span> <span class="toc-text">分页处理</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+              
+        <section class="livere" id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80MDk1Ny8xNzQ4Mg==">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</section>。 
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/06/08/writing-1/" title="上一篇: 两年">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/06/05/susctf2018-wp/" title="下一篇: SUSCTF 2018 做题记录">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/11/08/anheng-10month/">安恒10月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/08/algorithm-review/">算法上机考试复习</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/14/huwang-game/">护网杯部分题目题解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/30/CUMT-CTF-Platform/">CUMT平台的部分题解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/30/anheng-9month/">安恒9月部分赛题复现</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/18/hitcon2017-babyfirstv2/">Hitcon2017 babyfirst-revenge v2复现</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/14/hitcon2015-babyfirst/">Hitcon2015 babyfirst复现</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/hitcon2017-babyfirst/">Hitcon2017 babyfirst-revenge复现</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/liuliangfenxi-5-5/">铁三2018.5.5数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/30/anheng-8month-part1/">安恒8月应急响应题目回顾</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/sqli-labs-training-4/">sqli-labs实战记录(四)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/sqli-labs-training-3/">sqli-labs实战记录(三)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/sqli-labs-training-2/">sqli-labs实战记录(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/sqli-labs-training-1/">sqli-labs实战记录(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/27/bin-search-sql/">二分查找在sql盲注里面的应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/14/Solve-Me-wp/">Solve Me解题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/sql-inject-protect/">浅谈SQL注入防御手段</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/sqlmap-usage/">Sqlmap 使用方法小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/29/Linux-FW/">Linux防火墙学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/26/Mysql-security-1/">Mysql安全配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/25/pentest-1/">记录一次模拟渗透</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/20/comp-net-2/">计网实验笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/20/comp-net-1/">计网实验笔记(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/08/weiji-exam/">微机实验考试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/24/weiji-experiment/">微机实验记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/23/anheng-6month/">安恒6月赛部分做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/17/python-DataStruct-2/">数据结构复习二 双向链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/16/python-DataStruct-1/">数据结构复习一 单链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/08/writing-1/">两年</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/06/Yii-probleam/">编写Yii框架项目时出现的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/05/susctf2018-wp/">SUSCTF 2018 做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/Docker-CTFd-building/">Docker练习及在CTFd平台上放题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/CTFd-building/">CTFd平台搭建记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/27/Docker-learning/">Docker学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/25/ISCC-2018-wp/">ISCC 2018做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/24/anheng-5month/">安恒5月赛web题目做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/21/cumt-2018-final/">cumt2018校赛部分write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/18/git-learning/">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/11/PHP-Yii/">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/06/whalectf-web1/">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/shiyanba1-wp/">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/phpcheck2/">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/14/CTF-python/">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/Ubantu-Web/">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/11/cumt-php-fanxuliehua/">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/10/RaceConditionsSummary/">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/09/hash-length-attack/">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/06/moctf-web/">简单小结一下moctf的三道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/03/backup-blog-again/">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/25/RSA-SimpleLearn/">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/24/CRC32-Brute/">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/23/Linux-learn/">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/17/bugku-php-check/">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/14/bugku-Web-write-up/">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/14/bugku-Misc/">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/12/bugku-Crypto/">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/08/bugku-social-wp/">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/08/zipfalse/">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/07/php-mysql-content/">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/04/sql-Summary/">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/02/php summary/">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharp-work4/">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharp-work3/">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharp-work2/">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/28/Csharp-work1/">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2018 0verWatch
+
+            </div>
+            <div class="footer-right">
+                Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+                <span>|  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+
+                
+
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//lib.baomitu.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119588656-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
