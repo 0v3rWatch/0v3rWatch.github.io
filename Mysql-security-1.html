@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="mysql中存在4个控制权限的表，分别为">
+<meta name="keywords" content="Mysql安全配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql安全配置">
+<meta property="og:url" content="0verwatch.top/Mysql-security-1.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="mysql中存在4个控制权限的表，分别为">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s1.ax1x.com/2018/07/26/PNNSfK.md.png">
+<meta property="og:updated_time" content="2018-07-26T12:37:15.855Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql安全配置">
+<meta name="twitter:description" content="mysql中存在4个控制权限的表，分别为">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/07/26/PNNSfK.md.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//lib.baomitu.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//lib.baomitu.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//lib.baomitu.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//lib.baomitu.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Mysql安全配置 | 0verWatch&#39;s Blog</title>
+
+<script src="//lib.baomitu.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//lib.baomitu.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//lib.baomitu.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//lib.baomitu.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//lib.baomitu.com/jqueryui/1.10.4/jquery-ui.min.js", "//lib.baomitu.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56ff76c972fc0cf9"></script>
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?e9bf2f4b24d981680e6d59ced18982b0";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">分类&amp;标签</a></li>
+                        
+                            <li><a href="/friends/">友链</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux安全/">Linux安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL注入/">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yii/">Yii</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微机实验/">微机实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器运维/">服务器运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量分析/">流量分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站渗透/">网站渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机网路/">计算机网路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://202.119.201.199/">CumtCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.nuptzj.cn">NuptCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.jarvisoj.com">Jarvis OJ</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.codemonster.cn/home">MOCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.bugku.com/">BugkuCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.shiyanbar.com/ctf/practice">实验吧</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://xz.aliyun.com/">先知社区</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://shentoushi.top/">渗透师导航</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://skysec.top/">一叶飘零</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.yytpublic.cn">LaurenceYu</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://chun.ringfall.me">ringfall</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">分类&amp;标签</a></li>
+                
+                    <li><a href="/friends/">友链</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" target="_blank" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Mysql-security-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/Mysql-security-1.html" class="article-date">
+      <time datetime="2018-07-26T12:35:31.000Z" itemprop="datePublished">2018-07-26</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Mysql安全配置
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Mysql安全配置/">Mysql安全配置</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+<p>mysql中存在4个控制权限的表，分别为<a id="more"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. mysql.USER表</span><br><span class="line">2. mysql.DB表</span><br><span class="line">3. mysql.TABLES_PRIV表</span><br><span class="line">4. mysql.COLUMNS_PRIV表</span><br></pre></td></tr></table></figure>
+<p>要注意的是，Mysql中有一个数据库”<code>information_schema</code>“，似乎里面保存的也是一些权限信息，但是要明白的是，这个数据库”<code>information_schema</code>“是为系统管理员提供元数据的一个简便方式，它实际上是一个视图，可以理解为对Mysql中的一个信息的封装，对于Mysql主程序来说，身份认证和授权的信息的来源只有一个，就是”<code>mysql</code>“。</p>
+<p>在我们进行数据库连接、登录的时候，mysql权限表的验证过程为：</p>
+<ol>
+<li>先从user表中的:</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1) Host</span><br><span class="line">2) User</span><br><span class="line">3) Password</span><br></pre></td></tr></table></figure>
+<p>这3个字段中判断连接的ip、用户名、密码是否存在，存在则通过验证。</p>
+<ol start="2">
+<li>通过身份认证后，进行权限分配，按照下面的顺序进行验证。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1) user</span><br><span class="line">2) db</span><br><span class="line">3) tables_priv</span><br><span class="line">4) columns_priv</span><br></pre></td></tr></table></figure>
+<p>即先检查全局权限表user，如果user中对应的权限为Y，则此用户对所有数据库的权限都为Y，将<code>不再</code>检查<code>db，tables_priv,columns_priv</code><br>如果全局权限表<code>user</code>对应的权限为<code>N</code>，则到db表中检查此用户对应的具体数据库，并得到db中为Y的权限<br>如果db中为N，则检查<code>tables_priv</code>中此数据库对应的具体表，取得表中的权限Y，以此类推。逐级下降</p>
+<p>用自己的话讲就是因为查找他们权限是否配置好根据情况查看<code>mysql</code>这个数据库中的<code>user，db，tables_priv，columns_pri</code>，一旦在某个级别设置好了权限就不需要网下一级去看他是否存在权限了，因为下面一级的表都不会显示，这是为了防止数据库数据冗余。就是例如你设置的是所有数据库及表的权限的话，到时候就直接<code>select * from user;</code>就可以查看对应的程序啦<br><a href="https://imgchr.com/i/PNNSfK" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/26/PNNSfK.md.png" alt="PNNSfK.md.png"></a></p>
+<p>对于Mysql中的账户权限相关的安全配置，总结如下：</p>
+<ol>
+<li>针对每个网站建立一个单独的账户</li>
+<li>为每个网站单独建立一个专属数据库(虽然DEDE、DZ普通采用表前缀的方法来实现”一库多站”，但好的做法还是”一库一站”)</li>
+<li>按照<code>user-&gt;db-&gt;tables_priv-&gt;columns_pri</code>的顺序进行细粒度的权限控制</li>
+<li>为每个用户单独配置一个专属数据库，保证当前用户的所有操作只能发生在它自己的数据库中，防止SQL注入发生后，黑客通过注入点访问到系统表</li>
+</ol>
+<p>账户权限安全配置需要的常用命令<br>1)新建一个用户并给予相应数据库的权限</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grant select,insert,update,delete,create,drop privileges on 数据库名字.表名 to user@localhost identified by 'passwd';    //如果是*号就是代表全部*.*代表所有数据库下的全部表名</span><br><span class="line"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> database.* <span class="keyword">to</span> <span class="keyword">user</span>@localhost <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'passwd'</span>;</span><br></pre></td></tr></table></figure>
+<p>2) 刷新权限</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span><br></pre></td></tr></table></figure>
+<p>3)显示授权</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">grants</span>;  //这句话只显示当前登录用户的权限</span><br></pre></td></tr></table></figure>
+<p>4) 移除授权</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">revoke</span> <span class="keyword">delete</span> <span class="keyword">on</span> *.* <span class="keyword">from</span> <span class="string">'user'</span>@<span class="string">'localhost'</span>;</span><br></pre></td></tr></table></figure>
+<p>5) 删除用户<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> <span class="string">'user'</span>@<span class="string">'localhost'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>6) 给用户改名<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rename</span> <span class="keyword">user</span> <span class="string">'jack'</span>@<span class="string">'%'</span> <span class="keyword">to</span> <span class="string">'jim'</span>@<span class="string">'%'</span>;``</span><br></pre></td></tr></table></figure></p>
+<p>7) 给用户改密码</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> <span class="keyword">FOR</span> <span class="string">'root'</span>@<span class="string">'localhost'</span> = <span class="keyword">PASSWORD</span>(<span class="string">'123456'</span>);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/Mysql-security-1.html">Mysql安全配置</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2018-07-26, 20:35:31</p>
+        <p><span>最后更新:</span>2018-07-26, 20:37:15</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/Mysql-security-1.html" title="Mysql安全配置">0verwatch.top/Mysql-security-1.html</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/Mysql-security-1.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/Linux-FW.html">
+                    Linux防火墙学习
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/pentest-1.html">
+                    记录一次模拟渗透
+                </a>
+            </div>
+        
+    </nav>
+
+  
+  
+   
+    <div style="padding: 0; margin: 20px auto; width: 90%; text-align: center;">
+      <br>
+      <div>听说，打赏我的人最后都成了大佬。</div>
+      <br>
+      <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <div class="btn btn-pay">打赏支持</div>
+      </button>
+      <br>
+      <br>
+      <div id="QR" style="display: none;">
+        
+          <div id="wechat" style="display: inline-block;">
+            <img id="wechat_qr" src="/img/wechatpay.jpg" alt="0verWatch WeChat Pay"/>
+            <p>微信打赏</p>
+          </div>
+        
+        
+          <div id="alipay" style="display: inline-block">
+            <img id="alipay_qr" src="/img/alipay.jpg" alt="0verWatch Alipay"/>
+            <p>支付宝打赏</p>
+          </div>
+        
+        <br>
+        <br>
+      </div>
+    </div>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+              
+        <section class="livere" id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80MDk1Ny8xNzQ4Mg==">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</section>。 
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/Linux-FW.html" title="上一篇: Linux防火墙学习">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/pentest-1.html" title="下一篇: 记录一次模拟渗透">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/anheng-10month.html">安恒10月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/algorithm-review.html">算法上机考试复习</a></li><li class="post-list-item"><a class="post-list-link" href="/huwang-game.html">护网杯部分题目题解</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-CTF-Platform.html">CUMT平台的部分题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-9month.html">安恒9月部分赛题复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirstv2.html">Hitcon2017 babyfirst-revenge v2复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2015-babyfirst.html">Hitcon2015 babyfirst复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirst.html">Hitcon2017 babyfirst-revenge复现</a></li><li class="post-list-item"><a class="post-list-link" href="/liuliangfenxi-5-5.html">铁三2018.5.5数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-8month-part1.html">安恒8月应急响应题目回顾</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-4.html">sqli-labs实战记录(四)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-3.html">sqli-labs实战记录(三)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-2.html">sqli-labs实战记录(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-1.html">sqli-labs实战记录(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/bin-search-sql.html">二分查找在sql盲注里面的应用</a></li><li class="post-list-item"><a class="post-list-link" href="/Solve-Me-wp.html">Solve Me解题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-inject-protect.html">浅谈SQL注入防御手段</a></li><li class="post-list-item"><a class="post-list-link" href="/sqlmap-usage.html">Sqlmap 使用方法小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-FW.html">Linux防火墙学习</a></li><li class="post-list-item"><a class="post-list-link" href="/Mysql-security-1.html">Mysql安全配置</a></li><li class="post-list-item"><a class="post-list-link" href="/pentest-1.html">记录一次模拟渗透</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-2.html">计网实验笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-1.html">计网实验笔记(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-exam.html">微机实验考试</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-experiment.html">微机实验记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-6month.html">安恒6月赛部分做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-2.html">数据结构复习二 双向链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-1.html">数据结构复习一 单链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/writing-1.html">两年</a></li><li class="post-list-item"><a class="post-list-link" href="/Yii-probleam.html">编写Yii框架项目时出现的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/susctf2018-wp.html">SUSCTF 2018 做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-CTFd-building.html">Docker练习及在CTFd平台上放题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTFd-building.html">CTFd平台搭建记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-learning.html">Docker学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/ISCC-2018-wp.html">ISCC 2018做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-5month.html">安恒5月赛web题目做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-2018-final.html">cumt2018校赛部分write up</a></li><li class="post-list-item"><a class="post-list-link" href="/git-learning.html">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/PHP-Yii.html">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web1.html">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/shiyanba1-wp.html">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/phpcheck2.html">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTF-python.html">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/Ubantu-Web.html">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-php-fanxuliehua.html">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/RaceConditionsSummary.html">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/hash-length-attack.html">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/moctf-web.html">简单小结一下moctf的三道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/backup-blog-again.html">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/RSA-SimpleLearn.html">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/CRC32-Brute.html">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-learn.html">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-php-check.html">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Web-write-up.html">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Misc.html">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Crypto.html">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-social-wp.html">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/zipfalse.html">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/php-mysql-content.html">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-Summary.html">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/php summary.html">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work4.html">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work3.html">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work2.html">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work1.html">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2018 0verWatch
+
+            </div>
+            <div class="footer-right">
+                Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+                <span>|  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+
+                
+
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//lib.baomitu.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119588656-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
