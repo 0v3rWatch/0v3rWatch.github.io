@@ -15,18 +15,21 @@
 
 
 
-<meta name="description" content="随笔">
-<meta name="keywords" content="随笔">
+<meta name="description" content="简介维吉尼亚密码是使用一系列凯撒密码组成密码字母表的加密算法，属于多表密码的一种简单">
+<meta name="keywords" content="密码学">
 <meta property="og:type" content="article">
-<meta property="og:title" content="两年">
-<meta property="og:url" content="0verwatch.top/writing-1.html">
+<meta property="og:title" content="维吉尼亚密码原理及Python实现">
+<meta property="og:url" content="0verwatch.top/Virginia-python.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="随笔">
+<meta property="og:description" content="简介维吉尼亚密码是使用一系列凯撒密码组成密码字母表的加密算法，属于多表密码的一种简单">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-08T14:42:56.457Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/01/F5UNH1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/01/F5UGjJ.png">
+<meta property="og:updated_time" content="2019-01-12T10:10:57.090Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="两年">
-<meta name="twitter:description" content="随笔">
+<meta name="twitter:title" content="维吉尼亚密码原理及Python实现">
+<meta name="twitter:description" content="简介维吉尼亚密码是使用一系列凯撒密码组成密码字母表的加密算法，属于多表密码的一种简单">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/01/01/F5UNH1.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -58,7 +61,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>两年 | 0verWatch&#39;s Blog</title>
+<title>维吉尼亚密码原理及Python实现 | 0verWatch&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -296,11 +299,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-writing-1" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Virginia-python" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/writing-1.html" class="article-date">
-      <time datetime="2018-06-08T11:33:07.000Z" itemprop="datePublished">2018-06-08</time>
+      <a href="/Virginia-python.html" class="article-date">
+      <time datetime="2018-12-21T08:17:06.000Z" itemprop="datePublished">2018-12-21</time>
 </a>
 
 
@@ -315,7 +318,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      两年
+      维吉尼亚密码原理及Python实现
     </h1>
   
 
@@ -324,13 +327,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/随笔/">随笔</a>
+    <a class="article-category-link" href="/categories/密码学/">密码学</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/密码学/">密码学</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -341,7 +344,20 @@
       
           
         
-<script src="/crypto-js.js"></script><script src="/mcommon.js"></script><h3 id="encrypt-message">请输入密码</h3><link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"> <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> <div id="security"> <div> <div class="input-group"> <input type="text" class="form-control" aria-label="Enter the password." id="pass"/> <div class="input-group-btn"> <button type="button" class="btn btn-default" onclick="decryptAES()">Decrypt</button> </div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>维吉尼亚密码是使用一系列凯撒密码组成密码字母表的加密算法，属于多表密码的一种简单<a id="more"></a>形式。</p>
+<h3 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h3><ol>
+<li>加密过程:明文字母p对应的列和秘钥字母k对应的行的交叉点就是加密字母后的密文字母</li>
+<li>解密过程:在密钥字母k对应的行找到对应密文字母，则该密文字母对应的列的字母就是明文字母</li>
+</ol>
+<p>下图就是维吉尼亚密码的表格，我们需要构造这样的一个表去查，代码是将其变成了一维的形式然后实现的</p>
+<p><img src="https://s2.ax1x.com/2019/01/01/F5UNH1.png" alt="F5UNH1.png"></p>
+<h3 id="核心代码及分析"><a href="#核心代码及分析" class="headerlink" title="核心代码及分析"></a>核心代码及分析</h3><p>字母的偏移问题，我这里是分开大小写字母进行加解密的，也就是说大写加解密后还是大写，小写加解密后还是小写，然后从26个字母里面选择，所以必须注意边界问题，需要对26取余。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">letter_list = string.ascii_uppercase</span><br><span class="line">letter_list2 = string.ascii_lowercase</span><br></pre></td></tr></table></figure>
+<p>代码只对字母进行加解密，代码里面需要注意的是一下细节问题，比如在密钥使用完过后需要循环使用，这里用的是取余加上一个标记flag去实现，然后从字母列表里面选取对应的字母即可。加解密代码如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Encrypt</span><span class="params">(message,key)</span>:</span></span><br><span class="line">    ciphertext = <span class="string">""</span></span><br><span class="line">    flag = <span class="number">0</span></span><br><span class="line">    key_list = key</span><br><span class="line">    <span class="keyword">for</span> plain <span class="keyword">in</span> message:</span><br><span class="line">        <span class="keyword">if</span> flag % len(key_list) == <span class="number">0</span>:</span><br><span class="line">            flag = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> plain.isalpha(): <span class="comment">#判断是否为英文</span></span><br><span class="line">            <span class="keyword">if</span> plain.isupper():</span><br><span class="line">                ciphertext += letter_list[(ord(plain) - <span class="number">65</span> + key_list[flag]) % <span class="number">26</span>] <span class="comment">#行偏移加上列偏移</span></span><br><span class="line">                flag += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> plain.islower():</span><br><span class="line">                ciphertext += letter_list2[(ord(plain) - <span class="number">97</span> + key_list[flag]) % <span class="number">26</span>]</span><br><span class="line">                flag += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:<span class="comment">#不是英文不加密</span></span><br><span class="line">            ciphertext += plain</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ciphertext</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Decrypt</span><span class="params">(message,key)</span>:</span></span><br><span class="line">    plaintext = <span class="string">""</span></span><br><span class="line">    flag = <span class="number">0</span></span><br><span class="line">    key_list = key</span><br><span class="line">    <span class="keyword">for</span> cipher <span class="keyword">in</span> message:</span><br><span class="line">        <span class="keyword">if</span> flag % len(key_list) == <span class="number">0</span>:</span><br><span class="line">            flag  = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> cipher.isalpha():</span><br><span class="line">            <span class="keyword">if</span> cipher.isupper():</span><br><span class="line">                plaintext += letter_list[(ord(cipher) - <span class="number">65</span> - key_list[flag]) %<span class="number">26</span>]</span><br><span class="line">                flag += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> cipher.islower():</span><br><span class="line">                plaintext += letter_list2[(ord(cipher) - <span class="number">97</span> - key_list[flag]) % <span class="number">26</span>]</span><br><span class="line">                flag += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            plaintext += cipher</span><br><span class="line">    <span class="keyword">return</span> plaintext</span><br></pre></td></tr></table></figure>
+<h3 id="正确性"><a href="#正确性" class="headerlink" title="正确性"></a>正确性</h3><p>这里以输入”helloworld”为例，然后进行加解密，能够正确完成</p>
+<p><img src="https://s2.ax1x.com/2019/01/01/F5UGjJ.png" alt="F5UGjJ.png"></p>
+<h3 id="详细代码-放在github上了-：维吉尼亚密码"><a href="#详细代码-放在github上了-：维吉尼亚密码" class="headerlink" title="详细代码(放在github上了)：维吉尼亚密码"></a>详细代码(放在github上了)：<a href="https://github.com/0v3rW4tch/Cryptography-course-design" target="_blank" rel="noopener">维吉尼亚密码</a></h3>
       
     </div>
     
@@ -349,13 +365,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/writing-1.html">两年</a></p>
+        <p><span>本文标题:</span><a href="/Virginia-python.html">维吉尼亚密码原理及Python实现</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
-        <p><span>发布时间:</span>2018-06-08, 19:33:07</p>
-        <p><span>最后更新:</span>2018-06-08, 22:42:56</p>
+        <p><span>发布时间:</span>2018-12-21, 16:17:06</p>
+        <p><span>最后更新:</span>2019-01-12, 18:10:57</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/writing-1.html" title="两年">0verwatch.top/writing-1.html</a>
-            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/writing-1.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/Virginia-python.html" title="维吉尼亚密码原理及Python实现">0verwatch.top/Virginia-python.html</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/Virginia-python.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -368,15 +384,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/python-DataStruct-1.html">
-                    数据结构复习一 单链表(python实现)
+                <a href="/anheng-12month.html">
+                    安恒12月赛Web题解
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/Yii-probleam.html">
-                    编写Yii框架项目时出现的问题
+                <a href="/CUMT-month-race.html">
+                    CUMT第一轮双月赛Web题解
                 </a>
             </div>
         
@@ -418,7 +434,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#encrypt-message"><span class="toc-number">1.</span> <span class="toc-text">请输入密码</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法描述"><span class="toc-number">2.</span> <span class="toc-text">算法描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#核心代码及分析"><span class="toc-number">3.</span> <span class="toc-text">核心代码及分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正确性"><span class="toc-number">4.</span> <span class="toc-text">正确性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#详细代码-放在github上了-：维吉尼亚密码"><span class="toc-number">5.</span> <span class="toc-text">详细代码(放在github上了)：维吉尼亚密码</span></a></li></ol>
         
     </div>
     <style>
@@ -480,7 +496,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/python-DataStruct-1.html" title="上一篇: 数据结构复习一 单链表(python实现)">
+            <a href="/anheng-12month.html" title="上一篇: 安恒12月赛Web题解">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -488,7 +504,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/Yii-probleam.html" title="下一篇: 编写Yii框架项目时出现的问题">
+            <a href="/CUMT-month-race.html" title="下一篇: CUMT第一轮双月赛Web题解">
                 <i class="fa fa-angle-right"></i>
             </a>
         
