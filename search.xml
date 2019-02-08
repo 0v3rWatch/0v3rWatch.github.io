@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title>Dockerfile编写</title>
+      <link href="/Dockerfile-writing.html"/>
+      <url>/Dockerfile-writing.html</url>
+      <content type="html"><![CDATA[<p>最近在出题目，Dockerfile有些东西忘记了<a id="more"></a>，重新回顾一下</p><h4 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h4><p>新建并启动容器：docker run [opotions] IMAGE [COMMAND] [Args..]</p><p>-i : 交互式运行并且与-t相互运行</p><p>-t ：新建一个终端</p><p>–name：直接跟新建的名字</p><p>docker ps:查看所有正在运行的容器 -a查看历史运行过的容器 -l 上次运行的 -n 加个数字显示最近几次创建的容器 -q 显示容器编号  可以以此删除容器</p><p>退出容器：两种：1. exit  容器停止退出 2. ctrl+P+Q  容器不停止并退出</p><p>启动容器：docker start 容器ID</p><p>重启容器： docker restart 容器ID</p><p>停止容器： docker stop 容器ID或名字</p><p>强制停止容器：docker kill 容器ID或名字</p><p>删除已经停止的容器：docker rm 容器ID或名字 没有停止的加个 -f</p><p>删除全部 docker rm -f  $(docker ps -aq)</p><p>-P：随机端口映射</p><p>-p：指定端口映射，有以下四种格式</p><p>ip:hostPort:containerPort</p><p>ip:containerPort</p><p>hostPort:containerPort</p><p>contarinerPort</p><p>启动守护容器： -d 后台运行并返回ID</p><p>但是用这种方案启动的docker使用ps命令是看不到其容器进程，因为他已经退出了，Docker后台运行就必须有一个前台进程，如果不是那些一直挂气的命令如(top,tail)，就是会自动启动的</p><p>查看容器日志 docker logs -f -t –tail 容器ID -t时间戳 -f跟随最新日志打印 –tail跟数字表示最后几条</p><p>查看容器内进程：docker top 容器名字、ID</p><p>查看容器内部的细节：docker inspect 容器ID</p><p>进入正在运行的容器： docker exec -it 容器ID /bin/bash（好像一定要写，试了一下，不写进不去，写不写都可以，也可以是其他命令，则输出命令显示的结果） </p><p>或者是docker attach 容器ID，对比一下可以知道exec功能更多</p><p>从容器内拷贝文件到主机上：docker cp 容器ID:容器里面的路径 主机本地路径(可以改一下名字)</p><h4 id="Docker镜像"><a href="#Docker镜像" class="headerlink" title="Docker镜像"></a>Docker镜像</h4><p>是什么？联合文件系统   最大好处 ？共享资源</p><p>正常的命令就不说了，看文档就可以。</p><p>docker commit 提交容器副本使之成为一个新的镜像</p><p>docker commit -m 提交描述的信息 -a 作者 容器ID  要创建的目标镜像名：[标签名]</p><p>说明可反着来</p><h5 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h5><p>直接命令添加 ：docker run -it -v  /宿主机绝对路径目录:/容器内目录 镜像名</p><p>容器和宿主机之间数据共享</p><p>带权限的docker run -it -v  /宿主机绝对路径目录:/容器内目录:ro 镜像名</p><p>Dockerfile添加</p><p>可在Dockerfile中使用VOLUMN指令来给镜像添加一个或多个数据卷</p><p>新建一个Dockerfile然后通过build运行新建镜像</p><p>docker build -f  文件路径 -t  自己的名字空间/centos  .</p><p>要找默认地址用inspect命令查看</p><p>容器数据共享 –volumns-from 各自添加都能共享，而且注意一下这点，数据卷的生命周期一直到没有容器使用它为止</p><h4 id="Dockerfile解析"><a href="#Dockerfile解析" class="headerlink" title="Dockerfile解析"></a>Dockerfile解析</h4><p>每条保留字指令并且后面至少一个参数，而且是从上往下顺序执行，#表示注释</p><p>每条指令都会创建新的镜像层，并对镜像进行提交</p><p>保留字指令</p><p>FROM 基础镜像 </p><p>MAINTAINER 镜像维护者的姓名和邮箱</p><p>RUN 容器构建时需要运行的命令</p><p>EXPOSE 当前容器对外暴露的端口号</p><p>WORKDIR 指定创建容器后，终端默认登录进来的工作目录，一个落脚点</p><p>ENV 用来在构建镜像过程中设置环境变量</p><p>ADD 将宿主机目录下的文件拷贝进京向且ADD命令会自动处理URL和解压tar包</p><p>COPY 类似ADD拷贝文件和目录到镜像中1.COPY src dest 2.COPY [“src”,”dest”]</p><p>VOLUME 容器数据卷，用于保存数据</p><p>CMD 可以有多个命令，但会被docker run之后替换最后一个命令，而且不能追加某个命令的选项</p><p>ENTRYPOINT 跟CMD类似，但是可以追加。</p>]]></content>
+      
+      <categories>
+          
+          <category> 环境部署 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 环境部署 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>RC4的原理及python实现</title>
       <link href="/RC4-python.html"/>
       <url>/RC4-python.html</url>

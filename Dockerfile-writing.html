@@ -15,29 +15,18 @@
 
 
 
-<meta name="description" content="密码？？？根据提示直接猜测密码为zs19970315，尝试成功">
-<meta name="keywords" content="CTF,Social">
+<meta name="description" content="最近在出题目，Dockerfile有些东西忘记了">
+<meta name="keywords" content="环境部署">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bugku Social write up">
-<meta property="og:url" content="0verwatch.top/bugku-social-wp.html">
+<meta property="og:title" content="Dockerfile编写">
+<meta property="og:url" content="0verwatch.top/Dockerfile-writing.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="密码？？？根据提示直接猜测密码为zs19970315，尝试成功">
+<meta property="og:description" content="最近在出题目，Dockerfile有些东西忘记了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CggIFx.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/CggTfK.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cggq6e.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cg2lX4.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cg23nJ.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cg2Nh6.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cg2a9K.md.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cg2d1O.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cg2wcD.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/05/20/Cg2DnH.png">
-<meta property="og:updated_time" content="2018-05-20T11:05:00.255Z">
+<meta property="og:updated_time" content="2019-01-22T09:57:25.822Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bugku Social write up">
-<meta name="twitter:description" content="密码？？？根据提示直接猜测密码为zs19970315，尝试成功">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/05/20/CggIFx.png">
+<meta name="twitter:title" content="Dockerfile编写">
+<meta name="twitter:description" content="最近在出题目，Dockerfile有些东西忘记了">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -69,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>bugku Social write up | 0verWatch&#39;s Blog</title>
+<title>Dockerfile编写 | 0verWatch&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -307,11 +296,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-bugku-social-wp" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Dockerfile-writing" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/bugku-social-wp.html" class="article-date">
-      <time datetime="2018-02-08T06:16:20.000Z" itemprop="datePublished">2018-02-08</time>
+      <a href="/Dockerfile-writing.html" class="article-date">
+      <time datetime="2019-01-22T06:47:05.000Z" itemprop="datePublished">2019-01-22</time>
 </a>
 
 
@@ -326,7 +315,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      bugku Social write up
+      Dockerfile编写
     </h1>
   
 
@@ -335,13 +324,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/CTF/">CTF</a>
+    <a class="article-category-link" href="/categories/环境部署/">环境部署</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Social/">Social</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环境部署/">环境部署</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -352,12 +341,61 @@
       
           
         
-<h2 id="密码？？？"><a href="#密码？？？" class="headerlink" title="密码？？？"></a>密码？？？</h2><p>根据提示直接猜测密码为zs19970315，尝试成功<br><img src="https://s1.ax1x.com/2018/05/20/CggIFx.png" alt="CggIFx.png"><br><a id="more"></a></p>
-<h2 id="域名解析？"><a href="#域名解析？" class="headerlink" title="域名解析？"></a>域名解析？</h2><p>直接改本地的host文件，win10的话在’C:\Windows\System32\drivers\etc’目录下，记得用管理权限打开<br>里面添加一行120.24.86.145  flag.bugku.com<br>然后浏览器打开flag.bugku.com获得key<br><img src="https://s1.ax1x.com/2018/05/20/CggTfK.png" alt="CggTfK.png"></p>
-<h2 id="信息查找？？？"><a href="#信息查找？？？" class="headerlink" title="信息查找？？？"></a>信息查找？？？</h2><p>百度找到网页：<code>http://www.xiukee.com/show_356966.html</code><br>有个提示是flag是群号码，那我就试一下群号码试就行了，成功过关</p>
-<h2 id="简单个人信息收集"><a href="#简单个人信息收集" class="headerlink" title="简单个人信息收集"></a>简单个人信息收集</h2><p>把压缩包下载下来之后发现是伪加密，拖进HXD中查找16进制，<br><img src="https://s1.ax1x.com/2018/05/20/Cggq6e.png" alt="Cggq6e.png"><br>把图中红色的09改为00，因为基数是伪加密。<br>可参考：<a href="http://0verwatch.top/2018/02/08/zipfalse/">http://0verwatch.top/2018/02/08/zipfalse/</a><br>打开压缩包发现一个txt文件，叫我寻找下图的信息，<br><img src="https://s1.ax1x.com/2018/05/20/Cg2lX4.png" alt="Cg2lX4.png"><br>翻墙找个社工库查一查，但很多社工库都挂掉了，我直接看的别人的wp得到的结果。。。<br>手机号码是15206164164</p>
-<h2 id="入门题目，社工帝？"><a href="#入门题目，社工帝？" class="headerlink" title="入门题目，社工帝？"></a>入门题目，社工帝？</h2><p>给了个名字给我，上谷歌一句搜索命令：intitle:孤长离，第一个就是它的贴吧<br><img src="https://s1.ax1x.com/2018/05/20/Cg23nJ.png" alt="Cg23nJ.png"><br>里面有个163的邮箱，又根据提示是弱口令，百度弱口令，一个个试，因为163邮箱有验证码就不能用bp去爆破，还是手动试吧，我试到第二个就是了。<br>在里面找到flag<br><img src="https://s1.ax1x.com/2018/05/20/Cg2Nh6.png" alt="Cg2Nh6.png"></p>
-<h2 id="简单的社工尝试"><a href="#简单的社工尝试" class="headerlink" title="简单的社工尝试"></a>简单的社工尝试</h2><p>拿到一个图片邮件啥东西都没有，只能去binwalk一下了，发现里面有个压缩包，打开一看啥都没有<br>又看了看题目，说是头像，这时候意识到自己想错方向了，不应该往misc方向想的<br>于是乎就用百度识图看一看。。又是什么都没有。。。。<br><a href="https://imgchr.com/i/Cg2a9K" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/20/Cg2a9K.md.png" alt="Cg2a9K.md.png"></a><br>再来谷歌识图，这次找到一个github上的bugku，翻来翻去还是没找到flag<br>最后发现一个微博链接，<br><img src="https://s1.ax1x.com/2018/05/20/Cg2d1O.png" alt="Cg2d1O.png"><br>点进去发现一个醒目的图片<br><img src="https://s1.ax1x.com/2018/05/20/Cg2wcD.png" alt="Cg2wcD.png"><br>再打开一看，bingo找到flag<br><img src="https://s1.ax1x.com/2018/05/20/Cg2DnH.png" alt="Cg2DnH.png"></p>
+<p>最近在出题目，Dockerfile有些东西忘记了<a id="more"></a>，重新回顾一下</p>
+<h4 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h4><p>新建并启动容器：docker run [opotions] IMAGE [COMMAND] [Args..]</p>
+<p>-i : 交互式运行并且与-t相互运行</p>
+<p>-t ：新建一个终端</p>
+<p>–name：直接跟新建的名字</p>
+<p>docker ps:查看所有正在运行的容器 -a查看历史运行过的容器 -l 上次运行的 -n 加个数字显示最近几次创建的容器 -q 显示容器编号  可以以此删除容器</p>
+<p>退出容器：两种：1. exit  容器停止退出 2. ctrl+P+Q  容器不停止并退出</p>
+<p>启动容器：docker start 容器ID</p>
+<p>重启容器： docker restart 容器ID</p>
+<p>停止容器： docker stop 容器ID或名字</p>
+<p>强制停止容器：docker kill 容器ID或名字</p>
+<p>删除已经停止的容器：docker rm 容器ID或名字 没有停止的加个 -f</p>
+<p>删除全部 docker rm -f  $(docker ps -aq)</p>
+<p>-P：随机端口映射</p>
+<p>-p：指定端口映射，有以下四种格式</p>
+<p>ip:hostPort:containerPort</p>
+<p>ip:containerPort</p>
+<p>hostPort:containerPort</p>
+<p>contarinerPort</p>
+<p>启动守护容器： -d 后台运行并返回ID</p>
+<p>但是用这种方案启动的docker使用ps命令是看不到其容器进程，因为他已经退出了，Docker后台运行就必须有一个前台进程，如果不是那些一直挂气的命令如(top,tail)，就是会自动启动的</p>
+<p>查看容器日志 docker logs -f -t –tail 容器ID -t时间戳 -f跟随最新日志打印 –tail跟数字表示最后几条</p>
+<p>查看容器内进程：docker top 容器名字、ID</p>
+<p>查看容器内部的细节：docker inspect 容器ID</p>
+<p>进入正在运行的容器： docker exec -it 容器ID /bin/bash（好像一定要写，试了一下，不写进不去，写不写都可以，也可以是其他命令，则输出命令显示的结果） </p>
+<p>或者是docker attach 容器ID，对比一下可以知道exec功能更多</p>
+<p>从容器内拷贝文件到主机上：docker cp 容器ID:容器里面的路径 主机本地路径(可以改一下名字)</p>
+<h4 id="Docker镜像"><a href="#Docker镜像" class="headerlink" title="Docker镜像"></a>Docker镜像</h4><p>是什么？联合文件系统   最大好处 ？共享资源</p>
+<p>正常的命令就不说了，看文档就可以。</p>
+<p>docker commit 提交容器副本使之成为一个新的镜像</p>
+<p>docker commit -m 提交描述的信息 -a 作者 容器ID  要创建的目标镜像名：[标签名]</p>
+<p>说明可反着来</p>
+<h5 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h5><p>直接命令添加 ：docker run -it -v  /宿主机绝对路径目录:/容器内目录 镜像名</p>
+<p>容器和宿主机之间数据共享</p>
+<p>带权限的docker run -it -v  /宿主机绝对路径目录:/容器内目录:ro 镜像名</p>
+<p>Dockerfile添加</p>
+<p>可在Dockerfile中使用VOLUMN指令来给镜像添加一个或多个数据卷</p>
+<p>新建一个Dockerfile然后通过build运行新建镜像</p>
+<p>docker build -f  文件路径 -t  自己的名字空间/centos  .</p>
+<p>要找默认地址用inspect命令查看</p>
+<p>容器数据共享 –volumns-from 各自添加都能共享，而且注意一下这点，数据卷的生命周期一直到没有容器使用它为止</p>
+<h4 id="Dockerfile解析"><a href="#Dockerfile解析" class="headerlink" title="Dockerfile解析"></a>Dockerfile解析</h4><p>每条保留字指令并且后面至少一个参数，而且是从上往下顺序执行，#表示注释</p>
+<p>每条指令都会创建新的镜像层，并对镜像进行提交</p>
+<p>保留字指令</p>
+<p>FROM 基础镜像 </p>
+<p>MAINTAINER 镜像维护者的姓名和邮箱</p>
+<p>RUN 容器构建时需要运行的命令</p>
+<p>EXPOSE 当前容器对外暴露的端口号</p>
+<p>WORKDIR 指定创建容器后，终端默认登录进来的工作目录，一个落脚点</p>
+<p>ENV 用来在构建镜像过程中设置环境变量</p>
+<p>ADD 将宿主机目录下的文件拷贝进京向且ADD命令会自动处理URL和解压tar包</p>
+<p>COPY 类似ADD拷贝文件和目录到镜像中1.COPY src dest 2.COPY [“src”,”dest”]</p>
+<p>VOLUME 容器数据卷，用于保存数据</p>
+<p>CMD 可以有多个命令，但会被docker run之后替换最后一个命令，而且不能追加某个命令的选项</p>
+<p>ENTRYPOINT 跟CMD类似，但是可以追加。</p>
 
       
     </div>
@@ -366,13 +404,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/bugku-social-wp.html">bugku Social write up</a></p>
+        <p><span>本文标题:</span><a href="/Dockerfile-writing.html">Dockerfile编写</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
-        <p><span>发布时间:</span>2018-02-08, 14:16:20</p>
-        <p><span>最后更新:</span>2018-05-20, 19:05:00</p>
+        <p><span>发布时间:</span>2019-01-22, 14:47:05</p>
+        <p><span>最后更新:</span>2019-01-22, 17:57:25</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/bugku-social-wp.html" title="bugku Social write up">0verwatch.top/bugku-social-wp.html</a>
-            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/bugku-social-wp.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/Dockerfile-writing.html" title="Dockerfile编写">0verwatch.top/Dockerfile-writing.html</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/Dockerfile-writing.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -384,16 +422,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/bugku-Crypto.html">
-                    bugku Crypto write up
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/zipfalse.html">
-                    zip伪加密[转载]
+                <a href="/RC4-python.html">
+                    RC4的原理及python实现
                 </a>
             </div>
         
@@ -435,7 +467,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#密码？？？"><span class="toc-number">1.</span> <span class="toc-text">密码？？？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域名解析？"><span class="toc-number">2.</span> <span class="toc-text">域名解析？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#信息查找？？？"><span class="toc-number">3.</span> <span class="toc-text">信息查找？？？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简单个人信息收集"><span class="toc-number">4.</span> <span class="toc-text">简单个人信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#入门题目，社工帝？"><span class="toc-number">5.</span> <span class="toc-text">入门题目，社工帝？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简单的社工尝试"><span class="toc-number">6.</span> <span class="toc-text">简单的社工尝试</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#容器命令"><span class="toc-number">1.</span> <span class="toc-text">容器命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker镜像"><span class="toc-number">2.</span> <span class="toc-text">Docker镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#容器数据卷"><span class="toc-number">2.1.</span> <span class="toc-text">容器数据卷</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dockerfile解析"><span class="toc-number">3.</span> <span class="toc-text">Dockerfile解析</span></a></li></ol>
         
     </div>
     <style>
@@ -497,15 +529,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/bugku-Crypto.html" title="上一篇: bugku Crypto write up">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/zipfalse.html" title="下一篇: zip伪加密[转载]">
+            <a href="/RC4-python.html" title="下一篇: RC4的原理及python实现">
                 <i class="fa fa-angle-right"></i>
             </a>
         
