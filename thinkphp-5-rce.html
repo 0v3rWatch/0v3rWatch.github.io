@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="第一次进行代码量这么大的分析，记录一下，个人感觉新手真的不适应这种，应该找点小一点的cms去分析，如果不懂MVC架构">
+<meta name="keywords" content="代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThinkPHP 5.x RCE分析">
+<meta property="og:url" content="0verwatch.top/thinkphp-5-rce.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="第一次进行代码量这么大的分析，记录一下，个人感觉新手真的不适应这种，应该找点小一点的cms去分析，如果不懂MVC架构">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDf8x0.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kD51Gd.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDo5K1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDThFS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDTvYF.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDHQgJ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDHtUK.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDHrDI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDbesA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDbqeI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDqoNV.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDL3uj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDLOG8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDOPI0.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDO2es.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDvUeJ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/15/kDx8AA.png">
+<meta property="og:updated_time" content="2019-02-15T06:59:56.368Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ThinkPHP 5.x RCE分析">
+<meta name="twitter:description" content="第一次进行代码量这么大的分析，记录一下，个人感觉新手真的不适应这种，应该找点小一点的cms去分析，如果不懂MVC架构">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/02/15/kDf8x0.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>ThinkPHP 5.x RCE分析 | 0verWatch&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56ff76c972fc0cf9"></script>
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?e9bf2f4b24d981680e6d59ced18982b0";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">分类&amp;标签</a></li>
+                        
+                            <li><a href="/friends/">友链</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux安全/">Linux安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL注入/">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSTI注入/">SSTI注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yii/">Yii</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微机实验/">微机实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件上传/">文件上传</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器运维/">服务器运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/沙盒绕过/">沙盒绕过</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量分析/">流量分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站渗透/">网站渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机网路/">计算机网路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://202.119.201.199/">CumtCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.nuptzj.cn">NuptCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.jarvisoj.com">Jarvis OJ</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.codemonster.cn/home">MOCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.bugku.com/">BugkuCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.shiyanbar.com/ctf/practice">实验吧</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://xz.aliyun.com/">先知社区</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://shentoushi.top/">渗透师导航</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://skysec.top/">一叶飘零</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.yytpublic.cn">LaurenceYu</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://chun.ringfall.me">ringfall</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">分类&amp;标签</a></li>
+                
+                    <li><a href="/friends/">友链</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" target="_blank" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-thinkphp-5-rce" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/thinkphp-5-rce.html" class="article-date">
+      <time datetime="2019-02-15T06:58:27.000Z" itemprop="datePublished">2019-02-15</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ThinkPHP 5.x RCE分析
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/代码审计/">代码审计</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码审计/">代码审计</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+<p>第一次进行代码量这么大的分析，记录一下，个人感觉新手真的不适应这种，应该找点小一点的cms去分析，如果不懂MVC架构<a id="more"></a>真的可能会懵。。。</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在分析这个之前还看了两篇tp5的RCE漏洞，这两个洞都是很相似的，都是利用一个可控的变量dispatch去实现到最后还是构造出回调函数，可以学习一下，感觉这里面的思路就是本文分析漏洞的来源</p>
+<p><a href="https://xz.aliyun.com/t/3845" target="_blank" rel="noopener">https://xz.aliyun.com/t/3845</a></p>
+<p><a href="https://xz.aliyun.com/t/3845" target="_blank" rel="noopener">https://xz.aliyun.com/t/3845</a></p>
+<p>我这里已tp 5.0.22为例子，环境是phpstudy搭建的</p>
+<h3 id="补丁"><a href="#补丁" class="headerlink" title="补丁"></a>补丁</h3><p>影响版本<br>THINKPHP 5.0.5-5.0.22</p>
+<p>THINKPHP 5.1.0-5.1.30</p>
+<p>5.0.x补丁地址：<a href="https://github.com/top-think/framework/commit/b797d72352e6b4eb0e11b6bc2a2ef25907b7756f" target="_blank" rel="noopener">https://github.com/top-think/framework/commit/b797d72352e6b4eb0e11b6bc2a2ef25907b7756f</a></p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDf8x0.png" alt="kDf8x0.png"></p>
+<p>5.1.x补丁地址：<a href="https://github.com/top-think/framework/commit/802f284bec821a608e7543d91126abc5901b2815" target="_blank" rel="noopener">https://github.com/top-think/framework/commit/802f284bec821a608e7543d91126abc5901b2815</a></p>
+<h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><p>补丁中加了正则限制了控制器的自定义初始化</p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost/tp52/public/?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=dir</span><br></pre></td></tr></table></figure>
+<p>根据补丁下的点，动态跟踪一下是否是因为controller没有做好过滤而实体化，确实是如此</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kD51Gd.png" alt="kD51Gd.png"></p>
+<p>根据传进去的payload，控制器以及下面的方法都会发生对应的变化，下面就可以分析一下攻击链的流程</p>
+<p>可以从入口文件一级一级跟踪，进入到<code>App.php</code>中，这里应该涉及到一个开发的知识，在<code>App.php</code>中，会根据请求的URL调用<code>routeCheck</code>进行调度解析在<code>App.php</code>中，会根据请求的URL调用<code>routeCheck</code>进行调度解析获得到<code>$dispatch</code>，所以payload是一定要经过那里的，可以在那里加断点进行调试</p>
+<p>定位到<code>/thinkphp/library/think/App.php:116</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$dispatch = <span class="keyword">self</span>::$dispatch;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 未设置调度信息则进行 URL 路由检测</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">empty</span>($dispatch)) &#123;</span><br><span class="line">                $dispatch = <span class="keyword">self</span>::routeCheck($request, $config);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 记录当前调度信息</span></span><br><span class="line">            $request-&gt;dispatch($dispatch);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">......</span><br><span class="line">    $data = <span class="keyword">self</span>::exec($dispatch, $config);<span class="comment">//这个函数很关键</span></span><br></pre></td></tr></table></figure>
+<p>继续跟进<code>routeCheck</code>这个函数，同样在App.php里面</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDo5K1.png" alt="kDo5K1.png"></p>
+<p>继续跟进到<code>path</code>方法里面，然后这里有一个pathinfo()函数，继续跟进</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">path</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (is_null(<span class="keyword">$this</span>-&gt;path)) &#123;</span><br><span class="line">        $suffix   = Config::get(<span class="string">'url_html_suffix'</span>);</span><br><span class="line">        $pathinfo = <span class="keyword">$this</span>-&gt;pathinfo();</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">false</span> === $suffix) &#123;</span><br><span class="line">            <span class="comment">// 禁止伪静态访问</span></span><br><span class="line">            <span class="keyword">$this</span>-&gt;path = $pathinfo;</span><br><span class="line">        &#125; <span class="keyword">elseif</span> ($suffix) &#123;</span><br><span class="line">            <span class="comment">// 去除正常的URL后缀</span></span><br><span class="line">            <span class="keyword">$this</span>-&gt;path = preg_replace(<span class="string">'/\.('</span> . ltrim($suffix, <span class="string">'.'</span>) . <span class="string">')$/i'</span>, <span class="string">''</span>, $pathinfo);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 允许任何后缀访问</span></span><br><span class="line">            <span class="keyword">$this</span>-&gt;path = preg_replace(<span class="string">'/\.'</span> . <span class="keyword">$this</span>-&gt;ext() . <span class="string">'$/i'</span>, <span class="string">''</span>, $pathinfo);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;path;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Config::get(&#39;var_pathinfo&#39;)</code>是配置文件中的设置的参数，默认值为<code>s</code>，怎么找到这个变量？可以全局搜索一下，可以搜索到其中一个配置文件里面有</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDThFS.png" alt="kDThFS.png"></p>
+<p>从GET中获取键值，然后赋值给<code>routeCheck</code>中的<code>$path</code>，这里也就是<code>index/think\app/invokefunction</code>。</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDTvYF.png" alt="kDTvYF.png"></p>
+<p>然后开始进入路由检测的部分，经过check的检查后会进入else的分支，但这一部分对于我们需要控制的变量没有任何影响，关键是<code>$result</code>以及<code>$must</code>这两个变量的赋值结果，这也是导致了后面操作的关键，可以进入<code>Route::parseUrl</code>函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">routeCheck</span><span class="params">($request, array $config)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $path   = $request-&gt;path();</span><br><span class="line">        $depr   = $config[<span class="string">'pathinfo_depr'</span>];</span><br><span class="line">        $result = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 路由检测</span></span><br><span class="line">        $check = !is_null(<span class="keyword">self</span>::$routeCheck) ? <span class="keyword">self</span>::$routeCheck : $config[<span class="string">'url_route_on'</span>];</span><br><span class="line">        <span class="keyword">if</span> ($check) &#123;</span><br><span class="line">            <span class="comment">// 开启路由</span></span><br><span class="line">            <span class="keyword">if</span> (is_file(RUNTIME_PATH . <span class="string">'route.php'</span>)) &#123;</span><br><span class="line">                <span class="comment">// 读取路由缓存</span></span><br><span class="line">                $rules = <span class="keyword">include</span> RUNTIME_PATH . <span class="string">'route.php'</span>;</span><br><span class="line">                is_array($rules) &amp;&amp; Route::rules($rules);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                $files = $config[<span class="string">'route_config_file'</span>];</span><br><span class="line">                <span class="keyword">foreach</span> ($files <span class="keyword">as</span> $file) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (is_file(CONF_PATH . $file . CONF_EXT)) &#123;</span><br><span class="line">                        <span class="comment">// 导入路由配置</span></span><br><span class="line">                        $rules = <span class="keyword">include</span> CONF_PATH . $file . CONF_EXT;</span><br><span class="line">                        is_array($rules) &amp;&amp; Route::import($rules);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 路由检测（根据路由定义返回不同的URL调度）</span></span><br><span class="line">            $result = Route::check($request, $path, $depr, $config[<span class="string">'url_domain_deploy'</span>]);</span><br><span class="line">            $must   = !is_null(<span class="keyword">self</span>::$routeMust) ? <span class="keyword">self</span>::$routeMust : $config[<span class="string">'url_route_must'</span>];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ($must &amp;&amp; <span class="keyword">false</span> === $result) &#123;</span><br><span class="line">                <span class="comment">// 路由无效</span></span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RouteNotFoundException();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 路由无效 解析模块/控制器/操作/参数... 支持控制器自动搜索</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">false</span> === $result) &#123;</span><br><span class="line">            $result = Route::parseUrl($path, $depr, $config[<span class="string">'controller_auto_search'</span>]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> $result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>跟进<code>Route::parseUrl</code>函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">parseUrl</span><span class="params">($url, $depr = <span class="string">'/'</span>, $autoSearch = false)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">self</span>::$bind[<span class="string">'module'</span>])) &#123;</span><br><span class="line">            $bind = str_replace(<span class="string">'/'</span>, $depr, <span class="keyword">self</span>::$bind[<span class="string">'module'</span>]);</span><br><span class="line">            <span class="comment">// 如果有模块/控制器绑定</span></span><br><span class="line">            $url = $bind . (<span class="string">'.'</span> != substr($bind, <span class="number">-1</span>) ? $depr : <span class="string">''</span>) . ltrim($url, $depr);</span><br><span class="line">        &#125;</span><br><span class="line">        $url              = str_replace($depr, <span class="string">'|'</span>, $url);</span><br><span class="line">        <span class="keyword">list</span>($path, $var) = <span class="keyword">self</span>::parseUrlPath($url);</span><br><span class="line">        ....</span><br><span class="line">         <span class="keyword">return</span> [<span class="string">'type'</span> =&gt; <span class="string">'module'</span>, <span class="string">'module'</span> =&gt; $route];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>再跟进一下<code>parseUrlPath()</code>，这里面就是返回一个$path变量，对包含<code>模块/控制器/操作</code>的URL进行分割成数组进行返回</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDHQgJ.png" alt="kDHQgJ.png"></p>
+<p>回到上一层的函数中，继续跟进，可以发现在自动搜索控制器的判断中进入了else语句，从而为控制器进行了赋值，这里是个赋值点，很关键</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDHtUK.png" alt="kDHtUK.png"></p>
+<p>然后以$route变量返回上层run函数</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDHrDI.png" alt="kDHrDI.png"></p>
+<p>此时$dispatch 进入到self::exec()中，继续跟进。此时的$dispatch 里面是一个以module为名字的数组，所以进入exec函数中必将进入分支为module的模块，然后进入<code>self::module</code>函数</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDbesA.png" alt="kDbesA.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">exec</span><span class="params">($dispatch, $config)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> ($dispatch[<span class="string">'type'</span>]) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'redirect'</span>: <span class="comment">// 重定向跳转</span></span><br><span class="line">                $data = Response::create($dispatch[<span class="string">'url'</span>], <span class="string">'redirect'</span>)</span><br><span class="line">                    -&gt;code($dispatch[<span class="string">'status'</span>]);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'module'</span>: <span class="comment">// 模块/控制器/操作</span></span><br><span class="line">                $data = <span class="keyword">self</span>::module(</span><br><span class="line">                    $dispatch[<span class="string">'module'</span>],</span><br><span class="line">                    $config,</span><br><span class="line">                    <span class="keyword">isset</span>($dispatch[<span class="string">'convert'</span>]) ? $dispatch[<span class="string">'convert'</span>] : <span class="keyword">null</span></span><br><span class="line">                );</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            ...............</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> $data;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>跟进<code>self::module</code>函数，在进入多模块部署后由于，bind的值为null，会进入elseif的条件，使available的变量成为true，这也是后面为什么可以顺利初始化module的条件，不然就会抛出异常XD。</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDbqeI.png" alt="kDbqeI.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">module</span><span class="params">($result, $config, $convert = null)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (is_string($result)) &#123;</span><br><span class="line">        $result = explode(<span class="string">'/'</span>, $result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $request = Request::instance();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ($config[<span class="string">'app_multi_module'</span>]) &#123;</span><br><span class="line">        <span class="comment">// 多模块部署</span></span><br><span class="line">        $module    = strip_tags(strtolower($result[<span class="number">0</span>] ?: $config[<span class="string">'default_module'</span>]));</span><br><span class="line">        $bind      = Route::getBind(<span class="string">'module'</span>);</span><br><span class="line">        $available = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ($bind) &#123;</span><br><span class="line">            <span class="comment">// 绑定模块</span></span><br><span class="line">            <span class="keyword">list</span>($bindModule) = explode(<span class="string">'/'</span>, $bind);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">empty</span>($result[<span class="number">0</span>])) &#123;</span><br><span class="line">                $module    = $bindModule;</span><br><span class="line">                $available = <span class="keyword">true</span>;</span><br><span class="line">            &#125; <span class="keyword">elseif</span> ($module == $bindModule) &#123;</span><br><span class="line">                $available = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">elseif</span> (!in_array($module, $config[<span class="string">'deny_module_list'</span>]) &amp;&amp; is_dir(APP_PATH . $module)) &#123;</span><br><span class="line">            $available = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模块初始化</span></span><br><span class="line">        <span class="keyword">if</span> ($module &amp;&amp; $available) &#123;</span><br><span class="line">            <span class="comment">// 初始化模块</span></span><br><span class="line">            $request-&gt;module($module);</span><br><span class="line">            $config = <span class="keyword">self</span>::init($module);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 模块请求缓存检查</span></span><br><span class="line">            $request-&gt;cache(</span><br><span class="line">                $config[<span class="string">'request_cache'</span>],</span><br><span class="line">                $config[<span class="string">'request_cache_expire'</span>],</span><br><span class="line">                $config[<span class="string">'request_cache_except'</span>]</span><br><span class="line">            );</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> HttpException(<span class="number">404</span>, <span class="string">'module not exists:'</span> . $module);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 单一模块部署</span></span><br><span class="line">        $module = <span class="string">''</span>;</span><br><span class="line">        $request-&gt;module($module);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置默认过滤机制</span></span><br><span class="line">    $request-&gt;filter($config[<span class="string">'default_filter'</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当前模块路径</span></span><br><span class="line">    App::$modulePath = APP_PATH . ($module ? $module . DS : <span class="string">''</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 是否自动转换控制器和操作名</span></span><br><span class="line">    $convert = is_bool($convert) ? $convert : $config[<span class="string">'url_convert'</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取控制器名</span></span><br><span class="line">    $controller = strip_tags($result[<span class="number">1</span>] ?: $config[<span class="string">'default_controller'</span>]);</span><br><span class="line">    $controller = $convert ? strtolower($controller) : $controller;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取操作名</span></span><br><span class="line">    $actionName = strip_tags($result[<span class="number">2</span>] ?: $config[<span class="string">'default_action'</span>]);</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">empty</span>($config[<span class="string">'action_convert'</span>])) &#123;</span><br><span class="line">        $actionName = Loader::parseName($actionName, <span class="number">1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $actionName = $convert ? strtolower($actionName) : $actionName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置当前请求的控制器、操作</span></span><br><span class="line">    $request-&gt;controller(Loader::parseName($controller, <span class="number">1</span>))-&gt;action($actionName);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 监听module_init</span></span><br><span class="line">    Hook::listen(<span class="string">'module_init'</span>, $request);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        $instance = Loader::controller(</span><br><span class="line">            $controller,</span><br><span class="line">            $config[<span class="string">'url_controller_layer'</span>],</span><br><span class="line">            $config[<span class="string">'controller_suffix'</span>],</span><br><span class="line">            $config[<span class="string">'empty_controller'</span>]</span><br><span class="line">        );</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ClassNotFoundException $e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> HttpException(<span class="number">404</span>, <span class="string">'controller not exists:'</span> . $e-&gt;getClass());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前操作名</span></span><br><span class="line">    $action = $actionName . $config[<span class="string">'action_suffix'</span>];</span><br><span class="line"></span><br><span class="line">    $vars = [];</span><br><span class="line">    <span class="keyword">if</span> (is_callable([$instance, $action])) &#123;</span><br><span class="line">        <span class="comment">// 执行操作方法</span></span><br><span class="line">        $call = [$instance, $action];</span><br><span class="line">        <span class="comment">// 严格获取当前操作方法名</span></span><br><span class="line">        $reflect    = <span class="keyword">new</span> \ReflectionMethod($instance, $action);</span><br><span class="line">        $methodName = $reflect-&gt;getName();</span><br><span class="line">        $suffix     = $config[<span class="string">'action_suffix'</span>];</span><br><span class="line">        $actionName = $suffix ? substr($methodName, <span class="number">0</span>, -strlen($suffix)) : $methodName;</span><br><span class="line">        $request-&gt;action($actionName);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">elseif</span> (is_callable([$instance, <span class="string">'_empty'</span>])) &#123;</span><br><span class="line">        <span class="comment">// 空操作</span></span><br><span class="line">        $call = [$instance, <span class="string">'_empty'</span>];</span><br><span class="line">        $vars = [$actionName];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 操作不存在</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> HttpException(<span class="number">404</span>, <span class="string">'method not exists:'</span> . get_class($instance) . <span class="string">'-&gt;'</span> . $action . <span class="string">'()'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Hook::listen(<span class="string">'action_begin'</span>, $call);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>::invokeMethod($call, $vars);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续跟进的就是我在文章一开头说的内容，controller变量就被赋值，然后获得方法名字，开始请求这个方法</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDqoNV.png" alt="kDqoNV.png"></p>
+<p>最后还是返回了这个方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">self</span>::invokeMethod($call, $vars);</span><br></pre></td></tr></table></figure>
+<p>$call变量是个数组，里面包含了控制器以及操作，可以追踪里面的变量变化</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDL3uj.png" alt="kDL3uj.png"></p>
+<p>然后通过<code>ReflectionMethod</code>方法去构造一个映射，反正就把他当成平常一个类去调用某个方法，接着就把剩余的url的剩余内容赋值给args，最后调用<code>invokefunction</code>函数，这个函数也类似回调函数，所以就会把<code>&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=dir</code>传进<code>invokefunction</code>这个方法里面。</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDLOG8.png" alt="kDLOG8.png"></p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDOPI0.png" alt="kDOPI0.png"></p>
+<p>可以看到里面args里面的内容结构，里面包含了多个数组</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDO2es.png" alt="kDO2es.png"></p>
+<p>继续跟进的话，你会发现这个函数跟上面跟进的函数的套路一模一样，也是利用了回调的效果，也是利用一个变量把system后面的内容返回给<code>call_user_func_array</code>，只不过这次可以直接调用<code>call_user_func_array</code>了，相当于<code>call_user_func_array(&quot;system&quot;,&quot;dir&quot;)</code>了</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDvUeJ.png" alt="kDvUeJ.png"></p>
+<h3 id="补丁后的效果"><a href="#补丁后的效果" class="headerlink" title="补丁后的效果"></a>补丁后的效果</h3><p>再来观察一下加上补丁的走向，直接就会进入抛出异常的步骤，只要匹配到不是字母开头的控制器的话直接进入异常，有效避免利用命名空间构造攻击链</p>
+<p><img src="https://s2.ax1x.com/2019/02/15/kDx8AA.png" alt="kDx8AA.png"></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
+<li>这个攻击链的构造，还是概念模糊，如果真正构造的时候需要怎么去做？这里只是根据别人的payload去分析代码，分析它的攻击过程，个人感觉真正核心的东西没掌握，也有可能看得多就会了？？？XD因为这个东西不只是这个模块可以如此调用，还有其他模块也有同样的效果，这也比较考验对该框架的熟悉程度，多接触开发还是很好的。</li>
+<li>看了好几篇文章，发现这几个都是差不多从路由的检测开始跟进，其实想想也对，毕竟payload从url中来，跟进某函数跟到底了再返回，有可能这是一种套路，先记下来。。。</li>
+<li>我也是第一次审计这种东西，毕竟ThinkPHP 5.0.x 的代码执行漏洞，从漏洞技术含量和利用链构造上来看，算是2018年一个很牛的洞了，对我这种菜鸡，学习到就好。</li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/thinkphp-5-rce.html">ThinkPHP 5.x RCE分析</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2019-02-15, 14:58:27</p>
+        <p><span>最后更新:</span>2019-02-15, 14:59:56</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/thinkphp-5-rce.html" title="ThinkPHP 5.x RCE分析">0verwatch.top/thinkphp-5-rce.html</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/thinkphp-5-rce.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/SSTI-injection.html">
+                    SSTI-injection
+                </a>
+            </div>
+        
+    </nav>
+
+  
+  
+   
+    <div style="padding: 0; margin: 20px auto; width: 90%; text-align: center;">
+      <br>
+      <div>听说，打赏我的人最后都成了大佬。</div>
+      <br>
+      <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <div class="btn btn-pay">打赏支持</div>
+      </button>
+      <br>
+      <br>
+      <div id="QR" style="display: none;">
+        
+          <div id="wechat" style="display: inline-block;">
+            <img id="wechat_qr" src="/img/wechatpay.jpg" alt="0verWatch WeChat Pay"/>
+            <p>微信打赏</p>
+          </div>
+        
+        
+          <div id="alipay" style="display: inline-block">
+            <img id="alipay_qr" src="/img/alipay.jpg" alt="0verWatch Alipay"/>
+            <p>支付宝打赏</p>
+          </div>
+        
+        <br>
+        <br>
+      </div>
+    </div>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#补丁"><span class="toc-number">2.</span> <span class="toc-text">补丁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞分析"><span class="toc-number">3.</span> <span class="toc-text">漏洞分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#补丁后的效果"><span class="toc-number">4.</span> <span class="toc-text">补丁后的效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">5.</span> <span class="toc-text">小结</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+              
+        <section class="livere" id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80MDk1Ny8xNzQ4Mg==">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</section>。 
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/SSTI-injection.html" title="下一篇: SSTI-injection">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/thinkphp-5-rce.html">ThinkPHP 5.x RCE分析</a></li><li class="post-list-item"><a class="post-list-link" href="/SSTI-injection.html">SSTI-injection</a></li><li class="post-list-item"><a class="post-list-link" href="/python-sandbox-bypass.html">Python沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-1mongth.html">安恒一月赛做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/upload-labs-wp.html">upload-labs记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Dockerfile-writing.html">Dockerfile编写</a></li><li class="post-list-item"><a class="post-list-link" href="/RSA-python.html">RSA原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/MD5-python.html">MD5原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/DES-python.html">DES原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/writing-2.html">2018嘅總結</a></li><li class="post-list-item"><a class="post-list-link" href="/RC4-python.html">RC4的原理及python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/A5-python.html">A5的原理及python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/swpuctf-2018.html">swpuctf赛后复现</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-12month.html">安恒12月赛Web题解</a></li><li class="post-list-item"><a class="post-list-link" href="/Virginia-python.html">维吉尼亚密码原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-month-race.html">CUMT第一轮双月赛Web题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-11month.html">安恒11月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-10month.html">安恒10月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/algorithm-review.html">算法上机考试复习</a></li><li class="post-list-item"><a class="post-list-link" href="/huwang-game.html">护网杯部分题目题解</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-CTF-Platform.html">CUMT平台的部分题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-9month.html">安恒9月部分赛题复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirstv2.html">Hitcon2017 babyfirst-revenge v2复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2015-babyfirst.html">Hitcon2015 babyfirst复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirst.html">Hitcon2017 babyfirst-revenge复现</a></li><li class="post-list-item"><a class="post-list-link" href="/liuliangfenxi-5-5.html">铁三2018.5.5数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-8month-part1.html">安恒8月应急响应题目回顾</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-4.html">sqli-labs实战记录(四)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-3.html">sqli-labs实战记录(三)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-2.html">sqli-labs实战记录(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-1.html">sqli-labs实战记录(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/bin-search-sql.html">二分查找在sql盲注里面的应用</a></li><li class="post-list-item"><a class="post-list-link" href="/Solve-Me-wp.html">Solve Me解题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-inject-protect.html">浅谈SQL注入防御手段</a></li><li class="post-list-item"><a class="post-list-link" href="/sqlmap-usage.html">Sqlmap 使用方法小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-FW.html">Linux防火墙学习</a></li><li class="post-list-item"><a class="post-list-link" href="/Mysql-security-1.html">Mysql安全配置</a></li><li class="post-list-item"><a class="post-list-link" href="/pentest-1.html">记录一次模拟渗透</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-2.html">计网实验笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-1.html">计网实验笔记(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-exam.html">微机实验考试</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-experiment.html">微机实验记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-6month.html">安恒6月赛部分做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-2.html">数据结构复习二 双向链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-1.html">数据结构复习一 单链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/writing-1.html">两年</a></li><li class="post-list-item"><a class="post-list-link" href="/Yii-probleam.html">编写Yii框架项目时出现的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/susctf2018-wp.html">SUSCTF 2018 做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-CTFd-building.html">Docker练习及在CTFd平台上放题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTFd-building.html">CTFd平台搭建记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-learning.html">Docker学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/ISCC-2018-wp.html">ISCC 2018做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-5month.html">安恒5月赛web题目做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-2018-final.html">cumt2018校赛部分write up</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web2.html">WhaleCTF第二期打卡的web题</a></li><li class="post-list-item"><a class="post-list-link" href="/git-learning.html">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/PHP-Yii.html">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web1.html">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/shiyanba1-wp.html">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/phpcheck2.html">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTF-python.html">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/Ubantu-Web.html">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-php-fanxuliehua.html">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/RaceConditionsSummary.html">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/hash-length-attack.html">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/moctf-web.html">简单小结一下moctf的三道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/backup-blog-again.html">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/RSA-SimpleLearn.html">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/CRC32-Brute.html">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-learn.html">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-php-check.html">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Web-write-up.html">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Misc.html">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Crypto.html">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-social-wp.html">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/zipfalse.html">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/php-mysql-content.html">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-Summary.html">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/php summary.html">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work4.html">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work3.html">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work2.html">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work1.html">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2019 0verWatch
+
+            </div>
+            <div class="footer-right">
+                Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+                <span>|  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+
+                
+
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119588656-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
