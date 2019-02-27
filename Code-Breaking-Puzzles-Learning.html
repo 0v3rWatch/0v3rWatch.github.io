@@ -15,13 +15,13 @@
 
 
 
-<meta name="description" content="这波刷题主要以学习为主，复现为主，知识点真的太棒了23333">
+<meta name="description" content="这波刷题主要以学习为主，复现为主，知识点真的太棒了">
 <meta name="keywords" content="CTF,Web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Code-Breaking-Puzzles学习">
 <meta property="og:url" content="0verwatch.top/Code-Breaking-Puzzles-Learning.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="这波刷题主要以学习为主，复现为主，知识点真的太棒了23333">
+<meta property="og:description" content="这波刷题主要以学习为主，复现为主，知识点真的太棒了">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/25/kIZ0GF.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/25/kIZa5T.png">
@@ -37,10 +37,10 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/26/kowRpD.md.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/26/ko0HbR.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/27/kTVN3F.png">
-<meta property="og:updated_time" content="2019-02-27T12:55:45.091Z">
+<meta property="og:updated_time" content="2019-02-27T12:56:38.149Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Code-Breaking-Puzzles学习">
-<meta name="twitter:description" content="这波刷题主要以学习为主，复现为主，知识点真的太棒了23333">
+<meta name="twitter:description" content="这波刷题主要以学习为主，复现为主，知识点真的太棒了">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/02/25/kIZ0GF.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -356,7 +356,7 @@
       
           
         
-<h3 id="这波刷题主要以学习为主，复现为主，知识点真的太棒了23333"><a href="#这波刷题主要以学习为主，复现为主，知识点真的太棒了23333" class="headerlink" title="这波刷题主要以学习为主，复现为主，知识点真的太棒了23333"></a>这波刷题主要以学习为主，复现为主，知识点真的太棒了23333</h3><a id="more"></a>
+<p>这波刷题主要以学习为主，复现为主，知识点真的太棒了<a id="more"></a>23333</p>
 <h3 id="easy-function"><a href="#easy-function" class="headerlink" title="easy - function"></a>easy - function</h3><p>这个题目的点很有意思是关于<code>create_function</code>这个函数的</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$action = $_GET[<span class="string">'action'</span>] ?? <span class="string">''</span>;</span><br><span class="line">$arg = $_GET[<span class="string">'arg'</span>] ?? <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(preg_match(<span class="string">'/^[a-z0-9_]*$/isD'</span>, $action)) &#123;</span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    $action(<span class="string">''</span>, $arg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>首先理解一下代码就是先得绕过一个正则，这个正则只有满足不是字母数字以及下划线才能绕过，才存在一个可控参数的函数调用，但是想不到怎么绕过的话，可以用<code>var_dump</code>函数尝试fuzz一下，可以得到<code>\</code>这个符号是可以绕过的</p>
@@ -436,7 +436,7 @@
         <p><span>本文标题:</span><a href="/Code-Breaking-Puzzles-Learning.html">Code-Breaking-Puzzles学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
         <p><span>发布时间:</span>2019-02-27, 20:48:46</p>
-        <p><span>最后更新:</span>2019-02-27, 20:55:45</p>
+        <p><span>最后更新:</span>2019-02-27, 20:56:38</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/Code-Breaking-Puzzles-Learning.html" title="Code-Breaking-Puzzles学习">0verwatch.top/Code-Breaking-Puzzles-Learning.html</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/Code-Breaking-Puzzles-Learning.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -496,7 +496,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#这波刷题主要以学习为主，复现为主，知识点真的太棒了23333"><span class="toc-number">1.</span> <span class="toc-text">这波刷题主要以学习为主，复现为主，知识点真的太棒了23333</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-function"><span class="toc-number">2.</span> <span class="toc-text">easy - function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-pcrewaf"><span class="toc-number">3.</span> <span class="toc-text">easy-pcrewaf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-phplimit"><span class="toc-number">4.</span> <span class="toc-text">easy - phplimit</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方法一-利用session-id"><span class="toc-number">4.1.</span> <span class="toc-text">方法一:利用session_id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法二-利用get-defined-vars"><span class="toc-number">4.2.</span> <span class="toc-text">方法二:利用get_defined_vars</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-phpmagic"><span class="toc-number">5.</span> <span class="toc-text">easy - phpmagic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#未完待续"><span class="toc-number">6.</span> <span class="toc-text">未完待续</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-function"><span class="toc-number">1.</span> <span class="toc-text">easy - function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-pcrewaf"><span class="toc-number">2.</span> <span class="toc-text">easy-pcrewaf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-phplimit"><span class="toc-number">3.</span> <span class="toc-text">easy - phplimit</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方法一-利用session-id"><span class="toc-number">3.1.</span> <span class="toc-text">方法一:利用session_id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法二-利用get-defined-vars"><span class="toc-number">3.2.</span> <span class="toc-text">方法二:利用get_defined_vars</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-phpmagic"><span class="toc-number">4.</span> <span class="toc-text">easy - phpmagic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#未完待续"><span class="toc-number">5.</span> <span class="toc-text">未完待续</span></a></li></ol>
         
     </div>
     <style>
