@@ -37,7 +37,14 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/26/kowRpD.md.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/26/ko0HbR.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/27/kTVN3F.png">
-<meta property="og:updated_time" content="2019-02-27T12:56:38.149Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kO4ySf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kXSFud.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kOzz4K.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kXnCn0.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kXnQHK.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kXnJ9H.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kXn78J.png">
+<meta property="og:updated_time" content="2019-03-04T13:54:41.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Code-Breaking-Puzzles学习">
 <meta name="twitter:description" content="这波刷题主要以学习为主，复现为主，知识点真的太棒了">
@@ -425,7 +432,29 @@
 <p>还有其他大佬的payload:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code=readfile(next(array_reverse(scandir(dirname(chdir(dirname(getcwd())))))));</span><br></pre></td></tr></table></figure>
 <p>直接列目录，这里有个函数利用的很巧妙，就是<code>array_reverse</code>，这个函数恰好把数组里面的内容倒转过来，刚好可以使用一次next函数，不然的话调用数组里面的第三个值的话，就要使用多次next就显得冗余了。</p>
-<h3 id="easy-phpmagic"><a href="#easy-phpmagic" class="headerlink" title="easy - phpmagic"></a>easy - phpmagic</h3><h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3>
+<h3 id="easy-phpmagic"><a href="#easy-phpmagic" class="headerlink" title="easy - phpmagic"></a>easy - phpmagic</h3><p>这个题目是关于写文件的，先把源码拿出来瞅瞅</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'read-source'</span>])) &#123;</span><br><span class="line">    <span class="keyword">exit</span>(show_source(<span class="keyword">__FILE__</span>));</span><br><span class="line">&#125;</span><br><span class="line">define(<span class="string">'DATA_DIR'</span>, dirname(<span class="keyword">__FILE__</span>) . <span class="string">'/data/'</span> . md5($_SERVER[<span class="string">'REMOTE_ADDR'</span>]));</span><br><span class="line"><span class="keyword">if</span>(!is_dir(DATA_DIR)) &#123;</span><br><span class="line">    mkdir(DATA_DIR, <span class="number">0755</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line">chdir(DATA_DIR);</span><br><span class="line">$domain = <span class="keyword">isset</span>($_POST[<span class="string">'domain'</span>]) ? $_POST[<span class="string">'domain'</span>] : <span class="string">''</span>;</span><br><span class="line">$log_name = <span class="keyword">isset</span>($_POST[<span class="string">'log'</span>]) ? $_POST[<span class="string">'log'</span>] : date(<span class="string">'-Y-m-d'</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">if</span>(!<span class="keyword">empty</span>($_POST) &amp;&amp; $domain):</span><br><span class="line">                $command = sprintf(<span class="string">"dig -t A -q %s"</span>, escapeshellarg($domain));</span><br><span class="line">                $output = shell_exec($command);</span><br><span class="line">                $output = htmlspecialchars($output, ENT_HTML401 | ENT_QUOTES);</span><br><span class="line">                $log_name = $_SERVER[<span class="string">'SERVER_NAME'</span>] . $log_name;</span><br><span class="line">                <span class="keyword">if</span>(!in_array(pathinfo($log_name, PATHINFO_EXTENSION), [<span class="string">'php'</span>, <span class="string">'php3'</span>, <span class="string">'php4'</span>, <span class="string">'php5'</span>, <span class="string">'phtml'</span>, <span class="string">'pht'</span>], <span class="keyword">true</span>)) &#123;</span><br><span class="line">                    file_put_contents($log_name, $output);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">echo</span> $output;</span><br><span class="line"> <span class="keyword">endif</span>; <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>分析一下，可以看到这里面写文件进去的文件名</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$log_name = $_SERVER[<span class="string">'SERVER_NAME'</span>] . $log_name;</span><br></pre></td></tr></table></figure>
+<p>是由两个部分组成的，第一个部分是<code>$_SERVER[&#39;SERVER_NAME&#39;]</code>，另外一个是可以由用户控制的<code>$log_name</code>，这里涉及的知识点是在第一个参数也是可控的，如果服务器設置了下面的相關參數的话就是可控的，這個可控的參數这个值是可以伪造的。怎么伪造呢？取的是HTTP headers中的<code>Host</code>的值。</p>
+<p><img src="https://s2.ax1x.com/2019/03/04/kO4ySf.png" alt="kO4ySf.png"></p>
+<p>下面的代码就是对写入文件的后缀名过滤，但是这个过滤太容易，因为后面是有关写文件的相关操作，他在底层会做一些操作</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!in_array(pathinfo($log_name, PATHINFO_EXTENSION), [<span class="string">'php'</span>, <span class="string">'php3'</span>, <span class="string">'php4'</span>, <span class="string">'php5'</span>, <span class="string">'phtml'</span>, <span class="string">'pht'</span>], <span class="keyword">true</span>))</span><br></pre></td></tr></table></figure>
+<p>这一点在我upload-lab这篇文章里面有提及过，这里只需要用类似<code>index.php/.</code>这样的文件名做绕过</p>
+<p>在观察一下代码中可以写入的内容，可以发现写进去的内容都会经过<code>htmlspecialchars</code>这个函数，那就是说一旦遇到类似<code>&lt;</code>或者<code>&gt;</code>这的操作符，就会转义。</p>
+<p><img src="https://s2.ax1x.com/2019/03/04/kXSFud.png" alt="kXSFud.png"></p>
+<p><img src="https://s2.ax1x.com/2019/03/04/kOzz4K.png" alt="kOzz4K.png"></p>
+<p>这里又涉及到另外的一个知识点了，可以参考一下这一篇文章:<a href="https://www.leavesongs.com/PENETRATION/php-filter-magic.html，这种类型的题目第一次我好像实在moctf上的一个题目见到的233333" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/php-filter-magic.html，这种类型的题目第一次我好像实在moctf上的一个题目见到的233333</a></p>
+<p>由于是写入文件，可以利用php伪协议去实现多种骚操作，这里就涉及到base64这个问题，因为base64编码在遇到不在其编码集的字符的话会直接跳过，并且解码的时候是4位4位一组，所以这也是为什么下面的payload要凑出四个四个一组。</p>
+<p>还有一个要注意的问题，由于<code>dig</code>接受的参数不允许过长，否则直接返回空，所以payload需要尽可能的短一些，构造payload：</p>
+<p><img src="https://s2.ax1x.com/2019/03/04/kXnCn0.png" alt="kXnCn0.png"></p>
+<p>注意这里使用四个<code>*</code>就是为了不让发送的内容出现<code>=</code>，因为如果出现的话就会导致post参数增加一个，同时也起到了注释的作用，这里视情况将<code>*</code>增加。</p>
+<p><img src="https://s2.ax1x.com/2019/03/04/kXnQHK.png" alt="kXnQHK.png"></p>
+<p>发包测试结果成功</p>
+<p><img src="https://s2.ax1x.com/2019/03/04/kXnJ9H.png" alt="kXnJ9H.png"></p>
+<p><img src="https://s2.ax1x.com/2019/03/04/kXn78J.png" alt="kXn78J.png"></p>
+<p>还有一道PHP题目放在另外一篇文章说说吧。</p>
+
       
     </div>
     
@@ -436,7 +465,7 @@
         <p><span>本文标题:</span><a href="/Code-Breaking-Puzzles-Learning.html">Code-Breaking-Puzzles学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
         <p><span>发布时间:</span>2019-02-27, 20:48:46</p>
-        <p><span>最后更新:</span>2019-02-27, 20:56:38</p>
+        <p><span>最后更新:</span>2019-03-04, 21:54:41</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/Code-Breaking-Puzzles-Learning.html" title="Code-Breaking-Puzzles学习">0verwatch.top/Code-Breaking-Puzzles-Learning.html</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/Code-Breaking-Puzzles-Learning.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -496,7 +525,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-function"><span class="toc-number">1.</span> <span class="toc-text">easy - function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-pcrewaf"><span class="toc-number">2.</span> <span class="toc-text">easy-pcrewaf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-phplimit"><span class="toc-number">3.</span> <span class="toc-text">easy - phplimit</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方法一-利用session-id"><span class="toc-number">3.1.</span> <span class="toc-text">方法一:利用session_id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法二-利用get-defined-vars"><span class="toc-number">3.2.</span> <span class="toc-text">方法二:利用get_defined_vars</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-phpmagic"><span class="toc-number">4.</span> <span class="toc-text">easy - phpmagic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#未完待续"><span class="toc-number">5.</span> <span class="toc-text">未完待续</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-function"><span class="toc-number">1.</span> <span class="toc-text">easy - function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-pcrewaf"><span class="toc-number">2.</span> <span class="toc-text">easy-pcrewaf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-phplimit"><span class="toc-number">3.</span> <span class="toc-text">easy - phplimit</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方法一-利用session-id"><span class="toc-number">3.1.</span> <span class="toc-text">方法一:利用session_id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法二-利用get-defined-vars"><span class="toc-number">3.2.</span> <span class="toc-text">方法二:利用get_defined_vars</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#easy-phpmagic"><span class="toc-number">4.</span> <span class="toc-text">easy - phpmagic</span></a></li></ol>
         
     </div>
     <style>
