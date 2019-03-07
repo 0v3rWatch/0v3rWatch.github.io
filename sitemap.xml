@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>0verwatch.top/friends/index.html</loc>
+    
+    <lastmod>2019-03-07T06:41:58.758Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>0verwatch.top/Code-Breaking-Puzzles-Learning.html</loc>
     
     <lastmod>2019-03-04T13:54:41.136Z</lastmod>
@@ -432,13 +439,6 @@
     <loc>0verwatch.top/Docker-CTFd-building.html</loc>
     
     <lastmod>2018-06-01T01:12:01.603Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>0verwatch.top/friends/index.html</loc>
-    
-    <lastmod>2018-05-27T11:01:38.738Z</lastmod>
     
   </url>
   
