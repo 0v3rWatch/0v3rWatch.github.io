@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="最近在练习xss，感觉这个游戏挺适合新手的，从代码层角度分析更加深刻认识xss的形成，">
+<meta name="keywords" content="xss">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xss游戏通关笔记">
+<meta property="og:url" content="0verwatch.top/xss-game.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="最近在练习xss，感觉这个游戏挺适合新手的，从代码层角度分析更加深刻认识xss的形成，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kXHE8A.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kXHmKP.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kXXbE6.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kXOvmq.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kXX6H0.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kXjqLn.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kXvpz4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kXvKQH.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kXvBmn.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kXxKhT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kXxa4K.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kXxh8S.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kjSz7R.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kjpXPP.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kjiprD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kjiAPI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kjA0oQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/05/kjAsWn.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/07/kxcjsg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/07/kx24UA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/07/kxRVa9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/07/kxRIZ4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/07/kxWSdH.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/07/kxWwf1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kz6bOe.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzgbad.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzRPOO.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzfmsf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzhC60.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kz4u5Q.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kz4jRs.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzomVK.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzoGrt.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzoOiD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzbrfU.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzq64f.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzqBDA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzLZqA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzLGrj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzjkxU.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzORmj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzXKgS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzXjKg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzjQG6.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzjUII.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzjxSK.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzvkFI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzvZSf.png">
+<meta property="og:updated_time" content="2019-03-11T11:02:53.998Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="xss游戏通关笔记">
+<meta name="twitter:description" content="最近在练习xss，感觉这个游戏挺适合新手的，从代码层角度分析更加深刻认识xss的形成，">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/05/kXHE8A.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>xss游戏通关笔记 | 0verWatch&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56ff76c972fc0cf9"></script>
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?e9bf2f4b24d981680e6d59ced18982b0";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">分类&amp;标签</a></li>
+                        
+                            <li><a href="/friends/">友链</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux安全/">Linux安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL注入/">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSTI注入/">SSTI注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yii/">Yii</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微机实验/">微机实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件上传/">文件上传</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器运维/">服务器运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/沙盒绕过/">沙盒绕过</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量分析/">流量分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站渗透/">网站渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机网路/">计算机网路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://202.119.201.199/">CumtCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.nuptzj.cn">NuptCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.jarvisoj.com">Jarvis OJ</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.codemonster.cn/home">MOCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.bugku.com/">BugkuCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.shiyanbar.com/ctf/practice">实验吧</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://xz.aliyun.com/">先知社区</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://shentoushi.top/">渗透师导航</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://skysec.top/">一叶飘零</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.yytpublic.cn">LaurenceYu</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://chun.ringfall.me">ringfall</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">分类&amp;标签</a></li>
+                
+                    <li><a href="/friends/">友链</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" target="_blank" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-xss-game" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/xss-game.html" class="article-date">
+      <time datetime="2019-03-11T10:59:33.000Z" itemprop="datePublished">2019-03-11</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      xss游戏通关笔记
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/xss/">xss</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/">xss</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+<p>最近在练习xss，感觉这个游戏挺适合新手的，从代码层角度分析更加深刻认识xss的形成，<a id="more"></a>写了一下通关攻略，并附上了xss漏洞使用工具如何去fuzz。代码分享：链接: <a href="https://pan.baidu.com/s/12b_E1PtgUH0b93qupJ7IvQ" target="_blank" rel="noopener">https://pan.baidu.com/s/12b_E1PtgUH0b93qupJ7IvQ</a> 提取码: 2333</p>
+<h3 id="level-1"><a href="#level-1" class="headerlink" title="level-1"></a>level-1</h3><p>这个题目发现url中有一个参数name可控，立刻用<code>&lt;script&gt;alert(1);&lt;/script&gt;</code>测试测试一下，弹窗成功，在xss中拥有同样弹窗效果的函数不止<code>alert</code>，还有<code>confirm</code>以及<code>prompt</code></p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kXHE8A.png" alt="kXHE8A.png"></p>
+<p>从代码角度去看，可以发现就是直接用GET方式获取参数然后输出到浏览器上面，这是典型的没做过滤。怎么防御？可以加一个转义函数<code>htmlspecialchars</code>把一些html格式的东西编码就可以有效防止了。</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kXHmKP.png" alt="kXHmKP.png"></p>
+<h3 id="level-2"><a href="#level-2" class="headerlink" title="level-2"></a>level-2</h3><p>同样的发现url中<code>keyword</code>参数可控，尝试探测一波，但是发现被转义了</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kXXbE6.png" alt="kXXbE6.png"></p>
+<p>猜测应该是使用了我上面所讲的函数，查看一下代码</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kXOvmq.png" alt="kXOvmq.png"></p>
+<p>我们发现只有一处是使用了这个转义函数的，还有一处没有进行过滤，在input标签里面，我们可以尝试去闭合input标签，构造payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(123);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>弹窗成功</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kXX6H0.png" alt="kXX6H0.png"></p>
+<h3 id="level-3"><a href="#level-3" class="headerlink" title="level-3"></a>level-3</h3><p>同样先测试一下看看哪里是输入点，哪里是输出点</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kXjqLn.png" alt="kXjqLn.png"></p>
+<p>然后再用最简单的语句<code>&lt;script&gt;alert(123);&lt;/script&gt;</code>尝试一下，发现尖括号被转义了，而且刚才利用的点也被转义了</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kXvpz4.png" alt="kXvpz4.png"></p>
+<p>观察一下源码是怎样过滤的，很明显两处都存在过滤函数</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kXvKQH.png" alt="kXvKQH.png"></p>
+<p>但是这个函数有一点就是，默认配置是不过滤单引号的。只有设置了：         <code>ENT_QUOTES</code>，才可以转义单引号，所以这关的value值是刚好给了这样的一个机会去闭合。</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kXvBmn.png" alt="kXvBmn.png"></p>
+<p>所以可以构建payload，这次由于弹窗内容在尖括号内，可以使用事件去弹窗，这里介绍几个常用的事件函数，比如<code>onchange, onclick, oninput</code>等等，这里我使用<code>onchange</code>去实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;onchange=alert`123` &apos;</span><br></pre></td></tr></table></figure>
+<p>弹窗成功</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kXxKhT.png" alt="kXxKhT.png"></p>
+<h3 id="level-4"><a href="#level-4" class="headerlink" title="level-4"></a>level-4</h3><p>同样的方法，先用<code>&lt;script&gt;alert(123);&lt;/script&gt;</code>尝试一下，发现标题处是经过了转义，但是在input标签内只是过滤了尖括号，可以怀疑此处是否出现使用黑名单的过滤。</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kXxa4K.png" alt="kXxa4K.png"></p>
+<p>看一下代码，证实一下思路，发现确实如此，但是这里我们仍然可以使用事件去触发弹窗，这样就避免使用了尖括号了。</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kXxh8S.png" alt="kXxh8S.png"></p>
+<p>这里注意一下，跟上一题明显不同，这里需要使用双引号闭合，构造对应的payload，然后使用对应的注释符把后面的双引号给注释掉：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; onclick=alert `123` //</span><br></pre></td></tr></table></figure>
+<h3 id="level-5"><a href="#level-5" class="headerlink" title="level-5"></a>level-5</h3><p>还是原来的测试手段，标题处的输出经过转义没啥利用，但是在input标签内你会发现测试的script标签被变成其他的东西，这就很有可能又是一个替换，再用上一关的payload去试试，你会发现on变成了o_n，相当于加了一个下划线，这就限制了我们使用事件以及标签了。</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kjSz7R.png" alt="kjSz7R.png"></p>
+<p>查看一下源码，果然源码对<code>&lt;script</code>以及<code>on</code>做了过滤。</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kjpXPP.png" alt="kjpXPP.png"></p>
+<p>这里可以使用<code>&lt;a&gt;</code>标签去实现弹窗的调用，这不存在on或者script等关键字，还使用了<code>javascript:alert(&#39;xss&#39;)</code>去调用了JavaScript的函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt; &lt;a href=&quot;javascript:alert(&apos;123&apos;)&quot;&gt;dian&lt;/a&gt; //</span><br></pre></td></tr></table></figure>
+<p>后面点击就会产生弹窗了</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kjiprD.png" alt="kjiprD.png"></p>
+<p>实际上这题还可以大写绕过的。</p>
+<h3 id="level-6"><a href="#level-6" class="headerlink" title="level-6"></a>level-6</h3><p>同样的，输入&lt;script和on都会被加上下划线，再尝试上面的payload会发现连href都被替换了，这样有可能是黑名单增加了。</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kjiAPI.png" alt="kjiAPI.png"></p>
+<p>观察一下代码可以发现，对于黑名单里面的数量确实增多了，但也不影响，我们可以使用大 小写去实现绕过，可以构造下面的 payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt; &lt;Script&gt;alert(&apos;123&apos;)&lt;/script&gt; //</span><br><span class="line">&quot;&gt;&lt;a Href=&quot;javascript:alert(123)&quot;&gt;dian&lt;/a&gt;//</span><br></pre></td></tr></table></figure>
+<h3 id="level-7"><a href="#level-7" class="headerlink" title="level-7"></a>level-7</h3><p>输入的测试代码会发现里面的关键字被置换为空，这很明显就是直接将某些关键字变成空字符</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kjA0oQ.png" alt="kjA0oQ.png"></p>
+<p>看一下代码，可以发现确实是把关键字变成了空字符。</p>
+<p><img src="https://s2.ax1x.com/2019/03/05/kjAsWn.png" alt="kjAsWn.png"></p>
+<p>这里就用到一个SQL注入里面经常用到的技巧，双写绕过，构造payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;scrscriptipt&gt;alert(123);&lt;/scrscriptipt&gt;</span><br></pre></td></tr></table></figure>
+<p>同样的对on，src，data，href双写也可以实现同样的而效果</p>
+<h3 id="level-8"><a href="#level-8" class="headerlink" title="level-8"></a>level-8</h3><p>分析一下代码，可以发现，这次的过滤比前面的好几关都要严格，不仅做了过滤，而且还对<code>input</code>标签里面的内容使用<code>htmlspecialchars</code>函数转义了。但是可以发现还有一处调用的字符串里面没有使用这样的函数去进行防护，可以利用这一点下功夫</p>
+<p><img src="https://s2.ax1x.com/2019/03/07/kxcjsg.png" alt="kxcjsg.png"></p>
+<p>那么该如何利用呢？这里只是过滤了关键字。但是可以使用HTML编码进行绕过，HTML编码的存在就是让他在代码中和显示中分开， 避免错误。推荐一个编码网站：<a href="https://www.qqxiuzi.cn/bianma/zifushiti.php" target="_blank" rel="noopener">https://www.qqxiuzi.cn/bianma/zifushiti.php</a></p>
+<p>值得注意的是浏览器如果要把HTML编码解析并且渲染前提必须要这种编码一定要在标签内某个属性里面才行。如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">"&amp;#104;&amp;#101;&amp;#108;&amp;#108;&amp;#111;"</span> &gt;click&lt;<span class="regexp">/a&gt;</span></span><br></pre></td></tr></table></figure>
+<p>但是里如果你把href也编码的话，这就无法正常渲染了</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a &amp;#104;&amp;#114;&amp;#101;&amp;#102;="&amp;#104;&amp;#101;&amp;#108;&amp;#108;&amp;#111;" &gt;click&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<p>所以这里可以参考上一关的payload，利用协议去绕过，利用a标签，修改里面的属性值即可，只是script这个关键字得转义一部分才行，如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javasc&amp;#x72;ipt:alert(123)</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/03/07/kx24UA.png" alt="kx24UA.png"></p>
+<h3 id="level-9"><a href="#level-9" class="headerlink" title="level-9"></a>level-9</h3><p>从代码角度上看，只是增加了对于url的判断，其实对这一关没有太大影响</p>
+<p><img src="https://s2.ax1x.com/2019/03/07/kxRVa9.png" alt="kxRVa9.png"></p>
+<p>为什么这样说？在代码里面没啥影响的部分就是注释了，在某些挖掘漏洞的过程中使用注释往往可以起到意想不到的效果，这里可以在注释里面插入关键字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javascri&amp;#x0070;t:alert(1)/*http://x.x.x.x*/</span><br></pre></td></tr></table></figure>
+<p>当然如果单单为了弹窗，这样也行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javascri&amp;#x0070;t:alert(&quot;http://&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="level-10"><a href="#level-10" class="headerlink" title="level-10"></a>level-10</h3><p>随手测试了弹窗语句，发现被转义了，但是发现了3个隐藏参数，有点蹊跷</p>
+<p><img src="https://s2.ax1x.com/2019/03/07/kxRIZ4.png" alt="kxRIZ4.png"></p>
+<p>来分析一下源代码，发现keyword参数经过了<code>htmlspecialchars</code>函数的防护而且是以双引号拼接的，所以这里的利用价值很低，但发现另外一个t_sort参数，但是这个参数经过了过了尖括号的过滤，最后输出到其中一个隐藏的input标签内</p>
+<p><img src="https://s2.ax1x.com/2019/03/07/kxWSdH.png" alt="kxWSdH.png"></p>
+<p>虽然过滤了尖括号，但可以闭合双引号，使用<code>onclick</code>事件，然后把隐藏的标签用<code>text</code>方式回显出来即可，最后的payload</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t_sort=<span class="string">" onclick="</span>alert(<span class="number">123</span>)<span class="string">" type="</span>text<span class="string">" "</span><span class="string">"</span></span><br></pre></td></tr></table></figure>
+<h3 id="level-11"><a href="#level-11" class="headerlink" title="level-11"></a>level-11</h3><p>同样的情况明显的输出点被转义，但是存在几个隐藏的input标签，同样的观察一下代码，发现刚才利用的地方全都加上了防护，但是多出的一个标签内直接输出$str33，往回找这个变量来自哪里，发现来自http头，所以思路很明确，伪造http头部信息即可。</p>
+<p><img src="https://s2.ax1x.com/2019/03/07/kxWwf1.png" alt="kxWwf1.png"></p>
+<p>抓个包修改里面的<code>HTTP_REFERER</code>参数，payload也是原来的payload，因为这里的输出点的过滤跟上一关一样，也是过滤了尖括号，但无所谓用双引号闭合即可</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kz6bOe.png" alt="kz6bOe.png"></p>
+<h3 id="level-12"><a href="#level-12" class="headerlink" title="level-12"></a>level-12</h3><p>同样的，观察代码，发现这题跟上面的题目类似，利用的输出点在<code>$str33</code>这个变量上，只是这一次修改的头部信息不一样了，可以发现这次的头部信息是<code>HTTP_USER_AGENT</code></p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzgbad.png" alt="kzgbad.png"></p>
+<p>类似的payload，抓包发包即可</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzRPOO.png" alt="kzRPOO.png"></p>
+<h3 id="level-13"><a href="#level-13" class="headerlink" title="level-13"></a>level-13</h3><p>分析一下源码，发现这一次不是从http头下功夫了，而是从cookie这一点入手了，可以看到代码里面首先对cookie进行一个初始值的设置，然后经过了两次的过滤，最后通过$str33这个变量输出。</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzfmsf.png" alt="kzfmsf.png"></p>
+<p>因为过滤和输出点没有任何变化，所以利用方式还是上一关的方式，只是输入点变了而已，这次从cookie中的user变量进行输入，同样的payload：<code>&quot; onclick=&quot;alert(123)&quot;  type=&quot;text&quot; &quot;</code>，抓包改包即可</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzhC60.png" alt="kzhC60.png"></p>
+<h3 id="level-14"><a href="#level-14" class="headerlink" title="level-14"></a>level-14</h3><p>这一关利用了图片exif的属性，经过上传之后可以利用里面的属性去触发xss漏洞，可惜没环境。直接跳到下一关吧</p>
+<h3 id="level-15"><a href="#level-15" class="headerlink" title="level-15"></a>level-15</h3><p>观察源码，可以发现输出点用函数做了防护，而且比起前面几关多了很多不同点。</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kz4u5Q.png" alt="kz4u5Q.png"></p>
+<p>这里包含了angular js的脚本，并且使用了它的相关类:<code>ng-include</code>，百度可知这是一个有文件包含功能的类。</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kz4jRs.png" alt="kz4jRs.png"></p>
+<p>这样的话，思路就出来了，这个页面没利用点，但是利用另外一个存在漏洞的页面不就可以了吗？因为这里使用了函数防护，出现尖括号的东西很有可能会被转义，这里我们选择通过闭合产生xss漏洞的文件进行包含，选择level-2。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">src=&apos;level2.php?keyword=&quot; onclick=&quot;alert(123)&quot; &quot;&apos;</span><br></pre></td></tr></table></figure>
+<p>弹窗成功</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzomVK.png" alt="kzomVK.png"></p>
+<h3 id="level-16"><a href="#level-16" class="headerlink" title="level-16"></a>level-16</h3><p>查看第16关的代码，发现输入的东西经过了大小写的转换并且通过四次的替换检查，分别对script，空格，/，进行了替换，但是有一点很重要，尖括号没有被替换，这给我们留下很大的利用空间。</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzoGrt.png" alt="kzoGrt.png"></p>
+<p>另外script被替代，我们可以使用img标签，剩下我们就需要考虑如何把空格的影响给去掉，这时候就需要使用编码来进行绕过了，可以选择<code>%0d</code> <code>%0a</code> 进行绕过，构造出最后的payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img%0dsrc=1%0donerror=&quot;alert(123)&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>成功弹窗</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzoOiD.png" alt="kzoOiD.png"></p>
+<h3 id="level-17"><a href="#level-17" class="headerlink" title="level-17"></a>level-17</h3><p>分析一下代码，发现输出点都进行了防护，对尖括号以及双引号进行了转义，但是不影响我们利用。</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzbrfU.png" alt="kzbrfU.png"></p>
+<p><code>&lt;embed&gt;</code>标签定义嵌入的内容，比如插件，所以这里我们可以使用on事件去进行触发，但是首先得用b去闭合前面的等号，构造payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arg02=b onclick=alert(1)</span><br></pre></td></tr></table></figure>
+<p>成功弹窗</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzq64f.png" alt="kzq64f.png"></p>
+<p>查看输出验证一下思路</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzqBDA.png" alt="kzqBDA.png"></p>
+<h3 id="level-18"><a href="#level-18" class="headerlink" title="level-18"></a>level-18</h3><p>跟上面那一个题目没有啥区别，一样的操作。。</p>
+<p>payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/xss/level18.php?arg01=a&amp;arg02=b%20onmouseout=alert(1)</span><br></pre></td></tr></table></figure>
+<p>直接弹窗</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzLZqA.png" alt="kzLZqA.png"></p>
+<p>看看输出，跟上一关差不多</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzLGrj.png" alt="kzLGrj.png"></p>
+<p>上面的游戏都是直接看源代码才发觉到哪里有漏洞，那么肯定问题来了，如果不给源码的情况下该怎样去测试呢？因为在现实渗透中我们需要一个个payload测试是很麻烦的</p>
+<p>这里我提供一种比较大众一点的fuzz技巧。利用burpsuit自动化xss</p>
+<p>首先我们得在burpsuit的Extender模块中下载对应的<code>XSS Validator</code>插件</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzjkxU.png" alt="kzjkxU.png"></p>
+<p>安装成功后可以发现菜单栏上会多一栏你插件的名字</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzORmj.png" alt="kzORmj.png"></p>
+<p>这里我们还需要另外一个东西叫<code>PhantomJs</code>，这是下载地址：<a href="http://phantomjs.org/download.html，另外我们需要在xssValidator的github上下载一个小脚本" target="_blank" rel="noopener">http://phantomjs.org/download.html，另外我们需要在xssValidator的github上下载一个小脚本</a></p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzXKgS.png" alt="kzXKgS.png"></p>
+<p>然后把它放在跟<code>Phantomjs</code>同一级目录下即可，然后利用<code>Phantomjs</code>打开即可，此时开始监听</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzXjKg.png" alt="kzXjKg.png"></p>
+<p>这里我以小游戏第一关为例，现在就可以使用bp抓包发送至爆破模块，然后选择插件模式，选择我们的插件</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzjQG6.png" alt="kzjQG6.png"></p>
+<p>然后去到该插件的页面复制它的特征码，加载进去字典中</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzjUII.png" alt="kzjUII.png"></p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzjxSK.png" alt="kzjxSK.png"></p>
+<p>点击attack，攻击成功的话会显示，同时监听也会出现报文的回显</p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzvkFI.png" alt="kzvkFI.png"></p>
+<p><img src="https://s2.ax1x.com/2019/03/08/kzvZSf.png" alt="kzvZSf.png"></p>
+<p>这样去测试就比平常手工测试要便捷多了。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/xss-game.html">xss游戏通关笔记</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2019-03-11, 18:59:33</p>
+        <p><span>最后更新:</span>2019-03-11, 19:02:53</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/xss-game.html" title="xss游戏通关笔记">0verwatch.top/xss-game.html</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/xss-game.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/Code-Breaking-Puzzles-Learning.html">
+                    Code-Breaking-Puzzles学习
+                </a>
+            </div>
+        
+    </nav>
+
+  
+  
+   
+    <div style="padding: 0; margin: 20px auto; width: 90%; text-align: center;">
+      <br>
+      <div>听说，打赏我的人最后都成了大佬。</div>
+      <br>
+      <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <div class="btn btn-pay">打赏支持</div>
+      </button>
+      <br>
+      <br>
+      <div id="QR" style="display: none;">
+        
+          <div id="wechat" style="display: inline-block;">
+            <img id="wechat_qr" src="/img/wechatpay.jpg" alt="0verWatch WeChat Pay"/>
+            <p>微信打赏</p>
+          </div>
+        
+        
+          <div id="alipay" style="display: inline-block">
+            <img id="alipay_qr" src="/img/alipay.jpg" alt="0verWatch Alipay"/>
+            <p>支付宝打赏</p>
+          </div>
+        
+        <br>
+        <br>
+      </div>
+    </div>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#level-1"><span class="toc-number">1.</span> <span class="toc-text">level-1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-2"><span class="toc-number">2.</span> <span class="toc-text">level-2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-3"><span class="toc-number">3.</span> <span class="toc-text">level-3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-4"><span class="toc-number">4.</span> <span class="toc-text">level-4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-5"><span class="toc-number">5.</span> <span class="toc-text">level-5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-6"><span class="toc-number">6.</span> <span class="toc-text">level-6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-7"><span class="toc-number">7.</span> <span class="toc-text">level-7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-8"><span class="toc-number">8.</span> <span class="toc-text">level-8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-9"><span class="toc-number">9.</span> <span class="toc-text">level-9</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-10"><span class="toc-number">10.</span> <span class="toc-text">level-10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-11"><span class="toc-number">11.</span> <span class="toc-text">level-11</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-12"><span class="toc-number">12.</span> <span class="toc-text">level-12</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-13"><span class="toc-number">13.</span> <span class="toc-text">level-13</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-14"><span class="toc-number">14.</span> <span class="toc-text">level-14</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-15"><span class="toc-number">15.</span> <span class="toc-text">level-15</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-16"><span class="toc-number">16.</span> <span class="toc-text">level-16</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-17"><span class="toc-number">17.</span> <span class="toc-text">level-17</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level-18"><span class="toc-number">18.</span> <span class="toc-text">level-18</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+              
+        <section class="livere" id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80MDk1Ny8xNzQ4Mg==">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</section>。 
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/Code-Breaking-Puzzles-Learning.html" title="下一篇: Code-Breaking-Puzzles学习">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/xss-game.html">xss游戏通关笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/Code-Breaking-Puzzles-Learning.html">Code-Breaking-Puzzles学习</a></li><li class="post-list-item"><a class="post-list-link" href="/thinkphp-5-rce.html">ThinkPHP 5.x RCE分析</a></li><li class="post-list-item"><a class="post-list-link" href="/SSTI-injection.html">SSTI-injection</a></li><li class="post-list-item"><a class="post-list-link" href="/python-sandbox-bypass.html">Python沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-1mongth.html">安恒一月赛做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/upload-labs-wp.html">upload-labs记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Dockerfile-writing.html">Dockerfile编写</a></li><li class="post-list-item"><a class="post-list-link" href="/RSA-python.html">RSA原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/MD5-python.html">MD5原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/DES-python.html">DES原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/writing-2.html">2018嘅總結</a></li><li class="post-list-item"><a class="post-list-link" href="/RC4-python.html">RC4的原理及python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/A5-python.html">A5的原理及python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/swpuctf-2018.html">swpuctf赛后复现</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-12month.html">安恒12月赛Web题解</a></li><li class="post-list-item"><a class="post-list-link" href="/Virginia-python.html">维吉尼亚密码原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-month-race.html">CUMT第一轮双月赛Web题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-11month.html">安恒11月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-10month.html">安恒10月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/algorithm-review.html">算法上机考试复习</a></li><li class="post-list-item"><a class="post-list-link" href="/huwang-game.html">护网杯部分题目题解</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-CTF-Platform.html">CUMT平台的部分题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-9month.html">安恒9月部分赛题复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirstv2.html">Hitcon2017 babyfirst-revenge v2复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2015-babyfirst.html">Hitcon2015 babyfirst复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirst.html">Hitcon2017 babyfirst-revenge复现</a></li><li class="post-list-item"><a class="post-list-link" href="/liuliangfenxi-5-5.html">铁三2018.5.5数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-8month-part1.html">安恒8月应急响应题目回顾</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-4.html">sqli-labs实战记录(四)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-3.html">sqli-labs实战记录(三)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-2.html">sqli-labs实战记录(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-1.html">sqli-labs实战记录(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/bin-search-sql.html">二分查找在sql盲注里面的应用</a></li><li class="post-list-item"><a class="post-list-link" href="/Solve-Me-wp.html">Solve Me解题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-inject-protect.html">浅谈SQL注入防御手段</a></li><li class="post-list-item"><a class="post-list-link" href="/sqlmap-usage.html">Sqlmap 使用方法小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-FW.html">Linux防火墙学习</a></li><li class="post-list-item"><a class="post-list-link" href="/Mysql-security-1.html">Mysql安全配置</a></li><li class="post-list-item"><a class="post-list-link" href="/pentest-1.html">记录一次模拟渗透</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-2.html">计网实验笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-1.html">计网实验笔记(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-exam.html">微机实验考试</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-experiment.html">微机实验记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-6month.html">安恒6月赛部分做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-2.html">数据结构复习二 双向链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-1.html">数据结构复习一 单链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/writing-1.html">两年</a></li><li class="post-list-item"><a class="post-list-link" href="/Yii-probleam.html">编写Yii框架项目时出现的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/susctf2018-wp.html">SUSCTF 2018 做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-CTFd-building.html">Docker练习及在CTFd平台上放题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTFd-building.html">CTFd平台搭建记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-learning.html">Docker学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/ISCC-2018-wp.html">ISCC 2018做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-5month.html">安恒5月赛web题目做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-2018-final.html">cumt2018校赛部分write up</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web2.html">WhaleCTF第二期打卡的web题</a></li><li class="post-list-item"><a class="post-list-link" href="/git-learning.html">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/PHP-Yii.html">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web1.html">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/shiyanba1-wp.html">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/phpcheck2.html">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTF-python.html">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/Ubantu-Web.html">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-php-fanxuliehua.html">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/RaceConditionsSummary.html">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/hash-length-attack.html">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/moctf-web.html">简单小结一下moctf的三道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/backup-blog-again.html">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/RSA-SimpleLearn.html">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/CRC32-Brute.html">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-learn.html">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-php-check.html">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Web-write-up.html">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Misc.html">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Crypto.html">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-social-wp.html">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/zipfalse.html">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/php-mysql-content.html">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-Summary.html">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/php summary.html">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work4.html">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work3.html">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work2.html">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work1.html">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2019 0verWatch
+
+            </div>
+            <div class="footer-right">
+                Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+                <span>|  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+
+                
+
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119588656-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
