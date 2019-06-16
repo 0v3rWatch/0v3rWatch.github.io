@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>0verwatch.top/redis-vul.html</loc>
+    <lastmod>2019-06-16T08:39:32.965Z</lastmod>
+    <data>
+        <display>
+        <title>redis未授权访问漏洞一些利用</title>
+        <pubTime>2019-06-16T08:37:20.000Z</pubTime>
+        
+        <tag>Web</tag>
+         
+        <tag>redis</tag>
+         
+         
+           
+             
+              <breadCrumb title="Redis" url="0verwatch.top/categories/Redis/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>0verwatch.top/python-thinking-1.html</loc>
     <lastmod>2019-04-14T09:26:20.459Z</lastmod>
     <data>
@@ -1265,9 +1287,9 @@
         <title>编写Yii框架项目时出现的问题</title>
         <pubTime>2018-06-06T11:47:27.000Z</pubTime>
         
-        <tag>PHP</tag>
-         
         <tag>Yii</tag>
+         
+        <tag>PHP</tag>
          
          
            
