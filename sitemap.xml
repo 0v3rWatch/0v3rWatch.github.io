@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>0verwatch.top/about/index.html</loc>
+    
+    <lastmod>2019-06-16T08:44:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>0verwatch.top/redis-vul.html</loc>
     
     <lastmod>2019-06-16T08:39:32.965Z</lastmod>
@@ -222,13 +229,6 @@
     <loc>0verwatch.top/anheng-11month.html</loc>
     
     <lastmod>2018-11-30T08:43:36.319Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>0verwatch.top/about/index.html</loc>
-    
-    <lastmod>2018-11-16T13:40:09.676Z</lastmod>
     
   </url>
   
