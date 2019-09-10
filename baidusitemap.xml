@@ -4,6 +4,48 @@
 
     
   <url>
+    <loc>0verwatch.top/msf-cve-review.html</loc>
+    <lastmod>2019-09-10T15:34:34.584Z</lastmod>
+    <data>
+        <display>
+        <title>CVE-2019-0708，MS17-010，MS08-067漏洞复现</title>
+        <pubTime>2019-09-10T15:25:17.000Z</pubTime>
+        
+        <tag>metasploit</tag>
+         
+         
+           
+             
+              <breadCrumb title="metasploit" url="0verwatch.top/categories/metasploit/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>0verwatch.top/xss-encodeorder.html</loc>
+    <lastmod>2019-09-10T15:34:28.328Z</lastmod>
+    <data>
+        <display>
+        <title>xss编码绕过以及从中学习到的几个例子</title>
+        <pubTime>2019-09-10T15:29:45.000Z</pubTime>
+        
+        <tag>xss</tag>
+         
+        <tag>bypass</tag>
+         
+         
+           
+             
+              <breadCrumb title="xss" url="0verwatch.top/categories/xss/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>0verwatch.top/ImageMagick.html</loc>
     <lastmod>2019-06-27T11:24:08.823Z</lastmod>
     <data>
@@ -1265,9 +1307,9 @@
         
         <tag>CTF</tag>
          
-        <tag>Web</tag>
-         
         <tag>Misc</tag>
+         
+        <tag>Web</tag>
          
          
            
