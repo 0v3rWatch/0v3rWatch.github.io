@@ -91,13 +91,6 @@
     </url>
 
     <url>
-        <loc>0verwatch.top/categories/%E7%AE%97%E6%B3%95/</loc>
-        <lastmod>2018-11-08T14:06:09.087Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>0verwatch.top/categories/Linux/</loc>
         <lastmod>2018-12-18T11:55:05.859Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -168,15 +161,64 @@
     </url>
 
     <url>
-        <loc>0verwatch.top/categories/xss/</loc>
-        <lastmod>2019-03-11T11:02:53.998Z</lastmod>
+        <loc>0verwatch.top/categories/CTF/</loc>
+        <lastmod>2019-04-14T09:21:30.451Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>0verwatch.top/categories/CTF/</loc>
-        <lastmod>2019-03-31T08:50:41.560Z</lastmod>
+        <loc>0verwatch.top/categories/python/</loc>
+        <lastmod>2019-04-14T09:26:20.459Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>0verwatch.top/categories/Redis/</loc>
+        <lastmod>2019-06-16T08:39:32.965Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>0verwatch.top/categories/FastCGI/</loc>
+        <lastmod>2019-06-23T09:33:03.253Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>0verwatch.top/categories/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</loc>
+        <lastmod>2019-06-27T11:24:08.823Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>0verwatch.top/categories/metasploit/</loc>
+        <lastmod>2019-09-10T15:34:34.584Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>0verwatch.top/categories/xss/</loc>
+        <lastmod>2019-09-15T07:35:40.553Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>0verwatch.top/categories/Web%E5%AE%89%E5%85%A8/</loc>
+        <lastmod>2019-09-17T13:27:05.198Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>0verwatch.top/categories/%E7%AE%97%E6%B3%95/</loc>
+        <lastmod>2019-09-17T15:52:34.824Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
