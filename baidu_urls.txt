@@ -4,6 +4,7 @@
 0verwatch.top/DL-WebSecurity-learning.html
 0verwatch.top/pwn-rop1.html
 0verwatch.top/exploit-in-unicode-normalization.html
+0verwatch.top/byoj-review.html
 0verwatch.top/xss-encodeorder.html
 0verwatch.top/msf-cve-review.html
 0verwatch.top/ImageMagick.html
