@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="0verWatch" />
+
+
+
+<meta name="description" content="前言毕设要做，大概思路就是做一个类似D盾的扫描器，但是核心使用深度学习去进行研发，最后封装成一个Web端或者是一个客户端吧，实习期间断断续续地学，尽量在春节之后能够把核心的东西做出来吧。 先记录一些点吧，比较零散，不知道怎么系统学,">
+<meta name="keywords" content="深度学习与Web安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零学习深度学习与Web安全">
+<meta property="og:url" content="0verwatch.top/DL-WebSecurity-learning.html">
+<meta property="og:site_name" content="0verWatch&#39;s Blog">
+<meta property="og:description" content="前言毕设要做，大概思路就是做一个类似D盾的扫描器，但是核心使用深度学习去进行研发，最后封装成一个Web端或者是一个客户端吧，实习期间断断续续地学，尽量在春节之后能够把核心的东西做出来吧。 先记录一些点吧，比较零散，不知道怎么系统学,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/22/QzVX9K.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/22/QzVbA1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/22/QzVxje.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/22/QzZ83T.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/22/QzZuHs.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/22/QzZGgU.png">
+<meta property="og:updated_time" content="2019-12-23T00:55:33.571Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从零学习深度学习与Web安全">
+<meta name="twitter:description" content="前言毕设要做，大概思路就是做一个类似D盾的扫描器，但是核心使用深度学习去进行研发，最后封装成一个Web端或者是一个客户端吧，实习期间断断续续地学，尽量在春节之后能够把核心的东西做出来吧。 先记录一些点吧，比较零散，不知道怎么系统学,">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/12/22/QzVX9K.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="0verWatch&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/crystal.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>从零学习深度学习与Web安全 | 0verWatch&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56ff76c972fc0cf9"></script>
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?e9bf2f4b24d981680e6d59ced18982b0";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">0verWatch</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">分类&amp;标签</a></li>
+                        
+                            <li><a href="/friends/">友链</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRC32爆破/">CRC32爆破</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FastCGI/">FastCGI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux安全/">Linux安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux常用命令/">Linux常用命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql安全配置/">Mysql安全配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL注入/">SQL注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSTI注入/">SSTI注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Social/">Social</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web安全/">Web安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Yii/">Yii</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bypass/">bypass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/metasploit/">metasploit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pwn/">pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rop/">rop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网渗透/">内网渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反序列化/">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令执行/">命令执行</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微机实验/">微机实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件上传/">文件上传</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器运维/">服务器运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/沙盒绕过/">沙盒绕过</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量分析/">流量分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习与Web安全/">深度学习与Web安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境部署/">环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站渗透/">网站渗透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算机网路/">计算机网路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://202.119.201.199/">CumtCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.nuptzj.cn">NuptCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.jarvisoj.com">Jarvis OJ</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.codemonster.cn/home">MOCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://ctf.bugku.com/">BugkuCTF</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.shiyanbar.com/ctf/practice">实验吧</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://xz.aliyun.com/">先知社区</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://shentoushi.top/">渗透师导航</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://skysec.top/">一叶飘零</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.yytpublic.cn">LaurenceYu</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://chun.ringfall.me">ringfall</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">0verWatch</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">0verWatch</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">学习本无底，前进莫彷徨</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">分类&amp;标签</a></li>
+                
+                    <li><a href="/friends/">友链</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" target="_blank" href="https://coding.net/u/Ov3rWatch" title="Coding"></a>
+                            
+                                <a class="fa SegmentFault" target="_blank" href="https://segmentfault.com/" title="SegmentFault"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011377996" title="CSDN"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-DL-WebSecurity-learning" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/DL-WebSecurity-learning.html" class="article-date">
+      <time datetime="2019-12-21T00:53:42.000Z" itemprop="datePublished">2019-12-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      从零学习深度学习与Web安全
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习与Web安全/">深度学习与Web安全</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>毕设要做，大概思路就是做一个类似D盾的扫描器，但是核心使用深度学习去进行研发，最后封装成一个Web端或者是一个客户端吧，实习期间断断续续地学，尽量在春节之后能够把核心的东西做出来吧。</p>
+<p>先记录一些点吧，比较零散，不知道怎么系统学,<a id="more"></a>服了。。。</p>
+<h3 id="环境的一些操作"><a href="#环境的一些操作" class="headerlink" title="环境的一些操作"></a>环境的一些操作</h3><h4 id="conda的使用"><a href="#conda的使用" class="headerlink" title="conda的使用"></a>conda的使用</h4><p>为啥使用Anconda？因为Anconda比较好的一点就是集成了大量数学的包，因为有些数学包在自己安装的时候总会出错。</p>
+<p><code>conda list</code> 查看anaconda预装哪些包</p>
+<p><code>conda [env] create</code> 创建环境<br>比如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n dl_security python=3.5</span><br></pre></td></tr></table></figure>
+<p>创建一个python3.5名为dl_security的环境  -n指的是环境名字</p>
+<p><code>conda [env] remove -n</code>   移除环境<br>比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove -n dl_test</span><br></pre></td></tr></table></figure>
+<p>这上面的env可以不添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env list</span><br></pre></td></tr></table></figure>
+<p>查看我们已经安装的虚拟环境，这东西跟python那个virtualenv没啥别233333</p>
+<p>在安装一些包的时候，除了我们常用的<code>pip isntall</code>之外我们还可以使用<code>conda install</code><br>这两个其实没啥区别，除了TensorFlow只支持pip安装之外，所以一开始最好还是使用pip install先<br>如果存在的某些包比较陈旧，可以使用<code>pip install upgrade +你所要检测并升级的包名</code></p>
+<p>指定源更新的话可可以使用<code>-i</code>参数<br>比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install numpy -i http://pypi.douban.com/simple</span><br></pre></td></tr></table></figure>
+<p>进入新弄的环境中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">activate dl_security</span><br></pre></td></tr></table></figure>
+<p>退出当前环境 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate [环境名]</span><br></pre></td></tr></table></figure>
+<p>使用pip安装TensorFlow<br>cpu版本：tensorflow<br>gpu版本：tensorflow-gpu</p>
+<p>GPU加速，CPU的10倍<br>使用GPU的话最好是电脑存在英伟达的显卡，最好显卡内存为4G<br>batch的问题  显存/内存</p>
+<p>用GPU的话还需要两个插件cuda，cudnn这两个都是英伟达用于显卡加速的插件<br>一般来说gtx-1080很多任务都可以实现的了</p>
+<p>在双显卡的台式机上，我们使用的是独显，Win要注意在BIOS上设置，Linux要退出图形化界面，使用命令行</p>
+<p>当我们pip install的一些包遇到编译问题的时候，可以使用这个网站上已经编译好的轮子</p>
+<p>编译好的轮子安装网站：<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">https://www.lfd.uci.edu/~gohlke/pythonlibs/</a></p>
+<h4 id="jupyter的使用"><a href="#jupyter的使用" class="headerlink" title="jupyter的使用"></a>jupyter的使用</h4><p>进入某个目录然后使用命令 <code>jupyter notebook</code>打开，会产生一个token值</p>
+<p><img src="https://s2.ax1x.com/2019/12/22/QzVX9K.png" alt="QzVX9K.png"></p>
+<p>进去之后该如何新建一个环境，文件名在右上角修改</p>
+<p><img src="https://s2.ax1x.com/2019/12/22/QzVbA1.png" alt="QzVbA1.png"></p>
+<p>在运行部出来的时候，可以通过kernel重启python内核</p>
+<p><img src="https://s2.ax1x.com/2019/12/22/QzVxje.png" alt="QzVxje.png"></p>
+<p>在方块内使用<code>shift+回车</code>  无论在哪种模式下都可以运行效果</p>
+<p>对于出现的执行效果  单击是选中它是蓝色的，此时可以使用很多快捷键，比如按一下m就会变成Markdown模式，双击是编辑它是绿色的，是编辑模式，按ESC可以返回命令模式，也就是蓝色的方框</p>
+<p>另外code模式下前面的<code>In [*]</code>代表的是正在忙， 出现数字就代表是第几步的执行代码</p>
+<p>对于函数变量的补全可以使用<code>tab</code>键</p>
+<p>查看函数的一些解释可以使用<code>help</code>函数去进行查看</p>
+<p><code>shift+tab</code>可以显示某个函数的一些文档信息</p>
+<p><img src="https://s2.ax1x.com/2019/12/22/QzZ83T.png" alt="QzZ83T.png"></p>
+<p>创建单元格，在某个单元格的地方创建，在上方创建按<code>A</code>，在下方创建按<code>B</code></p>
+<p>按<code>H</code>会弹出常用的热键</p>
+<p><img src="https://s2.ax1x.com/2019/12/22/QzZuHs.png" alt="QzZuHs.png"></p>
+<p>显示行号 按<code>L</code></p>
+<p>jupyter还能够导出html等各种格式，在file选项下download as模块下</p>
+<p><img src="https://s2.ax1x.com/2019/12/22/QzZGgU.png" alt="QzZGgU.png"></p>
+<h4 id="Numpy部分"><a href="#Numpy部分" class="headerlink" title="Numpy部分"></a>Numpy部分</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">array_a = np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_a</span><br></pre></td></tr></table></figure>
+<pre><code>array([[1, 2, 3],
+       [2, 3, 4]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_a.shape</span><br></pre></td></tr></table></figure>
+<pre><code>(2, 3)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看维度</span></span><br><span class="line">array_a.ndim</span><br></pre></td></tr></table></figure>
+<pre><code>2
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_a.size  <span class="comment">#一共有多少个元素</span></span><br></pre></td></tr></table></figure>
+<pre><code>6
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_a.dtype <span class="comment">#描述数组中元素的类型</span></span><br></pre></td></tr></table></figure>
+<pre><code>dtype(&apos;int32&apos;)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_a.itemsize  <span class="comment">#数组中每个元素的大小（以字节为单位）</span></span><br></pre></td></tr></table></figure>
+<pre><code>4
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_a.data</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;memory at 0x000002150B23F558&gt;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_a = np.arange(<span class="number">15</span>)    <span class="comment">#产生矩阵元素的个数 一开始的话就是一个简单一维</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_a</span><br></pre></td></tr></table></figure>
+<pre><code>array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_b= array_a.reshape(<span class="number">3</span>,<span class="number">5</span>)  <span class="comment">#重新构造矩阵结构必须要符合元素个数，返回需要赋值给某个定义变量</span></span><br></pre></td></tr></table></figure>
+<pre><code>array([[ 0,  1,  2,  3,  4],
+       [ 5,  6,  7,  8,  9],
+       [10, 11, 12, 13, 14]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##  zeros  ones 函数的用法   一样的效果</span></span><br><span class="line">array_b = np.zeros((<span class="number">3</span>,<span class="number">4</span>))  <span class="comment">#3行4列都是0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_b</span><br></pre></td></tr></table></figure>
+<pre><code>array([[0., 0., 0., 0.],
+       [0., 0., 0., 0.],
+       [0., 0., 0., 0.]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_b = np.ones((<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_b</span><br></pre></td></tr></table></figure>
+<pre><code>array([[[1., 1., 1., 1.],
+        [1., 1., 1., 1.],
+        [1., 1., 1., 1.]],
+
+       [[1., 1., 1., 1.],
+        [1., 1., 1., 1.],
+        [1., 1., 1., 1.]]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array_a = np.zeros_like(array_a.shape)</span><br><span class="line">array_a</span><br></pre></td></tr></table></figure>
+<pre><code>array([0, 0, 0])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_b.sum()</span><br></pre></td></tr></table></figure>
+<pre><code>24.0
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_b.min()</span><br></pre></td></tr></table></figure>
+<pre><code>1.0
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array_d = np.ones((<span class="number">5</span>,<span class="number">5</span>))</span><br><span class="line">print(array_d)</span><br><span class="line">array_d = array_d [<span class="number">0</span>:<span class="number">4</span>,<span class="number">0</span>:<span class="number">4</span>]</span><br><span class="line">print(array_d)</span><br></pre></td></tr></table></figure>
+<pre><code>[[1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1.]]
+[[1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]]
+</code></pre><h4 id="Pandas部分"><a href="#Pandas部分" class="headerlink" title="Pandas部分"></a>Pandas部分</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy  <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = pd.Series([<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,np.nan,<span class="number">7</span>,<span class="number">9</span>])  <span class="comment">#初始化构造</span></span><br><span class="line">s</span><br></pre></td></tr></table></figure>
+<pre><code>0    1.0
+1    3.0
+2    5.0
+3    NaN
+4    7.0
+5    9.0
+dtype: float64
+</code></pre><h5 id="通过pd传入np数组创建数据帧"><a href="#通过pd传入np数组创建数据帧" class="headerlink" title="通过pd传入np数组创建数据帧"></a>通过pd传入np数组创建数据帧</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">datas  = pd.date_range(<span class="string">'20130101'</span>,periods=<span class="number">6</span>)  <span class="comment">#创建时间列表，periods代表的是几天</span></span><br><span class="line">print(<span class="string">"datas: \n&#123;&#125;"</span>.format(datas))</span><br><span class="line">df = pd.DataFrame(np.random.randn(<span class="number">6</span>,<span class="number">4</span>),index=datas,columns =list(<span class="string">'ABCD'</span>))  <span class="comment">#构建数据表格</span></span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<pre><code>datas: 
+DatetimeIndex([&apos;2013-01-01&apos;, &apos;2013-01-02&apos;, &apos;2013-01-03&apos;, &apos;2013-01-04&apos;,
+               &apos;2013-01-05&apos;, &apos;2013-01-06&apos;],
+              dtype=&apos;datetime64[ns]&apos;, freq=&apos;D&apos;)
+</code></pre><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>A</th><br>      <th>B</th><br>      <th>C</th><br>      <th>D</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>2013-01-01</th><br>      <td>-0.042893</td><br>      <td>0.260564</td><br>      <td>0.731754</td><br>      <td>1.447731</td><br>    </tr><br>    <tr><br>      <th>2013-01-02</th><br>      <td>-1.282021</td><br>      <td>-0.848987</td><br>      <td>0.823437</td><br>      <td>0.004012</td><br>    </tr><br>    <tr><br>      <th>2013-01-03</th><br>      <td>-1.107000</td><br>      <td>2.724175</td><br>      <td>-0.571516</td><br>      <td>0.897330</td><br>    </tr><br>    <tr><br>      <th>2013-01-04</th><br>      <td>1.550847</td><br>      <td>-0.145260</td><br>      <td>-0.334988</td><br>      <td>0.494642</td><br>    </tr><br>    <tr><br>      <th>2013-01-05</th><br>      <td>0.304897</td><br>      <td>0.398448</td><br>      <td>1.151775</td><br>      <td>0.846324</td><br>    </tr><br>    <tr><br>      <th>2013-01-06</th><br>      <td>0.484135</td><br>      <td>-0.450565</td><br>      <td>1.385415</td><br>      <td>-0.709135</td><br>    </tr><br>  </tbody><br></table>
+
+
+
+
+<h5 id="通过字典创建"><a href="#通过字典创建" class="headerlink" title="通过字典创建"></a>通过字典创建</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">df2 = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">'A'</span>:<span class="number">1.</span>,</span><br><span class="line">    <span class="string">'B'</span>: pd.Timestamp(<span class="string">'20131202'</span>),</span><br><span class="line">    <span class="string">'C'</span>: pd.Series(<span class="number">1</span>,index=list(range(<span class="number">4</span>)),dtype=<span class="string">'float32'</span>),</span><br><span class="line">    <span class="string">'D'</span> : np.array([<span class="number">3</span>]*<span class="number">4</span> , dtype=<span class="string">'int32'</span>),</span><br><span class="line">    <span class="string">'E'</span> : pd.Categorical([<span class="string">"test"</span>,<span class="string">"train"</span>,<span class="string">"test"</span>,<span class="string">"train"</span>]),</span><br><span class="line">    <span class="string">'F'</span> : <span class="string">'foo'</span></span><br><span class="line">&#125;)</span><br><span class="line">df2</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>A</th><br>      <th>B</th><br>      <th>C</th><br>      <th>D</th><br>      <th>E</th><br>      <th>F</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>1.0</td><br>      <td>2013-12-02</td><br>      <td>1.0</td><br>      <td>3</td><br>      <td>test</td><br>      <td>foo</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>1.0</td><br>      <td>2013-12-02</td><br>      <td>1.0</td><br>      <td>3</td><br>      <td>train</td><br>      <td>foo</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>1.0</td><br>      <td>2013-12-02</td><br>      <td>1.0</td><br>      <td>3</td><br>      <td>test</td><br>      <td>foo</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>1.0</td><br>      <td>2013-12-02</td><br>      <td>1.0</td><br>      <td>3</td><br>      <td>train</td><br>      <td>foo</td><br>    </tr><br>  </tbody><br></table>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df2.dtypes  <span class="comment">#通过这个方法可以查看每一个列对应的数据类型</span></span><br></pre></td></tr></table></figure>
+<pre><code>A           float64
+B    datetime64[ns]
+C           float32
+D             int32
+E          category
+F            object
+dtype: object
+</code></pre><h5 id="Viewing-Data-这一部分主要是查看数据"><a href="#Viewing-Data-这一部分主要是查看数据" class="headerlink" title="Viewing   Data   这一部分主要是查看数据"></a>Viewing   Data   这一部分主要是查看数据</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.head()   <span class="comment">#查看前五条的数据</span></span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>A</th><br>      <th>B</th><br>      <th>C</th><br>      <th>D</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>2013-01-01</th><br>      <td>-0.042893</td><br>      <td>0.260564</td><br>      <td>0.731754</td><br>      <td>1.447731</td><br>    </tr><br>    <tr><br>      <th>2013-01-02</th><br>      <td>-1.282021</td><br>      <td>-0.848987</td><br>      <td>0.823437</td><br>      <td>0.004012</td><br>    </tr><br>    <tr><br>      <th>2013-01-03</th><br>      <td>-1.107000</td><br>      <td>2.724175</td><br>      <td>-0.571516</td><br>      <td>0.897330</td><br>    </tr><br>    <tr><br>      <th>2013-01-04</th><br>      <td>1.550847</td><br>      <td>-0.145260</td><br>      <td>-0.334988</td><br>      <td>0.494642</td><br>    </tr><br>    <tr><br>      <th>2013-01-05</th><br>      <td>0.304897</td><br>      <td>0.398448</td><br>      <td>1.151775</td><br>      <td>0.846324</td><br>    </tr><br>  </tbody><br></table>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.tail(<span class="number">3</span>)  <span class="comment">#这个可以指定输出表格最后的几条数据</span></span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>A</th><br>      <th>B</th><br>      <th>C</th><br>      <th>D</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>2013-01-04</th><br>      <td>1.550847</td><br>      <td>-0.145260</td><br>      <td>-0.334988</td><br>      <td>0.494642</td><br>    </tr><br>    <tr><br>      <th>2013-01-05</th><br>      <td>0.304897</td><br>      <td>0.398448</td><br>      <td>1.151775</td><br>      <td>0.846324</td><br>    </tr><br>    <tr><br>      <th>2013-01-06</th><br>      <td>0.484135</td><br>      <td>-0.450565</td><br>      <td>1.385415</td><br>      <td>-0.709135</td><br>    </tr><br>  </tbody><br></table>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.index  <span class="comment">#返回索引index</span></span><br></pre></td></tr></table></figure>
+<pre><code>DatetimeIndex([&apos;2013-01-01&apos;, &apos;2013-01-02&apos;, &apos;2013-01-03&apos;, &apos;2013-01-04&apos;,
+               &apos;2013-01-05&apos;, &apos;2013-01-06&apos;],
+              dtype=&apos;datetime64[ns]&apos;, freq=&apos;D&apos;)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.columns <span class="comment">#返回列名</span></span><br></pre></td></tr></table></figure>
+<pre><code>Index([&apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;], dtype=&apos;object&apos;)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.values <span class="comment">#返回值</span></span><br></pre></td></tr></table></figure>
+<pre><code>array([[-0.04289317,  0.26056382,  0.73175352,  1.44773096],
+       [-1.28202056, -0.84898723,  0.82343711,  0.00401215],
+       [-1.10700031,  2.72417496, -0.57151597,  0.89733044],
+       [ 1.55084706, -0.14525989, -0.33498829,  0.49464239],
+       [ 0.30489747,  0.39844829,  1.15177483,  0.84632382],
+       [ 0.48413527, -0.45056543,  1.38541479, -0.70913464]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.describe()  <span class="comment">#快速返回表格的概括</span></span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>A</th><br>      <th>B</th><br>      <th>C</th><br>      <th>D</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>count</th><br>      <td>6.000000</td><br>      <td>6.000000</td><br>      <td>6.000000</td><br>      <td>6.000000</td><br>    </tr><br>    <tr><br>      <th>mean</th><br>      <td>-0.015339</td><br>      <td>0.323062</td><br>      <td>0.530979</td><br>      <td>0.496818</td><br>    </tr><br>    <tr><br>      <th>std</th><br>      <td>1.058483</td><br>      <td>1.262256</td><br>      <td>0.800835</td><br>      <td>0.759471</td><br>    </tr><br>    <tr><br>      <th>min</th><br>      <td>-1.282021</td><br>      <td>-0.848987</td><br>      <td>-0.571516</td><br>      <td>-0.709135</td><br>    </tr><br>    <tr><br>      <th>25%</th><br>      <td>-0.840974</td><br>      <td>-0.374239</td><br>      <td>-0.068303</td><br>      <td>0.126670</td><br>    </tr><br>    <tr><br>      <th>50%</th><br>      <td>0.131002</td><br>      <td>0.057652</td><br>      <td>0.777595</td><br>      <td>0.670483</td><br>    </tr><br>    <tr><br>      <th>75%</th><br>      <td>0.439326</td><br>      <td>0.363977</td><br>      <td>1.069690</td><br>      <td>0.884579</td><br>    </tr><br>    <tr><br>      <th>max</th><br>      <td>1.550847</td><br>      <td>2.724175</td><br>      <td>1.385415</td><br>      <td>1.447731</td><br>    </tr><br>  </tbody><br></table>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.T   <span class="comment">#转置的意思   numpy里面也有类似的功能</span></span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>2013-01-01</th><br>      <th>2013-01-02</th><br>      <th>2013-01-03</th><br>      <th>2013-01-04</th><br>      <th>2013-01-05</th><br>      <th>2013-01-06</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>A</th><br>      <td>-0.042893</td><br>      <td>-1.282021</td><br>      <td>-1.107000</td><br>      <td>1.550847</td><br>      <td>0.304897</td><br>      <td>0.484135</td><br>    </tr><br>    <tr><br>      <th>B</th><br>      <td>0.260564</td><br>      <td>-0.848987</td><br>      <td>2.724175</td><br>      <td>-0.145260</td><br>      <td>0.398448</td><br>      <td>-0.450565</td><br>    </tr><br>    <tr><br>      <th>C</th><br>      <td>0.731754</td><br>      <td>0.823437</td><br>      <td>-0.571516</td><br>      <td>-0.334988</td><br>      <td>1.151775</td><br>      <td>1.385415</td><br>    </tr><br>    <tr><br>      <th>D</th><br>      <td>1.447731</td><br>      <td>0.004012</td><br>      <td>0.897330</td><br>      <td>0.494642</td><br>      <td>0.846324</td><br>      <td>-0.709135</td><br>    </tr><br>  </tbody><br></table>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.sort_index(axis=<span class="number">1</span>, ascending=<span class="keyword">False</span> )  <span class="comment"># 针对index排序  axis代表第一个轴 改为0的话就会按照日期的那一列进行排序 ascending 默认升序  False 代表降序</span></span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>D</th><br>      <th>C</th><br>      <th>B</th><br>      <th>A</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>2013-01-01</th><br>      <td>1.447731</td><br>      <td>0.731754</td><br>      <td>0.260564</td><br>      <td>-0.042893</td><br>    </tr><br>    <tr><br>      <th>2013-01-02</th><br>      <td>0.004012</td><br>      <td>0.823437</td><br>      <td>-0.848987</td><br>      <td>-1.282021</td><br>    </tr><br>    <tr><br>      <th>2013-01-03</th><br>      <td>0.897330</td><br>      <td>-0.571516</td><br>      <td>2.724175</td><br>      <td>-1.107000</td><br>    </tr><br>    <tr><br>      <th>2013-01-04</th><br>      <td>0.494642</td><br>      <td>-0.334988</td><br>      <td>-0.145260</td><br>      <td>1.550847</td><br>    </tr><br>    <tr><br>      <th>2013-01-05</th><br>      <td>0.846324</td><br>      <td>1.151775</td><br>      <td>0.398448</td><br>      <td>0.304897</td><br>    </tr><br>    <tr><br>      <th>2013-01-06</th><br>      <td>-0.709135</td><br>      <td>1.385415</td><br>      <td>-0.450565</td><br>      <td>0.484135</td><br>    </tr><br>  </tbody><br></table>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.sort_values(by=<span class="string">'B'</span>)  <span class="comment">#按值进行排序  加上by参数 表示按照那一列进行排序</span></span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>A</th><br>      <th>B</th><br>      <th>C</th><br>      <th>D</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>2013-01-02</th><br>      <td>-1.282021</td><br>      <td>-0.848987</td><br>      <td>0.823437</td><br>      <td>0.004012</td><br>    </tr><br>    <tr><br>      <th>2013-01-06</th><br>      <td>0.484135</td><br>      <td>-0.450565</td><br>      <td>1.385415</td><br>      <td>-0.709135</td><br>    </tr><br>    <tr><br>      <th>2013-01-04</th><br>      <td>1.550847</td><br>      <td>-0.145260</td><br>      <td>-0.334988</td><br>      <td>0.494642</td><br>    </tr><br>    <tr><br>      <th>2013-01-01</th><br>      <td>-0.042893</td><br>      <td>0.260564</td><br>      <td>0.731754</td><br>      <td>1.447731</td><br>    </tr><br>    <tr><br>      <th>2013-01-05</th><br>      <td>0.304897</td><br>      <td>0.398448</td><br>      <td>1.151775</td><br>      <td>0.846324</td><br>    </tr><br>    <tr><br>      <th>2013-01-03</th><br>      <td>-1.107000</td><br>      <td>2.724175</td><br>      <td>-0.571516</td><br>      <td>0.897330</td><br>    </tr><br>  </tbody><br></table>
+
+
+
+
+<h5 id="Selection"><a href="#Selection" class="headerlink" title="Selection"></a>Selection</h5><h6 id="Getting"><a href="#Getting" class="headerlink" title="Getting"></a>Getting</h6><p>获取数据  可以按单个列获取数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'A'</span>]</span><br><span class="line"><span class="comment"># df.A  两种一样的效果</span></span><br></pre></td></tr></table></figure>
+<pre><code>2013-01-01   -0.042893
+2013-01-02   -1.282021
+2013-01-03   -1.107000
+2013-01-04    1.550847
+2013-01-05    0.304897
+2013-01-06    0.484135
+Freq: D, Name: A, dtype: float64
+</code></pre><p>可以使用<code>[]</code>去进行分块  按行获取   因为这个东西以一行为一个数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="number">0</span>:<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>A</th><br>      <th>B</th><br>      <th>C</th><br>      <th>D</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>2013-01-01</th><br>      <td>-0.042893</td><br>      <td>0.260564</td><br>      <td>0.731754</td><br>      <td>1.447731</td><br>    </tr><br>    <tr><br>      <th>2013-01-02</th><br>      <td>-1.282021</td><br>      <td>-0.848987</td><br>      <td>0.823437</td><br>      <td>0.004012</td><br>    </tr><br>    <tr><br>      <th>2013-01-03</th><br>      <td>-1.107000</td><br>      <td>2.724175</td><br>      <td>-0.571516</td><br>      <td>0.897330</td><br>    </tr><br>  </tbody><br></table>
+
+
+
+<h3 id="数学和信息论的一些概念"><a href="#数学和信息论的一些概念" class="headerlink" title="数学和信息论的一些概念"></a>数学和信息论的一些概念</h3><p>一般的AI里面。头部输入的一般是矩阵，涉及到线性代数，尾部会输出一个概率，这里就涉及到概率论的东西，两部分的话都涉及到一个信息论的一个知识，这里就瞎记录一些有的没的</p>
+<h4 id="线性代数涉及到点："><a href="#线性代数涉及到点：" class="headerlink" title="线性代数涉及到点："></a>线性代数涉及到点：</h4><ol>
+<li>unit（计算单元）一般分为四类</li>
+</ol>
+<ul>
+<li style="list-style: none"><input type="checkbox"> 标量scalar 其实就是一个数，比如2.5</li>
+<li style="list-style: none"><input type="checkbox"> 向量vector,就是一列数，横着写和竖着写都行，比如：[2.5,3.7,4.5,3.6]</li>
+<li style="list-style: none"><input type="checkbox"> 矩阵matrix，就是一个矩阵，以刚才的例子就是50x50的一个矩阵</li>
+<li style="list-style: none"><input type="checkbox"> 张量tesor,这个东西就在矩阵的基础上再添加多层数据，模型结构就类似一开始上面描述的三通道图片的数据格式，可以概括一下当数据超过二维的时候可以都把他描述成为张量</li>
+</ul>
+<ol start="2">
+<li><p>矩阵相乘<br>必须保证前后两个行数和列数是一致的<br>向量和矩阵相乘跟矩阵相乘的过程其实一样，我们只需要把向量看作是一个一行几列或者是一列几行的一个矩阵即可</p>
+</li>
+<li><p>向量与矩阵相加 </p>
+<p>有一个broadcasting的过程，就是将向量扩展成与向量一样的大小</p>
+</li>
+<li><p>矩阵与矩阵相加<br>此时的broadcasting过程就跟向量相加的有点不一样了，此时填充的是0</p>
+</li>
+<li><p>矩阵的分配律<br>A(B+C) = AB +AC<br>A(BC) = (AB)C<br>注意矩阵没有交换律<br>(AB)的转置 = B的转置乘A的转置</p>
+</li>
+<li><p>单位矩阵  对角线全为1的矩阵  In表示，n表示nxn，也称为眼(eye)矩阵</p>
+<p>单位矩阵的一些特性<br>InX = X 也就是单位矩阵和其他矩阵相乘还是等于那个矩阵</p>
+</li>
+<li><p>逆矩阵的概念<br>一个矩阵和一个矩阵的逆矩阵相乘就是单位矩阵</p>
+</li>
+<li><p>对角矩阵</p>
+<p>对角线上有非零元素，其余元素都为0</p>
+</li>
+<li><p>对称矩阵：<br>满足一个特性：记A的对称矩阵为Ai，i是上标<br>则有AiA= AAi = 单位矩阵</p>
+</li>
+<li><p>行列式</p>
+<p>形式|A|<br>行列式等于0有无穷解，行列式不等于0有唯一解</p>
+</li>
+<li><p>三角矩阵：分上三角和下三角</p>
+</li>
+<li><p>线性相关<br>比如：一次函数就是一个线性模型<br>在矩阵中的线性相关符合这样的关系：Ax = b</p>
+</li>
+<li><p>线性表示：<br>存在一组向量x，能够满足b=xA，说明b能够被A线性表示</p>
+</li>
+</ol>
+<p>因为大自然中的任何东西都能够进行分解，所以给了人工智能很好的发展，很多大的东西都能通过叠加去构成，包括图片声音等等，然后一些最最基本的东西，不能分解的，称之为特征向量</p>
+<h4 id="概率学"><a href="#概率学" class="headerlink" title="概率学"></a>概率学</h4><p>计算机科学所处理的内容大部分都是完全确定且必然的,程序员写程序时是假定CPU将完美执行每条机器指令,硬件错误是非常罕见并在编程阶段几乎不予考虑的，但机器学习中几乎处处都会使用概率,例如下列问题:</p>
+<p>●评估一种疾病的爆发率</p>
+<p>●预测货币交易在某时间点的市值</p>
+<p>●理解一句话中每个词语间的关联含义</p>
+<p>●判断一个交通标志是限速还是禁停</p>
+<p>●判断-封邮件是否为垃圾邮件</p>
+<p>●针对同类病人,研究其相近的DNA序列段</p>
+<p>●生成与现实中相近的包与鞋子的搭配</p>
+<p>几乎所有活动都需要能够在不确定性存在时进行推理。事实上,除了那些被定义为真的数学声明,我们很难认定某个命题是千真万确的或者确保某件事-定会发生。</p>
+<p>不确定性有三种可能来源:</p>
+<p>●被建模系统内在的随机性,例如纸牌游戏,开局时我们都是假设纸牌被洗为随机序列;</p>
+<p>●不完全观测,例如砸金蛋,设置金蛋的人可以知道哪个金蛋里有大奖,但在砸金蛋人的角度大奖的概率是不确定的;</p>
+<p>●不完全建模,例如三个杯子一 个硬币的游戏,将一 个硬币放在中间的杯子中,然后随意转换杯子的相互位置，如果不允许观察转换过程,则无法良好预测硬币最后再哪边的杯子中。</p>
+<h4 id="信息论下涉及的一些东西"><a href="#信息论下涉及的一些东西" class="headerlink" title="信息论下涉及的一些东西"></a>信息论下涉及的一些东西</h4><p>对于一维的话就一个前后<br>二维的话就是加上普通坐标系可以表示出来的的东西<br>三维的话就是360度都可以<br>四维的话一般就是描述是加上时间<br>五维的话一般就是空间</p>
+<p>四五维一般人类是无法掌握的，但是在信息论的角度下，信息是可以在这些维度中进行传输，比如数学界的傅里叶变换</p>
+<p><strong>基本调论</strong>： 一个不太可能的时间发生需要比非常可能发生的更多的信息</p>
+<p>1、如果想通过这种想法来量化信息,需注意以下特别几点:</p>
+<p>2、非常可能发生的事件信息量比较少,极端情况下,确保总能够发生的事件应该没有信息量</p>
+<p>3、较不可能发生的事件具有更高的信息量</p>
+<p>4、独立事件应具有增量的信息。</p>
+<h3 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h3><h4 id="如何进行论文的解读"><a href="#如何进行论文的解读" class="headerlink" title="如何进行论文的解读"></a>如何进行论文的解读</h4><p>1.question<br>2.frame(在这一部分就经常包含上述数学公式)<br>3.实验证明<br>4.业界对比</p>
+<h4 id="人工智能"><a href="#人工智能" class="headerlink" title="人工智能"></a>人工智能</h4><p>人工智能，在于抽象，经验的总结概括 </p>
+<p>最关键的一步在于：找特征！！！！</p>
+<p>区分攻击行为一般两个方法：</p>
+<p>1.寻找大牛<br>2.交给AI进行处理</p>
+<h4 id="监督学习与非监督学习"><a href="#监督学习与非监督学习" class="headerlink" title="监督学习与非监督学习"></a>监督学习与非监督学习</h4><p>监督学习：有督促<br>非监督学习： 根据你已有的知识自己去获得，有一定的不可确定性</p>
+<p>机器学习一般是属于监督学习<br>目的就是让cost不断地减小，一直进行目标的优化<br>然后的话就是需要提取特征</p>
+<p>机器学习里面对于矩阵的定义一般都是竖着放的</p>
+<p>数据处理的比例一般为： 6:2:2  训练 测试  验证</p>
+<p>机器学习中最基本指标是召回率(Recall Rate)和准确率(Precision Rate)  召回率也叫查全率，准确率也叫查准率。<br><code>召回率=TP/(TP+FN)  准确率=TP/(TP+FP)</code></p>
+<p>TP表示实际为真预测为真  </p>
+<p>TN表示实际为假预测为假  </p>
+<p>FN表示实际为真预测为假，通俗讲就是漏报了 </p>
+<p>FP表示实际为假预测为真，通俗讲就是误报了</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/DL-WebSecurity-learning.html">从零学习深度学习与Web安全</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
+        <p><span>发布时间:</span>2019-12-21, 08:53:42</p>
+        <p><span>最后更新:</span>2019-12-23, 08:55:33</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/DL-WebSecurity-learning.html" title="从零学习深度学习与Web安全">0verwatch.top/DL-WebSecurity-learning.html</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/DL-WebSecurity-learning.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/LAN-pentest-learning-2.html">
+                    LAN-pentest-learning-2
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/pwn-rop1.html">
+                    Rop初探一
+                </a>
+            </div>
+        
+    </nav>
+
+  
+  
+   
+    <div style="padding: 0; margin: 20px auto; width: 90%; text-align: center;">
+      <br>
+      <div>听说，打赏我的人最后都成了大佬。</div>
+      <br>
+      <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+        <div class="btn btn-pay">打赏支持</div>
+      </button>
+      <br>
+      <br>
+      <div id="QR" style="display: none;">
+        
+          <div id="wechat" style="display: inline-block;">
+            <img id="wechat_qr" src="/img/wechatpay.jpg" alt="0verWatch WeChat Pay"/>
+            <p>微信打赏</p>
+          </div>
+        
+        
+          <div id="alipay" style="display: inline-block">
+            <img id="alipay_qr" src="/img/alipay.jpg" alt="0verWatch Alipay"/>
+            <p>支付宝打赏</p>
+          </div>
+        
+        <br>
+        <br>
+      </div>
+    </div>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环境的一些操作"><span class="toc-number">2.</span> <span class="toc-text">环境的一些操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#conda的使用"><span class="toc-number">2.1.</span> <span class="toc-text">conda的使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jupyter的使用"><span class="toc-number">2.2.</span> <span class="toc-text">jupyter的使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Numpy部分"><span class="toc-number">2.3.</span> <span class="toc-text">Numpy部分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pandas部分"><span class="toc-number">2.4.</span> <span class="toc-text">Pandas部分</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#通过pd传入np数组创建数据帧"><span class="toc-number">2.4.1.</span> <span class="toc-text">通过pd传入np数组创建数据帧</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#通过字典创建"><span class="toc-number">2.4.2.</span> <span class="toc-text">通过字典创建</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Viewing-Data-这一部分主要是查看数据"><span class="toc-number">2.4.3.</span> <span class="toc-text">Viewing   Data   这一部分主要是查看数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Selection"><span class="toc-number">2.4.4.</span> <span class="toc-text">Selection</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Getting"><span class="toc-number">2.4.4.1.</span> <span class="toc-text">Getting</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数学和信息论的一些概念"><span class="toc-number">3.</span> <span class="toc-text">数学和信息论的一些概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性代数涉及到点："><span class="toc-number">3.1.</span> <span class="toc-text">线性代数涉及到点：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#概率学"><span class="toc-number">3.2.</span> <span class="toc-text">概率学</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#信息论下涉及的一些东西"><span class="toc-number">3.3.</span> <span class="toc-text">信息论下涉及的一些东西</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些概念"><span class="toc-number">4.</span> <span class="toc-text">一些概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#如何进行论文的解读"><span class="toc-number">4.1.</span> <span class="toc-text">如何进行论文的解读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#人工智能"><span class="toc-number">4.2.</span> <span class="toc-text">人工智能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#监督学习与非监督学习"><span class="toc-number">4.3.</span> <span class="toc-text">监督学习与非监督学习</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+              
+        <section class="livere" id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80MDk1Ny8xNzQ4Mg==">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+       if (typeof LivereTower === 'function') { return; }
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+       e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</section>。 
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/LAN-pentest-learning-2.html" title="上一篇: LAN-pentest-learning-2">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/pwn-rop1.html" title="下一篇: Rop初探一">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/LAN-pentest-learning-3.html">内网学习三-代理与端口转发</a></li><li class="post-list-item"><a class="post-list-link" href="/LAN-pentest-learning-1.html">内网学习二-信息收集</a></li><li class="post-list-item"><a class="post-list-link" href="/LAN-pentest-learning-2.html">LAN-pentest-learning-2</a></li><li class="post-list-item"><a class="post-list-link" href="/DL-WebSecurity-learning.html">从零学习深度学习与Web安全</a></li><li class="post-list-item"><a class="post-list-link" href="/pwn-rop1.html">Rop初探一</a></li><li class="post-list-item"><a class="post-list-link" href="/exploit-in-unicode-normalization.html">Exploitable Antipatterns in Unicode Normalization</a></li><li class="post-list-item"><a class="post-list-link" href="/xss-encodeorder.html">xss编码绕过原理以及从中学习到的几个例子</a></li><li class="post-list-item"><a class="post-list-link" href="/msf-cve-review.html">CVE-2019-0708，MS17-010，MS08-067漏洞复现</a></li><li class="post-list-item"><a class="post-list-link" href="/ImageMagick.html">ImageMagick命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="/Gopher-fastcgi.html">Gopher攻击FastCGI的小结</a></li><li class="post-list-item"><a class="post-list-link" href="/redis-vul.html">redis未授权访问漏洞一些利用</a></li><li class="post-list-item"><a class="post-list-link" href="/python-thinking-1.html">关于python传参引发的一些思考</a></li><li class="post-list-item"><a class="post-list-link" href="/week-practice-anheng.html">周周练西湖论剑特别版(部分wp)</a></li><li class="post-list-item"><a class="post-list-link" href="/xss-game.html">xss游戏通关笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/Code-Breaking-Puzzles-Learning.html">Code-Breaking-Puzzles学习</a></li><li class="post-list-item"><a class="post-list-link" href="/thinkphp-5-rce.html">ThinkPHP 5.x RCE分析</a></li><li class="post-list-item"><a class="post-list-link" href="/SSTI-injection.html">SSTI-injection</a></li><li class="post-list-item"><a class="post-list-link" href="/python-sandbox-bypass.html">Python沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-1mongth.html">安恒一月赛做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/upload-labs-wp.html">upload-labs记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Dockerfile-writing.html">Dockerfile编写</a></li><li class="post-list-item"><a class="post-list-link" href="/RSA-python.html">RSA原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/MD5-python.html">MD5原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/DES-python.html">DES原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/writing-2.html">2018嘅總結</a></li><li class="post-list-item"><a class="post-list-link" href="/RC4-python.html">RC4的原理及python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/A5-python.html">A5的原理及python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/swpuctf-2018.html">swpuctf赛后复现</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-12month.html">安恒12月赛Web题解</a></li><li class="post-list-item"><a class="post-list-link" href="/Virginia-python.html">维吉尼亚密码原理及Python实现</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-month-race.html">CUMT第一轮双月赛Web题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-11month.html">安恒11月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-10month.html">安恒10月赛Web题目复现</a></li><li class="post-list-item"><a class="post-list-link" href="/algorithm-review.html">算法上机考试复习</a></li><li class="post-list-item"><a class="post-list-link" href="/huwang-game.html">护网杯部分题目题解</a></li><li class="post-list-item"><a class="post-list-link" href="/CUMT-CTF-Platform.html">CUMT平台的部分题解</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-9month.html">安恒9月部分赛题复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirstv2.html">Hitcon2017 babyfirst-revenge v2复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2015-babyfirst.html">Hitcon2015 babyfirst复现</a></li><li class="post-list-item"><a class="post-list-link" href="/hitcon2017-babyfirst.html">Hitcon2017 babyfirst-revenge复现</a></li><li class="post-list-item"><a class="post-list-link" href="/liuliangfenxi-5-5.html">铁三2018.5.5数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-8month-part1.html">安恒8月应急响应题目回顾</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-4.html">sqli-labs实战记录(四)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-3.html">sqli-labs实战记录(三)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-2.html">sqli-labs实战记录(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/sqli-labs-training-1.html">sqli-labs实战记录(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/bin-search-sql.html">二分查找在sql盲注里面的应用</a></li><li class="post-list-item"><a class="post-list-link" href="/Solve-Me-wp.html">Solve Me解题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-inject-protect.html">浅谈SQL注入防御手段</a></li><li class="post-list-item"><a class="post-list-link" href="/sqlmap-usage.html">Sqlmap 使用方法小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-FW.html">Linux防火墙学习</a></li><li class="post-list-item"><a class="post-list-link" href="/Mysql-security-1.html">Mysql安全配置</a></li><li class="post-list-item"><a class="post-list-link" href="/pentest-1.html">记录一次模拟渗透</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-2.html">计网实验笔记(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/comp-net-1.html">计网实验笔记(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-exam.html">微机实验考试</a></li><li class="post-list-item"><a class="post-list-link" href="/weiji-experiment.html">微机实验记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-6month.html">安恒6月赛部分做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-2.html">数据结构复习二 双向链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/python-DataStruct-1.html">数据结构复习一 单链表(python实现)</a></li><li class="post-list-item"><a class="post-list-link" href="/writing-1.html">两年</a></li><li class="post-list-item"><a class="post-list-link" href="/Yii-probleam.html">编写Yii框架项目时出现的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/susctf2018-wp.html">SUSCTF 2018 做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-CTFd-building.html">Docker练习及在CTFd平台上放题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTFd-building.html">CTFd平台搭建记录</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker-learning.html">Docker学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/ISCC-2018-wp.html">ISCC 2018做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/anheng-5month.html">安恒5月赛web题目做题记录</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-2018-final.html">cumt2018校赛部分write up</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web2.html">WhaleCTF第二期打卡的web题</a></li><li class="post-list-item"><a class="post-list-link" href="/git-learning.html">Git学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/PHP-Yii.html">PHP_Yii框架学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/whalectf-web1.html">WhaleCTF第一期打卡的几个web题目</a></li><li class="post-list-item"><a class="post-list-link" href="/shiyanba1-wp.html">实验吧 忘记密码了wp</a></li><li class="post-list-item"><a class="post-list-link" href="/phpcheck2.html">记一道代码审计题目</a></li><li class="post-list-item"><a class="post-list-link" href="/CTF-python.html">小结一波CTF里面可能用到的脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/Ubantu-Web.html">Ubantu下部署LAMP以及复现一道CTF题目</a></li><li class="post-list-item"><a class="post-list-link" href="/cumt-php-fanxuliehua.html">浅析cumt平台上的一道反序列化题目</a></li><li class="post-list-item"><a class="post-list-link" href="/RaceConditionsSummary.html">简单小结一下Web条件竞争的题目</a></li><li class="post-list-item"><a class="post-list-link" href="/hash-length-attack.html">记录一下Hash长度扩展攻击的几个题目</a></li><li class="post-list-item"><a class="post-list-link" href="/moctf-web.html">简单小结一下moctf的三道web题</a></li><li class="post-list-item"><a class="post-list-link" href="/backup-blog-again.html">重装系统后快速恢复hexo博客(保留了原有的博客文件夹)</a></li><li class="post-list-item"><a class="post-list-link" href="/RSA-SimpleLearn.html">大致了解一下RSA以及出题套路</a></li><li class="post-list-item"><a class="post-list-link" href="/CRC32-Brute.html">CRC32爆破小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Linux-learn.html">熟悉Linux命令~~~</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-php-check.html">bugku 代码审计 write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Web-write-up.html">bugku Web write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Misc.html">bugku Misc write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-Crypto.html">bugku Crypto write up</a></li><li class="post-list-item"><a class="post-list-link" href="/bugku-social-wp.html">bugku Social write up</a></li><li class="post-list-item"><a class="post-list-link" href="/zipfalse.html">zip伪加密[转载]</a></li><li class="post-list-item"><a class="post-list-link" href="/php-mysql-content.html">php+mysql留言板实现代码分享</a></li><li class="post-list-item"><a class="post-list-link" href="/sql-Summary.html">对数据库学习的大致总结</a></li><li class="post-list-item"><a class="post-list-link" href="/php summary.html">php留言板编写总结</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work4.html">程序设计课 C#的作业报告四</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work3.html">程序设计课 C#的作业报告三</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work2.html">程序设计课 C#作业报告二</a></li><li class="post-list-item"><a class="post-list-link" href="/Csharp-work1.html">程序设计课 C#的作业报告一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2019 0verWatch
+
+            </div>
+            <div class="footer-right">
+                Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 
+                <span>|  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+
+                
+
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119588656-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
