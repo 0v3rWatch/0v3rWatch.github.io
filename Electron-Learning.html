@@ -15,21 +15,18 @@
 
 
 
-<meta name="description" content="最近要做密码学课程设计，每做一个密码就当复习一下，把算法原理啥的都过一遍">
-<meta name="keywords" content="密码学">
+<meta name="description" content="代码审计">
+<meta name="keywords" content="代码审计">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A5的原理及python实现">
-<meta property="og:url" content="0verwatch.top/A5-python.html">
+<meta property="og:title" content="Electron审计及攻击链研究">
+<meta property="og:url" content="0verwatch.top/Electron-Learning.html">
 <meta property="og:site_name" content="0verWatch&#39;s Blog">
-<meta property="og:description" content="最近要做密码学课程设计，每做一个密码就当复习一下，把算法原理啥的都过一遍">
+<meta property="og:description" content="代码审计">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://s1.ax1x.com/2018/12/22/FyME6I.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/12/22/FyG33F.png">
-<meta property="og:updated_time" content="2018-12-22T11:44:12.849Z">
+<meta property="og:updated_time" content="2020-05-15T06:40:45.818Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A5的原理及python实现">
-<meta name="twitter:description" content="最近要做密码学课程设计，每做一个密码就当复习一下，把算法原理啥的都过一遍">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/12/22/FyME6I.png">
+<meta name="twitter:title" content="Electron审计及攻击链研究">
+<meta name="twitter:description" content="代码审计">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -61,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>A5的原理及python实现 | 0verWatch&#39;s Blog</title>
+<title>Electron审计及攻击链研究 | 0verWatch&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -299,11 +296,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-A5-python" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Electron-Learning" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/A5-python.html" class="article-date">
-      <time datetime="2018-12-22T11:38:53.000Z" itemprop="datePublished">2018-12-22</time>
+      <a href="/Electron-Learning.html" class="article-date">
+      <time datetime="2018-06-08T11:33:07.000Z" itemprop="datePublished">2018-06-08</time>
 </a>
 
 
@@ -318,7 +315,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      A5的原理及python实现
+      Electron审计及攻击链研究
     </h1>
   
 
@@ -327,13 +324,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/密码学/">密码学</a>
+    <a class="article-category-link" href="/categories/代码审计/">代码审计</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/密码学/">密码学</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码审计/">代码审计</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -344,27 +341,7 @@
       
           
         
-<p>最近要做密码学课程设计，每做一个密码就当复习一下，把算法原理啥的都过一遍<a id="more"></a>吧</p>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>这个是用于GSM系统的序列密码算法，A5的特点是效率高，适合硬件上高效实现。</p>
-<h3 id="加密过程"><a href="#加密过程" class="headerlink" title="加密过程"></a>加密过程</h3><ol>
-<li>A5 / 1基于三个线性反馈移位寄存器LFSR的组合，三个寄存器的长度分别为 19 22 23位，然后产生一个114位的秘钥流。因此首先输入8个字节的秘钥去填充三个寄存器的总长也就是64位。</li>
-<li>每次获取各寄存器的最后一位相互异或一下再与明文进行异或。从这一点还是可以看出关键点在于秘钥，异或了两遍原信息一致，所以加密解密都是一样的算法了。</li>
-<li>然后根据寄存器的某一位决定是否需要对某个储存器进行移位，存在的数据多的决定</li>
-</ol>
-<p>引用维基百科的一个图，这个图很好的揭示了加密的流程</p>
-<p><img src="https://s1.ax1x.com/2018/12/22/FyME6I.png" alt="FyME6I.png"></p>
-<p>总结要注意的加密的几个点：</p>
-<h4 id="产生秘钥流"><a href="#产生秘钥流" class="headerlink" title="产生秘钥流"></a>产生秘钥流</h4><ol>
-<li>根据8位秘钥产生的64位二进制填充寄存器</li>
-<li>输出秘钥流，每一位都遵循<code>Z1[18]^Z2[21]^Z3[22]</code>这样的流程，我们需要注意的是这里讲序列密码的时候用<code>+</code>表示的都是异或</li>
-<li>然后就经过114轮迭代，就可以产生114位秘钥啦</li>
-</ol>
-<h4 id="寄存器反馈"><a href="#寄存器反馈" class="headerlink" title="寄存器反馈"></a>寄存器反馈</h4><p>遵循“服从多数”的原则，从每个寄存器里面取出一个中间位(上图标黄的位置)进行运算，取出的3个中间位里面至少有两个1，则中间位为1的就进行移位，为0的就不移位，反之至少两个为0，则为0的进行一次位移，为1的就不移位了，保证了每次至少有了两个LFSR被驱动移位了。</p>
-<h4 id="生成的补充值"><a href="#生成的补充值" class="headerlink" title="生成的补充值"></a>生成的补充值</h4><p>补充值由某些抽头位进行异或运算的结果决定，运算结果为1则补充为1，否则补充0,3个LFSR里的抽头位如下图，但是补充的前提是又寄存器反馈决定的</p>
-<p><img src="https://s1.ax1x.com/2018/12/22/FyG33F.png" alt="FyG33F.png"></p>
-<h4 id="python实现："><a href="#python实现：" class="headerlink" title="python实现："></a>python实现：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># Author:0verWatch</span></span><br><span class="line"></span><br><span class="line">X = <span class="string">''</span></span><br><span class="line">Y = <span class="string">''</span></span><br><span class="line">Z = <span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">str2bin</span><span class="params">(str_mess)</span>:</span></span><br><span class="line">    res = <span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> str_mess:</span><br><span class="line">        tmp = bin(ord(i))[<span class="number">2</span>:].zfill(<span class="number">8</span>)</span><br><span class="line">        res += tmp</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bin2str</span><span class="params">(bin_mess)</span>:</span></span><br><span class="line">    res = <span class="string">""</span></span><br><span class="line">    tmp = re.findall(<span class="string">r'.&#123;8&#125;'</span>,bin_mess)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> tmp:</span><br><span class="line">        res += chr(int(i,<span class="number">2</span>))</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">LFSRinit</span><span class="params">()</span>:</span> <span class="comment">#用64bit密钥初始3个移位寄存器,分别是19,22,23位</span></span><br><span class="line">    <span class="keyword">global</span> X</span><br><span class="line">    <span class="keyword">global</span> Y</span><br><span class="line">    <span class="keyword">global</span> Z</span><br><span class="line">    key = input(<span class="string">"请输入8位秘钥\n"</span>)</span><br><span class="line">    <span class="keyword">while</span> len(key) != <span class="number">8</span>:   <span class="comment">#限定只能是8位，然后生成64位的二进制流</span></span><br><span class="line">        key = input(<span class="string">"请输入8位秘钥\n"</span>)</span><br><span class="line">    key_bin_str = <span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> key:</span><br><span class="line">        tmp = bin(ord(i))[<span class="number">2</span>:].zfill(<span class="number">8</span>)</span><br><span class="line">        key_bin_str += tmp</span><br><span class="line">    X = key_bin_str[<span class="number">0</span>:<span class="number">19</span>]</span><br><span class="line">    Y = key_bin_str[<span class="number">19</span>:<span class="number">41</span>]</span><br><span class="line">    Z = key_bin_str[<span class="number">41</span>:]</span><br><span class="line">    <span class="comment"># print("X"+X)</span></span><br><span class="line">    <span class="comment"># print("Y"+Y)</span></span><br><span class="line">    <span class="comment"># print("Z"+Z)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xor</span><span class="params">(bin_str,bin_key)</span>:</span> <span class="comment">#输入的字符串的二进制流</span></span><br><span class="line">    res = <span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(bin_str)):</span><br><span class="line">        <span class="keyword">if</span> bin_str[i] == bin_key[i]:</span><br><span class="line">            res += <span class="string">'0'</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            res += <span class="string">'1'</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_key</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> X</span><br><span class="line">    <span class="keyword">global</span> Y</span><br><span class="line">    <span class="keyword">global</span> Z</span><br><span class="line">    LFSRinit()</span><br><span class="line">    res = <span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">114</span>):   <span class="comment"># A5 / 1用于为每个突发产生114比特的密钥流序列</span></span><br><span class="line">        <span class="comment"># a = X[-1]</span></span><br><span class="line">        <span class="comment"># b = Y[-1]</span></span><br><span class="line">        <span class="comment"># c = Z[-1]</span></span><br><span class="line">        g  = int(X[<span class="number">-1</span>]) ^ int(Y[<span class="number">-1</span>]) ^ int(Z[<span class="number">-1</span>])</span><br><span class="line">        res += str(g)  <span class="comment">#用最后一位异或产生秘钥流</span></span><br><span class="line">        x =  str(int(X[<span class="number">13</span>]) ^  int(X[<span class="number">16</span>]) ^ int(X[<span class="number">17</span>]) ^ int(X[<span class="number">18</span>]) ^ <span class="number">1</span>)               <span class="comment">#候选位的值</span></span><br><span class="line">        y =  str(int(Y[<span class="number">20</span>]) ^ int(Y[<span class="number">21</span>]) ^ <span class="number">1</span>)</span><br><span class="line">        z = str(int(Z[<span class="number">7</span>]) ^ int(Z[<span class="number">20</span>]) ^ int(Z[<span class="number">21</span>]) ^ int(Z[<span class="number">22</span>]) ^ <span class="number">1</span>)</span><br><span class="line">        <span class="comment">#选择的钟控位</span></span><br><span class="line">        c_x = int(X[<span class="number">8</span>])</span><br><span class="line">        c_y = int(Y[<span class="number">10</span>])</span><br><span class="line">        c_z = int(Z[<span class="number">10</span>])</span><br><span class="line">        <span class="keyword">if</span> (c_x + c_y + c_z) &gt;= <span class="number">2</span>:<span class="comment">#多数的占优</span></span><br><span class="line">            choice = <span class="string">'1'</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            choice = <span class="string">'0'</span></span><br><span class="line">        <span class="keyword">if</span> str(c_x) == choice:</span><br><span class="line">            X = x + X[:<span class="number">-1</span>] <span class="comment">#隐式位移，这里是不包含最后一位的</span></span><br><span class="line">        <span class="keyword">if</span> str(c_y) == choice:</span><br><span class="line">            Y = y + Y[:<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">if</span> str(c_z) == choice:</span><br><span class="line">            Z = z + Z[:<span class="number">-1</span>]</span><br><span class="line">        <span class="comment"># print("X"+X)</span></span><br><span class="line">        <span class="comment"># print("Y"+Y)</span></span><br><span class="line">        <span class="comment"># print("Z"+Z)</span></span><br><span class="line">    <span class="comment"># print(res)</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">a5_encode</span><span class="params">(mess)</span>:</span></span><br><span class="line">    bin_mess = str2bin(mess)</span><br><span class="line">    bin_key = create_key()</span><br><span class="line">    bin_cipher = <span class="string">""</span></span><br><span class="line">    <span class="comment">#print(len(bin_mess))</span></span><br><span class="line">    <span class="keyword">if</span> len(bin_mess) % <span class="number">114</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(bin_mess), <span class="number">114</span>):</span><br><span class="line">            bin_cipher += xor(bin_mess, bin_key)</span><br><span class="line">    <span class="keyword">elif</span> len(bin_mess) &gt; <span class="number">114</span>:</span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(bin_mess)):</span><br><span class="line">            bin_cipher += str(int(bin_mess[i]) ^ int(bin_key[i]))</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> j == <span class="number">114</span>:</span><br><span class="line">                j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(bin_mess)):</span><br><span class="line">            bin_cipher += str(int(bin_mess[i]) ^ int(bin_key[i]))</span><br><span class="line">    print(<span class="string">"二进制密文"</span> + bin_cipher)</span><br><span class="line">    print(<span class="string">"十六进制密文"</span>+hex(int(bin_cipher,<span class="number">2</span>)))</span><br><span class="line">    str_cipher = bin2str(bin_cipher)</span><br><span class="line">    print(base64.b64encode(str_cipher.encode(<span class="string">'utf-8'</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">a5_decode</span><span class="params">(bin_mess)</span>:</span></span><br><span class="line">    bin_key = create_key()</span><br><span class="line">    bin_cipher = <span class="string">""</span></span><br><span class="line">    <span class="comment"># print(len(bin_mess))</span></span><br><span class="line">    <span class="keyword">if</span> len(bin_mess) % <span class="number">114</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(bin_mess), <span class="number">114</span>):</span><br><span class="line">            bin_cipher += xor(bin_mess, bin_key)</span><br><span class="line">    <span class="keyword">elif</span> len(bin_mess) &gt; <span class="number">114</span>:</span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(bin_mess)):</span><br><span class="line">            bin_cipher += str(int(bin_mess[i]) ^ int(bin_key[i]))</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> j == <span class="number">114</span>:</span><br><span class="line">                j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(bin_mess)):</span><br><span class="line">            bin_cipher += str(int(bin_mess[i]) ^ int(bin_key[i]))</span><br><span class="line">    str_cipher = bin2str(bin_cipher)</span><br><span class="line">    print(<span class="string">"解密后的结果:"</span>+str_cipher)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_info</span><span class="params">()</span>:</span></span><br><span class="line">    choice = input(<span class="string">"1.加密\n2.解密\n"</span>)</span><br><span class="line">    <span class="keyword">if</span> choice == <span class="string">'1'</span>:</span><br><span class="line">        message = input(<span class="string">"输入你的信息\n"</span>)</span><br><span class="line">        a5_encode(message)</span><br><span class="line">    <span class="keyword">elif</span> choice == <span class="string">'2'</span>:</span><br><span class="line">        bin_message = input(<span class="string">"输入你的信息\n"</span>)</span><br><span class="line">        a5_decode(bin_message)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"请重新输入"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        get_info()</span><br></pre></td></tr></table></figure>
-<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><p>其实这个算法的关键点还是落在了秘钥的长度，体现在其寄存器的长度上，太短了，所以现在已知明文攻击法对这个算法的攻击是先确定其中两个寄存器的初始值再计算出另外一个，所以要想改进就是采用更长的线性反馈寄存器了。。。。。</p>
-
+<script src="/crypto-js.js"></script><script src="/mcommon.js"></script><h3 id="encrypt-message">请输入密码</h3><link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"> <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> <div id="security"> <div> <div class="input-group"> <input type="text" class="form-control" aria-label="Enter the password." id="pass"/> <div class="input-group-btn"> <button type="button" class="btn btn-default" onclick="decryptAES()">Decrypt</button> </div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> U2FsdGVkX1+Sr3gbcA1YqDhCZkoWWE9npUgSsVThbMc= </div>
       
     </div>
     
@@ -372,13 +349,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/A5-python.html">A5的原理及python实现</a></p>
+        <p><span>本文标题:</span><a href="/Electron-Learning.html">Electron审计及攻击链研究</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">0verWatch</a></p>
-        <p><span>发布时间:</span>2018-12-22, 19:38:53</p>
-        <p><span>最后更新:</span>2018-12-22, 19:44:12</p>
+        <p><span>发布时间:</span>2018-06-08, 19:33:07</p>
+        <p><span>最后更新:</span>2020-05-15, 14:40:45</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/A5-python.html" title="A5的原理及python实现">0verwatch.top/A5-python.html</a>
-            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/A5-python.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/Electron-Learning.html" title="Electron审计及攻击链研究">0verwatch.top/Electron-Learning.html</a>
+            <span class="copy-path" data-clipboard-text="原文: 0verwatch.top/Electron-Learning.html　　作者: 0verWatch" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -391,15 +368,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/RC4-python.html">
-                    RC4的原理及python实现
+                <a href="/python-DataStruct-1.html">
+                    数据结构复习一 单链表(python实现)
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/swpuctf-2018.html">
-                    swpuctf赛后复现
+                <a href="/writing-1.html">
+                    两年
                 </a>
             </div>
         
@@ -441,7 +418,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加密过程"><span class="toc-number">2.</span> <span class="toc-text">加密过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#产生秘钥流"><span class="toc-number">2.1.</span> <span class="toc-text">产生秘钥流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#寄存器反馈"><span class="toc-number">2.2.</span> <span class="toc-text">寄存器反馈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成的补充值"><span class="toc-number">2.3.</span> <span class="toc-text">生成的补充值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#python实现："><span class="toc-number">2.4.</span> <span class="toc-text">python实现：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安全性"><span class="toc-number">3.</span> <span class="toc-text">安全性</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#encrypt-message"><span class="toc-number">1.</span> <span class="toc-text">请输入密码</span></a></li></ol>
         
     </div>
     <style>
@@ -503,7 +480,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/RC4-python.html" title="上一篇: RC4的原理及python实现">
+            <a href="/python-DataStruct-1.html" title="上一篇: 数据结构复习一 单链表(python实现)">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -511,7 +488,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/swpuctf-2018.html" title="下一篇: swpuctf赛后复现">
+            <a href="/writing-1.html" title="下一篇: 两年">
                 <i class="fa fa-angle-right"></i>
             </a>
         
